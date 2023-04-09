@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::get('/category', function () {
     return view('backend.category.index');
 });
+
+Route::get('/logout', function () {
+    return view('auth.login');
+});
