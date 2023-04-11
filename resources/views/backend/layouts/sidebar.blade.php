@@ -1,36 +1,179 @@
-<!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
- 
+
   <!-- Sidebar - Brand -->
-  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
-    <div class="sidebar-brand-icon rotate-n-15">
-      <i class="fas fa-laugh-wink"></i>
+  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin')}}">
+    <div class="sidebar-brand-icon">
+        <img src="" alt="logo">
     </div>
-    <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+    <div class="sidebar-brand-text mx-3">{{__('Apple Store')}}</div>
   </a>
- 
+
+  <!-- Divider -->
+  <hr class="sidebar-divider my-0">
+
+  <!-- Nav Item - Dashboard -->
+  <li class="nav-item">
+    <a class="nav-link" href="{{route('admin')}}">
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+      <span>{{__('Dashboard')}}</span></a>
+  </li>
+
   <!-- Divider -->
   <hr class="sidebar-divider">
- 
+
   <!-- Heading -->
-  <div class="sidebar-heading" style="display: none;">
-    Interface
+  <div class="sidebar-heading">
+      {{__('Banner')}}
   </div>
- 
+
   <!-- Nav Item - Pages Collapse Menu -->
+  <!-- Nav Item - Charts -->
   <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-      <i class="fas fa-fw fa-cog"></i>
-      <span>Components</span>
+      <a class="nav-link" href="#">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>{{__('Media Manager')}}</span></a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link collapsed wgt-collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+      <i class="fas fa-image"></i>
+      <span>{{__('Banners')}}</span>
     </a>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Custom Components:</h6>
-        <a class="collapse-item" href="#">Buttons</a>
-        <a class="collapse-item" href="#">Cards</a>
+        <h6 class="collapse-header">{{__('Banner Options:')}}</h6>
+        <a class="collapse-item" href="#">{{__('Banners')}}</a>
+        <a class="collapse-item" href="#">{{__('Add Banners')}}</a>
       </div>
     </div>
   </li>
- 
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+      <!-- Heading -->
+      <div class="sidebar-heading">
+          {{__('Shopping Cart')}}
+      </div>
+
+  <!-- Categories -->
+  <li class="nav-item">
+      <a class="nav-link collapsed wgt-collapse" data-target="#categoryCollapse" aria-expanded="true" aria-controls="categoryCollapse">
+        <i class="fas fa-sitemap"></i>
+        <span>{{__('Category')}}</span>
+      </a>
+      <div id="categoryCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">#</h6>
+          <a class="collapse-item" href="#">{{__('Category')}}</a>
+          <a class="collapse-item" href="#">{{__('Add Category')}}</a>
+        </div>
+      </div>
+  </li>
+  {{-- Products --}}
+  <li class="nav-item">
+      <a class="nav-link collapsed wgt-collapse" data-target="#productCollapse" aria-expanded="true" aria-controls="productCollapse">
+        <i class="fas fa-cubes"></i>
+        <span>{{__('Products')}}</span>
+      </a>
+      <div id="productCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">{{__('Product Options:')}}</h6>
+            <a class="collapse-item" href="#">{{__('Products')}}</a>
+            <a class="collapse-item">{{__('Add Product')}}</a>
+        </div>
+      </div>
+  </li>
+  <!--Orders -->
+  <li class="nav-item">
+      <a class="nav-link" href="#">
+          <i class="fas fa-hammer fa-chart-area"></i>
+          <span>{{__('Orders')}}</span>
+      </a>
+  </li>
+  <!--Receipt -->
+  <li class="nav-item">
+      <a class="nav-link" href="#">
+          <i class="fas fa-hammer fa-chart-area"></i>
+          <span>{{__('Receipt')}}</span>
+      </a>
+  </li>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+
+  <!-- Heading -->
+  <div class="sidebar-heading">
+    {{__('Posts')}}
+  </div>
+
+  <!-- Posts -->
+  <li class="nav-item">
+    <a class="nav-link collapsed wgt-collapse" data-target="#postCollapse" aria-expanded="true" aria-controls="postCollapse">
+      <i class="fas fa-fw fa-folder"></i>
+      <span>{{__('Posts')}}</span>
+    </a>
+    <div id="postCollapse" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Post Options:</h6>
+        <a class="collapse-item" href="#">{{__('Posts')}}</a>
+        <a class="collapse-item" href="#">{{__('Add Post')}}</a>
+      </div>
+    </div>
+  </li>
+
+   <!-- Category -->
+   <li class="nav-item">
+      <a class="nav-link collapsed wgt-collapse" data-target="#postCategoryCollapse" aria-expanded="true" aria-controls="postCategoryCollapse">
+        <i class="fas fa-sitemap fa-folder"></i>
+        <span>{{__('Post Category')}}</span>
+      </a>
+      <div id="postCategoryCollapse" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">{{__('Category Options:')}}</h6>
+          <a class="collapse-item" href="#">{{__('Category')}}</a>
+          <a class="collapse-item " href="#">{{__('Add Category')}}</a>
+        </div>
+      </div>
+    </li>
+
+    <!-- Tags -->
+
+  <!-- Divider -->
+  <hr class="sidebar-divider d-none d-md-block">
+   <!-- Heading -->
+  <div class="sidebar-heading">
+      {{__('General Settings')}}
+  </div>
+  <li class="nav-item">
+    <a class="nav-link" href="{{route('users.index')}}">
+        <i class="fas fa-hammer fa-chart-area"></i>
+        <span>{{__('All Customer')}}</span>
+    </a>
+</li>
+   <!-- General settings -->
+   <li class="nav-item">
+      <a class="nav-link collapsed wgt-collapse" data-target="#collapseSetting" aria-expanded="true" aria-controls="collapseSetting">
+          <i class="fas fa-cog"></i>
+          <span>{{__('Settings')}}</span>
+      </a>
+       <div id="collapseSetting" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+           <div class="bg-white py-2 collapse-inner rounded">
+               <h6 class="collapse-header">{{__('Settings:')}}</h6>
+               <a class="collapse-item">{{__('General setting')}}</a>
+               <a class="collapse-item" href="#">{{__('Version setting')}}</a>
+               <a class="collapse-item" href="#">{{__('Currency symbol setting')}}</a>
+           </div>
+       </div>
+  </li>
+  @include(backpack_view('inc.sidebar_content'))
+
 </ul>
-<!-- End of Sidebar -->
+@push('after_scripts')
+  <script>
+      $('.wgt-collapse').click(function () {
+          var elementId = $(this).attr('data-target');
+          if (elementId && typeof elementId != 'undefined') {
+              $(elementId).collapse('toggle');
+          }
+      });
+  </script>
+@endpush

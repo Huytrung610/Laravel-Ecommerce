@@ -12,6 +12,13 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    const ROLE_TYPE_ADMIN = 'admin';
+    const ROLE_TYPE_USER = 'user';
+    const ROLE = [
+        self::ROLE_TYPE_ADMIN => 'Admin',
+        self::ROLE_TYPE_USER => 'User'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -28,6 +35,8 @@ class User extends Authenticatable
 //        'last_name',
         'fcm_token'
     ];
+
+
 
     /**
      * The attributes that should be hidden for serialization.
