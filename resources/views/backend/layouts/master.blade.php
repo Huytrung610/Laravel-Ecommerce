@@ -16,7 +16,7 @@
       <!-- Begin Page Content -->
       <div CLASS="container-fluid">
  
-          @yield('content')
+          @yield('main-content')
  
       </div>
       <!-- /.container-fluid -->
