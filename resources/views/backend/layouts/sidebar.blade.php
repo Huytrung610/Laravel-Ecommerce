@@ -55,7 +55,7 @@
       </div>
 
   <!-- Categories -->
-  <li class="nav-item">
+  {{-- <li class="nav-item">
       <a class="nav-link collapsed wgt-collapse" data-target="#categoryCollapse" aria-expanded="true" aria-controls="categoryCollapse">
         <i class="fas fa-sitemap"></i>
         <span>{{__('Category')}}</span>
@@ -67,7 +67,13 @@
           <a class="collapse-item" href="#">{{__('Add Category')}}</a>
         </div>
       </div>
-  </li>
+  </li> --}}
+  <li class="nav-item">
+    <a class="nav-link" href="{{route('category.index')}}">
+        <i class="fas fa-hammer fa-chart-area"></i>
+        <span>{{__('Category')}}</span>
+    </a>
+</li>
   {{-- Products --}}
   <li class="nav-item">
       <a class="nav-link collapsed wgt-collapse" data-target="#productCollapse" aria-expanded="true" aria-controls="productCollapse">
