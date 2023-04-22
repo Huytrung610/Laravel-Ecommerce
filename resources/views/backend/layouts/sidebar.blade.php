@@ -76,18 +76,23 @@
 </li>
   {{-- Products --}}
   <li class="nav-item">
-      <a class="nav-link collapsed wgt-collapse" data-target="#productCollapse" aria-expanded="true" aria-controls="productCollapse">
-        <i class="fas fa-cubes"></i>
+    <a class="nav-link" href="{{route('product.index')}}">
+        <i class="fas fa-hammer fa-chart-area"></i>
         <span>{{__('Products')}}</span>
-      </a>
-      <div id="productCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">{{__('Product Options:')}}</h6>
-            <a class="collapse-item" href="#">{{__('Products')}}</a>
-            <a class="collapse-item">{{__('Add Product')}}</a>
-        </div>
-      </div>
-  </li>
+    </a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="{{route('attribute.index')}}">
+      <i class="fas fa-hammer fa-chart-area"></i>
+      <span>{{__('Attribute products')}}</span>
+  </a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="{{route('attribute_value.index')}}">
+      <i class="fas fa-hammer fa-chart-area"></i>
+      <span>{{__('Attribute Value')}}</span>
+  </a>
+</li>
   <!--Orders -->
   <li class="nav-item">
       <a class="nav-link" href="#">

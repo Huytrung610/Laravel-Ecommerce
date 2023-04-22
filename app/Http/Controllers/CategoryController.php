@@ -17,6 +17,7 @@ class CategoryController extends Controller
 {
 
     const IS_PARENT_CATEGORY = 0;
+    
     const RULE_VALIDATE_COMMON = [
         'title' => 'string|required',
         'summary' => 'string|nullable',
@@ -36,8 +37,11 @@ class CategoryController extends Controller
     public function create()
     {
         $category = Category::orderBy('id','ASC')->get();
+        
         return view('backend.category.create')->with('categories', $category);
     }
+
+    
 
     public function store(Request $request)
     {

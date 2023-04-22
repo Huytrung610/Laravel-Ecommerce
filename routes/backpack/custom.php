@@ -22,4 +22,8 @@ Route::group([
 
     Route::get('/profile',[\App\Http\Controllers\AdminController::class, 'profile'])->name('admin-profile');
     Route::resource('/category','\App\Http\Controllers\CategoryController');
+    Route::resource('/product','\App\Http\Controllers\ProductController');
+    Route::resource('/attribute','\App\Http\Controllers\AttributeController');
+    Route::resource('/attribute_value','\App\Http\Controllers\AttributeValueController');
+
 }); // this should be the absolute last line of this file

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('parent_id')->default(1);
             $table->enum('status',['active','inactive'])->default('inactive');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categoies');
+        Schema::dropIfExists('categories');
     }
 };
