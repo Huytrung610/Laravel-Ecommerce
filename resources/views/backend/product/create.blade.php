@@ -45,6 +45,14 @@
                 </div> --}}
                 <div class="form-group">
                     <label for="summary" class="col-form-label">{{__('Short Description')}}<span
+                        class="text-danger">*</span></label>
+                    <textarea class="form-control" id="summary" name="summary"></textarea>
+                    @error('summary')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                 </div>
+                <div class="form-group">
+                    <label for="summary" class="col-form-label">{{__('Short Description')}}<span
                             class="text-danger">*</span></label>
                     <textarea class="form-control" id="summary" name="summary"></textarea>
                     @error('summary')
@@ -97,7 +105,7 @@
                     <span class="text-danger">{{$message}}</span>
                     @enderror
                 </div>
-                {{-- <div class="form-group">
+                <div class="form-group">
                     <label for="inputPhoto" class="col-form-label">{{__('Photo')}}<span
                             class="text-danger">*</span></label>
                     <div class="input-group">
@@ -106,13 +114,13 @@
                   <i class="fa fa-picture-o"></i>{{__('Choose')}}
                   </a>
               </span>
-                    <input id="thumbnail" class="form-control" type="text" name="photo">
-                        </div>
-                        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
-                        @error('photo')
-                        <span class="text-danger">{{$message}}</span>
-                        @enderror
-                    </div> --}}
+                        <input id="thumbnail" class="form-control" type="text" name="photo">
+                    </div>
+                    <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+                    @error('photo')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
                 <div class="form-group mb-3">
                     <button type="reset" class="btn btn-warning">{{__('Reset')}}</button>
                     <button class="btn btn-success" type="submit">{{__('Submit')}}</button>
@@ -124,15 +132,15 @@
 @endsection
 
 @push('styles')
-    <link rel="stylesheet" href="{{asset('backend/summernote/summernote.min.css')}}">
+    <link rel="stylesheet" href="{{asset('backend/summernote/summernote.min.css')}}"> 
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css"/>
+          
 @endpush
 @push('after_scripts')
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     <script src="{{asset('backend/summernote/summernote.min.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-    <script src="{{ mix('/js/backend/storeView.js') }}"></script>
-    <script src="{{ mix('/js/backend/product.js') }}"></script>
-    <script src="{{ mix('/js/backend/tierPrice.js') }}"></script>
 @endpush
+
+
