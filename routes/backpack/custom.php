@@ -19,6 +19,9 @@ Route::group([
     
     Route::get('/dashboard',[\App\Http\Controllers\AdminController::class, 'index'])->name('admin');
     Route::resource('users','\App\Http\Controllers\UsersController');
+    Route::get('/file-manager',function(){
+        return view('backend.layouts.file-manager');
+    })->name('file-manager');
 
     Route::get('/profile',[\App\Http\Controllers\AdminController::class, 'profile'])->name('admin-profile');
     Route::resource('/category','\App\Http\Controllers\CategoryController');
