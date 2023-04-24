@@ -21,9 +21,9 @@ Route::get('/category', function () {
     return view('backend.category.index');
 });
 
-Route::get('/logout', function () {
-    return view('auth.login');
-});
+// Route::get('/logout', function () {
+//     return view('auth.login');
+// });
 
 Auth::routes();
 
@@ -31,3 +31,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(['prefix' => 'laravel-filemanager',  'middleware' => [config('backpack.base.middleware_key', 'admin')]], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
+Route::get('user/login',[FrontendController::class,'login'])->name('login.form');
