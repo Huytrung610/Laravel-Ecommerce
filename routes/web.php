@@ -25,7 +25,7 @@ Route::get('/category', function () {
 //     return view('auth.login');
 // });
 
-Auth::routes();
+Auth::routes();       
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::group(['prefix' => 'laravel-filemanager',  'middleware' => [config('backpack.base.middleware_key', 'admin')]], function () {
