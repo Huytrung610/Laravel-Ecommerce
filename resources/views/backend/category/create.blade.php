@@ -21,7 +21,7 @@
                 <div class="form-group">
                     <label for="slug" class="col-form-label">{{ __('Slug') }}<span
                             class="text-danger">*</span></label>
-                    <input id="slug" type="text" name="title" placeholder="{{ __('Enter Slug') }}"
+                    <input id="slug" type="text" name="slug" placeholder="{{ __('Enter Slug') }}"
                         class="form-control">
                     @error('slug')
                         <span class="text-danger">{{ $message }}</span>
@@ -82,7 +82,7 @@
     <script src="{{ asset('backend/summernote/summernote.min.js') }}"></script>
 
     <script src="{{ mix('/js/backend/storeView.js') }}"></script>
-    <script>
+    {{-- <script>
         $('#lfm').filemanager('image');
         $(document).ready(function() {
             $('#summary').summernote({
@@ -91,5 +91,5 @@
                 height: 120
             });
         });
-    </script>
+    </script> --}}
 @endpush
