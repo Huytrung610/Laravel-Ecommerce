@@ -20,7 +20,13 @@ class AttributeValue extends Model
 
     public function value()
     {
-        return $this->belongsTo('App\Post','attribute_id');
+        return $this->belongsTo('App\Models\Attribute','attribute_id');
     }
 
+    public function product()
+    {
+        return $this->belongsTo('App\Models\Product','product_id');
+    }
+
+        
 }
