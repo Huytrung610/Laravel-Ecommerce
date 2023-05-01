@@ -60,8 +60,15 @@ class CategoryController extends Controller
             $data = $request->all();
             $data['slug'] = $slug;
             $data['summary'] = $request->get('summary');
-            $data['parent_id'] = $request->get('parent_id');
             $data['status'] = $request->get('status');
+            if ($request->get('parent_id') == Category::CATEGORY_PARENT) {
+                $data['parent_id'] = self::IS_PARENT_CATEGORY;
+                $data['category_type'] = $request->get('category_type');
+            } 
+            else {
+                $data['parent_id'] = $request->get('parent_id');
+                $data['category_type'] = $request->get('category_type');
+            }
             $categorySave = Category::create($data);
             request()->session()->flash('success', __('Category successfully added'));
         }catch (\Exception $exception) {
