@@ -34,22 +34,34 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-                <div class="form-group">
-                    <label for="summary" class="col-form-label">{{ __('Parent Category') }}</label>
+
+                @php
+                    $CategoryType = \App\Models\Category::CATEGORY_TYPE;
+                @endphp
+             
+                <div class="form-group category-type">
+                    <label for="summary" class="col-form-label">{{ __('Category Type') }}<span class="text-danger">*</span></label>
+                    <select name="category_type" id="category-type" class="form-control">
+                            <option value="">---Main Category---</option>
+                            @foreach($CategoryType as $key => $value)
+                            <option
+                                value="{{$key}}" @selected(old($value) == $value)>{{$value}}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group sub-category" style="display:none">
+                    <label for="summary" class="col-form-label">{{ __('Category Parent') }}</label>
                     <select name="parent_id" class="form-control">
                     <option value="0">---Main Category---</option>
                     @foreach($categories as $key => $value)
                         @if($value->parent_id == 0)
                             <option value="{{$value->id}}">{{$value->title}}</option>
-                        @endif
-                                @foreach($categories as $key => $value_child)
-                                    @if($value_child->parent_id == $value->id)
-                                        <option value="{{$value_child->id}}">--{{$value_child->title}}</option>
-                                    @endif
-                                @endforeach
+                            @endif
                     @endforeach
                 </select>
                 </div>
+
                 <div class="form-group">
                     <label for="status" class="col-form-label">{{ __('Status') }}<span class="text-danger">*</span></label>
                     <select name="status" class="form-control">
@@ -80,8 +92,6 @@
 @push('after_scripts')
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     <script src="{{ asset('backend/summernote/summernote.min.js') }}"></script>
-
-    <script src="{{ mix('/js/backend/storeView.js') }}"></script>
     {{-- <script>
         $('#lfm').filemanager('image');
         $(document).ready(function() {
@@ -92,4 +102,16 @@
             });
         });
     </script> --}}
+    <script>
+    $(document).ready(function () {
+        $('#category-type').change(function () {
+            if ($(this).val() && $(this).val() === 'child') {
+                $('.sub-category').show();
+        } else {
+                $('.sub-category').hide();
+    }
+  });
+    });
+    </script>
+    
 @endpush

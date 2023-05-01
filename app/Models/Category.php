@@ -11,12 +11,21 @@ class Category extends Model
 
     const STATUS_ACTIVE = 'active';
     const STATUS_INACTIVE = 'inactive';
+
+    const CATEGORY_PARENT = 'parent';
+    const SUB_CATEGORY = 'child';
+
+    const CATEGORY_TYPE = [
+        self::CATEGORY_PARENT => "Parent Category",
+        self::SUB_CATEGORY => "Child Category"
+    ];
     
     protected $fillable = [
         'title',
         'slug',
         'summary',
         'status',
+        'category_type',
         'parent_id'
     ];
 
