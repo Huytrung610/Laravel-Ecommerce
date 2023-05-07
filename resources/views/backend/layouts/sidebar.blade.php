@@ -80,13 +80,7 @@
         <i class="fas fa-hammer fa-chart-area"></i>
         <span>{{__('Products')}}</span>
     </a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="{{route('attribute.index')}}">
-      <i class="fas fa-hammer fa-chart-area"></i>
-      <span>{{__('Attribute products')}}</span>
-  </a>
-</li>
+  </li>
   <!--Orders -->
   <li class="nav-item">
       <a class="nav-link" href="#">
