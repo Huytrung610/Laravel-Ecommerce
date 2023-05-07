@@ -87,12 +87,6 @@
       <span>{{__('Attribute products')}}</span>
   </a>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="{{route('attribute_value.index')}}">
-      <i class="fas fa-hammer fa-chart-area"></i>
-      <span>{{__('Attribute Value')}}</span>
-  </a>
-</li>
   <!--Orders -->
   <li class="nav-item">
       <a class="nav-link" href="#">

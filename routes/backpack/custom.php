@@ -27,6 +27,7 @@ Route::group([
     Route::resource('/category','\App\Http\Controllers\CategoryController');
     Route::resource('/product','\App\Http\Controllers\ProductController');
     Route::resource('/attribute','\App\Http\Controllers\AttributeController');
-    Route::resource('/attribute_value','\App\Http\Controllers\AttributeValueController');
+    Route::get('attribute-edit/{id}',[\App\Http\Controllers\AttributeController::class,'edit']);
+    Route::post('attribute/update/{id}', [\App\Http\Controllers\AttributeController::class, 'update']);
 
 }); // this should be the absolute last line of this file

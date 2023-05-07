@@ -107,21 +107,6 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="attribute" class="col-form-label">{{__('Attribute')}}</label>
-                    <table class="table table-bordered" id="item_table">
-                        <thead>
-                          <tr>
-                            <th>SKU</th>
-                            <th>Storage</th>
-                            <th>Color</th>
-                            <th>Screen</th>
-                            <th><button type="button" name="add" class="btn btn-success btn-xs add">Add<span class="glyphicon glyphicon-plus"></span></button></th>
-                          </tr>
-                        </thead>
-                        <tbody></tbody>
-                      </table>
-                    </div>
-                <div class="form-group">
                     <label for="inputPhoto" class="col-form-label">{{__('Photo')}}<span
                             class="text-danger">*</span></label>
                     <div class="input-group">
@@ -157,25 +142,7 @@
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     <script src="{{asset('backend/summernote/summernote.min.js')}}"></script>
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     
-    <script>
-        $(document).ready(function(){
-            var count = 0;
-            $(document).on('click', '.add', function(){
-                count++;
-                html += '<tr>';
-                html += '<td><select name="item_attribute[]" class="form-control item_attribute" data-sub_category_id="'+count+'"><option value="">Select Category</option></select></td>';
-                html += '<td><select name="item_sub_category[]" class="form-control item_sub_category" id="item_sub_category'+count+'"><option value="">Select Sub Category</option></select></td>';
-                html += '<td><button type="button" name="remove" class="btn btn-danger btn-xs remove"><span class="glyphicon glyphicon-minus"></span></button></td>';
-                $('tbody').append(html);
-               
-            });
-    
-       });    
-    </script> 
     
 @endpush
 
