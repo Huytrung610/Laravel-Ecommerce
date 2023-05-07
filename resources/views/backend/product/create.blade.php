@@ -45,14 +45,6 @@
                 </div> --}}
                 <div class="form-group">
                     <label for="summary" class="col-form-label">{{__('Short Description')}}<span
-                        class="text-danger">*</span></label>
-                    <textarea class="form-control" id="summary" name="summary"></textarea>
-                    @error('summary')
-                    <span class="text-danger">{{$message}}</span>
-                    @enderror
-                 </div>
-                <div class="form-group">
-                    <label for="summary" class="col-form-label">{{__('Short Description')}}<span
                             class="text-danger">*</span></label>
                     <textarea class="form-control" id="summary" name="summary"></textarea>
                     @error('summary')
