@@ -19,60 +19,108 @@ class AttributeController extends Controller
         $attributes = Attribute::all();
         return view('backend.attribute.create')->with('attributes', $attributes);
     }
+    
     public function store(Request $request)
     {
-        $attributes = Attribute::orderBy('id','ASC')->get();
-        $attributeSave = '';
+        $flash = array(
+            'status' => 'success',
+            'message' => 'Successfully added new attribute'
+        );
         try {
             $data = $request->all();
-            $attributeSave = Attribute::create($data);
-            request()->session()->flash('success', __('Attribute successfully added'));
-        }catch (\Exception $exception) {
-            request()->session()->flash('error', __($exception->getMessage()));
-            redirect()->route('attribute.create');
+            $data['product_id'] = $data['product_id'];
+
+            $attributeModel = new Attribute();
+            $this->prepareAttributeDataModel($attributeModel, $data);
+        } catch (\Exception $e) {
+            $flash['status']  = 'error';
+            $flash['message'] = $e->getMessage();
         }
-        return redirect()->route('attribute.index');
+
+return redirect()->back()->with($flash['status'], $flash['message']);
     }
 
-    public function edit(Request $request, $id)
+    public function edit($id)
     {
-        $attribute = Attribute::findOrFail($id);
-        return view('backend.attribute.edit')->with('attribute', $attribute);
+        $attribute = Attribute::find($id);
+        if($attribute){
+            return response()->json([
+                'status' =>200,
+                'attribute' => $attribute,
+            ]);
+        }
+        else{
+             return response()->json([
+                'status' =>404,
+                'attribute' => $attribute,
+                'message' =>"Attribute not found!",
+            ]);
+        }
+       
        
     }
 
     public function update(Request $request, $id)
     {
+        // $attribute = Attribute::findOrFail($id);
+        // return response()->json(['data'=>$attribute,'attribute' => $request->all(),'id' => $id,'message'=>'Cập nhật thông tin sinh viên thành công'],200);
+        $flash = array(
+            'status' => 'success',
+            'message' => 'Successfully updated'
+        );
+
         try {
             $attribute = Attribute::findOrFail($id);
             $data = $request->all();
-            $attribute->update($data);
+            
+            $data['product_id'] = $data['product_id'];
+            $this->prepareAttributeDataModel($attribute, $data);
 
-            request()->session()->flash('success', __('Attribute successfully updated'));
-        }catch (\Exception $exception) {
-            request()->session()->flash('error', __($exception->getMessage()));
+        } catch (\Exception $e) {
+            $flash['status']  = 'error';
+            $flash['message'] = $e->getMessage();
         }
-        $backUrl = route('attribute.edit', $id);
-        return redirect($backUrl);
+
+        return redirect()->back()->with($flash['status'], $flash['message']);
     }
    
     
     public function destroy($id)
-    {
-        $attribute = Attribute::findOrFail($id);
-        // $childCatId = Category::where(self::ATTRIBUTE_IS_PARENT, $id)->pluck('id');
-        $status = $attribute->delete();
+    { 
+        $flash = array(
+            'status' => 'success',
+            'message' => 'Attribute Successfully deleted'
+        );
 
-        if ($status) {
-            request()->session()->flash('success', __('Attribute successfully deleted'));
-        } else {
-            request()->session()->flash('error', __('Error while deleting category'));
+        try {
+            $attribute = Attribute::where('id', $id)->firstOrFail();
+
+            if (isset($attribute)) {
+                $attribute->delete();
+            }
+            else
+            {
+                $flash['status'] = 'error';
+                $flash['message'] = 'Product SKU not found';
+
+                return redirect()->back()->with($flash['status'], $flash['message']);
+            }
+        } catch (\Exception $e) {
+            $flash['status']  = 'error';
+            $flash['message'] = $e->getMessage();
         }
-        return redirect()->route('attribute.index');
+
+        return redirect()->back()->with($flash['status'], $flash['message']);
     }
        
-    
 
+    public function prepareAttributeDataModel($attributeModel, $data) {
+        $attributeModel->sku    = $data['attribute_sku'];
+        $attributeModel->color  = $data['attribute_color'] ?? '';
+        $attributeModel->price  = $data['attribute_price'] ?? '';
+        $attributeModel->stock  = $data['attribute_stock'] ?? null;
+        $attributeModel->product_id = $data['product_id'] ?? null;
 
-
+        $attributeModel->save();
+    }
 }

@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Attribute;
+use App\Models\AttributeValue;
 use App\Http\Controllers\CategoryController;
 use App\Helpers\Backend\ProductHelper;
 use Illuminate\Support\Str;
+use App\Models\ProductAttribute;
 
 class ProductController extends Controller
 {
@@ -28,7 +31,7 @@ class ProductController extends Controller
         $productSave = '';
         try {
             $productHelper = new ProductHelper();
-            $this->validateDataRequest($this, $request);
+            // $this->validateDataRequest($this, $request);
             $data = $request->all();
             $slug = Str::slug($request->title);
             $count = Product::where('slug', $slug)->count();
@@ -58,6 +61,8 @@ class ProductController extends Controller
     public function edit(Request $request, $id)
     {
         $category = Category::all();
+        $attributes = Attribute::where('product_id', $id)->get();
+        
         $product = Product::where('id', $id)->first();
         if (!isset($product->id)){
             return Redirect::back()->with('error','This product has been existed');
@@ -67,19 +72,30 @@ class ProductController extends Controller
         } else {
 
             return view('backend.product.edit')->with('product', $product)
-                ->with('categories', $category);
+                ->with('categories', $category)->with('attributes',$attributes);
         }
     }
 
     public function update(Request $request, $id)
     {
         try {
+            $attributes = Attribute::all();
+
             $productHelper = new ProductHelper();
             $product = Product::findOrFail($id);
-            $this->validateDataRequest($this, $request);
+            // $this->validateDataRequest($this, $request);
             $data = $request->all();
             $product->update($data);
+            foreach($data['sku'] as $key => $val){
+                $attribute = new Attribute;
+                $attribute->sku = $val;
+                $attribute->product_id = $id;
+                $attribute->color = $data['color'][$key];
+                $attribute->stock = $data['stock'][$key];
+                $attribute->price = $data['price'][$key];
+                $attribute->save();
 
+            }
             request()->session()->flash('success', __('Product Successfully updated'));
         } catch (\Exception $exception) {
             request()->session()->flash('error', $exception->getMessage());
@@ -87,6 +103,19 @@ class ProductController extends Controller
         $backUrl = route('product.edit', $id);
 
         return redirect($backUrl);
+    }
+
+    public function destroy($id)
+    {
+        $product = Product::findOrFail($id);
+        $status = $product->delete();
+
+        if ($status) {
+            request()->session()->flash('success', __('Product successfully deleted'));
+        } else {
+            request()->session()->flash('error', __('Error while deleting product'));
+        }
+        return redirect()->route('product.index');
     }
 
 }

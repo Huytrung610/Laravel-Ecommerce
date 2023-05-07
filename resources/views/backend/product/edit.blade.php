@@ -4,10 +4,26 @@
 // $productHelper = new \App\Helpers\Backend\ProductHelper();
 ?>
 @section('main-content')
-    @include('backend.layouts.notification')
+    @if(session('success'))
+    <div class="alert alert-success">
+        <ul>
+            <li>{!! session('success') !!}</li>
+        </ul>
+    </div>
+    @elseif(session('error'))
+    <div class="alert alert-danger">
+        <ul>
+            <li>{!! session('error') !!}</li>
+        </ul>
+    </div>
+    @endif
+    
     <div class="card">
-        <h5 class="card-header">{{__('Edit Product')}}</h5>
-        <div class="card-body">
+        <div class="card-header card-tabs d-flex">
+            <div id="product" class="tab-header">{{ __('Edit Product') }}</div>
+            <div id="attribute" class="tab-header">{{ __('Attribute Product') }}</div>
+        </div>
+        <div class="card-body" id="tab-product">
             <form method="post" action="{{route('product.update',$product->id)}}">
                 @csrf
                 @method('PATCH')
@@ -34,6 +50,7 @@
                     <span class="text-danger">{{$message}}</span>
                     @enderror
                 </div>
+                
                 <div class="form-group">
                     <label for="stock">{{__('Quantity')}}<span class="text-danger">*</span></label>
                     <input id="quantity" type="number" name="stock" min="0" placeholder="{{__('Enter quantity')}}"
@@ -70,28 +87,25 @@
                     </select>
                 </div>
 
-
-                {{-- <div class="form-group {{(($product->child_cat_id)? '' : 'd-none')}}" id="sub _cat_div">
-                    <label for="sub _cat_id">{{__('Sub Category')}}</label>
-                    <select name="sub _cat_id" id="sub _cat_id" class="form-control">
-                        <option value="{{$currentSubCategory->id ?? ''}}">{{$currentSubCategory->title ?? ''}}</option>
-                    </select>
-                </div> --}}
-
-                <div class="form-group">
-                    <label for="price" class="col-form-label">{{__('Price')}}<span class="text-danger">*</span></label>
-                    <input id="price" type="text" name="price" placeholder="{{__('Enter price')}}"
-                           value="{{$product->price}}"
-                           class="form-control">
-                    @error('price')
-                    <span class="text-danger">{{$message}}</span>
-                    @enderror
-                </div>
                 <div class="form-group mb-3">
                     <button class="btn btn-success" type="submit">{{__('Update')}}</button>
                 </div>
             </form>
         </div>
+        
+        <div class="card-body" id="tab-attribute">
+            <button type="button" id="add_attribute" class="btn btn-primary mb-4" data-toggle="modal" data-target="#formAttribute">
+                {{ __('Add Attribute') }}
+            </button>
+
+            <!-- Modal add new address  -->
+            @include('backend.product.attribute.product-attribute-form')
+            <!-- End Modal -->
+
+            <!-- Customer address list -->
+            @include('backend.product.attribute.product-attribute-list')
+        </div>
+        
     </div>
 
 @endsection
@@ -106,7 +120,86 @@
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     <script src="{{asset('backend/summernote/summernote.min.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-    <script src="{{ mix('/js/backend/storeView.js') }}"></script>
-    <script src="{{ mix('/js/backend/product.js') }}"></script>
-    <script src="{{ mix('/js/backend/tierPrice.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script>
+       $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $(document).on('click', '.edit_attribute', function(e){
+                e.preventDefault();
+                var id = $(this).attr('data-id');
+                $('.form-attribute-title').text('Edit Attribute');
+                $('#form_attribute').attr('action', location.origin + '/admin/attribute/update/' + id);
+                $('.attribute_sku').prop('readonly', true);
+                $.ajax({
+                    type: 'GET',
+                    url: '/admin/attribute-edit/'+id,
+                    data: {},
+                    processData: false,
+                    contentType: false,
+                    success: function(response){
+                        console.log(response);
+                         $('form input[name=attribute_sku]').val(response.attribute.sku);
+                         $('form input[name=attribute_color]').val(response.attribute.color);
+                         $('form input[name=attribute_price]').val(response.attribute.price);
+                         $('form input[name=attribute_stock]').val(response.attribute.stock);
+                    },
+                    error: function (response){
+                        console.log(response);
+                    }
+            })
+    
+       });  
+            $(document).on('click', '.remove-table-row', function(){
+                $(this).parents('tr').remove();
+            });
+
+            $('#tab-attribute').hide();
+            $('.tab-header').on('click', function () {
+                var t = $(this).attr('id');
+                $(this).addClass('active');
+                $('.tab-header').not($(this)).removeClass('active');
+
+                if ($(this).hasClass('active')) {
+                $('.card-body').hide();
+                $('#tab-' + t).show();
+            }
+            });
+            $('#add_attribute').on('click', function () {
+                $("form :input:not([type=hidden])").val('');
+                $('#form_attribute').attr('action', location.origin + '/admin/attribute');
+                $('.form-attribute-title').text('Add a new attribute');
+            });
+    </script> 
+
+    <script>
+        $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $('.dltBtn').click(function (e) {
+                var form = $(this).closest('form');
+                e.preventDefault();
+                swal({
+                    title: "{{__('Are you sure?')}}",
+                    text: "{{__('Once deleted, you will not be able to recover this data!')}}",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            form.submit();
+                        } else {
+                            swal("{{__('Your data is safe!')}}");
+                        }
+                    });
+            })
+        })
+    </script>
 @endpush
