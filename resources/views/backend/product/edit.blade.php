@@ -50,15 +50,6 @@
                     <span class="text-danger">{{$message}}</span>
                     @enderror
                 </div>
-                
-                <div class="form-group">
-                    <label for="stock">{{__('Quantity')}}<span class="text-danger">*</span></label>
-                    <input id="quantity" type="number" name="stock" min="0" placeholder="{{__('Enter quantity')}}"
-                           value="{{$product->stock}}" class="form-control">
-                    @error('stock')
-                    <span class="text-danger">{{$message}}</span>
-                    @enderror
-                </div>
                 <div class="form-group">
                     <label for="summary" class="col-form-label">{{__('Short Description')}}<span
                             class="text-danger">*</span></label>
