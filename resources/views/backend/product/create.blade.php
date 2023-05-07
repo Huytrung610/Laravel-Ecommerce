@@ -88,15 +88,6 @@
                         @endforeach
                     </select>
                 </div>
-
-                <div class="form-group">
-                    <label for="price" class="col-form-label">{{__('Price')}}<span class="text-danger">*</span></label>
-                    <input id="price" type="number" name="price" placeholder="{{__('Enter price')}}"
-                           class="form-control">
-                    @error('price')
-                    <span class="text-danger">{{$message}}</span>
-                    @enderror
-                </div>
                 
                 <div class="form-group">
                     <label for="inputPhoto" class="col-form-label">{{__('Photo')}}<span
