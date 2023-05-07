@@ -86,16 +86,6 @@ class ProductController extends Controller
             // $this->validateDataRequest($this, $request);
             $data = $request->all();
             $product->update($data);
-            foreach($data['sku'] as $key => $val){
-                $attribute = new Attribute;
-                $attribute->sku = $val;
-                $attribute->product_id = $id;
-                $attribute->color = $data['color'][$key];
-                $attribute->stock = $data['stock'][$key];
-                $attribute->price = $data['price'][$key];
-                $attribute->save();
-
-            }
             request()->session()->flash('success', __('Product Successfully updated'));
         } catch (\Exception $exception) {
             request()->session()->flash('error', $exception->getMessage());
