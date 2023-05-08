@@ -40,7 +40,7 @@ class ProductController extends Controller
             }
             $data['slug'] = $slug;
             $data['category_id'] = $request->get('sub_category_id');
-            $data['photo'] = "txt";
+            $data['photo'] = $request->get('photo') ;
             $data['discount'] = 20;
             $productSave = Product::create($data);
             request()->session()->flash('success', __('Product Successfully added'));
