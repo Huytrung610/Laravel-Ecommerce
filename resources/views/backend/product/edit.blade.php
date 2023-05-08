@@ -20,8 +20,8 @@
     
     <div class="card">
         <div class="card-header card-tabs d-flex">
-            <div id="product" class="tab-header">{{ __('Edit Product') }}</div>
-            <div id="attribute" class="tab-header">{{ __('Attribute Product') }}</div>
+            <div id="product" class="tab-header" style="border: 1px solid #ccc">{{ __('Edit Product') }}</div>
+            <div id="attribute" class="tab-header" style="border: 1px solid #ccc">{{ __('Attribute Product') }}</div>
         </div>
         <div class="card-body" id="tab-product">
             <form method="post" action="{{route('product.update',$product->id)}}">
@@ -192,5 +192,22 @@
                     });
             })
         })
+    </script>
+       <script>
+        function hexToRgb(hex) {
+            var bigint = parseInt(hex.substring(1), 16);
+            var r = (bigint >> 16) & 255;
+            var g = (bigint >> 8) & 255;
+            var b = bigint & 255;
+            return "rgb(" + r + ", " + g + ", " + b + ")";
+        }
+
+        var boxes = document.getElementsByClassName("color-box"); // Lấy tất cả các phần tử có class "color-box"
+        for (var i = 0; i < boxes.length; i++) {
+            var hexColor = boxes[i].textContent; // Lấy giá trị mã màu hex từ nội dung của phần tử
+            var color = hexToRgb(hexColor); // Chuyển đổi mã hex thành màu sắc
+            boxes[i].style.backgroundColor = color; // Áp dụng màu sắc vào phần tử HTML
+            boxes[i].style.display = "block"; // Hiển thị phần tử
+        }
     </script>
 @endpush

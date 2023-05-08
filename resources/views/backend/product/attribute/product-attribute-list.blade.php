@@ -22,7 +22,7 @@
         @foreach($attributes as $attribute)
             <tr>
                 <td>{{ $attribute->sku }}</td>
-                <td>{{ $attribute->color }}</td>
+                <td class="color-box">{{ $attribute->color }}</td>
                 <td>{{ $attribute->price }}</td>
                 <td>{{ $attribute->stock }}</td>
                 <td>
