@@ -62,8 +62,6 @@ return redirect()->back()->with($flash['status'], $flash['message']);
 
     public function update(Request $request, $id)
     {
-        // $attribute = Attribute::findOrFail($id);
-        // return response()->json(['data'=>$attribute,'attribute' => $request->all(),'id' => $id,'message'=>'Cập nhật thông tin sinh viên thành công'],200);
         $flash = array(
             'status' => 'success',
             'message' => 'Successfully updated'
@@ -81,7 +79,7 @@ return redirect()->back()->with($flash['status'], $flash['message']);
             $flash['message'] = $e->getMessage();
         }
 
-        return redirect()->back()->with($flash['status'], $flash['message']);
+        return redirect()->route()->with($flash['status'], $flash['message']);
     }
    
     

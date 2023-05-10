@@ -98,8 +98,7 @@ class CategoryController extends Controller
         }catch (\Exception $exception) {
             request()->session()->flash('error', __($exception->getMessage()));
         }
-        $backUrl = route('category.edit', $id);
-        return redirect($backUrl);
+        return redirect()->route('category.index');
     }
 
     private function validateDataCategoryFormEdit($request, $category) {

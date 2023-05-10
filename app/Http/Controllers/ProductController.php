@@ -90,9 +90,7 @@ class ProductController extends Controller
         } catch (\Exception $exception) {
             request()->session()->flash('error', $exception->getMessage());
         }
-        $backUrl = route('product.edit', $id);
-
-        return redirect($backUrl);
+        return redirect()->route('product.index');
     }
 
     public function destroy($id)
