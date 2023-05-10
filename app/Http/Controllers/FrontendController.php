@@ -154,11 +154,11 @@ class FrontendController extends Controller
     // Login
     public function login(){
         // $cmsContentPage = CmsContent::where('status', \App\Models\CmsContent::STATUS_ENABLE)
-            ->where(function ($query) {
-                $query->where('slug', \App\Models\CmsContent::TERMS_SLUG)
-                    ->orWhere('slug', \App\Models\CmsContent::PRIVACY_SLUG);
-            })
-            ->get();
+            // ->where(function ($query) {
+            //     $query->where('slug', \App\Models\CmsContent::TERMS_SLUG)
+            //         ->orWhere('slug', \App\Models\CmsContent::PRIVACY_SLUG);
+            // })
+            // ->get();
 
         return view('frontend.pages.login');
     }
