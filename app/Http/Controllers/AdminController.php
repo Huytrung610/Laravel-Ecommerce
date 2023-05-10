@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Hash;
+use Hash;   
 
 class AdminController extends Controller
 {
@@ -28,9 +28,9 @@ class AdminController extends Controller
     public function changPasswordStore(Request $request)
     {
         $request->validate([
-            'current_password' => ['required'],
-            'new_password' => ['required', 'different:current_password'],
-            'new_confirm_password' => ['same:new_password'],
+            'current_password' => 'required',
+            'new_password' => 'required|different:current_password|min:6',
+            'new_confirm_password' => 'same:new_password',
         ]);
         if (Hash::check($request->current_password, backpack_auth()->user()->password)) {
             backpack_auth()->user()->fill([
