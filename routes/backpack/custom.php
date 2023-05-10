@@ -29,5 +29,8 @@ Route::group([
     Route::resource('/attribute','\App\Http\Controllers\AttributeController');
     Route::get('attribute-edit/{id}',[\App\Http\Controllers\AttributeController::class,'edit']);
     Route::post('attribute/update/{id}', [\App\Http\Controllers\AttributeController::class, 'update']);
-
+    
+    // Password Change
+    Route::get('change-password', [\App\Http\Controllers\AdminController::class, 'changePassword'])->name('change.password.form');
+    Route::post('change-password', [\App\Http\Controllers\AdminController::class,'changPasswordStore'])->name('admin.change.password');
 }); // this should be the absolute last line of this file
