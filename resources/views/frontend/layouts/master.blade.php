@@ -6,9 +6,9 @@
 
 <body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
     
-    <!-- Header -->
+    {{-- <!-- Header -->
 	@include('frontend.layouts.header')
-    <!--/ End Header -->
+    <!--/ End Header --> --}}
 
     @yield('main-content')
 

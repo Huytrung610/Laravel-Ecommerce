@@ -35,3 +35,6 @@ Route::get('user/login',[FrontendController::class,'login'])->name('login.form')
 Route::get('/index', function () {
     return view('frontend.index_fe');
 });
+Route::get('/shop', function () {
+    return view('frontend.pages.shop');
+});
