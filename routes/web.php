@@ -38,3 +38,7 @@ Route::get('/index', function () {
 Route::get('/shop', function () {
     return view('frontend.pages.shop');
 });
+
+Route::get('/product', function () {
+    return view('frontend.pages.product_detail');
+});
