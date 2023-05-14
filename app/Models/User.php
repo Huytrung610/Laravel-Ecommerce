@@ -18,6 +18,9 @@ class User extends Authenticatable
         self::ROLE_TYPE_ADMIN => 'Admin',
         self::ROLE_TYPE_USER => 'User'
     ];
+    const GENDER_MALE = 'Male';
+    const GENDER_FEMALE = 'Female';
+
 
     /**
      * The attributes that are mass assignable.
@@ -31,9 +34,8 @@ class User extends Authenticatable
         'role',
         'photo',
         'status',
-//        'first_name',
-//        'last_name',
-        'fcm_token'
+        'fcm_token',
+        'user_id'
     ];
 
 
@@ -56,4 +58,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+
+    public function getAddress()
+    {
+        return $this->hasMany('App\Models\CustomerAddress', 'user_id', 'id')
+            ->orderBy('is_default', 'DESC')
+            ->get();
+    }
+
 }

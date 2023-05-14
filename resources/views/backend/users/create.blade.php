@@ -9,13 +9,9 @@
 <div class="card-body">
 <form method="post" action="{{route('users.store')}}">
 {{csrf_field()}}
-{{-- <div class="form-group wgt-customer-id" style="{{$styleResult}}">
-    <label for="inputTitle" class="col-form-label">{{ __('Customer ID') }}</label>
-    <input id="inputTitle" type="text" name="customer_id" value="{{$users->customer_id ?? '' }}" class="form-control">
-    @error('customer_id')
-    <span class="text-danger">{{$message}}</span>
-    @enderror
-</div> --}}
+<div class="form-group">
+    <input id="inputTitle" type="text" style="display:none" name="user_id" value="{{$users->user_id ?? '' }}" class="form-control">
+</div>
 <div class="form-group">
     <label for="inputTitle" class="col-form-label">Name</label>
     <input id="inputTitle" type="text" name="name" placeholder="Enter name" value="{{old('name')}}"
@@ -24,22 +20,6 @@
     <span class="text-danger">{{$message}}</span>
     @enderror
 </div>
-{{-- <div class="form-group">
-    <label for="inputTitle" class="col-form-label">First Name</label>
-    <input id="inputTitle" type="text" name="first_name" placeholder="Enter First Name"
-           value="{{old('first_name')}}" class="form-control">
-    @error('first_name')
-    <span class="text-danger">{{$message}}</span>
-    @enderror
-</div>
-<div class="form-group">
-    <label for="inputTitle" class="col-form-label">Last Name</label>
-    <input id="inputTitle" type="text" name="last_name" placeholder="Enter Last Name"
-           value="{{old('last_name')}}" class="form-control">
-    @error('last_name')
-    <span class="text-danger">{{$message}}</span>
-    @enderror
-</div> --}}
 <div class="form-group">
     <label for="inputEmail" class="col-form-label">Email</label>
     <input id="inputEmail" type="email" name="email" placeholder="Enter email" value="{{old('email')}}"
@@ -90,3 +70,7 @@
 </div>
 
 @endsection
+
+@push('after_scripts')
+
+@endpush
