@@ -15,7 +15,7 @@ return [
     |--------------------------------------------------------------------------
      */
 
-    'use_package_routes'       => true,
+    'use_package_routes'       => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -35,7 +35,7 @@ return [
     // Ex: The private folder of user will be named as the user id.
     'private_folder_name'      => UniSharp\LaravelFilemanager\Handlers\ConfigHandler::class,
 
-    'allow_shared_folder'      => true,
+    'allow_shared_folder'      => false,
 
     'shared_folder_name'       => 'shares',
 
@@ -106,7 +106,7 @@ return [
 
     'should_validate_size'     => false,
 
-    'should_validate_mime'     => true,
+    'should_validate_mime'     => false,
 
     // behavior on files with identical name
     // setting it to true cause old file replace with new one
