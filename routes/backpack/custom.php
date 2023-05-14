@@ -33,4 +33,9 @@ Route::group([
     // Password Change
     Route::get('change-password', [\App\Http\Controllers\AdminController::class, 'changePassword'])->name('change.password.form');
     Route::post('change-password', [\App\Http\Controllers\AdminController::class,'changPasswordStore'])->name('admin.change.password');
+
+    //Customer address
+    Route::resource('customer-address', '\App\Http\Controllers\CustomerAddressController');
+    Route::get('customer-address/show/{id}', [\App\Http\Controllers\CustomerAddressController::class, 'showFormEditProfile']);
+    Route::post('customer-address/update/{id}', [\App\Http\Controllers\CustomerAddressController::class, 'update']);
 }); // this should be the absolute last line of this file
