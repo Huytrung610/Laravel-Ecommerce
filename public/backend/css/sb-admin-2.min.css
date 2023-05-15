@@ -11608,10 +11608,13 @@ body.sidebar-toggled footer.sticky-footer {
 }
 
 
-/* sửa 2 tab : edit product , attribute product */
+/* sửa 2 tab : edit product , attribute product
+               User Info  , Address Info  */
 
 #product,
-#attribute {
+#attribute,
+#user,
+#address {
     border: 1px solid #ccc;
     background-color: #f1f1f1;
     display: inline-block;
@@ -11621,12 +11624,16 @@ body.sidebar-toggled footer.sticky-footer {
 }
 
 #product:hover,
-#attribute:hover {
+#attribute:hover,
+#user:hover,
+#address:hover {
     background-color: #ddd;
 }
 
 #product.active,
-#attribute.active {
+#attribute.active,
+#user:active,
+#address:active {
     background-color: #ddd;
     border-bottom: none;
 }
