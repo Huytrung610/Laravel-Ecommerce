@@ -35,9 +35,9 @@
                         <input class="form-control" type="text" name="address_detail" required="required">
                     </div>
                    
-                    <div class="form-group is_default">
-                        <input class="form-control" type="checkbox" name="is_default">
-                        <span>{{ __('Is Default') }}</span>
+                    <div class="form-group is_default" style="display: flex; align-items: center;">
+                        <span>{{ __('Is Default : ') }}</span>
+                        <input class="form-control" type="checkbox" name="is_default" style="width: 60px">
                     </div>
                     <div class="form-group">
                         <input class="form-control" type="hidden" name="user_id" value="{{ $user->id }}">
