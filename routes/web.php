@@ -42,3 +42,7 @@ Route::get('/shop', function () {
 Route::get('/product', function () {
     return view('frontend.pages.product_detail');
 });
+
+Route::get('/cart', function () {
+    return view('frontend.pages.cart');
+});

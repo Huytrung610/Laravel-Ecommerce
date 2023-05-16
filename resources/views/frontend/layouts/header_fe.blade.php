@@ -3,7 +3,7 @@
 <header id="header" class="site-header header-scrolled position-fixed text-black bg-light header">
     <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="index">
                 <img src="{{ asset('frontend/images/main-logo.png') }}" class="logo">
             </a>
             <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,7 +13,7 @@
       </button>
             <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
                 <div class="offcanvas-header px-4 pb-0">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="index">
                         <img  src="{{ asset('frontend/images/main-logo.png') }}" class="logo">
                     </a>
                     <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
@@ -56,10 +56,10 @@
                                     <a href="blog.html" class="dropdown-item">Blog</a>
                                 </li>
                                 <li>
-                                    <a href="shop.html" class="dropdown-item">Shop</a>
+                                    <a href="shop" class="dropdown-item">Shop</a>
                                 </li>
                                 <li>
-                                    <a href="cart.html" class="dropdown-item">Cart</a>
+                                    <a href="cart" class="dropdown-item">Cart</a>
                                 </li>
                                 <li>
                                     <a href="checkout.html" class="dropdown-item">Checkout</a>
@@ -93,7 +93,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="cart.html">
+                                        <a href="cart">
                                             <svg class="cart">
                         <use xlink:href="#cart"></use>
                       </svg>
