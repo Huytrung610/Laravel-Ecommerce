@@ -27,12 +27,42 @@
   </div>
 </section>
 <div class="shopify-grid padding-large">
+    <div class="container" style="font-size: 16px;margin-bottom: 3%;"  >
+        <div class="row">
+          
+           <div class="col-md-auto item-box" >
+                <div class="title">
+                    <a href="" title="All model">Tất cả </a>
+                </div>
+           </div>
+     
+          <div class="col-md-auto item-box">
+            <div class="title">
+                <a href="/iphone-14-series" title="Hiển thị sản phẩm trong danh mục iPhone 14 series">iPhone14 series </a>
+            </div>
+          </div>
+
+          <div class="col-md-auto item-box">
+            <div class="title">
+                <a href="/iphone-13-series" title="Hiển thị sản phẩm trong danh mục iPhone 13 series">iPhone 13 series </a>
+            </div>
+          </div>
+
+          <div class="col-md-auto item-box">
+            <div class="title">
+                <a href="/iphone-12-series" title="Hiển thị sản phẩm trong danh mục iPhone 12 series">iPhone 12 series </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
   <div class="container">
       <div class="row">
           <main class="col-md-9">
-              <div class="filter-shop d-flex justify-content-between">
+              {{-- <div class="filter-shop d-flex justify-content-between">
                   <div class="showing-product">
-                      <p>Showing 1–9 of 55 results</p>
+                      
                   </div>
                   <div class="sort-by">
                       <select id="input-sort" class="form-control" data-filter-sort="" data-filter-order="">
@@ -47,7 +77,10 @@
             <option value="">Model (Z - A)</option>   
           </select>
                   </div>
-              </div>
+              </div> --}}
+
+              
+
               <div class="product-content product-store d-flex justify-content-between flex-wrap">
                   <div class="col-lg-4 col-md-6">
                       <div class="product-card position-relative pe-3 pb-3">
