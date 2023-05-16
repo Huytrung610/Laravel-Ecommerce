@@ -108,7 +108,7 @@
                   <div class="col-lg-4 col-md-6">
                       <div class="product-card position-relative pe-3 pb-3">
                           <div class="image-holder">
-                              <img src="{{ asset('frontend/images/product-item2.jpg') }}"" alt="product-item" class="img-fluid">
+                              <img src="{{ asset('frontend/images/product-item2.jpg') }}" alt="product-item" class="img-fluid">
                           </div>
                           <div class="cart-concern position-absolute">
                               <div class="cart-button d-flex">
