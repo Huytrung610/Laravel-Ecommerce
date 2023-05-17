@@ -1255,3 +1255,26 @@ figure.instagram-item img.insta-image {
 .item-box {
     margin-right: 15px;
 }
+
+
+/* chỉnh sửa phần logout  */
+
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.small-text {
+    font-size: 14px;
+    text-transform: none;
+}
+
+
+/* .user-profile .username {
+    font-size: 14px;
+    text-transform: none;
+} */
+
+
+/* .dropdown-item .username {
+    font-weight: normal;
+} */

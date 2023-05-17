@@ -19,7 +19,7 @@
                     <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
                 </div>
                 <div class="offcanvas-body">
-                    <ul id="navbar" class="navbar-nav text-uppercase justify-content-end align-items-center flex-grow-1 pe-3">
+                    <ul id="navbar" class="navbar-nav text-uppercase justify-content-end align-items-center flex-grow-1 pe-3" style="margin-right: 40px;">
                         <li class="nav-item">
                             <a class="nav-link me-4 active" href="#billboard">Home</a>
                         </li>
@@ -70,24 +70,46 @@
                         <li class="nav-item">
                             <div class="user-items ps-5">
                                 <ul class="d-flex justify-content-end list-unstyled">
+
+                                 {{-- khi user chưa đăng nhập --}}
+                                    {{-- <li class="pe-3 nav-item dropdown">
+                                        <a class="" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <svg class="user">
+                        <use xlink:href="#user"></use>
+                                            </svg>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <li><a class="dropdown-item" href="#"><span class="small-text">Đăng nhập</span></a></li>
+                                            <li><a class="dropdown-item" href="#"><span class="small-text">Tạo tài khoản ngay</span></a></li>
+                                        </ul>
+                                    </li> --}}
+                                     
+                                    {{-- khi user đã đăng nhập rồi --}}
+                                    <li class="pe-3 nav-item dropdown">
+                                        <a  href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                          <svg class="user">
+                                            <use xlink:href="#user"></use>
+                                          </svg>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                          <li><a class="dropdown-item" href="#"><span class="small-text" style="font-weight: 600">Nguyễn Anh Dũng</span></a></li>
+                                          <li><a class="dropdown-item" href="#" id="log-out"><span class="small-text">Đăng xuất</span></a></li>
+                                        </ul>
+                                      </li>
+                                      
+
+                                    <li class="pe-3">
+                                        <a href="cart">
+                                            <svg class="cart">
+                        <use xlink:href="#cart"></use>
+                      </svg>
+                                        </a>
+                                    </li>
+
                                     <li class="search-item pe-3">
                                         <a href="#" class="search-button">
                                             <svg class="search">
                         <use xlink:href="#search"></use>
-                      </svg>
-                                        </a>
-                                    </li>
-                                    <li class="pe-3">
-                                        <a href="#">
-                                            <svg class="user">
-                        <use xlink:href="#user"></use>
-                      </svg>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="cart">
-                                            <svg class="cart">
-                        <use xlink:href="#cart"></use>
                       </svg>
                                         </a>
                                     </li>
