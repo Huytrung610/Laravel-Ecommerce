@@ -9,11 +9,16 @@
     {{-- <!-- Header -->
 	@include('frontend.layouts.header')
     <!--/ End Header --> --}}
-
+    @include('frontend.layouts.notification')
+    <!-- Header -->
+    @include('frontend.layouts.header')
+    <!--/ End Header -->
     @yield('main-content')
-
     <!-- Footer -->
     @include('frontend.layouts.footer')
     <!--/ End Footer -->
+
+    @yield('after_scripts')
+    @stack('after_scripts')
 </body>
 </html>
