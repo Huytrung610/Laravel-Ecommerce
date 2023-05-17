@@ -23,17 +23,23 @@ Route::get('/', function () {
 
 Auth::routes();       
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/','App\Http\Controllers\FrontendController@home')->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 Route::group(['prefix' => 'laravel-filemanager',  'middleware' => [config('backpack.base.middleware_key', 'admin')]], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 Route::group(['prefix' => 'filemanager', 'middleware' => [config('backpack.base.middleware_key', 'admin')]], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
-Route::get('user/login',[FrontendController::class,'login'])->name('login.form');
+
+//Login/Register/Logout
+Route::get('user/login','App\Http\Controllers\FrontendController@login')->name('login.form');
+Route::post('user/login','App\Http\Controllers\FrontendController@loginSubmit')->name('login.submit');
+Route::post('user/register', 'App\Http\Controllers\FrontendController@registerSubmit')->name('register.submit');
 
 Route::get('/index', function () {
-    return view('frontend.index_fe');
+    return view('frontend.index');
 });
 Route::get('/shop', function () {
     return view('frontend.pages.shop');

@@ -8,35 +8,22 @@ use DB;
 use Hash;
 use Illuminate\Http\Request;
 use Session;
+use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 
 class FrontendController extends Controller
 {
-    /**
-     * @var OrderHelper
-     */
-    private OrderHelper $orderHelper;
-
-    public function __construct() {
-        $this->orderHelper = new OrderHelper();
-    }
+    
 
     public function index(Request $request){
         return redirect('/');
     }
 
-    // public function home()
-    // {
-    //     $currentLanguage = app()->getLocale();
-    //     $posts = Post::where('status', 'active')->orderBy('id', 'DESC')->where('language_code',$currentLanguage)->limit(3)->get();
-    //     $banners = Banner::where('status', 'active')->orderBy('id', 'DESC')->get();
-    //     $cmsRepository = new \App\Repositories\CmsRepository();
-    //     $aboutUs = $cmsRepository->getBySlug(CmsContent::ABOUT_CPF_HOME_SLUG, true);
-
-    //     return view('frontend.index')
-    //         ->with('posts', $posts)
-    //         ->with('banners', $banners)
-    //         ->with('aboutUs', $aboutUs);
-    // }
+    public function home()
+    {
+        return view('frontend.index');
+          
+    }
 
     // public function aboutUs(){
     //     return view('frontend.pages.about-us');
@@ -186,7 +173,7 @@ class FrontendController extends Controller
                 Session::put('user', $data['email']);
                 request()->session()->flash('success', __('Successfully login'));
             } else {
-                throw new \Exception(__('Invalid email and password pleas try again!'));
+                throw new \Exception(__('Invalid email and password please try again!'));
             }
         }catch (\Exception $exception) {
             request()->session()->flash('error', $exception->getMessage());
@@ -204,26 +191,30 @@ class FrontendController extends Controller
         return back();
     }
 
-    public function register(){
-        return view('frontend.pages.register');
-    }
+   
     public function registerSubmit(Request $request){
-        // return $request->all();
-        $this->validate($request,[
-            'name'=>'string|required|min:2',
-            'email'=>'string|required|unique:users,email',
-            'password'=>'required|min:6|confirmed',
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'name' => 'string|required|min:2',
+            'email' => 'string|required|unique:users,email',
+            'password' => 'required|min:6',
         ]);
-        $data=$request->all();
-        // dd($data);
-        $check=$this->create($data);
-        Session::put('user',$data['email']);
-        if($check){
-            request()->session()->flash('success','Successfully registered');
-            return redirect()->route('home');
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
         }
-        else{
-            request()->session()->flash('error','Please try again!');
+
+        // Logic xử lý khi validation thành công
+        $check = $this->create($data);
+        Session::put('user', $data['email']);
+        if ($check) {
+            request()->session()->flash('success', 'Successfully registered');
+            return redirect()->route('home');
+        } else {
+            request()->session()->flash('error', 'Please try again!');
             return back();
         }
     }
@@ -235,6 +226,7 @@ class FrontendController extends Controller
             'status'=>'active'
             ]);
     }
+
 
     // public function subscribe(Request $request){
     //     if(! Newsletter::isSubscribed($request->email)){
