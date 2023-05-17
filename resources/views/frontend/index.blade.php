@@ -17,7 +17,7 @@
                         <div class="col-md-6">
                             <div class="banner-content">
                                 <h1 class="display-2 text-uppercase text-dark pb-5">Iphone 14 Pro Max</h1>
-                                <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
+                                <a href="shop" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
                             </div>
                         </div>
                         <div class="col-md-5">
@@ -34,7 +34,7 @@
                         <div class="col-md-6">
                             <div class="banner-content">
                                 <h1 class="display-2 text-uppercase text-dark pb-5">Apple Watch Series 8</h1>
-                                <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
+                                <a href="shop" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
                             </div>
                         </div>
                         <div class="col-md-5">
@@ -125,7 +125,7 @@
             <div class="display-header d-flex justify-content-between pb-3">
                 <h2 class="display-7 text-dark text-uppercase">Mobile Products</h2>
                 <div class="btn-right">
-                    <a href="shop.html" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
+                    <a href="shop" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
                 </div>
             </div>
             <div class="swiper product-swiper">
@@ -238,7 +238,7 @@
             <div class="display-header d-flex justify-content-between pb-3">
                 <h2 class="display-7 text-dark text-uppercase">Smart Watches</h2>
                 <div class="btn-right">
-                    <a href="shop.html" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
+                    <a href="shop" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
                 </div>
             </div>
             <div class="swiper product-watch-swiper">
@@ -345,7 +345,7 @@
             <div class="text-content offset-4 padding-medium" style="margin-left: 20%;">
                 <h3>5% off tất cả các sản phẩm mừng ngày sinh nhật của Store</h3>
                 <h2 class="display-2 pb-5 text-uppercase text-dark">Birthday Party</h2>
-                <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Sale</a>
+                <a href="shop" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Sale</a>
             </div>
         </div>
         <div class="col-md-6 col-sm-12">
