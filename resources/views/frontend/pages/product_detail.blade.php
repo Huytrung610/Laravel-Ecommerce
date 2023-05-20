@@ -19,22 +19,12 @@
             <div class="col-lg-6">
                 <div class="product-info">
                     <div class="element-header">
-                        <h3 itemprop="name" class="display-7 text-uppercase">Apple Watch Series 7 Nhôm GPS</h3>
-                        {{-- <div class="rating-container d-flex align-items-center">
-                            <div class="rating" data-rating="1" onclick=rate(1)>
-                                <svg class="star star-fill">
-                  <use xlink:href="#star-fill"></use>
-                </svg>
-                                <span class="rating-count ps-2">4.0</span>
-                            </div>
-                        </div> --}}
+                        <h3 itemprop="name" class="display-7 text-uppercase">{{$productDetail->title}}</h3>
                     </div>
                     <div class="product-price pt-3 pb-3">
                         <strong class="text-primary display-6 fw-bold">7.990.000 VNĐ</strong>
                     </div>
-                    <p>Apple Watch Series 7 (GPS) Màn hình Retina Luôn Bật lớn nhất, tiên tiến nhất giúp mọi tác vụ bạn thực hiện với Apple Watch Series 7 trông lớn hơn và đẹp hơn. Series 7 là Apple Watch bền bỉ nhất từng được chế tạo, với mặt trước
-                        bằng thủy tinh chống nứt tốt hơn. Các tính năng tiên tiến giúp bạn đo mức ôxi trong máu, đo điện tâm đồ (ECG) bất kỳ lúc nào, truy cập ứng dụng theo dõi giấc ngủ và ứng dụng chú tâm. Bạn cũng có thể theo dõi hàng chục bài tập
-                        thể chất, bao gồm Thái Cực Quyền và pilates mới.
+                    <p>{{strip_tags($productDetail->description)}}
                     </p>
                     <div class="cart-wrap padding-small">
                         <div class="color-options product-select">
@@ -43,15 +33,6 @@
                                 <ul class="select-list list-unstyled d-flex">
                                     <li class="select-item pe-3" data-val="Green" title="Green">
                                         <a href="#">Green</a>
-                                    </li>
-                                    <li class="select-item pe-3" data-val="Cream" title="Cream">
-                                        <a href="#">Cream</a>
-                                    </li>
-                                    <li class="select-item pe-3" data-val="Mignight" title="Midnight">
-                                        <a href="#">Midnight</a>
-                                    </li>
-                                    <li class="select-item" data-val="Black" title="Black">
-                                        <a href="#">Black</a>
                                     </li>
                                 </ul>
                             </div>

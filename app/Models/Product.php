@@ -13,7 +13,7 @@ class Product extends Model
 {
     use SoftDeletes;
     const ENTITY = 'product';
-    const DEFAULT_PER_PAGE = 18;
+    const DEFAULT_PER_PAGE = 9;
 
     const PRICE_TYPE_PRODUCT_DETAIL = 'detail';
     const PRICE_TYPE_PRODUCT_LIST = 'list';
@@ -40,7 +40,7 @@ class Product extends Model
     }
     public function attribute()
     {
-      return $this->hasMany(Attribute::class,'product_id','id')->get();
+      return $this->hasMany(Attribute::class,'product_id','id');
     }
     
     

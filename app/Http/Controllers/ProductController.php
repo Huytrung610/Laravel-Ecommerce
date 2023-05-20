@@ -11,6 +11,7 @@ use App\Http\Controllers\CategoryController;
 use App\Helpers\Backend\ProductHelper;
 use Illuminate\Support\Str;
 use App\Models\ProductAttribute;
+use App\Repositories\ProductRepository;
 
 class ProductController extends Controller
 {
@@ -76,6 +77,18 @@ class ProductController extends Controller
         }
     }
 
+    public function productCat(Request $request)
+    {
+        $productRepository = new ProductRepository();
+        $products = $productRepository->getAllProductWithSlugOfCategory($request->slug) ?? [];
+
+        return view('frontend.pages.product-lists')
+            ->with([
+                'products' => $products,
+            ]);
+    }
+
+
     public function update(Request $request, $id)
     {
         try {
@@ -106,4 +119,18 @@ class ProductController extends Controller
         return redirect()->route('product.index');
     }
 
+
+    public function productDetail($slug)
+    {   
+        $productRepository = new ProductRepository();
+        $productDetail = $productRepository->getProductWithSlug($slug);
+
+        if (!empty($productDetail) && $productDetail->status != Product::IS_ACTIVE || empty($productDetail)) {
+            abort(404);
+        }
+
+        return view('frontend.pages.product_detail')->with('productDetail', $productDetail);
+    }
 }
+
+
