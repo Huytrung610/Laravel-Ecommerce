@@ -20,9 +20,9 @@
 {{-- <link rel="stylesheet" type="text/css" href="css/vendor.css"> --}}
 <link rel="stylesheet" href="{{ asset('frontend/css/vendor.css') }}">
 
-<link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
+{{-- <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="{{ asset('frontend/css/login.css')  }}">
+<link rel="stylesheet" href="{{ asset('frontend/css/login.css')  }}"> --}}
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,4 +33,5 @@
 ================================================== -->
 {{-- <script src="js/modernizr.js"></script> --}}
 <script type="text/javascript" src="{{ asset('frontend/js/modernizr.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @stack('styles')

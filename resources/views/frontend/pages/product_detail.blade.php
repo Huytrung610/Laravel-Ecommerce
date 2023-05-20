@@ -13,13 +13,16 @@
         <div class="row mt-5">
             <div class="col-lg-6">
                 <div class="product-preview mb-3">
-                    <img src="{{ asset('frontend/images/single_product_1.png') }}" alt="single-product" class="img-fluid">
+                    <img alt="single-product" class="img-fluid"> 
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="product-info">
                     <div class="element-header">
+
                         <h3 itemprop="name" class="display-7 text-uppercase">{{$productDetail->title}}</h3>
+
+                     
                     </div>
                     <div class="product-price pt-3 pb-3">
                         <strong class="text-primary display-6 fw-bold">7.990.000 VNĐ</strong>
@@ -33,26 +36,24 @@
                                 <ul class="select-list list-unstyled d-flex">
                                     <li class="select-item pe-3" data-val="Green" title="Green">
                                         <a href="#">Green</a>
+                                <ul class="select-list list-unstyled d-flex product-color">
+                                    <li class="select-item pe-3" data-val="Cream" title="Cream">
+                                        <span class="cream active" data-color="#f4e9d4" data-pic="{{ asset('frontend/images/watch_cream_550.png') }}"></span>             
+                                    </li>
+
+                                    <li class="select-item pe-3" data-val="Green" title="Green">
+                                        <span class="green" data-color="#badc58" data-pic="{{ asset('frontend/images/watch_green_550.png') }}"></span>
+                                    </li>
+                                    
+                                    <li class="select-item pe-3" data-val="Mignight" title="Midnight">
+                                        <span class="midnight" data-color="#000" data-pic="{{ asset('frontend/images/watch_midnight_550.png') }}"></span>
+                                    </li>
+                                    <li class="select-item" data-val="Blue" title="Blue">
+                                        <span class="blue" data-color="#174c6f" data-pic="{{ asset('frontend/images/watch_blue_550.png') }}"></span>
+
                                     </li>
                                 </ul>
                             </div>
-                        </div>
-                        <div class="swatch product-select" data-option-index="1">
-                            <h4 class="item-title text-uppercase text-dark text-decoration-underline">Size:</h4>
-                            <ul class="select-list list-unstyled d-flex">
-                                <li data-value="S" class="select-item pe-3">
-                                    <a href="#">41mm</a>
-                                </li>
-                                <li data-value="M" class="select-item pe-3">
-                                    <a href="#">45mm</a>
-                                </li>
-                                <!-- <li data-value="L" class="select-item pe-3">
-                                    <a href="#">M</a>
-                                </li>
-                                <li data-value="L" class="select-item">
-                                    <a href="#">S</a>
-                                </li> -->
-                            </ul>
                         </div>
                         <div class="product-quantity">
                             <div class="stock-number text-dark">2 in stock</div>
@@ -147,80 +148,44 @@
                             tim không đều chỉ khả dụng trên watchOS cũng như iOS phiên bản mới nhất. Tính năng này không dành cho người dưới 22 tuổi và không được thiết kế dành cho người từng có kết quả chẩn đoán bị rung nhĩ (Afib).
                         </ul>
                     </div>
-                    <!-- <div class="tab-pane fade border-top border-bottom padding-small" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab">
-                        <div class="review-box d-flex flex-wrap">
-                            <div class="col-lg-6 d-flex flex-wrap">
-                                <div class="col-md-2">
-                                    <div class="image-holder">
-                                        <img src="images/review-item1.jpg" alt="review" class="img-fluid">
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="review-content">
-                                        <div class="rating-container d-flex align-items-center">
-                                            <div class="rating" data-rating="1" onclick="rate(1)">
-                                                <i class="icon icon-star"></i>
-                                            </div>
-                                            <div class="rating" data-rating="2" onclick="rate(1)">
-                                                <i class="icon icon-star"></i>
-                                            </div>
-                                            <div class="rating" data-rating="3" onclick="rate(1)">
-                                                <i class="icon icon-star"></i>
-                                            </div>
-                                            <div class="rating" data-rating="4" onclick="rate(1)">
-                                                <i class="icon icon-star-half"></i>
-                                            </div>
-                                            <div class="rating" data-rating="5" onclick="rate(1)">
-                                                <i class="icon icon-star-empty"></i>
-                                            </div>
-                                            <span class="rating-count">(3.5)</span>
-                                        </div>
-                                        <div class="review-header">
-                                            <span class="author-name">Tina Johnson</span>
-                                            <span class="review-date">– 03/07/2023</span>
-                                        </div>
-                                        <p>Vitae tortor condimentum lacinia quis vel eros donec ac. Nam at lectus urna duis convallis convallis</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 d-flex flex-wrap">
-                                <div class="col-md-2">
-                                    <div class="image-holder">
-                                        <img src="images/review-item2.jpg" alt="review" class="img-fluid">
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="review-content">
-                                        <div class="rating-container d-flex align-items-center">
-                                            <div class="rating" data-rating="1" onclick="rate(1)">
-                                                <i class="icon icon-star"></i>
-                                            </div>
-                                            <div class="rating" data-rating="2" onclick="rate(1)">
-                                                <i class="icon icon-star"></i>
-                                            </div>
-                                            <div class="rating" data-rating="3" onclick="rate(1)">
-                                                <i class="icon icon-star"></i>
-                                            </div>
-                                            <div class="rating" data-rating="4" onclick="rate(1)">
-                                                <i class="icon icon-star-half"></i>
-                                            </div>
-                                            <div class="rating" data-rating="5" onclick="rate(1)">
-                                                <i class="icon icon-star-empty"></i>
-                                            </div>
-                                            <span class="rating-count">(3.5)</span>
-                                        </div>
-                                        <div class="review-header">
-                                            <span class="author-name">Jenny Willis</span>
-                                            <span class="review-date">– 03/06/2022</span>
-                                        </div>
-                                        <p>Vitae tortor condimentum lacinia quis vel eros donec ac. Nam at lectus urna duis convallis convallis</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>
     </div>
 </section>
+@push('after_scripts')
+    {{-- <script> 
+    // hành động thay đổi ảnh khi click vào color
+    $(document).ready(function() {
+    $(".product-color span").click(function() {
+        $(".product-color span").removeClass("active");
+        $(this).addClass("active");
+        var imageUrl = $(this).attr("data-pic");
+        $(".img-fluid").attr("src", imageUrl);
+    });
+});
+</script> --}}
+    <script>
+        // hành động active màu đầu tiên mỗi khi load lại trang hay vào trang + hành động thay đổi ảnh khi click vào color tương ứng
+
+    $(document).ready(function() {
+    // Lấy URL ảnh của màu đầu tiên và đặt nó vào thuộc tính src của ảnh
+        var firstColorImageUrl = $(".product-color span:first-child").attr("data-pic");
+        $(".img-fluid").attr("src", firstColorImageUrl);
+
+    // Xử lý sự kiện click cho các phần tử span
+     $(".product-color span").click(function() {
+         $(".product-color span").removeClass("active");
+         $(this).addClass("active");
+         var imageUrl = $(this).attr("data-pic");
+         $(".img-fluid").attr("src", imageUrl);
+        });
+    });
+
+    $(window).on("load", function() {
+     // Lấy URL ảnh của màu đầu tiên và đặt nó vào thuộc tính src của ảnh
+     var firstColorImageUrl = $(".product-color span:first-child").attr("data-pic");
+         $(".img-fluid").attr("src", firstColorImageUrl);
+    });
+    </script>
+@endpush

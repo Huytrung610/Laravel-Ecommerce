@@ -1269,12 +1269,49 @@ figure.instagram-item img.insta-image {
 }
 
 
-/* .user-profile .username {
-    font-size: 14px;
-    text-transform: none;
-} */
+/* các lớp chỉnh màu cho product (color product): */
+
+.blue {
+    background: #174c6f;
+}
+
+.green {
+    background: #badc58;
+}
+
+.midnight {
+    background: #000;
+}
+
+.cream {
+    background: #f4e9d4;
+}
 
 
-/* .dropdown-item .username {
-    font-weight: normal;
-} */
+/* css các thẻ trong chi tiết sản phẩm  */
+
+.product-color span {
+    width: 14px;
+    height: 14px;
+    margin: 0 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+}
+
+.product-color span {
+    display: inline-block;
+    /* Hoặc display: block; */
+}
+
+.product-color .active:after {
+    content: "";
+    width: 22px;
+    height: 22px;
+    border: 2px solid #8888;
+    position: absolute;
+    border-radius: 50%;
+    box-sizing: border-box;
+    left: -4px;
+    top: -4px;
+}
