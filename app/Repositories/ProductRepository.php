@@ -30,27 +30,17 @@ class ProductRepository implements ProductRepositoryInterface
     }
 
  
-    // public function getAllProductWithSlugOfCategory($slug, $storeId = 0) {
-    //    $category = Category::with('products')->where('slug', $slug)->first();
-    //    $allProductIds  = [];
-    //    if(!empty($category)) {
-    //        $allProductIds = $category->products->pluck('id');
-    //    }
-    //    return Product::setStore($storeId)->select(['attr.*'])->whereIn('id', $allProductIds)->whereAttribute('status', 'active')->paginate(Product::DEFAULT_PER_PAGE);
-    // }
+    public function getAllProductWithSlugOfCategory($slug) {
+        $category = Category::with('products')->where('slug', $slug)->first();
+        $allProductIds  = [];
+        if(!empty($category)) {
+            $allProductIds = $category->products->pluck('id');
+        }
+        return Product::whereIn('id', $allProductIds)->where('status', 'active')->paginate(Product::DEFAULT_PER_PAGE);
+     }
 
-  
-    // public function getProductWithSlug($slug, $storeId = 0) {
-    //     return Product::with(['cat_info', 'rel_prods', 'getReview'])
-    //         ->setStore($storeId)->select(['attr.*'])
-    //         ->where('slug', $slug)->first();
-    // }
-
-
-    // public function getProductWithId($id, $storeId = 0) {
-    //     return Product::with(['cat_info', 'rel_prods', 'getReview'])
-    //         ->setStore($storeId)->select(['attr.*'])
-    //         ->where('id', $id)->first();
-    // }
+    public function getProductWithSlug($slug) {
+        return Product::with('attribute')->where('slug', $slug)->first();
+    }
 
 }

@@ -24,119 +24,7 @@ class FrontendController extends Controller
         return view('frontend.index');
           
     }
-
-    // public function aboutUs(){
-    //     return view('frontend.pages.about-us');
-    // }
-
-    // public function contact(){
-    //     return view('frontend.pages.contact');
-    // }
-
-    // public function Profile(){
-    //     /** @var User $user */
-    //     $user        = Auth::user();
-    //     $address     = $user->getAddress();
-    //     $defaultAddress = $user->getAddressDefault();
-
-    //     return view('frontend.pages.profile', ['addressList' => $address, 'defaultAddress' => $defaultAddress]);
-    // }
-    // public function Chat(){
-    //     return view('frontend.pages.chat');
-    // }
-    // public function Order(Request $request){
-    //     $orderList = $this->orderHelper->prepareOrderList($request);
-    //     return view('frontend.pages.order')->with('orderList', $orderList);
-    // }
-
-    // public function productFilter(Request $request){
-    //         $data= $request->all();
-    //         // return $data;
-    //         $showURL="";
-    //         if(!empty($data['show'])){
-    //             $showURL .='&show='.$data['show'];
-    //         }
-
-    //         $sortByURL='';
-    //         if(!empty($data['sortBy'])){
-    //             $sortByURL .='&sortBy='.$data['sortBy'];
-    //         }
-
-    //         $catURL="";
-    //         if(!empty($data['category'])){
-    //             foreach($data['category'] as $category){
-    //                 if(empty($catURL)){
-    //                     $catURL .='&category='.$category;
-    //                 }
-    //                 else{
-    //                     $catURL .=','.$category;
-    //                 }
-    //             }
-    //         }
-
-    //         $brandURL="";
-    //         if(!empty($data['brand'])){
-    //             foreach($data['brand'] as $brand){
-    //                 if(empty($brandURL)){
-    //                     $brandURL .='&brand='.$brand;
-    //                 }
-    //                 else{
-    //                     $brandURL .=','.$brand;
-    //                 }
-    //             }
-    //         }
-    //         // return $brandURL;
-
-    //         $priceRangeURL="";
-    //         if(!empty($data['price_range'])){
-    //             $priceRangeURL .='&price='.$data['price_range'];
-    //         }
-    //         if(request()->is('e-shop.loc/product-grids')){
-    //             return redirect()->route('product-grids',$catURL.$brandURL.$priceRangeURL.$showURL.$sortByURL);
-    //         }
-    //         else{
-    //             return redirect()->route('product-lists',$catURL.$brandURL.$priceRangeURL.$showURL.$sortByURL);
-    //         }
-    // }
-
-
-    // public function productSearch(Request $request){
-    //     $recent_products=Product::where('status','active')->orderBy('id','DESC')->limit(3)->get();
-    //     $products=Product::orwhere('title','like','%'.$request->search.'%')
-    //                 ->orwhere('slug','like','%'.$request->search.'%')
-    //                 ->orwhere('description','like','%'.$request->search.'%')
-    //                 ->orwhere('summary','like','%'.$request->search.'%')
-    //                 ->orwhere('price','like','%'.$request->search.'%')
-    //                 ->orderBy('id','DESC')
-    //                 ->paginate('9');
-    //     return view('frontend.pages.product-grids')->with('products',$products)->with('recent_products',$recent_products);
-    // }
-
-    // public function productBrand(Request $request){
-    //     $products=Brand::getProductByBrand($request->slug);
-    //     $recent_products=Product::where('status','active')->orderBy('id','DESC')->limit(3)->get();
-    //     if(request()->is('e-shop.loc/product-grids')){
-    //         return view('frontend.pages.product-grids')->with('products',$products->products)->with('recent_products',$recent_products);
-    //     }
-    //     else{
-    //         return view('frontend.pages.product-lists')->with('products',$products->products)->with('recent_products',$recent_products);
-    //     }
-
-    // }
-
-    // public function productSubCat(Request $request){
-    //     $products=Category::getProductBySubCat($request->sub_slug);
-    //     // return $products;
-    //     $recent_products=Product::where('status','active')->orderBy('id','DESC')->limit(3)->get();
-
-    //     if(request()->is('e-shop.loc/product-grids')){
-    //         return view('frontend.pages.product-grids')->with('products',$products->sub_products)->with('recent_products',$recent_products);
-    //     }
-    //     else{
-    //         return view('frontend.pages.product-lists')->with('products',$products->sub_products)->with('recent_products',$recent_products);
-    //     }
-
-    // }
+ 
 
     // Login
     public function login(){
@@ -228,22 +116,53 @@ class FrontendController extends Controller
     }
 
 
-    // public function subscribe(Request $request){
-    //     if(! Newsletter::isSubscribed($request->email)){
-    //             Newsletter::subscribePending($request->email);
-    //             if(Newsletter::lastActionSucceeded()){
-    //                 request()->session()->flash('success','Subscribed! Please check your email');
-    //                 return redirect()->route('home');
-    //             }
-    //             else{
-    //                 Newsletter::getLastError();
-    //                 return back()->with('error','Something went wrong! please try again');
-    //             }
-    //         }
-    //         else{
-    //             request()->session()->flash('error','Already Subscribed');
-    //             return back();
-    //         }
-    // }
+    public function productFilter(Request $request){
+        $data= $request->all();
+        // return $data;
+        $showURL="";
+        if(!empty($data['show'])){
+            $showURL .='&show='.$data['show'];
+        }
 
+        $sortByURL='';
+        if(!empty($data['sortBy'])){
+            $sortByURL .='&sortBy='.$data['sortBy'];
+        }
+
+        $catURL="";
+        if(!empty($data['category'])){
+            foreach($data['category'] as $category){
+                if(empty($catURL)){
+                    $catURL .='&category='.$category;
+                }
+                else{
+                    $catURL .=','.$category;
+                }
+            }
+        }
+
+        $brandURL="";
+        if(!empty($data['brand'])){
+            foreach($data['brand'] as $brand){
+                if(empty($brandURL)){
+                    $brandURL .='&brand='.$brand;
+                }
+                else{
+                    $brandURL .=','.$brand;
+                }
+            }
+        }
+        // return $brandURL;
+
+        $priceRangeURL="";
+        if(!empty($data['price_range'])){
+            $priceRangeURL .='&price='.$data['price_range'];
+        }
+        if(request()->is('e-shop.loc/product-grids')){
+            return redirect()->route('product-grids',$catURL.$brandURL.$priceRangeURL.$showURL.$sortByURL);
+        }
+        else{
+            return redirect()->route('product-lists',$catURL.$brandURL.$priceRangeURL.$showURL.$sortByURL);
+        }
+}
 }

@@ -19,19 +19,23 @@
             <div class="col-lg-6">
                 <div class="product-info">
                     <div class="element-header">
-                        <h3 itemprop="name" class="display-7 text-uppercase">Apple Watch Series 7 Nhôm GPS</h3>
+
+                        <h3 itemprop="name" class="display-7 text-uppercase">{{$productDetail->title}}</h3>
+
+                     
                     </div>
                     <div class="product-price pt-3 pb-3">
                         <strong class="text-primary display-6 fw-bold">7.990.000 VNĐ</strong>
                     </div>
-                    <p>Apple Watch Series 7 (GPS) Màn hình Retina Luôn Bật lớn nhất, tiên tiến nhất giúp mọi tác vụ bạn thực hiện với Apple Watch Series 7 trông lớn hơn và đẹp hơn. Series 7 là Apple Watch bền bỉ nhất từng được chế tạo, với mặt trước
-                        bằng thủy tinh chống nứt tốt hơn. Các tính năng tiên tiến giúp bạn đo mức ôxi trong máu, đo điện tâm đồ (ECG) bất kỳ lúc nào, truy cập ứng dụng theo dõi giấc ngủ và ứng dụng chú tâm. Bạn cũng có thể theo dõi hàng chục bài tập
-                        thể chất, bao gồm Thái Cực Quyền và pilates mới.
+                    <p>{{strip_tags($productDetail->description)}}
                     </p>
                     <div class="cart-wrap padding-small">
                         <div class="color-options product-select">
                             <div class="color-toggle" data-option-index="0">
                                 <h4 class="item-title text-uppercase text-dark text-decoration-underline">Color:</h4>
+                                <ul class="select-list list-unstyled d-flex">
+                                    <li class="select-item pe-3" data-val="Green" title="Green">
+                                        <a href="#">Green</a>
                                 <ul class="select-list list-unstyled d-flex product-color">
                                     <li class="select-item pe-3" data-val="Cream" title="Cream">
                                         <span class="cream active" data-color="#f4e9d4" data-pic="{{ asset('frontend/images/watch_cream_550.png') }}"></span>             
@@ -46,27 +50,11 @@
                                     </li>
                                     <li class="select-item" data-val="Blue" title="Blue">
                                         <span class="blue" data-color="#174c6f" data-pic="{{ asset('frontend/images/watch_blue_550.png') }}"></span>
+
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                        {{-- <div class="swatch product-select" data-option-index="1">
-                            <h4 class="item-title text-uppercase text-dark text-decoration-underline">Size:</h4>
-                            <ul class="select-list list-unstyled d-flex">
-                                <li data-value="S" class="select-item pe-3">
-                                    <a href="#">41mm</a>
-                                </li>
-                                <li data-value="M" class="select-item pe-3">
-                                    <a href="#">45mm</a>
-                                </li>
-                                <!-- <li data-value="L" class="select-item pe-3">
-                                    <a href="#">M</a>
-                                </li>
-                                <li data-value="L" class="select-item">
-                                    <a href="#">S</a>
-                                </li> -->
-                            </ul>
-                        </div> --}}
                         <div class="product-quantity">
                             <div class="stock-number text-dark">2 in stock</div>
                             <div class="stock-button-wrap pt-3">

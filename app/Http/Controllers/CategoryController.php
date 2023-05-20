@@ -17,6 +17,7 @@ class CategoryController extends Controller
 {
 
     const IS_PARENT_CATEGORY = 0;
+    const ATTRIBUTE_IS_PARENT = 'parent_id';
     
     const RULE_VALIDATE_COMMON = [
         'title' => 'string|required',
@@ -141,5 +142,17 @@ class CategoryController extends Controller
     {
         return Category::whereIn('id', $catId)->update(['parent_id' => 0]);
     }
+
+    public function productCat(Request $request)
+    {
+        $productRepository = new ProductRepository();
+        $products = $productRepository->getAllProductWithSlugOfCategory($request->slug, $storeId) ?? [];
+
+        return view('frontend.pages.product-lists')
+            ->with([
+                'products' => $products,
+            ]);
+    }
+
 
 }
