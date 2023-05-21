@@ -79,7 +79,7 @@ return redirect()->back()->with($flash['status'], $flash['message']);
             $flash['message'] = $e->getMessage();
         }
 
-        return redirect()->route()->with($flash['status'], $flash['message']);
+        return redirect()->back()->with($flash['status'], $flash['message']);
     }
    
     
