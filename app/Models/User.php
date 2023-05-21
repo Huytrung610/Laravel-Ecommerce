@@ -59,13 +59,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
-
     public function getAddress()
     {
         return $this->hasMany('App\Models\CustomerAddress', 'user_id', 'id')
             ->orderBy('is_default', 'DESC')
             ->get();
+    }
+
+    public function getAddressDefault()
+    {
+        $defaultAddress = $this->hasOne('App\Models\CustomerAddress', 'user_id', 'id')
+            ->where('is_default', CustomerAddress::DEFAULT)
+            ->first();
+        if (!$defaultAddress) {
+            $defaultAddress = $this->getAddress()->first();
+        }
+
+        return $defaultAddress;
     }
 
 }
