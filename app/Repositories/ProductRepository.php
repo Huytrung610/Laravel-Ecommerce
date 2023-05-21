@@ -40,7 +40,7 @@ class ProductRepository implements ProductRepositoryInterface
      }
 
     public function getProductWithSlug($slug) {
-        return Product::with('attribute')->where('slug', $slug)->first();
+        return Product::with(['attributes','category'])->where('slug', $slug)->first();
     }
 
 }

@@ -10,6 +10,7 @@
 
 <section id="selling-product" class="single-product padding-xlarge">
     <div class="container">
+        @csrf
         <div class="row mt-5">
             <div class="col-lg-6">
                 <div class="product-preview mb-3">
@@ -19,44 +20,34 @@
             <div class="col-lg-6">
                 <div class="product-info">
                     <div class="element-header">
-
                         <h3 itemprop="name" class="display-7 text-uppercase">{{$productDetail->title}}</h3>
-
-                     
                     </div>
                     <div class="product-price pt-3 pb-3">
-                        <strong class="text-primary display-6 fw-bold">7.990.000 VNĐ</strong>
+                        <strong class="text-primary display-6 fw-bold price-product">{{$productDetail->price}}</strong>
                     </div>
-                    <p>{{strip_tags($productDetail->description)}}
+                    <p>{{strip_tags($productDetail->summary)}}
                     </p>
                     <div class="cart-wrap padding-small">
                         <div class="color-options product-select">
                             <div class="color-toggle" data-option-index="0">
                                 <h4 class="item-title text-uppercase text-dark text-decoration-underline">Color:</h4>
-                                <ul class="select-list list-unstyled d-flex">
-                                    <li class="select-item pe-3" data-val="Green" title="Green">
-                                        <a href="#">Green</a>
+                                <ul class="select-list list-unstyled d-flex" id="color-list">
+                                    @php  
+                                        $listColor = App\Models\Attribute::where('product_id', $productDetail->id)->get();    
+                                    @endphp
+                                    @foreach($listColor as $color )
+                                    <li class="select-item color-product pe-3" data-val="{{$color->sku}}" data-color="{{$color->color}}">
+                                        <a href="#">{{$color->color}}</a>
+                                    @endforeach
                                 <ul class="select-list list-unstyled d-flex product-color">
                                     <li class="select-item pe-3" data-val="Cream" title="Cream">
-                                        <span class="cream active" data-color="#f4e9d4" data-pic="{{ asset('frontend/images/watch_cream_550.png') }}"></span>             
-                                    </li>
-
-                                    <li class="select-item pe-3" data-val="Green" title="Green">
-                                        <span class="green" data-color="#badc58" data-pic="{{ asset('frontend/images/watch_green_550.png') }}"></span>
-                                    </li>
-                                    
-                                    <li class="select-item pe-3" data-val="Mignight" title="Midnight">
-                                        <span class="midnight" data-color="#000" data-pic="{{ asset('frontend/images/watch_midnight_550.png') }}"></span>
-                                    </li>
-                                    <li class="select-item" data-val="Blue" title="Blue">
-                                        <span class="blue" data-color="#174c6f" data-pic="{{ asset('frontend/images/watch_blue_550.png') }}"></span>
-
+                                        <span class="cream active" data-color="#f4e9d4" data-pic="{{ $productDetail->photo }}"></span>             
                                     </li>
                                 </ul>
                             </div>
                         </div>
                         <div class="product-quantity">
-                            <div class="stock-number text-dark">2 in stock</div>
+                            <div class="stock-number text-dark stock-product"></div>
                             <div class="stock-button-wrap pt-3">
 
                                 <div class="input-group product-qty">
@@ -83,7 +74,7 @@
                         <div class="meta-item d-flex align-items-baseline">
                             <h4 class="item-title no-margin pe-2">SKU:</h4>
                             <ul class="select-list list-unstyled d-flex">
-                                <li data-value="S" class="select-item">1223</li>
+                                <li data-value="S" class="select-item"></li>
                             </ul>
                         </div>
                         <div class="meta-item d-flex align-items-baseline">
@@ -128,14 +119,7 @@
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active border-top border-bottom padding-small" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                         <p>Product Description</p>
-                        <p>Tính năng nổi bật</p>
-                        <ul style="list-style-type:disc;" class="list-unstyled ps-4">
-                            <li>Màn hình Retina Luôn Bật với diện tích lớn hơn Series 6 gần 20%, giúp bạn xem và sử dụng mọi thứ dễ dàng hơn</li>
-                            <li>Mặt trước bằng thủy tinh chống nứt tốt nhất trên Apple Watch, đạt chuẩn chống bụi IP6X và thiết kế chống thấm nước khi bơi lội</li>
-                            <li>Đo mức ôxi trong máu bằng cảm biến và ứng dụng mạnh mẽ</li>
-                            <li>Đo điện tâm đồ (ECG) mọi lúc, mọi nơi </li>
-                            <li>Nhận thông báo nhịp tim nhanh hay chậm và thông báo nhịp tim không đều </li>
-                        </ul>
+                        <div class="description">{!! html_entity_decode($productDetail->description)!!}</div>
                         <!-- <p>Các thông tin Apple đảm bảo ( Pháp lý)</p>
                         <ul style="list-style-type:disc;" class="list-unstyled ps-4">aaa</ul> -->
                     </div>
@@ -154,17 +138,51 @@
     </div>
 </section>
 @push('after_scripts')
-    {{-- <script> 
-    // hành động thay đổi ảnh khi click vào color
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+
     $(document).ready(function() {
-    $(".product-color span").click(function() {
-        $(".product-color span").removeClass("active");
-        $(this).addClass("active");
-        var imageUrl = $(this).attr("data-pic");
-        $(".img-fluid").attr("src", imageUrl);
+        $('#color-list').on('click', '.color-product', function(e) {
+            e.preventDefault();
+            var color = $(this).data('color');
+            var sku = $(this).data('val');
+            var url = window.location.href;
+
+            $.ajax({
+                url: url,
+                method: 'GET',
+                data: {
+                    color: color,
+                    sku: sku
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // Cập nhật slug
+                    history.replaceState(null, '', url);
+                    console.log(response);
+                    // Cập nhật giá trị price và stock
+                    var price = response.price;
+                    var stock = response.stock;
+
+                    // Hiển thị giá trị mới
+                    $('.price-product').text(price);
+                    $('.stock-product').text(stock);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
     });
-});
-</script> --}}
+</script>
+
+
+
+
     <script>
         // hành động active màu đầu tiên mỗi khi load lại trang hay vào trang + hành động thay đổi ảnh khi click vào color tương ứng
 
