@@ -115,54 +115,5 @@ class FrontendController extends Controller
             ]);
     }
 
-
-    public function productFilter(Request $request){
-        $data= $request->all();
-        // return $data;
-        $showURL="";
-        if(!empty($data['show'])){
-            $showURL .='&show='.$data['show'];
-        }
-
-        $sortByURL='';
-        if(!empty($data['sortBy'])){
-            $sortByURL .='&sortBy='.$data['sortBy'];
-        }
-
-        $catURL="";
-        if(!empty($data['category'])){
-            foreach($data['category'] as $category){
-                if(empty($catURL)){
-                    $catURL .='&category='.$category;
-                }
-                else{
-                    $catURL .=','.$category;
-                }
-            }
-        }
-
-        $brandURL="";
-        if(!empty($data['brand'])){
-            foreach($data['brand'] as $brand){
-                if(empty($brandURL)){
-                    $brandURL .='&brand='.$brand;
-                }
-                else{
-                    $brandURL .=','.$brand;
-                }
-            }
-        }
-        // return $brandURL;
-
-        $priceRangeURL="";
-        if(!empty($data['price_range'])){
-            $priceRangeURL .='&price='.$data['price_range'];
-        }
-        if(request()->is('e-shop.loc/product-grids')){
-            return redirect()->route('product-grids',$catURL.$brandURL.$priceRangeURL.$showURL.$sortByURL);
-        }
-        else{
-            return redirect()->route('product-lists',$catURL.$brandURL.$priceRangeURL.$showURL.$sortByURL);
-        }
-}
+    
 }
