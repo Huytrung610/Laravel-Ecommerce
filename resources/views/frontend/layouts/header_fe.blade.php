@@ -1,5 +1,18 @@
 {{-- trang header_fe chỉ dùng cho index_fe --}}
 @include('frontend.popup.search')
+@if ($errors->any())
+    <div class="alert alert-danger alert-dismissable fade show text-center">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>  
+@elseif(session('success'))
+    <div class="alert alert-success alert-dismissable fade show text-center">
+        {{session('success')}}
+    </div>
+@endif
 <header id="header" class="site-header header-scrolled position-fixed text-black bg-light header">
     <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
         <div class="container-fluid">
@@ -76,6 +89,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
+                            @if(Auth::check())
                             <div class="user-items ps-5">
                                 <ul class="d-flex justify-content-end list-unstyled">
                                    
@@ -101,7 +115,7 @@
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                           <li><a class="dropdown-item" href="#"><span class="small-text" style="font-weight: 600">Nguyễn Anh Dũng</span></a></li>
-                                          <li><a class="dropdown-item" href="#" id="log-out"><span class="small-text">Đăng xuất</span></a></li>
+                                          <li><a class="dropdown-item" href="{{route('user.logout')}}" id="log-out"><span class="small-text">Đăng xuất</span></a></li>
                                         </ul>
                                       </li>
                                       
@@ -123,6 +137,10 @@
                                     </li>
                                 </ul>
                             </div>
+                    
+                        @else
+                                <li class="box_login"><a class="login" href="{{route('login.form')}}">{{ __('Login') }}</a></li>
+                            @endif                      
                         </li>
                     </ul>
                 </div>

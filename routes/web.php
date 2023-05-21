@@ -37,6 +37,7 @@ Route::group(['prefix' => 'filemanager', 'middleware' => [config('backpack.base.
 Route::get('user/login','App\Http\Controllers\FrontendController@login')->name('login.form');
 Route::post('user/login','App\Http\Controllers\FrontendController@loginSubmit')->name('login.submit');
 Route::post('user/register', 'App\Http\Controllers\FrontendController@registerSubmit')->name('register.submit');
+Route::get('user/logout','App\Http\Controllers\FrontendController@logout')->name('user.logout');
 
 Route::get('/index', function () {
     return view('frontend.index');
