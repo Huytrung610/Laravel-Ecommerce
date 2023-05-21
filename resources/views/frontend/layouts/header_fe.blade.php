@@ -13,6 +13,14 @@
         {{session('success')}}
     </div>
 @endif
+@php
+    $user = auth()->user() ?? null;
+    if(Auth::check()){
+        $listAddress = $user->getAddress();
+        $defaultAddress =$user->getAddressDefault() ?? $listAddress->First();
+    }
+
+@endphp
 <header id="header" class="site-header header-scrolled position-fixed text-black bg-light header">
     <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
         <div class="container-fluid">
@@ -114,7 +122,7 @@
                                           </svg>
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                          <li><a class="dropdown-item" href="#"><span class="small-text" style="font-weight: 600">Nguyễn Anh Dũng</span></a></li>
+                                          <li><a class="dropdown-item" href="#"><span class="small-text" style="font-weight: 600">{{ $defaultAddress->name}}</span></a></li>
                                           <li><a class="dropdown-item" href="{{route('user.logout')}}" id="log-out"><span class="small-text">Đăng xuất</span></a></li>
                                         </ul>
                                       </li>
