@@ -100,12 +100,13 @@ class FrontendController extends Controller
         Session::put('user', $data['email']);
         if ($check) {
             request()->session()->flash('success', 'Successfully registered');
-            return redirect()->route('home');
+            return redirect()->route('login.form');
         } else {
             request()->session()->flash('error', 'Please try again!');
             return back();
         }
     }
+    
     public function create(array $data){
         return User::create([
             'name'=>$data['name'],
