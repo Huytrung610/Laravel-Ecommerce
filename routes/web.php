@@ -47,9 +47,7 @@ Route::get('/shop', function () {
 });
 
 // Product
-Route::get('/shop', function () {
-    return view('frontend.pages.product-lists');
-});
+Route::get('product-detail', 'App\Http\Controllers\ProductController@getAllProduct')->name('product-all');
 Route::get('product-detail/{slug}', 'App\Http\Controllers\ProductController@productDetail')->name('product-detail');
 Route::get('/product-cat/{slug}', 'App\Http\Controllers\ProductController@productCat')->name('product-cat');
 Route::match(['get','post'],'/filter','App\Http\Controllers\FrontendController@productFilter')->name('shop.filter');
