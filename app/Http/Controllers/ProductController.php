@@ -119,6 +119,10 @@ class ProductController extends Controller
         return redirect()->route('product.index');
     }
 
+    public function getAllProduct(){
+        $products = Product::all();
+        return view('frontend.pages.product-lists',compact('products') );
+    }
 
     public function productDetail($slug)
     {   
