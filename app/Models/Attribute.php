@@ -24,6 +24,11 @@ class Attribute extends Model
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class,'product_id');
+    }
     
     
 }

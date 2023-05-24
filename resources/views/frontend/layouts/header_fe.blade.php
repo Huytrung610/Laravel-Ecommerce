@@ -129,9 +129,9 @@
                                       
 
                                     <li class="pe-3">
-                                        <a href="cart">
+                                        <a href="{{route('checkout')}}">
                                             <svg class="cart">
-                        <use xlink:href="#cart"></use>
+                        <use xlink:href=""></use>
                       </svg>
                                         </a>
                                     </li>
