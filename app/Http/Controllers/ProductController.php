@@ -138,7 +138,8 @@ class ProductController extends Controller
         // Trả về response dưới dạng JSON
         return response()->json([
             'price' => $attribute->price,
-            'stock' => $attribute->stock
+            'stock' => $attribute->stock,
+            'sku' => $attribute->sku
         ]);
     }
         $productRepository = new ProductRepository();

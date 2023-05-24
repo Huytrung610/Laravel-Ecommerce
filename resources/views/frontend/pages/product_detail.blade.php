@@ -1,7 +1,7 @@
 @extends('frontend.layouts.master')
 @section('title', env('APP_NAME') . ' || Product Detail')
 @section('main-content')
-@include('frontend.layouts.header')
+@include('frontend.layouts.header_fe')
 
 @php
     $svgContent = file_get_contents(public_path('frontend/svg/product.svg'));
@@ -10,7 +10,7 @@
 
 <section id="selling-product" class="single-product padding-xlarge">
     <div class="container">
-        @csrf
+        
         <div class="row mt-5">
             <div class="col-lg-6">
                 <div class="product-preview mb-3">
@@ -27,56 +27,64 @@
                     </div>
                     <p>{{strip_tags($productDetail->summary)}}
                     </p>
-                    <div class="cart-wrap padding-small">
-                        <div class="color-options product-select">
-                            <div class="color-toggle" data-option-index="0">
-                                <h4 class="item-title text-uppercase text-dark text-decoration-underline">Color:</h4>
-                                <ul class="select-list list-unstyled d-flex" id="color-list">
-                                    @php  
-                                        $listColor = App\Models\Attribute::where('product_id', $productDetail->id)->get();    
-                                    @endphp
-                                    @foreach($listColor as $color )
-                                    <li class="select-item color-product pe-3" data-val="{{$color->sku}}" data-color="{{$color->color}}">
-                                        <a href="#">{{$color->color}}</a>
-                                    @endforeach
-                                <ul class="select-list list-unstyled d-flex product-color">
-                                    <li class="select-item pe-3" data-val="Cream" title="Cream">
-                                        <span class="cream active" data-color="#f4e9d4" data-pic="{{ $productDetail->photo }}"></span>             
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product-quantity">
-                            <div class="stock-number text-dark stock-product"></div>
-                            <div class="stock-button-wrap pt-3">
-
-                                <div class="input-group product-qty">
-                                    <span class="input-group-btn">
-                        <button type="button" class="quantity-left-minus btn btn-number"  data-type="minus" data-field="">
-                          -
-                        </button>
-                    </span>
-                                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
-                                    <span class="input-group-btn">
-                        <button type="button" class="quantity-right-plus btn btn-number" data-type="plus" data-field="">
-                            +
-                        </button>
-                    </span>
-                                </div>
-                                <div class="qty-button d-flex flex-wrap pt-3">
-                                    <button type="submit" class="btn btn-primary btn-medium text-uppercase me-3 mt-3">Buy now</button>
-                                    <button type="submit" name="add-to-cart" value="1269" class="btn btn-black btn-medium text-uppercase mt-3">Add to cart</button>
+                    <form action="{{route('single-add-to-cart')}}" method="POST">
+                    @csrf
+                        <div class="cart-wrap padding-small">
+                            <div class="color-options product-select">
+                                <div class="color-toggle" data-option-index="0">
+                                    <h4 class="item-title text-uppercase text-dark text-decoration-underline">Color:</h4>
+                                    <ul class="select-list list-unstyled d-flex" id="color-list">
+                                        @php  
+                                            $listColor = App\Models\Attribute::where('product_id', $productDetail->id)->get();    
+                                        @endphp
+                                        @foreach($listColor as $color )
+                                        <input type="hidden" name="sku" class="sku-product" value="{{$color->sku}}">
+                                        <li class="select-item color-product pe-3" data-val="{{$color->sku}}" data-color="{{$color->color}}">
+                                            <a href="#">{{$color->color}}</a>
+                                        @endforeach
+                                    <ul class="select-list list-unstyled d-flex product-color">
+                                        <li class="select-item pe-3" data-val="Cream" title="Cream">
+                                            <span class="cream active" data-color="#f4e9d4" data-pic="{{ $productDetail->photo }}"></span>             
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
+                            <div class="product-quantity">
+                                <div class="stock-number text-dark stock-product"></div>
+                                <div class="stock-button-wrap pt-3">
+                                    
+                                    <div class="input-group product-qty">
+                                        
+                                                <span class="input-group-btn">
+                                            <button type="button" class="quantity-left-minus btn btn-number"  data-type="minus" data-field="quant[1]">
+                                            -
+                                            </button>
+                                        </span>
+                                                <input type="text" id="quantity" name="quant[1]" class="form-control input-number" data-min="1"
+                                                data-max="1000" value="1">
+                                                <span class="input-group-btn">
+                                            <button type="button" class="quantity-right-plus btn btn-number" data-type="plus" data-field="quant[1]">
+                                                +
+                                            </button>
+                                        </span>
+                                    </div>
+                                    @guest
+                                        <div class="qty-button d-flex flex-wrap pt-3">
+                                            <button type="submit" class="btn btn-primary btn-medium text-uppercase me-3 mt-3">Buy now</button>
+                                            <button type="button" name="add-to-cart" value="1269" class="btn btn-black btn-medium text-uppercase mt-3">Add to cart</button>
+                                        </div>
+                                        @include('frontend.popup.sign-up-popup')
+                                    @else
+                                        <div class="qty-button d-flex flex-wrap pt-3">
+                                            <button type="submit" class="btn btn-primary btn-medium text-uppercase me-3 mt-3">Buy now</button>
+                                            <button type="submit" name="add-to-cart" value="1269" class="btn btn-black btn-medium text-uppercase mt-3">Add to cart</button>
+                                        </div>
+                                    @endguest
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                     <div class="meta-product py-2">
-                        <div class="meta-item d-flex align-items-baseline">
-                            <h4 class="item-title no-margin pe-2">SKU:</h4>
-                            <ul class="select-list list-unstyled d-flex">
-                                <li data-value="S" class="select-item"></li>
-                            </ul>
-                        </div>
                         <div class="meta-item d-flex align-items-baseline">
                             <h4 class="item-title no-margin pe-2">Category:</h4>
                             <ul class="select-list list-unstyled d-flex">
@@ -167,10 +175,13 @@
                     // Cập nhật giá trị price và stock
                     var price = response.price;
                     var stock = response.stock;
+                    var sku = response.sku
 
                     // Hiển thị giá trị mới
                     $('.price-product').text(price);
                     $('.stock-product').text(stock);
+                    $('.sku-product').val(sku);
+
                 },
                 error: function(xhr, status, error) {
                     console.error(error);
@@ -205,5 +216,17 @@
      var firstColorImageUrl = $(".product-color span:first-child").attr("data-pic");
          $(".img-fluid").attr("src", firstColorImageUrl);
     });
+
+    $('.open-sign-up-popup-wgt').click(function () {
+        $('#sign-up-popup').modal('show');
+    });
+    $('.sign-up-btn').click(function () {
+        window.location = "{{route('login.form')}}"
+    });
+    
     </script>
+
+
+    
+
 @endpush

@@ -1,0 +1,59 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Order extends Model
+{
+    const STATUS_NEW = 'new';
+    const STATUS_PROCESS = 'process';
+    const STATUS_DELIVERY = 'delivered';
+    const STATUS_CANCEL = 'cancel';
+
+    const LIST_ORDER_STATUS = [
+        self::STATUS_NEW,
+        self::STATUS_PROCESS,
+        self::STATUS_DELIVERY,
+        self::STATUS_CANCEL
+    ];
+
+
+    protected $fillable = [
+        'user_id',
+        'order_number',
+        'sub_total',
+        'quantity',
+        'status',
+        'total_amount',
+        'name',
+        'detail-address',
+        'phone',
+        'email',
+        'payment_method',
+        'payment_status',
+        'coupon',
+        'gender',
+        'remark',
+    ];
+
+
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user_id');
+    }
+
+    public function cart()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    public function cart_info()
+    {
+            return $this->hasMany('App\Models\Cart', 'order_id', 'id');
+    }
+
+
+
+}

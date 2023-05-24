@@ -52,6 +52,12 @@ Route::get('product-detail/{slug}', 'App\Http\Controllers\ProductController@prod
 Route::get('/product-cat/{slug}', 'App\Http\Controllers\ProductController@productCat')->name('product-cat');
 Route::match(['get','post'],'/filter','App\Http\Controllers\FrontendController@productFilter')->name('shop.filter');
 
+// Cart section
+Route::get('/add-to-cart/{slug}','CartController@addToCart')->name('add-to-cart');
+Route::post('/add-to-cart','App\Http\Controllers\CartController@singleAddToCart')->name('single-add-to-cart');
+
+// Checkout section
+Route::get('/checkout','App\Http\Controllers\CartController@checkout')->name('checkout');
 
 Route::get('/product', function () {
     return view('frontend.pages.product_detail');
