@@ -122,7 +122,10 @@
                                           </svg>
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                          <li><a class="dropdown-item" href="{{route('userprofile')}}" ><span class="small-text" style="font-weight: 600">{{ $defaultAddress->name}}</span></a></li>
+
+                                          
+                                          <li><a class="dropdown-item" href="#"><span class="small-text" style="font-weight: 600">{{ $defaultAddress->name ?? $user->name}}</span></a></li>
+
                                           <li><a class="dropdown-item" href="{{route('user.logout')}}" id="log-out"><span class="small-text">Đăng xuất</span></a></li>
                                         </ul>
                                       </li>

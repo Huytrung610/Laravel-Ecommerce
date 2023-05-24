@@ -1,7 +1,7 @@
 @extends('frontend.layouts.master')
 @section('title', env('APP_NAME') . ' || Product')
 @section('main-content')
-@include('frontend.layouts.header')
+@include('frontend.layouts.header_fe')
 
   @php
     $svgContent = file_get_contents(public_path('frontend/svg/shop.svg'));
