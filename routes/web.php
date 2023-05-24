@@ -62,3 +62,7 @@ Route::get('/product', function () {
 Route::get('/cart', function () {
     return view('frontend.pages.cart');
 });
+
+Route::get('/userprofile', function () {
+    return view('frontend.profile_user.user_master');
+})->name('userprofile');
