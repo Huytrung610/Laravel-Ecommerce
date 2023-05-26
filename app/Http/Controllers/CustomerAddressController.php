@@ -137,4 +137,50 @@ class CustomerAddressController extends Controller
 
         $addressModel->save();
     }
+
+    //Frontend
+    public function addNewAddress(Request $request){
+        $isDefault = CustomerAddress::DEFAULT;
+        $hasAddressIsDefault = [];
+        $flash = array(
+            'status' => 'success',
+            'message' => 'Successfully added new customer address'
+        );
+
+        try {
+            $data = $request->all();
+
+            isset($data['gender']) && $data['gender'] == '1'
+                ? $data['gender'] = CustomerAddress::GENDER_MALE
+                : $data['gender'] = CustomerAddress::GENDER_FEMALE;
+
+            $data['user_id'] = $data['user_id'] ?? auth()->user()->id;
+
+            $addressModel = new CustomerAddress();
+            $addressRow = CustomerAddress::where('user_id', $data['user_id'])->get();
+
+            if(!empty($addressRow)) {
+                foreach ($addressRow as $item) {
+                    if($item->is_default == $isDefault) {
+                        $hasAddressIsDefault[] = $item;
+                    }
+                }
+            }
+            if(empty($hasAddressIsDefault)) {
+                $data['is_default'] = $isDefault;
+            }
+            $this->prepareAddressDataModel($addressModel, $data);
+
+            if(isset($data['is_default']) && $data['is_default'] == CustomerAddress::DEFAULT) {
+                CustomerAddress::updateOtherDefault($addressModel->id, $data['user_id'])->update([
+                    'is_default' => CustomerAddress::NOT_DEFAULT,
+                ]);
+            }
+        } catch (\Exception $e) {
+            $flash['status']  = 'error';
+            $flash['message'] = $e->getMessage();
+        }
+        return redirect()->back()->with($flash['status'], $flash['message']);
+    }
+
 }
