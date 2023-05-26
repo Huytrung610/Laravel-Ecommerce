@@ -133,52 +133,52 @@ radioButtons.forEach(function(radioButton) {
 
 
 // VALIDATE KIỂM TRA TRA TRONG FORM ĐỔI MẬT KHẨU 
-$(document).ready(function() {
-    // Đăng ký sự kiện click cho nút "Update Password"
-    $('#update-password-btn').click(function() {
-        var oldPassword = $('#old-password').val();
-        var newPassword1 = $('#new-password-1').val();
-        var newPassword2 = $('#new-password-2').val();
+// $(document).ready(function() {
+//     // Đăng ký sự kiện click cho nút "Update Password"
+//     $('#update-password-btn').click(function() {
+//         var oldPassword = $('#old-password').val();
+//         var newPassword1 = $('#new-password-1').val();
+//         var newPassword2 = $('#new-password-2').val();
 
-        var passwordError = $('#password-error');
+//         var passwordError = $('#password-error');
 
-        // Reset error message
-        passwordError.empty();
+//         // Reset error message
+//         passwordError.empty();
 
-        // Kiểm tra các trường nhập liệu không được để trống
-        if (oldPassword === '' || newPassword1 === '' || newPassword2 === '') {
-            passwordError.text('Hãy điền đầy đủ các ô trống');
-            return;
-        }
+//         // Kiểm tra các trường nhập liệu không được để trống
+//         if (oldPassword === '' || newPassword1 === '' || newPassword2 === '') {
+//             passwordError.text('Hãy điền đầy đủ các ô trống');
+//             return;
+//         }
 
-        // kiểm tra mật khẩu mới không được giống mật khẩu cũ 
-        if (newPassword1 === oldPassword) {
-            passwordError.text('Mật khẩu mới không được trùng mật khẩu cũ');
-            return;
-        }
+//         // kiểm tra mật khẩu mới không được giống mật khẩu cũ 
+//         if (newPassword1 === oldPassword) {
+//             passwordError.text('Mật khẩu mới không được trùng mật khẩu cũ');
+//             return;
+//         }
 
-        // Kiểm tra xác nhận mật khẩu mới
-        if (newPassword1 !== newPassword2) {
-            passwordError.text('Mật khẩu xác nhận không giống mật khẩu mới');
-            return;
-        }
-
-
-        // Thực hiện logic cập nhật mật khẩu tại đây...
+//         // Kiểm tra xác nhận mật khẩu mới
+//         if (newPassword1 !== newPassword2) {
+//             passwordError.text('Mật khẩu xác nhận không giống mật khẩu mới');
+//             return;
+//         }
 
 
-        // Xóa giá trị các trường nhập liệu
-        $('#old-password').val('');
-        $('#new-password-1').val('');
-        $('#new-password-2').val('');
+//         // Thực hiện logic cập nhật mật khẩu tại đây...
 
-        // Hiển thị thông báo thành công hoặc thực hiện các hành động khác
-        // ...
 
-        // Đưa ra thông báo thành công
-        passwordError.text('Cập nhật mật khẩu mới thành công').removeClass('text-danger').addClass('text-success');
-    });
-});
+//         // Xóa giá trị các trường nhập liệu
+//         $('#old-password').val('');
+//         $('#new-password-1').val('');
+//         $('#new-password-2').val('');
+
+//         // Hiển thị thông báo thành công hoặc thực hiện các hành động khác
+//         // ...
+
+//         // Đưa ra thông báo thành công
+//         passwordError.text('Cập nhật mật khẩu mới thành công').removeClass('text-danger').addClass('text-success');
+//     });
+// });
 
 
 

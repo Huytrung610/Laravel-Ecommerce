@@ -33,11 +33,23 @@ Route::group(['prefix' => 'filemanager', 'middleware' => [config('backpack.base.
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 
+Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
+    // Profile
+    Route::get('/profile','App\Http\Controllers\FrontendController@Profile')->name('profile');
+    Route::post('/update-profile','App\Http\Controllers\HomeController@updateProfile')->name('update.profile');
+    Route::post('change-password', 'App\Http\Controllers\HomeController@changePasswordStore')->name('change.password');
+
+    //Customer-address
+    Route::post('address-create', 'App\Http\Controllers\CustomerAddressController@addNewAddress')->name('address.add');
+
+});
+
 //Login/Register/Logout
 Route::get('user/login','App\Http\Controllers\FrontendController@login')->name('login.form');
 Route::post('user/login','App\Http\Controllers\FrontendController@loginSubmit')->name('login.submit');
 Route::post('user/register', 'App\Http\Controllers\FrontendController@registerSubmit')->name('register.submit');
 Route::get('user/logout','App\Http\Controllers\FrontendController@logout')->name('user.logout');
+
 
 Route::get('/index', function () {
     return view('frontend.index');
@@ -67,6 +79,5 @@ Route::get('/cart', function () {
     return view('frontend.pages.cart');
 });
 
-Route::get('/userprofile', function () {
-    return view('frontend.profile_user.user_master');
-})->name('userprofile');
+
+

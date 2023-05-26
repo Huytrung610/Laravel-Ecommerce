@@ -116,5 +116,14 @@ class FrontendController extends Controller
             ]);
     }
 
+    public function Profile(){
+          /** @var User $user */
+          $user        = Auth::user();
+          $address     = $user->getAddress();
+          $defaultAddress = $user->getAddressDefault();
+  
+          return view('frontend.pages.profile', ['addressList' => $address, 'defaultAddress' => $defaultAddress,'user' =>$user]);
+    }
+
     
 }

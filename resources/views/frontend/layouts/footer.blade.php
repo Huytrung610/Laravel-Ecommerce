@@ -1,4 +1,3 @@
-@include('frontend.layouts.subscribe')
 <footer id="footer" class="overflow-hidden">
     <div class="container">
         <div class="row">

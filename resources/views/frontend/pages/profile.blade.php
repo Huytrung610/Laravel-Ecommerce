@@ -17,11 +17,25 @@
 </head>
 
 <body>
+    @if(session('success'))
+    <div class="alert alert-success alert-dismissable fade show">
+        <button class="close" data-dismiss="alert" aria-label="Close">×</button>
+        {{session('success')}}
+    </div>
+@endif
+
+
+@if(session('error'))
+    <div class="alert alert-danger alert-dismissable fade show">
+        <button class="close" data-dismiss="alert" aria-label="Close">×</button>
+        {{session('error')}}
+    </div>
+@endif
     <div class="container">
 
         <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index">Home</a></li>
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <li class="breadcrumb-item">User</li>
                 <li class="breadcrumb-item active" aria-current="page">Profile Settings</li>
             </ol>
@@ -69,47 +83,21 @@
                     <div class="card-body tab-content">
                         <div class="tab-pane active" id="profile">
                             <h6>YOUR PROFILE INFORMATION</h6>
+                            <form action="{{route('update.profile')}}" method="POST">
+                            @csrf
                             <hr>
-                            <form >
                                 <div class="form-group">
                                     <label for="fullName">Full Name</label>
-                                    <input type="text" class="form-control" id="fullName" aria-describedby="fullNameHelp" placeholder="Enter your fullname" value="Nguyễn Anh Dũng">
+                                    <input type="text" class="form-control" name='name' id="fullName" aria-describedby="fullNameHelp" placeholder="Enter your fullname" value="{{$user->name}}">
                                     <small id="fullNameError" class="form-text text-danger"></small>
-                                </div>
-                        
-                                <div class="form-group">
-                                    <label for="username">Username</label>
-                                    <input type="text" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Enter your username" value="dungktt" readonly>
-                                    <small id="usernameHelp" class="form-text text-muted">Bạn không thể thay đổi Username đã được đặt từ trước</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter your username" value="dungktt@gmail.com" readonly>
+                                    <input type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter your username" value="{{$user->email}}" readonly>
                                     <small id="emailHelp" class="form-text text-muted">Bạn không thể thay đổi email đã được đặt từ trước</small>
                                 </div>
                         
-                                <div class="form-group">
-                                    <label for="phoneNumber">Phone Number:</label>
-                                    <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter your phonenumber" value="099999999">
-                                    <small id="phoneNumberError" class="form-text text-danger"></small>                                </div>
-                        
-                                <div class="form-group">
-                                    <label for="location">Giới tính</label>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                                Nam
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" >
-                                        <label class="form-check-label" for="flexRadioDefault2">
-                                                 Nữ
-                                        </label>
-                                    </div>
-                                </div>
-                        
-                                <button type="button" id="update-profile-btn" class="btn btn-primary">Update Profile</button>
+                                <button type="submit" id="update-profile-btn" class="btn btn-primary">Update Profile</button>
                                 {{-- <button type="reset" class="btn btn-light">Reset Changes</button> --}}
                             </form>
                         </div>
@@ -117,65 +105,94 @@
                         <div class="tab-pane" id="security">
                             <h6>Đổi mật khẩu</h6>
                             <hr>
-                            <form>
+                            <form action="{{route('change.password')}}" method="POST">
+                                @csrf
                                 <div class="form-group">
                                     <label class="d-block">Change Password</label>
-                                    <input type="password" id="old-password" class="form-control" placeholder="Enter your old password">
-                                    <input type="password" id="new-password-1" class="form-control mt-1" placeholder="New password">
-                                    <input type="password" id="new-password-2" class="form-control mt-1" placeholder="Confirm new password">
+                                    <input type="password" name="current_password" id="old-password" class="form-control" placeholder="Enter your old password">
+                                    <input type="password" name="new_password" id="new-password-1" class="form-control mt-1" placeholder="New password">
+                                    <input type="password" name="new_confirm_password"  id="new-password-2" class="form-control mt-1" placeholder="Confirm new password">
                                     <small id="password-error" class="form-text text-danger"></small>
                                 </div>
-                                <button type="button" id="update-password-btn" class="btn btn-primary">Update Password</button>
+                                <button type="submit" id="update-password-btn" class="btn btn-primary">Update Password</button>
                             </form>
                         </div>
                         <div class="tab-pane" id="address">
                             <h6>My Address</h6>
                             <hr>
-                            <form >
+                            
                                 <div class="form-group">
                                     <button class="btn btn-info" type="button" onclick="showAddressCard()">Thêm địa chỉ nhận hàng</button>
                                 </div>
-                        
+                            <form action="{{route('address.add')}}" method="POST">
+                                @csrf
                                 <div class="form-group" id="address-card" style="display: none;">
                                     <label for="address">Địa chỉ nhận hàng:</label>
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="form-group">
                                                 <label for="full-name">Họ và tên:</label>
-                                                <input type="text" class="form-control" id="full-name" placeholder="Nhập họ và tên">
+                                                <input type="text" class="form-control" name="address_name" id="full-name" placeholder="Nhập họ và tên">
                                                 <div class="invalid-feedback" id="full-name-error"></div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="phone">Số điện thoại nhận hàng:</label>
-                                                <input type="tel" class="form-control" id="phone" placeholder="Nhập số điện thoại" pattern="[0-9]{10,12}" title="Vui lòng nhập số điện thoại hợp lệ (từ 10 đến 12 chữ số)" required>
-                                                <div class="invalid-feedback" id="phone-error"></div>
+                                                <input type="tel" class="form-control" id="phone" name="address_phone_number" placeholder="Nhập số điện thoại" title="Vui lòng nhập số điện thoại hợp lệ (từ 10 đến 12 chữ số)" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email">Email</label>
+                                                <input type="email" class="form-control" id="address_email" name="address_email" placeholder="Nhập email" title="Vui lòng nhập email" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="address-detail">Địa chỉ cụ thể:</label>
-                                                <input type="text" class="form-control" id="address-detail" placeholder="Nhập địa chỉ cụ thể">
+                                                <input type="text" class="form-control" id="address_detail" name="address_detail" placeholder="Nhập địa chỉ cụ thể">
                                                 <div class="invalid-feedback" id="address-detail-error"></div>
                                                 <small id="addressHelp" class="form-text text-muted">Nhập địa chỉ cụ thể: số nhà, huyện/phường, quận, tỉnh/thành phố</small>
                                             </div>
+                                            <div class="form-group">
+                                                <label for="location">Gender</label>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="gender" id="flexRadioDefault1" checked value="{{ \App\Models\CustomerAddress::GENDER_FEMALE }}">
+                                                    <label class="form-check-label" for="flexRadioDefault1">
+                                                            Male
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="gender" id="flexRadioDefault2" value="{{ \App\Models\CustomerAddress::GENDER_MALE }}" >
+                                                    <label class="form-check-label" for="flexRadioDefault2">
+                                                             Female
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="form-group">
-                                            <button class="btn btn-primary" type="button" onclick="addAddress()">Thêm</button>
+                                            <button class="btn btn-primary" type="submit">Add</button>
                                         </div>
-                                    </div>
-                                </div>
-                        
-                                <div class="form-group mb-0">
-                                    <label class="d-block">Địa chỉ đã có</label>
-                                    <div id="existing-addresses" class="border border-gray-500 bg-gray-200 p-3 text-center font-size-sm">
-                        
-                                        <div class="address-item">
-                                            <input type="radio" name="address" value="1">
-                                            <label>Nguyễn Anh Dũng -  0849580686 - Đống Đa, Thành phố hà nội
-                                            </label>
-                                        </div>
-                        
                                     </div>
                                 </div>
                             </form>
+                            @if(empty($addressList))
+                                <div class="form-group mb-0">
+                                    <label class="d-block">Chưa có địa chỉ? Hãy tạo địa chỉ mới</label>
+                                    
+                                </div>
+                           @else
+                                <div class="form-group mb-0">
+                                    <label class="d-block">Địa chỉ đã có</label>
+                                    <div id="existing-addresses" class="border border-gray-500 bg-gray-200 p-3 text-center font-size-sm list_contact">
+                                        @foreach($addressList as $addressItem)
+                                            
+                                                <div class="address-item">
+                                                    <div class="item">
+                                                        <input type="radio" data-id="{{ $addressItem->id }}" @if($addressItem->is_default == 1) checked @endif id="use" name="use" value="">
+                                                    </div>
+                                                    <label>{{$addressItem->name}} - {{$addressItem->phone_number}}-{{$addressItem->detail_address}}
+                                                    </label>
+                                                </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
