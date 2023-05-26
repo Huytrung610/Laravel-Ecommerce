@@ -1191,11 +1191,11 @@ figure.instagram-item img.insta-image {
 -----------------------------------------------------*/
 
 .shopify-cart .card-price .money {
-    font-size: 1.5em;
+    font-size: 16px;
 }
 
 .shopify-cart .total-price .money {
-    font-size: 2.9em;
+    font-size: 28px;
 }
 
 .total-price .cart-totals {

@@ -64,7 +64,7 @@ Route::get('/product', function () {
 });
 
 Route::get('/cart', function () {
-    return view('frontend.pages.cart');
+    return view('frontend.pages.checkout');
 });
 
 Route::get('/userprofile', function () {
