@@ -69,9 +69,9 @@
                                         </span>
                                     </div>
                                     @guest
-                                        <div class="qty-button d-flex flex-wrap pt-3">
+                                        <div class="qty-button d-flex flex-wrap pt-3 btn-add-to-cart">
                                             <button type="submit" class="btn btn-primary btn-medium text-uppercase me-3 mt-3">Buy now</button>
-                                            <button type="button" name="add-to-cart" value="1269" class="btn btn-black btn-medium text-uppercase mt-3">Add to cart</button>
+                                            <button type="button" name="add-to-cart" value="1269" class="btn btn-black btn-medium text-uppercase mt-3 add-to-cart open-sign-up-popup">Add to cart</button>
                                         </div>
                                         @include('frontend.popup.sign-up-popup')
                                     @else
@@ -222,6 +222,17 @@
     });
     $('.sign-up-btn').click(function () {
         window.location = "{{route('login.form')}}"
+    });
+
+    $(".btn-add-to-cart.add-to-cart").click(function() {
+        $(this).toggleClass("open");
+        $(this).next().slideToggle();
+    });
+    $('.open-sign-up-popup').click(function() {
+        $('#sign-up-popup').modal('show');
+    });
+    $('.sign-up-btn').click(function() {
+        window.location= "{{route('login.form')}}"
     });
     
     </script>
