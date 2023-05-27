@@ -1,5 +1,7 @@
 @extends('frontend.layouts.master')
+
 @section('title', env('APP_NAME') . ' || Product Detail')
+
 @section('main-content')
 @include('frontend.layouts.header_fe')
 
@@ -71,7 +73,10 @@
                                     @guest
                                         <div class="qty-button d-flex flex-wrap pt-3 btn-add-to-cart">
                                             <button type="submit" class="btn btn-primary btn-medium text-uppercase me-3 mt-3">Buy now</button>
-                                            <button type="button" name="add-to-cart" value="1269" class="btn btn-black btn-medium text-uppercase mt-3 add-to-cart open-sign-up-popup">Add to cart</button>
+                                            {{-- <button type="button" name="add-to-cart" value="1269" class="btn btn-black btn-medium text-uppercase mt-3 add-to-cart open-sign-up-popup">Add to cart</button> --}}
+                                            <button type="button" name="add-to-cart" class="btn btn-black btn-medium text-uppercase mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                Add to cart
+                                              </button>
                                         </div>
                                         @include('frontend.popup.sign-up-popup')
                                     @else
@@ -148,6 +153,7 @@
 @push('after_scripts')
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 
 
@@ -217,23 +223,23 @@
          $(".img-fluid").attr("src", firstColorImageUrl);
     });
 
-    $('.open-sign-up-popup-wgt').click(function () {
-        $('#sign-up-popup').modal('show');
-    });
-    $('.sign-up-btn').click(function () {
-        window.location = "{{route('login.form')}}"
-    });
+    // $('.open-sign-up-popup-wgt').click(function () {
+    //     $('#sign-up-popup').modal('show');
+    // });
+    // $('.sign-up-btn').click(function () {
+    //     window.location = "{{route('login.form')}}"
+    // });
 
-    $(".btn-add-to-cart.add-to-cart").click(function() {
-        $(this).toggleClass("open");
-        $(this).next().slideToggle();
-    });
-    $('.open-sign-up-popup').click(function() {
-        $('#sign-up-popup').modal('show');
-    });
-    $('.sign-up-btn').click(function() {
-        window.location= "{{route('login.form')}}"
-    });
+    // $(".btn-add-to-cart.add-to-cart").click(function() {
+    //     $(this).toggleClass("open");
+    //     $(this).next().slideToggle();
+    // });
+    // $('.open-sign-up-popup').click(function() {
+    //     $('#sign-up-popup').modal('show');
+    // });
+    // $('.sign-up-btn').click(function() {
+    //     window.location= "{{route('login.form')}}"
+    // });
     
     </script>
 
@@ -241,3 +247,5 @@
     
 
 @endpush
+{{-- thiếu dòng @endsection cho section maincontent sẽ bị mất head --}}
+@endsection 
