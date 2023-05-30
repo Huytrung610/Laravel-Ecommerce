@@ -71,29 +71,29 @@
                             <a class="nav-link me-4 dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Pages</a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="about.html" class="dropdown-item">About Us</a>
+                                    <a href="aboutus" class="dropdown-item">About Us</a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a href="blog.html" class="dropdown-item">Blog</a>
-                                </li>
+                                </li> --}}
                                 <li>
                                     <a href="shop" class="dropdown-item">Shop</a>
                                 </li>
                                 <li>
                                     <a href="cart" class="dropdown-item">Cart</a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a href="checkout.html" class="dropdown-item">Checkout</a>
-                                </li>
-                                <li>
+                                </li> --}}
+                                {{-- <li>
                                     <a href="single-post.html" class="dropdown-item">Single Post</a>
-                                </li>
-                                <li>
+                                </li> --}}
+                                {{-- <li>
                                     <a href="single-product.html" class="dropdown-item">Single Product</a>
-                                </li>
-                                <li>
+                                </li> --}}
+                                {{-- <li>
                                     <a href="contact.html" class="dropdown-item">Contact</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
                         <li class="nav-item">
