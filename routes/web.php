@@ -81,5 +81,8 @@ Route::get('/cart', function () {
     return view('frontend.pages.checkout');
 });
 
+Route::get('/aboutus', function () {
+    return view('frontend.pages.aboutus');
+});
 
 
