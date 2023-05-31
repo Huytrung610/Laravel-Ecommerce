@@ -53,4 +53,43 @@ class CartController extends Controller
     public function checkout(Request $request){
         return view('frontend.pages.checkout');
     }
+
+
+    public function cartUpdate(Request $request){
+        if($request->quant){
+            $error = array();
+            $success = '';
+
+            foreach ($request->quant as $k=>$quant) {
+                $id = $request->qty_id[$k];
+                $cart = Cart::find($id);
+                if($quant > 0 && $cart) {
+
+                    if($cart->product_attr->stock < $quant){
+                        request()->session()->flash('error','Out of stock');
+                        return back();
+                    }
+                    $cart->quantity = ($cart->product_attr->stock > $quant) ? $quant  : $cart->product_attr->stock;
+
+                    if ($cart->product_attr->stock <=0) continue;
+                    /** @var Attribute $attrProduct */
+                    $attrProduct = $cart->product_attr;
+                    $cart->amount = $attrProduct->getPrice() * $quant;
+                    $cart->save();
+                    $success = 'Cart successfully updated!';
+                }else{
+                    $error[] = 'Cart Invalid!';
+                }
+            }
+            return back()->with($error)->with('success', $success);
+        }else{
+            return back()->with('Cart Invalid!');
+        }
+    }
+
+    public function showSuccessCheckout(Request $request)
+    {
+        return view('frontend.pages.checkout-success');
+    }
+
 }

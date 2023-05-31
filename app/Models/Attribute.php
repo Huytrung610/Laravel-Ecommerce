@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Product;
 
-
 class Attribute extends Model
 {
     use HasFactory;
@@ -20,7 +19,7 @@ class Attribute extends Model
     ];
 
     
-    public function product(): BelongsTo
+    public function product()
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
@@ -30,5 +29,11 @@ class Attribute extends Model
         return $this->hasMany(Cart::class,'product_id');
     }
     
+
+    public function getPrice()
+    {
+        $originalPrice = $this->price ?? 0;
+        return $originalPrice;
+    }
     
 }

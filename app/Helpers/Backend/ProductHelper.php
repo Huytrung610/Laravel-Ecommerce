@@ -49,6 +49,12 @@ class ProductHelper
             'price' => 'required|numeric',
         ]);
     }
+
+    public function convertSlugToTitle($slug){
+        $title = str_replace('-', ' ', $slug); // Thay thế kí tự "-" bằng khoảng trắng
+        $title = ucwords($title); // Viết hoa chữ cái đầu của từng từ
+        return $title;
+    }
   
   
 }

@@ -33,7 +33,6 @@ class Order extends Model
         'email',
         'payment_method',
         'payment_status',
-        'coupon',
         'gender',
         'remark',
     ];

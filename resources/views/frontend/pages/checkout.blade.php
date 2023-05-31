@@ -6,6 +6,9 @@
 @php
 $svgContent = file_get_contents(public_path('frontend/svg/cart.svg'));
 echo $svgContent;
+$user = auth()->user() ?? null;
+$listAddress = $user->getAddress();
+$addressDefault = $user->getAddressDefault() ?? $listAddress->first();
 
 @endphp
 
@@ -17,7 +20,7 @@ echo $svgContent;
             <h1 class="display-2 text-uppercase text-dark">Cart</h1>
             <div class="breadcrumbs">
               <span class="item">
-                <a href="/index">Home ></a>
+                <a href="/">Home ></a>
               </span>
               <span class="item">Cart</span>
             </div>
@@ -37,69 +40,69 @@ echo $svgContent;
               <h3 class="cart-title col-lg-4 pb-3">Price</h3>
             </div>
           </div>
-          {{-- @if(Helper::getAllProductFromCart()->count()) --}}
-          <form>
-          <div class="cart-item border-top border-bottom ">
-            <div class="row align-items-center"> 
-              <div class="col-lg-5 col-md-4">
-                <div class="cart-info d-flex flex-wrap align-items-center mb-4">
-                  <div class="col-lg-5">
-                    <div class="card-image">
-                      <img src="{{ asset('frontend/images/cart-item1.jpg') }}" alt="cloth" class="img-fluid">
+
+          <form action="{{route('cart.update')}}" method="POST">
+            @csrf
+                @foreach(Helper::getAllProductFromCart() as $key=>$cart)
+                  <div class="cart-item border-top border-bottom ">
+                    <div class="row align-items-center"> 
+                      <div class="col-lg-5 col-md-4">
+                        <div class="cart-info d-flex flex-wrap align-items-center mb-4">
+                          <div class="col-lg-5">
+                            <div class="card-image">
+                      <img src="{{$cart->product_attr['photo']}}" alt="cloth" class="img-fluid">
                     </div>
                   </div>
                   <div class="col-lg-4">
                     <div class="card-detail ps-3">
                       <h3 class="card-title text-uppercase">
-                        <a href="#">Iphone 13</a>
-                      </h3>
-                      <div class="card-price">
-                        <span class="money text-primary" data-currency-usd="$1200.00">26.500.000</span>
+                                <a href="">{{$cart->product_attr['title']}}</a>
+                              </h3> 
+                              <div class="card-price">
+                        <span class="money text-primary">{{$cart['amount']}}</span>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-
-              <div class="col-lg-5 col-md-6">
-                <div class="row d-flex">
-                  <div class="col-md-6">
-                    <div class="qty-field">
-                      <div class="qty-number d-flex">
-                     
-                       
-                          <label class="screen-reader-text" for="quantity_pro"></label>
-                          <input type="number" id="quantity_pro1" class="input-text qty text" step="1" min="0" max="9999" name="" value="1" title="quantity" size="4" pattern="[0-9]*" inputmode="numeric">
-                      
+                      <div class="col-lg-5 col-md-6">
+                        <div class="row d-flex">
+                          <div class="col-md-6">
+                            <div class="qty-field">
+                              <div class="qty-number d-flex">
+                                  <label class="screen-reader-text" for="quantity_pro"></label>
+                                  <input type="number" id="quantity_pro1" class="input-text qty text"  step="1" min="1" max="9999" name="quant[{{$key}}]" value="{{$cart->quantity}}" title="quantity" size="4" pattern="[0-9]*" inputmode="numeric">
+                                  <input type="hidden" name="qty_id[]" value="{{$cart->id}}">
+                              </div>
+                              <div class="regular-price"></div>
+                              <div class="quantity-output text-center bg-primary"></div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="total-price">
+                              <span class="money text-primary">{{$cart['amount']}} </span>
+                            </div>
+                          </div>   
+                        </div>             
                       </div>
-                      <div class="regular-price"></div>
-                      <div class="quantity-output text-center bg-primary"></div>
+
+                      <div class="col-lg-1 col-md-1" style="padding-left: 35px;">
+                        <div class="cart-remove">
+                          <a href="#">
+                            <svg class="close" width="28px">
+                              <use xlink:href="#close"></use>
+                            </svg>
+                          </a>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div class="col-md-4">
-                    <div class="total-price">
-                      <span class="money text-primary">26.500.000</span>
-                    </div>
-                  </div>   
-                </div>             
-              </div>
-
-              <div class="col-lg-1 col-md-1" style="padding-left: 35px;">
-                <div class="cart-remove">
-                  <a href="#">
-                    <svg class="close" width="28px">
-                      <use xlink:href="#close"></use>
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+                @endforeach
           {{-- @endif --}}
           <div class="cart-totals bg-grey padding-medium">
             
             <div class="button-wrap">
-              <button class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none">Update Cart</button>
+              <button type="submit" class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none">Update Cart</button>
               <button class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none">Continue Shopping</button>
             </div>
           </div>
@@ -111,9 +114,11 @@ echo $svgContent;
         <div class="cart-checkout col-lg-4" style="padding-left: 20px;" >
           <div class="cart-totals bg-grey padding-medium" style="padding-top: 0em; padding-bottom:0em;">
             <h4 class="display-7 text-uppercase text-dark pb-4" style="margin-bottom: 8px;" >CHECK OUT YOUR ORDER</h4>
-            <form>
-           
-
+            
+            
+            
+            <form class="form" method="POST" action="{{route('cart.order')}}">
+              @csrf
               <div class="cart-totals bg-grey ">
    
                 <div class="total-price ">
@@ -122,10 +127,10 @@ echo $svgContent;
                       
                       <tr class="order-total pt-2 pb-2 border-bottom">
                         <th>Total:</th>
-                        <td data-title="Total">
+                        <td data-title="Sub total">
                           <span class="price-amount amount text-primary ps-5">
                             <bdi>
-                              <span class="price-currency-symbol">$</span>26.500.500 VNĐ</bdi>
+                              <span class="price-currency-symbol" data-price="{{Helper::totalCartPrice()}}">$</span>{{Helper::totalCartPrice()}}</bdi>
                           </span>
                         </td>
                       </tr>
@@ -138,8 +143,8 @@ echo $svgContent;
                 <label for="payment-method">Payment Method</label>
                 <select id="payment-method" name="payment-method" class="form-control" required>
                   <option value="">Select payment method</option>
-                  <option value="credit-card">Credit Card</option>
-                  <option value="paypal">PayPal</option>
+                  <option value="credit-card">Cash on Delivery</option>
+                  <option value="paypal">VN Pay</option>
                 </select>
               </div>
 
@@ -151,27 +156,152 @@ echo $svgContent;
                       <a href="#" class="change-link">Change</a>
                     </div>
                   </div>
-                  <div class="card-body">
-                    <div class="form-group d-flex justify-content-between" style="padding-bottom: 23px">
-                      <div>
-                        <label for="name">Name</label>
-                        <div id="name-display"  style="font-weight: bold;">Nguyễn Anh Dũng</div>
-                      </div>
-                      <div>
-                        <label for="phone">Phone Number</label>
-                        <div id="phone-display"  style="font-weight: bold;">09999999999</div>
-                      </div>
+                  <div class="row">
+                    <div class="col-6 field">
+                        <label>{{__('Name')}}</label>
+                        <p class="value contact-name contact-name-info" name="name">{{ $addressDefault ? $addressDefault->getAttribute('name') : null }}</p>
                     </div>
-                    <div class="form-group" style="padding-bottom: 12px">
-                      <label for="address">Address</label>
-                      <div id="address-display"  style="font-weight: bold;">123456 Hoàng Mai ,Hà Nội</div>
+                    <div class="col-6 field">
+                        <label>{{__('Phone number')}}</label>
+                        <p class="contact-phone contact-phone-info" name="phone_number"> {{ $addressDefault ? $addressDefault->phone_number : null }}</p>
                     </div>
-                    
+                    <div class="col-6 field">
+                        <label>{{__('Email')}}</label>
+                        <p class="value contact-email-info" name="email">{{ $addressDefault->email  ?? $user->getAttribute('email') }}</p>
+                    </div>
+                    <div class="col-12 field">
+                        <label>{{__('Address')}}</label>
+                        <div class="contact-address-info" name="detail_address"><p> {{ $addressDefault ? $addressDefault->detail_address  : null }}</p></div>
+                    </div>
+                    <div class="col-12 field" style="display:none">
+                      <label>{{__('Gender')}}</label>
+                      <div class="contact-address-info" name="gender"><p> {{ $addressDefault ? $addressDefault->getAttribute('gender')  : App\Models\CustomerAddress::GENDER_MALE }}</p></div>
                   </div>
+                    <div class="row" style="display:none">
+                      <div class="col-lg-6 col-md-6 col-12">
+                          <div class="form-group">
+                              <label>{{__('Address ID')}}<span>*</span></label>
+                              <input type="text" name="address_id" placeholder=""
+                                     class="input-address-id"
+                                     value="{{ $addressDefault ? $addressDefault->id : null }}">
+                              @error('address_id')
+                              <span class='text-danger'>{{$message}}</span>
+                              @enderror
+                          </div>
+                      </div>
+                  </div>
+                  
+                  {{-- <div class="row" style="display:none">
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="form-group">
+                            <label>{{__('Address ID')}}<span>*</span></label>
+                            <input type="text" name="address_id" placeholder=""
+                                   class="input-address-id"
+                                   value="{{ $addressDefault ? $addressDefault->id : null }}">
+                            @error('address_id')
+                            <span class='text-danger'>{{$message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="form-group">
+                            <label>{{__('First Name')}}<span>*</span></label>
+                            <input type="text" name="first_name" placeholder=""
+                                   class="input-contact-name"
+                                   value="{{ $addressDefault ? $addressDefault->first_name : null }}">
+                            @error('first_name')
+                            <span class='text-danger'>{{$message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="form-group">
+                            <label>{{__('Gender')}}<span>*</span></label>
+                            <input type="number" name="gender" placeholder=""
+                                   class="input-gender"
+                                   value="{{ $addressDefault ? $addressDefault->gender : null }}">
+                            @error('gender')
+                            <span class='text-danger'>{{$message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="form-group">
+                            <label>{{__('Last Name')}}<span>*</span></label>
+                            <input class="input-last-name" type="text" name="last_name" placeholder=""
+                                   value="{{ $addressDefault ? $addressDefault->last_name : null }}">
+                            @error('last_name')
+                            <span class='text-danger'>{{$message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="form-group">
+                            <label>{{__('Email Address')}}<span>*</span></label>
+                            <input class="input-email" type="email email-contact-info" name="email" placeholder=""
+                                   value="{{ $addressDefault ? $addressDefault->getAttribute('email') ?? $user->getAttribute('email') : null }}">
+                            @error('email')
+                            <span class='text-danger'>{{$message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="form-group">
+                            <label>{{__('Phone Number')}}<span>*</span></label>
+                            <input class="input-phone-number" type="number" name="phone" placeholder="" required
+                                   value="{{ $addressDefault ? $addressDefault->phone_number : null }}">
+                            @error('phone')
+                            <span class='text-danger'>{{$message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="form-group">
+                            <label>{{__('Company Name')}}</label>
+                            <input class="input-company-name" type="text" name="company_name" placeholder=""
+                                   value="{{ $addressDefault->company_name }}">
+                            @error('company_name')
+                            <span class='text-danger'>{{$message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="form-group">
+                            <label>{{__('Address Line 1')}}<span>*</span></label>
+                            <input class="input-address-1" type="text" name="address1" placeholder=""
+                                   value="{{ $addressDefault ? $addressDefault->address_line_1 : null }}">
+                            @error('address1')
+                            <span class='text-danger'>{{$message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="form-group">
+                            <label>{{__('Address Line 2')}}</label>
+                            <input class="input-address-2" type="text" name="address2" placeholder=""
+                                   value="{{ $addressDefault ? $addressDefault->address_line_2 : null }}">
+                            @error('address2')
+                            <span class='text-danger'>{{$message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="form-group">
+                            <label>{{__('Address Line 3')}}</label>
+                            <input class="input-address-3" type="text" name="address3" placeholder=""
+                                   value="{{$addressDefault ? $addressDefault->address_line_3 : null }}">
+                            @error('address3')
+                            <span class='text-danger'>{{$message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+                </div> --}}
+
                 </div>
               </div>
             
-              <button class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none">Confirm Order</button>
+              <button class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none" type="submit">Confirm Order</button>
               
             </form>
           </div>
