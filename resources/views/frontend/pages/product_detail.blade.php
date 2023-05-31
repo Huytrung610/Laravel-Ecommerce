@@ -65,7 +65,7 @@
                                                 <span class="input-group-btn">
                                             <button type="button" class="quantity-right-plus btn btn-number" data-type="plus" data-field="quant[1]">
                                                 +
-                                            </button>
+                                             </button>
                                         </span>
                                     </div>
                                     @guest

@@ -38,4 +38,10 @@ Route::group([
     Route::resource('customer-address', '\App\Http\Controllers\CustomerAddressController');
     Route::get('customer-address/show/{id}', [\App\Http\Controllers\CustomerAddressController::class, 'showFormEditProfile']);
     Route::post('customer-address/update/{id}', [\App\Http\Controllers\CustomerAddressController::class, 'update']);
+
+    //Order
+    Route::resource('/order','\App\Http\Controllers\OrderController');
+    Route::get('order/receipt/show/{id}','App\Http\Controllers\OrderController@showOrderReceipt')->name('order.receipt.show');
+    Route::get('order/receipt/edit/{id}',[\App\Http\Controllers\OrderController::class,'editOrderReceipt'])->name('order.receipt.edit');
+    Route::delete('order/receipt/destroy/{id}',[\App\Http\Controllers\OrderController::class,'destroyOrderReceipt'])->name('order.receipt.destroy');
 }); // this should be the absolute last line of this file
