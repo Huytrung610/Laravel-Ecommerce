@@ -120,3 +120,27 @@ body {
 .address-item input[type="radio"] {
     margin-right: 10px;
 }
+
+
+/* orderlist */
+
+.status-complete {
+    color: #fff;
+    background-color: #28a745;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.status-new {
+    color: #fff;
+    background-color: #dc3545;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.status-processing {
+    color: #fff;
+    background-color: #dc3545;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
