@@ -8,7 +8,7 @@
 @php
     $svgContent = file_get_contents(public_path('frontend/svg/product.svg'));
     echo $svgContent;
-  @endphp
+@endphp
 
 <section id="selling-product" class="single-product padding-xlarge">
     <div class="container">

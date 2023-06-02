@@ -23,21 +23,22 @@ class CartController extends Controller
             return back();
         }
 
-        $already_cart = Cart::where('order_id',null)->where('product_id', $product->id)->first();
+        $already_cart = Cart::where('user_id', auth()->user()->id)->where('order_id',null)->where('product_id', $product->id)->first();
 
 
         if($already_cart) {
             $already_cart->quantity = $already_cart->quantity + $request->quant[1];
-            /** @var Product $product */
+            /** @var Attribute $product */
             $already_cart->amount = ($product->price * $request->quant[1])+ $already_cart->amount;
 
-            if ($already_cart->product->stock < $already_cart->quantity || $already_cart->product->stock <= 0) return back()->with('error','Stock not sufficient!.');
+            if ($already_cart->product_attr->stock < $already_cart->quantity || $already_cart->product_attr->stock <= 0) return back()->with('error','Stock not sufficient!.');
 
             $already_cart->save();
 
         }else{
 
             $cart = new Cart;
+            $cart->user_id = auth()->user()->id;
             $cart->product_id = $product->id;
             $cart->price = $product->price;
             $cart->quantity = $request->quant[1];
@@ -51,6 +52,20 @@ class CartController extends Controller
     }
 
     public function checkout(Request $request){
+        try {
+            $listAddress = auth()->user()->getAddress();
+            $addressDefault = auth()->user()->getAddressDefault() ?? $listAddress->first() ?? null;
+            if (!$addressDefault) {
+                $flash = array(
+                    'status' => 'success',
+                    'message' => 'Please add contact information'
+                );
+                return redirect()->route('profile', ['addressList' => $listAddress, 'defaultAddress' => $addressDefault])->with($flash['status'], $flash['message']);
+            }
+        } catch (\Exception $exception) {
+                session()->flash('error', $exception->getMessage());
+            }
+
         return view('frontend.pages.checkout');
     }
 

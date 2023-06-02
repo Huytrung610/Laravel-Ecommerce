@@ -55,7 +55,8 @@ Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
     Route::post('cart/order','App\Http\Controllers\OrderController@store')->name('cart.order');
     Route::get('/checkout-success', 'App\Http\Controllers\CartController@showSuccessCheckout')->name('checkout.success');
 
-
+    // Checkout section
+    Route::get('/checkout','App\Http\Controllers\CartController@checkout')->name('checkout');
 });
 
 //Login/Register/Logout
@@ -79,8 +80,7 @@ Route::get('/product-cat/{slug}', 'App\Http\Controllers\ProductController@produc
 Route::match(['get','post'],'/filter','App\Http\Controllers\FrontendController@productFilter')->name('shop.filter');
 
 
-// Checkout section
-Route::get('/checkout','App\Http\Controllers\CartController@checkout')->name('checkout');
+
 
 Route::get('/product', function () {
     return view('frontend.pages.product_detail');
