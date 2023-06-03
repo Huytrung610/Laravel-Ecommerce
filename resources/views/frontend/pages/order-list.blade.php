@@ -25,7 +25,10 @@
         </thead>
         <tbody>
             <tr>
-                <th scope="row"><a href="#">3456789JQK</a></th>
+                {{-- <th scope="row"><a href="#">3456789JQK</a></th> --}}
+                <th scope="row"><a href="#" data-toggle="modal" data-target=".bd-example-modal-xl">3456789JQK</a></th>
+                @include('frontend.popup.order-detail-popup')
+
                 <td>12345 Đống Đa, thành phố Hà nội</td>
                 <td>100</td>
                 <td>
