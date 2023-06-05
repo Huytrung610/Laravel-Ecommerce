@@ -34,6 +34,7 @@ Route::group(['prefix' => 'filemanager', 'middleware' => [config('backpack.base.
 });
 
 Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
+    Route::get('/','App\Http\Controllers\HomeController@index')->name('user');
     
     // Profile
     Route::get('/profile','App\Http\Controllers\FrontendController@Profile')->name('profile');
@@ -48,6 +49,8 @@ Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
     Route::get('/add-to-cart/{slug}','CartController@addToCart')->name('add-to-cart');
     Route::post('/add-to-cart','App\Http\Controllers\CartController@singleAddToCart')->name('single-add-to-cart');
     Route::post('cart-update','App\Http\Controllers\CartController@cartUpdate')->name('cart.update');
+    Route::get('cart-delete/{id}','App\Http\Controllers\CartController@cartDelete')->name('cart-delete');
+
     // Checkout section
     Route::get('/checkout','App\Http\Controllers\CartController@checkout')->name('checkout');
 
