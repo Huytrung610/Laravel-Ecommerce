@@ -26,6 +26,8 @@
                             <th>{{__('Date')}}</th>
                             {{-- <th>{{__('Delivery date')}}</th> --}}
                             <th>{{__('Total Amount')}} </th>
+                            <th>{{__('Payment Method')}} </th>
+
                             <th>{{__('Status')}}</th>
                             <th>{{__('Action')}}</th>
                         </tr>
@@ -41,6 +43,8 @@
                             <th>{{__('Date')}}</th>
                             {{-- <th>{{__('Delivery date')}}</th> --}}
                             <th>{{__('Total Amount')}}</th>
+                            <th>{{__('Payment Method')}} </th>
+
                             <th>{{__('Status')}}</th>
                             <th>{{__('Action')}}</th>
                         </tr>
@@ -59,6 +63,7 @@
                                 <td>{{$order->quantity}}</td>
                                 <td>{{date_format($order->created_at, "Y/m/d")}}</td>
                                 <td>${{number_format($order->total_amount,2)}}</td>
+                                <td>{{$order->payment_method}}</td>
                                 <td>
                                     @if($order->status=='new')
                                         <span class="badge badge-primary">{{$order->status}}</span>

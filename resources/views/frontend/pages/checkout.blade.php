@@ -56,7 +56,11 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
                   <div class="col-lg-4">
                     <div class="card-detail ps-3">
                       <h3 class="card-title text-uppercase">
-                                <a href="">{{$cart->product_attr['title']}}</a>
+                        @php
+                             $productHelper = new \App\Helpers\Backend\ProductHelper();
+                             $productName =  $productHelper->convertSlugToTitle($cart->product_attr['sku']);
+                        @endphp
+                                <a href="">{{$productName}}</a>
                               </h3> 
                               <div class="card-price">
                         <span class="money text-primary">{{$cart['amount']}}</span>
@@ -88,7 +92,7 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
 
                       <div class="col-lg-1 col-md-1" style="padding-left: 35px;">
                         <div class="cart-remove">
-                          <a href="#">
+                          <a href="{{route('cart-delete',$cart->id)}}">
                             <svg class="close" width="28px">
                               <use xlink:href="#close"></use>
                             </svg>
@@ -98,12 +102,11 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
                     </div>
                   </div>
                 @endforeach
-          {{-- @endif --}}
           <div class="cart-totals bg-grey padding-medium">
             
             <div class="button-wrap">
               <button type="submit" class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none">Update Cart</button>
-              <button class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none">Continue Shopping</button>
+              <button class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none"><a href="{{route('home')}}"> Continue Shopping</a></button>
             </div>
           </div>
         </form> 
@@ -153,7 +156,7 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
                   <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
                       <span>Contact Info</span>
-                      <a href="#" class="change-link">Change</a>
+                      <a href="#" class=" change_addressdefault change-link">Change</a>
                     </div>
                   </div>
                   <div class="row">
@@ -190,113 +193,7 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
                           </div>
                       </div>
                   </div>
-                  
-                  {{-- <div class="row" style="display:none">
-                    <div class="col-lg-6 col-md-6 col-12">
-                        <div class="form-group">
-                            <label>{{__('Address ID')}}<span>*</span></label>
-                            <input type="text" name="address_id" placeholder=""
-                                   class="input-address-id"
-                                   value="{{ $addressDefault ? $addressDefault->id : null }}">
-                            @error('address_id')
-                            <span class='text-danger'>{{$message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-12">
-                        <div class="form-group">
-                            <label>{{__('First Name')}}<span>*</span></label>
-                            <input type="text" name="first_name" placeholder=""
-                                   class="input-contact-name"
-                                   value="{{ $addressDefault ? $addressDefault->first_name : null }}">
-                            @error('first_name')
-                            <span class='text-danger'>{{$message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-12">
-                        <div class="form-group">
-                            <label>{{__('Gender')}}<span>*</span></label>
-                            <input type="number" name="gender" placeholder=""
-                                   class="input-gender"
-                                   value="{{ $addressDefault ? $addressDefault->gender : null }}">
-                            @error('gender')
-                            <span class='text-danger'>{{$message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-12">
-                        <div class="form-group">
-                            <label>{{__('Last Name')}}<span>*</span></label>
-                            <input class="input-last-name" type="text" name="last_name" placeholder=""
-                                   value="{{ $addressDefault ? $addressDefault->last_name : null }}">
-                            @error('last_name')
-                            <span class='text-danger'>{{$message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-12">
-                        <div class="form-group">
-                            <label>{{__('Email Address')}}<span>*</span></label>
-                            <input class="input-email" type="email email-contact-info" name="email" placeholder=""
-                                   value="{{ $addressDefault ? $addressDefault->getAttribute('email') ?? $user->getAttribute('email') : null }}">
-                            @error('email')
-                            <span class='text-danger'>{{$message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-12">
-                        <div class="form-group">
-                            <label>{{__('Phone Number')}}<span>*</span></label>
-                            <input class="input-phone-number" type="number" name="phone" placeholder="" required
-                                   value="{{ $addressDefault ? $addressDefault->phone_number : null }}">
-                            @error('phone')
-                            <span class='text-danger'>{{$message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-12">
-                        <div class="form-group">
-                            <label>{{__('Company Name')}}</label>
-                            <input class="input-company-name" type="text" name="company_name" placeholder=""
-                                   value="{{ $addressDefault->company_name }}">
-                            @error('company_name')
-                            <span class='text-danger'>{{$message}}</span>
-                            @enderror
-                        </div>
-                    </div>
 
-                    <div class="col-lg-6 col-md-6 col-12">
-                        <div class="form-group">
-                            <label>{{__('Address Line 1')}}<span>*</span></label>
-                            <input class="input-address-1" type="text" name="address1" placeholder=""
-                                   value="{{ $addressDefault ? $addressDefault->address_line_1 : null }}">
-                            @error('address1')
-                            <span class='text-danger'>{{$message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-12">
-                        <div class="form-group">
-                            <label>{{__('Address Line 2')}}</label>
-                            <input class="input-address-2" type="text" name="address2" placeholder=""
-                                   value="{{ $addressDefault ? $addressDefault->address_line_2 : null }}">
-                            @error('address2')
-                            <span class='text-danger'>{{$message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-12">
-                        <div class="form-group">
-                            <label>{{__('Address Line 3')}}</label>
-                            <input class="input-address-3" type="text" name="address3" placeholder=""
-                                   value="{{$addressDefault ? $addressDefault->address_line_3 : null }}">
-                            @error('address3')
-                            <span class='text-danger'>{{$message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-                </div> --}}
 
                 </div>
               </div>
@@ -304,6 +201,7 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
               <button class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none" type="submit">Confirm Order</button>
               
             </form>
+          </div>
           </div>
         </div>
 

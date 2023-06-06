@@ -107,4 +107,15 @@ class CartController extends Controller
         return view('frontend.pages.checkout-success');
     }
 
+    public function cartDelete(Request $request){
+        $cart = Cart::find($request->id);
+        if ($cart) {
+            $cart->delete();
+            request()->session()->flash('success','Cart successfully removed');
+            return back();
+        }
+        request()->session()->flash('error','Error please try again');
+        return back();
+    }
+
 }
