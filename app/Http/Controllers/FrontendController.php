@@ -59,7 +59,7 @@ class FrontendController extends Controller
                 ]
             )) {
                 Session::put('user', $data['email']);
-                request()->session()->flash('success', __('Successfully login'));
+                // request()->session()->flash('success', __('Successfully login'));
             } else {
                 throw new \Exception(__('Invalid email and password please try again!'));
             }
@@ -75,7 +75,7 @@ class FrontendController extends Controller
     public function logout(){
         Session::forget('user');
         Auth::logout();
-        request()->session()->flash('success','Logout successfully');
+        // request()->session()->flash('success','Logout successfully');
         return back();
     }
 
