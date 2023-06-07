@@ -115,3 +115,15 @@
     }); // End of a document ready
 
 })(jQuery);
+
+
+// jquery để làm mất alert-thông báo:
+$(document).ready(function() {
+    setTimeout(function() {
+        $('#success-alert').fadeOut('slow');
+    }, 1500); // Đặt thời gian 1,5 giây (1500 milliseconds) cho #success-alert
+
+    setTimeout(function() {
+        $('#error-alert').fadeOut('slow');
+    }, 5000); // Đặt thời gian 5 giây (5000 milliseconds) cho #error-alert
+});

@@ -1,6 +1,6 @@
 {{-- trang header_fe chỉ dùng cho index_fe --}}
 @include('frontend.popup.search')
-@if ($errors->any())
+ {{-- @if ($errors->any())
     <div class="alert alert-danger alert-dismissable fade show text-center">
         <ul>
             @foreach ($errors->all() as $error)
@@ -12,7 +12,7 @@
     <div class="alert alert-success alert-dismissable fade show text-center">
         {{session('success')}}
     </div>
-@endif
+@endif  --}}
 @php
     $user = auth()->user() ?? null;
     if(Auth::check()){
@@ -49,13 +49,13 @@
                             <a class="nav-link me-4" href="#mobile-products">iPhone</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link me-4" href="#ipad-products">iPad</a>
+                            <a class="nav-link me-4" href="#desktop-mac">Macbook</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link me-4" href="#smart-watches">Watch</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link me-4" href="#desktop-mac">Macbook</a>
+                            <a class="nav-link me-4" href="#sound-products">Sound</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link me-4" href="#yearly-sale">Khuyến mại</a>
@@ -134,16 +134,16 @@
                                     <li class="pe-3">
                                         <a href="{{route('checkout')}}">
                                             <svg class="cart">
-                        <use xlink:href=""></use>
-                      </svg>
+                                                 <use xlink:href="#cart"></use>
+                                            </svg>
                                         </a>
                                     </li>
 
                                     <li class="search-item pe-3">
                                         <a href="#" class="search-button">
                                             <svg class="search">
-                        <use xlink:href="#search"></use>
-                      </svg>
+                                                 <use xlink:href="#search"></use>
+                                            </svg>
                                         </a>
                                     </li>
                                 </ul>

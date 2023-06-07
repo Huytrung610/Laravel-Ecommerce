@@ -29,13 +29,13 @@
 </section>
 <div class="shopify-grid padding-large">
     <div class="container" style="font-size: 16px;margin-bottom: 3%;"  >
-        <div class="row">    
+        {{-- <div class="row">    
            <div class="col-md-auto item-box" >
                 <div class="title">
                     <a href="" title="All model">Tất cả </a>
                 </div>
            </div>
-       </div>
+       </div> --}}
        <div class="row">    
         @php
             $menu =App\Models\Category::getSubCategory();
@@ -46,10 +46,11 @@
                     <div class="title">
                         <a href="{{route('product-cat',[$cat_info->slug])}}" >{{$cat_info->title}}</a>
                     </div>
+                </div>
                 @endforeach
             @endif
 
-    </div>
+            
        
         </div>
       </div>

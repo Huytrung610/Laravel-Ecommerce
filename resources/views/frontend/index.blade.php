@@ -232,6 +232,121 @@
     </div>
     <div class="swiper-pagination position-absolute text-center"></div>
 </section>
+
+<section id="desktop-mac" class="product-store position-relative padding-large no-padding-top">
+    <div class="container">
+        <div class="row">
+            <div class="display-header d-flex justify-content-between pb-3">
+                <h2 class="display-7 text-dark text-uppercase">Macbook Products</h2>
+                <div class="btn-right">
+                    <a href="/product-detail" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
+                </div>
+            </div>
+            <div class="swiper product-swiper">
+                <div class="swiper-wrapper" >
+                    <div class="swiper-slide">
+                        <div class="product-card position-relative">
+                            <div class="image-holder" style="background-color: #EDF1F3;
+                            border-radius: 10%;">
+                                <img src="{{ asset('frontend/images/macbookpro1.png') }}" alt="product-item" class="img-fluid">
+                            </div>
+                            <div class="cart-concern position-absolute">
+                                <div class="cart-button d-flex">
+                                    <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                </div>
+                            </div>
+                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                                <h3 class="card-title text-uppercase">
+                                    <a href="#">Macbook Pro 2023 512gb</a>
+                                </h3>
+                            </div>
+                            <h5 class="item-price text-primary">38.000.000 VNĐ</h5>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="product-card position-relative">
+                            <div class="image-holder" style="background-color: #EDF1F3;
+                            border-radius: 10%;">
+                                <img src="{{ asset('frontend/images/macbookpro1.png') }}" alt="product-item" class="img-fluid">
+                            </div>
+                            <div class="cart-concern position-absolute">
+                                <div class="cart-button d-flex">
+                                    <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                </div>
+                            </div>
+                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                                <h3 class="card-title text-uppercase">
+                                    <a href="#">Macbook Pro 2023 512gb</a>
+                                </h3>
+                            </div>
+                            <h5 class="item-price text-primary">38.000.000 VNĐ</h5>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="product-card position-relative">
+                            <div class="image-holder" style="background-color: #EDF1F3;
+                            border-radius: 10%;">
+                                <img src="{{ asset('frontend/images/macbookpro1.png') }}" alt="product-item" class="img-fluid">
+                            </div>
+                            <div class="cart-concern position-absolute">
+                                <div class="cart-button d-flex">
+                                    <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                </div>
+                            </div>
+                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                                <h3 class="card-title text-uppercase">
+                                    <a href="#">Macbook Pro 2023 512gb</a>
+                                </h3>
+                            </div>
+                            <h5 class="item-price text-primary">38.000.000 VNĐ</h5>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="product-card position-relative">
+                            <div class="image-holder" style="background-color: #EDF1F3;
+                            border-radius: 10%;">
+                                <img src="{{ asset('frontend/images/macbookpro2.png') }}" alt="product-item" class="img-fluid">
+                            </div>
+                            <div class="cart-concern position-absolute">
+                                <div class="cart-button d-flex">
+                                    <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                </div>
+                            </div>
+                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                                <h3 class="card-title text-uppercase">
+                                    <a href="#">Macbook Pro 2023 512gb</a>
+                                </h3>
+                            </div>
+                            <h5 class="item-price text-primary">38.000.000 VNĐ</h5>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="product-card position-relative">
+                            <div class="image-holder" style="background-color: #EDF1F3;
+                            border-radius: 10%;">
+                                <img src="{{ asset('frontend/images/macbookpro2.png') }}" alt="product-item" class="img-fluid">
+                            </div>
+                            <div class="cart-concern position-absolute">
+                                <div class="cart-button d-flex">
+                                    <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                </div>
+                            </div>
+                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                                <h3 class="card-title text-uppercase">
+                                    <a href="#">Macbook Pro 2023 512gb</a>
+                                </h3>
+                            </div>
+                            <h5 class="item-price text-primary">38.000.000 VNĐ</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="swiper-pagination position-absolute text-center"></div>
+</section>
+
+
 <section id="smart-watches" class="product-store padding-large position-relative">
     <div class="container">
         <div class="row">
@@ -339,6 +454,120 @@
     </div>
     <div class="swiper-pagination position-absolute text-center"></div>
 </section>
+
+<section id="sound-products" class="product-store position-relative padding-large no-padding-top">
+    <div class="container">
+        <div class="row">
+            <div class="display-header d-flex justify-content-between pb-3">
+                <h2 class="display-7 text-dark text-uppercase">Sound Products</h2>
+                <div class="btn-right">
+                    <a href="/product-detail" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
+                </div>
+            </div>
+            <div class="swiper product-swiper">
+                <div class="swiper-wrapper" >
+                    <div class="swiper-slide">
+                        <div class="product-card position-relative">
+                            <div class="image-holder" style="background-color: #EDF1F3;
+                            border-radius: 10%;">
+                                <img src="{{ asset('frontend/images/macbookpro1.png') }}" alt="product-item" class="img-fluid">
+                            </div>
+                            <div class="cart-concern position-absolute">
+                                <div class="cart-button d-flex">
+                                    <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                </div>
+                            </div>
+                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                                <h3 class="card-title text-uppercase">
+                                    <a href="#">Airpod 2</a>
+                                </h3>
+                            </div>
+                            <h5 class="item-price text-primary">3.000.000 VNĐ</h5>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="product-card position-relative">
+                            <div class="image-holder" style="background-color: #EDF1F3;
+                            border-radius: 10%;">
+                                <img src="{{ asset('frontend/images/airpods-2_550.png') }}" alt="product-item" class="img-fluid">
+                            </div>
+                            <div class="cart-concern position-absolute">
+                                <div class="cart-button d-flex">
+                                    <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                </div>
+                            </div>
+                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                                <h3 class="card-title text-uppercase">
+                                    <a href="#">Airpod Max</a>
+                                </h3>
+                            </div>
+                            <h5 class="item-price text-primary">8.000.000 VNĐ</h5>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="product-card position-relative">
+                            <div class="image-holder" style="background-color: #EDF1F3;
+                            border-radius: 10%;">
+                                <img src="{{ asset('frontend/images/airpods-max_550.png') }}" alt="product-item" class="img-fluid">
+                            </div>
+                            <div class="cart-concern position-absolute">
+                                <div class="cart-button d-flex">
+                                    <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                </div>
+                            </div>
+                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                                <h3 class="card-title text-uppercase">
+                                    <a href="#">Airpod 3</a>
+                                </h3>
+                            </div>
+                            <h5 class="item-price text-primary">4.000.000 VNĐ</h5>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="product-card position-relative">
+                            <div class="image-holder" style="background-color: #EDF1F3;
+                            border-radius: 10%;">
+                                <img src="{{ asset('frontend/images/airpods-pro-2_550.png') }}" alt="product-item" class="img-fluid">
+                            </div>
+                            <div class="cart-concern position-absolute">
+                                <div class="cart-button d-flex">
+                                    <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                </div>
+                            </div>
+                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                                <h3 class="card-title text-uppercase">
+                                    <a href="#">Airpod 3 Pro</a>
+                                </h3>
+                            </div>
+                            <h5 class="item-price text-primary">4.800.000 VNĐ</h5>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="product-card position-relative">
+                            <div class="image-holder" style="background-color: #EDF1F3;
+                            border-radius: 10%;">
+                                <img src="{{ asset('frontend/images/airpods-pro-2_550.png') }}" alt="product-item" class="img-fluid">
+                            </div>
+                            <div class="cart-concern position-absolute">
+                                <div class="cart-button d-flex">
+                                    <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                </div>
+                            </div>
+                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
+                                <h3 class="card-title text-uppercase">
+                                    <a href="#">Macbook Pro 2023 512gb</a>
+                                </h3>
+                            </div>
+                            <h5 class="item-price text-primary">38.000.000 VNĐ</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="swiper-pagination position-absolute text-center"></div>
+</section>
+
 <section id="yearly-sale" class="bg-light-blue overflow-hidden mt-5 padding-xlarge" style="background-image: url('{{ asset('frontend/images/single-image1.png') }}');background-position: right; background-repeat: no-repeat;">
     <div class="row d-flex flex-wrap align-items-center">
         <div class="col-md-6 col-sm-12">
@@ -495,3 +724,6 @@
     </div>
     <div class="swiper-pagination"></div>
 </section>
+
+{{-- thiếu dòng @endsection cho section maincontent sẽ bị mất head --}}
+@endsection 
