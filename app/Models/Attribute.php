@@ -36,4 +36,8 @@ class Attribute extends Model
         return $originalPrice;
     }
     
+    public function getSku($productId){
+        return $this->where('id', $productId)->value('sku');
+    }
+    
 }

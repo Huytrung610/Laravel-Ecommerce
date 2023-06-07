@@ -35,6 +35,7 @@ class Order extends Model
         'payment_status',
         'gender',
         'remark',
+        'delivery_date'
     ];
 
 
@@ -53,6 +54,8 @@ class Order extends Model
             return $this->hasMany('App\Models\Cart', 'order_id', 'id');
     }
 
-
+    public function getOrderListByUser($user_id){
+        return $this->where('user_id', $user_id)->orderBy('id', 'DESC')->get();
+    }
 
 }

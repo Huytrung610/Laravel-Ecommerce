@@ -1,3 +1,4 @@
+
 <div class="container">
     <div class="d-flex justify-content-between align-items-center">
         <h5>My Ordered</h5>
@@ -24,33 +25,32 @@
             </tr>
         </thead>
         <tbody>
+            @foreach($orderList as $order)
+                        @php
+                        
+                            $detail_address = $order->detail_address ?? '';
+
+                        @endphp
             <tr>
                 {{-- <th scope="row"><a href="#">3456789JQK</a></th> --}}
-                <th scope="row"><a href="#" data-toggle="modal" data-target=".bd-example-modal-xl">3456789JQK</a></th>
+                <th scope="row"><a href="#" class="order-detail-link" data-order-id="{{ $order->id }}" data-toggle="modal" data-target=".bd-example-modal-xl"> {{ $order->order_number }}</a></th>
                 @include('frontend.popup.order-detail-popup')
 
-                <td>12345 Đống Đa, thành phố Hà nội</td>
-                <td>100</td>
+                <td>{{ $detail_address }}</td>
+                <td>{{$order->quantity}}</td>
                 <td>
-                    <span class="status-complete">Complete</span>
+                    <span class="status-complete">{{$order->status}}</span>
                 </td>
             </tr>
-            <tr>
-                <th scope="row"><a href="#">ABCOOOASD</a></th>
-                <td>12345 ĐẠI CỒ VIỆT, PHƯỜNG BÁCH KHOA, THÀNH PHỐ HÀ NỘI</td>
-                <td>100</td>
-                <td>
-                    <span class="status-new">New</span>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row"><a href="#">ABC888888</a></th>
-                <td>12345 Đống Đa, thành phố Hà nội</td>
-                <td>100</td>
-                <td>
-                    <span class="status-processing">Processing</span>
-                </td>
-            </tr>
+            @endforeach
         </tbody>
     </table>
 </div>
+
+
+@push('after_scripts')
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>   
+
+@endpush

@@ -205,4 +205,31 @@ class OrderController extends Controller
 
     }
 
+    public function showOrderDetail($id)
+{
+    $productHelper = new ProductHelper();
+    $order = Order::find($id);
+    $orderItems = $order->cart_info ?? [];
+    $listProductId = [];
+    foreach ($orderItems as $item){
+        $listProductId[] = $item['product_id'];
+    }
+    $listProductAttr = [];
+    $attributeModel = new Attribute();
+    foreach($listProductId as $productId){
+        $listProductAttr[] = $attributeModel->getSku($productId);
+    }
+    $listProductName = [];
+    foreach($listProductAttr as $productAttr){
+        $listProductName[] = $productHelper->convertSlugToTitle($productAttr);
+    }
+   
+    if (!$order) {
+        return response()->json(['error' => 'Order not found'], 404);
+    } 
+
+    return response()->json(['data' => $order, 'listProductName' => $listProductName]);
+}
+
+
 }

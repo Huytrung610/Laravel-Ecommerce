@@ -204,9 +204,7 @@
 
 
                         <div class="tab-pane" id="order-list">
-
                             @include('frontend.pages.order-list')
-
                         </div>
 
 
