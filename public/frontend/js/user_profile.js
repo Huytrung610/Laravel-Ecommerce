@@ -223,4 +223,41 @@ document.addEventListener('DOMContentLoaded', function() {
             // Sau khi cập nhật thành công, bạn có thể thực hiện các hành động khác, ví dụ: hiển thị thông báo thành công, chuyển hướng trang, v.v.
         }
     });
+
+    $(document).ready(function() {
+        $('.order-detail-link').click(function(e) {
+            e.preventDefault();
+            var orderId = $(this).data('order-id');
+
+            $.ajax({
+                url: '/user/order-detail/' + orderId,
+                method: 'GET',
+                success: function(response) {
+                    $('.modal-body .order_number').text(response.data.order_number);
+                    $('.modal-body .delivery_date').text(response.data.delivery_date);
+                    $('.modal-body .status').text(response.data.status);
+                    $('.modal-body .name').text(response.data.name);
+                    $('.modal-body .email').text(response.data.email);
+                    $('.modal-body .phone').text(response.data.phone);
+                    $('.modal-body .payment_method').text(response.data.payment_method);
+                    $('.modal-body .detail_address').text(response.data.detail_address);
+
+                    var orderItemContainer = $('.modal-body #order_product');
+                    orderItemContainer.empty(); // Xóa các phần tử hiện tại trong container
+    
+                    // Duyệt qua danh sách listProductName và thêm vào container
+                    var listProductName = response['listProductName'];
+                    for (var i = 0; i < listProductName.length; i++) {
+                        var productName = listProductName[i];
+                        var orderItem = $('<p class="order-item"><span>' + productName + '</span></p>');
+                        orderItemContainer.append(orderItem);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+
 });

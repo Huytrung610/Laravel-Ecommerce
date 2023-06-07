@@ -60,6 +60,13 @@ Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
 
     // Checkout section
     Route::get('/checkout','App\Http\Controllers\CartController@checkout')->name('checkout');
+
+    //  Order
+    Route::get('/order',"HomeController@orderIndex")->name('user.order.index');
+    Route::get('/order/show/{id}',"HomeController@orderShow")->name('user.order.show');
+    Route::delete('/order/delete/{id}','HomeController@userOrderDelete')->name('user.order.delete');
+    Route::get('/order-detail/{id}','\App\Http\Controllers\OrderController@showOrderDetail')->name('order-detail');
+
 });
 
 //Login/Register/Logout

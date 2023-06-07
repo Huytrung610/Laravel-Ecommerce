@@ -10,11 +10,13 @@ use Illuminate\Http\Request;
 use Session;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
+use App\Helpers\Frontend\OrderHelper;
+use App\Models\Order;
 
 class FrontendController extends Controller
 {
-    
-
+   
+   
     public function index(Request $request){
         return redirect('/');
     }
@@ -118,12 +120,13 @@ class FrontendController extends Controller
 
     public function Profile(){
           /** @var User $user */
+          $order = new Order();
           $user        = Auth::user();
           $address     = $user->getAddress();
           $defaultAddress = $user->getAddressDefault();
+          $currentCustomer = auth()->user()->id;
+          $orderList = $order->getOrderListByUser($currentCustomer);
   
-          return view('frontend.pages.profile', ['addressList' => $address, 'defaultAddress' => $defaultAddress,'user' =>$user]);
+          return view('frontend.pages.profile', ['addressList' => $address, 'defaultAddress' => $defaultAddress,'user' =>$user, 'orderList' => $orderList]);
     }
-
-    
 }

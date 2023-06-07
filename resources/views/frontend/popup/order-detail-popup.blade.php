@@ -1,4 +1,11 @@
-  <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  
+@php
+$user = auth()->user() ?? null;
+$listAddress = $user->getAddress();
+$defaultAddress =$user->getAddressDefault() ?? $listAddress->first();
+
+@endphp
+  <div class="modal fade bd-example-modal-xl" id="orderDetailModal " tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header" style="padding:1px;">
@@ -13,41 +20,33 @@
                 <div class="row">
                   <div class="col">
                     <p class="title"><strong>Order ID:</strong> 
-                        <span>12345</span>
+                        <span class="order_number"></span>
                     </p>
                     <p class="title"><strong>Delivery date:</strong> 
-                        <span>2023-06-01</span>
+                        <span class="delivery_date"></span>
                     </p>
                     <p class="title"><strong>Status:</strong> 
-                        <span class="status-new">New</span>
+                        <span class="status"></span>
                     </p>
                     <hr>
                     <p class="title"><strong>Contact Info</strong> </p>
                     <p class="subtitle"><strong>Name:</strong> 
-                        <span>Nguyễn Anh Dũng</span>
+                        <span class="name">{{$order->name}}</span>
                     </p>
                     <p class="subtitle"><strong>Email:</strong>
-                         <span>Dung123@gmailcom</span>
+                         <span class="email"></span>
                         </p>
                     <p class="subtitle"><strong>Phone:</strong> 
-                        <span>0999999999</span>
+                        <span class="phone"></span>
                     </p>
                   </div>
                   <div class="col">
                     <p class="title"><strong>Order Item:</strong> </p>
                     <div id="order_product">
-                      <p class="order-item">
-                        <span>iphone 14 pro</span>
-                    </p>
-                      <p class="order-item">
-                        <span>iphone 14 promax 256gb gold</span>
-                    </p>
-                      <p class="order-item">
-                        <span>iphone 11 pro black</span>
-                    </p>
-                      <p class="order-item">
-                        <span>iphone 13 promax 128gb white</span>
-                    </p>
+                          <p class="order-item">
+                            <span>iphone 14 pro</span>
+                        </p>
+                    
                     </div>
                   </div>
                 </div>
@@ -57,12 +56,12 @@
                 <div class="row">
                   <div class="col">
                     <p class="title"><strong>Payment Method:</strong> 
-                        <span>COD</span>
+                        <span class="payment_method">{{$order->payment_method}}</span>
                     </p>
                   </div>
                   <div class="col">
                     <p class="title"><strong>Shipping Address:</strong>
-                        <span class="shipping-address">12345 đại cồ việt, PHƯỜNG bách khoa, THÀNH PHỐ HÀ NỘI</span>
+                        <span class="detail_address">{{$order->detail_address}}</span>
                     </p>
                     
                   </div>

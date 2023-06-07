@@ -50,7 +50,7 @@ class CartHelper
             $productSku = $product->sku ?? '';
             $productName = $productHelper->convertSlugToTitle($productSku);
             if (empty($currentStock) || $currentStock - $currentCartQty < 0) {
-                throw new \Exception(__('The quantity with '. $productName . 'is not enough to continue process'));
+                throw new \Exception(__('The quantity with '. $productName . ' is not enough to continue process'));
             }
         }
     }
