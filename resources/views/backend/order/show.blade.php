@@ -76,8 +76,8 @@
 
                 <section class="confirmation_part section_padding">
                     <div class="order_boxes">
-                        <div class="row">
-                            <div class="col-lg-6 col-lx-4">
+                        <div class="row justify-content-between">
+                            <div class="col-lg-6 col-lx-4"  style="background-color: rgba(0, 0, 0, .05);flex: 0 0 49%;  ">
                                 <div class="order-info">
                                     <h4 class="text-center pb-4">{{ __('ORDER INFORMATION') }}</h4>
                                     <table class="table">
@@ -114,7 +114,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6 col-lx-4">
+                            <div class="col-lg-6 col-lx-4"  style="background-color: rgba(0, 0, 0, .05);flex: 0 0 49%;">
                                 <div class="shipping-info">
                                     <h4 class="text-center pb-4">{{ __("CUSTOMER INFORMATION") }}</h4>
                                     <table class="table">

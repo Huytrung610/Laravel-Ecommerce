@@ -106,7 +106,9 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
             
             <div class="button-wrap">
               <button type="submit" class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none">Update Cart</button>
-              <button class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none"><a href="{{route('home')}}"> Continue Shopping</a></button>
+              {{-- <button class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none"><a href="{{route('home')}}"> Continue Shopping</a></button> --}}
+              <a href="{{route('home')}}" class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none">Continue Shopping</a>
+
             </div>
           </div>
         </form> 
@@ -208,3 +210,6 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
       </div>
     </div>
   </section> 
+
+    {{-- thiếu dòng @endsection cho section maincontent sẽ bị mất head --}}
+@endsection 

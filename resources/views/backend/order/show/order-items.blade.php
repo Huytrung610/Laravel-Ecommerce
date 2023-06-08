@@ -6,7 +6,7 @@ $productHelper = new \App\Helpers\Backend\ProductHelper();
     <section class="confirmation_part section_padding" style="margin-top: 20px">
         <div class="order_boxes">
             <div class="row">
-                <div class="col-lg-6 col-lx-6">
+                <div class="col-lg-6 col-lx-6 " style="background-color: rgba(0, 0, 0, .05);flex: 0 0 49%;">
                     <div class="oder-items-info order-info">
                         <h4 class="text-center pb-4">{{ __("ORDER ITEMS INFORMATION") }}</h4>
                         <table class="table">

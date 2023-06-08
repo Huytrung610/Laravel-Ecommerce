@@ -43,7 +43,9 @@
                                         <input type="hidden" name="sku" class="sku-product" value="{{$color->sku}}">
                                         <li class="select-item color-product pe-3" data-val="{{$color->sku}}" data-color="{{$color->color}}">
                                             <a href="#">{{$color->color}}</a>
+                                        </li>
                                         @endforeach
+                                    </ul>        
                                     <ul class="select-list list-unstyled d-flex product-color">
                                         <li class="select-item pe-3" data-val="Cream" title="Cream">
                                             <span class="cream active" data-color="#f4e9d4" data-pic="{{ $productDetail->photo }}"></span>             
