@@ -13,6 +13,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 </head>
 
@@ -181,24 +182,24 @@
                             @if(empty($addressList))
                                 <div class="form-group mb-0">
                                     <label class="d-block">Chưa có địa chỉ? Hãy tạo địa chỉ mới</label>
-                                    
                                 </div>
                            @else
-                                <div class="form-group mb-0">
-                                    <label class="d-block">Địa chỉ đã có</label>
-                                    <div id="existing-addresses" class="border border-gray-500 bg-gray-200 p-3 text-center font-size-sm list_contact">
-                                        @foreach($addressList as $addressItem)
-                                            
-                                                <div class="address-item">
-                                                    <div class="item">
-                                                        <input type="radio" data-id="{{ $addressItem->id }}" @if($addressItem->is_default == 1) checked @endif id="use" name="use" value="">
-                                                    </div>
-                                                    <label>{{$addressItem->name}} - {{$addressItem->phone_number}}-{{$addressItem->detail_address}}
-                                                    </label>
-                                                </div>
-                                        @endforeach
+                           <div class="form-group mb-0">
+                            <label class="d-block">Địa chỉ đã có</label>
+                            <div id="existing-addresses" class="border border-gray-500 bg-gray-200 p-3 text-center font-size-sm list_contact">
+                                @foreach($addressList as $addressItem)
+                                <div class="address-item">
+                                    <div class="item">
+                                        <input type="radio" data-id="{{ $addressItem->id }}" @if($addressItem->is_default == 1) checked @endif id="use_{{ $addressItem->id }}" name="use" value="{{ $addressItem->id }}">
                                     </div>
+                                    <label for="use_{{ $addressItem->id }}">
+                                        {{ $addressItem->name }} - {{ $addressItem->phone_number }} - {{ $addressItem->detail_address }}
+                                    </label>
                                 </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        
                             @endif
                         </div>
 
@@ -206,10 +207,6 @@
                         <div class="tab-pane" id="order-list">
                             @include('frontend.pages.order-list')
                         </div>
-
-
-
-
                     </div>
                 </div>
             </div>

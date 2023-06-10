@@ -183,4 +183,15 @@ class CustomerAddressController extends Controller
         return redirect()->back()->with($flash['status'], $flash['message']);
     }
 
+    public function updateDefaultAddress(Request $request)
+    {
+
+        $addressId = $request->input('address_id');
+        CustomerAddress::where('is_default', 1)->update(['is_default' => 0]);
+        CustomerAddress::find($addressId)->update(['is_default' => 1]);
+
+        return response()->json(['success' => true]);
+    }
+
+
 }
