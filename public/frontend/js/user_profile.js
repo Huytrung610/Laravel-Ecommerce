@@ -259,5 +259,36 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $(document).ready(function() {
+        $('input[name="use"]').on('change', function() {
+            var addressId = $(this).data('id');
+            
+            // Gửi AJAX request đến server
+            $.ajax({
+                url: '/user/update-default-address',
+                type: 'POST',
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    address_id: addressId
+                },
+                success: function(response) {
+                    // Xử lý phản hồi từ server (nếu cần)
+                    console.log(response);
+                },
+                error: function(error) {
+                    // Xử lý lỗi (nếu có)
+                    console.error(error);
+                }
+            });
+        });
+    });
+            
+
+    
 
 });

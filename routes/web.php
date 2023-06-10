@@ -43,6 +43,7 @@ Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
 
     //Customer-address
     Route::post('address-create', 'App\Http\Controllers\CustomerAddressController@addNewAddress')->name('address.add');
+    Route::post('update-default-address', 'App\Http\Controllers\CustomerAddressController@updateDefaultAddress')->name('update-default-address');
 
     
     // Cart section
@@ -88,9 +89,6 @@ Route::get('product-detail', 'App\Http\Controllers\ProductController@getAllProdu
 Route::get('product-detail/{slug}', 'App\Http\Controllers\ProductController@productDetail')->name('product-detail');
 Route::get('/product-cat/{slug}', 'App\Http\Controllers\ProductController@productCat')->name('product-cat');
 Route::match(['get','post'],'/filter','App\Http\Controllers\FrontendController@productFilter')->name('shop.filter');
-
-
-
 
 Route::get('/product', function () {
     return view('frontend.pages.product_detail');
