@@ -44,25 +44,16 @@
                         <li class="nav-item">
                             <a class="nav-link me-4 active" href="#billboard">Home</a>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link me-4" href="#mobile-products">iPhone</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link me-4" href="#desktop-mac">Macbook</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link me-4" href="#smart-watches">Watch</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link me-4" href="#sound-products">Sound</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link me-4" href="#yearly-sale">Khuyến mại</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link me-4" href="#latest-blog">Tin Tức</a>
-                        </li>
+                        @php
+                            $parentCategories = \App\Models\Category::getParentCategories();
+                        @endphp
+                        
+                        @foreach ($parentCategories as $category)
+                            <li class="nav-item">
+                                <a class="nav-link me-4" href="#{{ $category->slug }}" onclick="scrollToCategory('{{ $category->slug }}')">{{ $category->title }}</a>
+                            </li>
+                        @endforeach
+                        
                         <!-- <li class="nav-item">
                             <a class="nav-link me-4" href="#latest-news">Tin tức</a>
                         </li> -->

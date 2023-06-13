@@ -36,23 +36,18 @@
                 </div>
            </div>
        </div> --}}
-       <div class="row">    
-        @php
-            $menu =App\Models\Category::getSubCategory();
-        @endphp
-           @if($menu)
-            @foreach($menu as $cat_info)
-                <div class="col-md-auto item-box" >
-                    <div class="title">
-                        <a href="{{route('product-cat',[$cat_info->slug])}}" >{{$cat_info->title}}</a>
-                    </div>
-                </div>
-                @endforeach
-            @endif
-
-            
        
-        </div>
+       <div class="row">
+        @foreach ($childCategories as $childCategory)
+            <div class="col-md-auto item-box">
+                <div class="title">
+                    <a href="{{ route('product-list', ['slug' => $childCategory->slug]) }}" data-slug="{{ $childCategory->slug }}" data-id="{{ $childCategory->id }}" onclick="getProductListByCategory(event)">{{ $childCategory->title }}</a>
+                </div>
+            </div>
+        @endforeach
+    </div>
+    
+    
       </div>
     <form action="{{route('shop.filter')}}" method="POST" class="h-auto">
     @csrf
@@ -60,8 +55,8 @@
       <div class="row">
           <main class="col-md-9">
               <div class="product-content product-store d-flex justify-content-between flex-wrap">
-                @if(count($products)>0)
-                    @foreach($products as $product)
+                {{-- @if(count($productList)>0)
+                    @foreach($productList as $product)
                         <div class="col-lg-4 col-md-6">
                             <div class="product-card position-relative pe-3 pb-3">
                                 <a href="{{route('product-detail',$product->slug)}}">
@@ -90,7 +85,7 @@
                     @endforeach
                 @else
                     <h4 class="text-warning" style="margin:100px auto;">There are no products.</h4>
-                @endif
+                @endif --}}
               <nav class="navigation paging-navigation text-center padding-medium" role="navigation">
                   <div class="pagination loop-pagination d-flex justify-content-center align-items-center">
                       <a href="#">
@@ -156,3 +151,60 @@
   </div>
 </form>
 </div>
+@push('after_scripts')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function getProductListByCategory(event) {
+        event.preventDefault(); 
+
+        var categoryID = $(event.target).data('id'); 
+        $.ajax({
+            url: '{{ route('get-product-list') }}', 
+            method: 'GET',
+            data: { category_id: categoryID }, 
+            success: function(response) {
+               
+                if (response.length > 0) {
+                    var productListHTML = '';
+                    $.each(response, function(index, product) {
+                        productListHTML += '<div class="col-lg-4 col-md-6">';
+                        productListHTML += '<div class="product-card position-relative pe-3 pb-3">';
+                        productListHTML += '<a href="' + product.url + '">';
+                        productListHTML += '<div class="image-holder">';
+                        productListHTML += '<img src="' + product.photo + '" alt="product-item" class="img-fluid">';
+                        productListHTML += '</div>';
+                        productListHTML += '</a>';
+                        productListHTML += '<div class="cart-concern position-absolute">';
+                        productListHTML += '<div class="cart-button d-flex">';
+                        productListHTML += '<div class="btn-left">';
+                        productListHTML += '<a href="#" class="btn btn-medium btn-black">Add to Cart</a>';
+                        productListHTML += '<svg class="cart-outline position-absolute">';
+                        productListHTML += '<use xlink:href="#cart-outline"></use>';
+                        productListHTML += '</svg>';
+                        productListHTML += '</div>';
+                        productListHTML += '</div>';
+                        productListHTML += '</div>';
+                        productListHTML += '<div class="card-detail d-flex justify-content-between pt-3 pb-3">';
+                        productListHTML += '<h3 class="card-title text-uppercase">';
+                        productListHTML += '<a href="#">' + product.title + '</a>';
+                        productListHTML += '</h3>';
+                        productListHTML += '<span class="item-price text-primary">' + product.price + '</span>';
+                        productListHTML += '</div>';
+                        productListHTML += '</div>';
+                        productListHTML += '</div>';
+                    });
+                    $('.product-content').html(productListHTML); 
+                } else {
+                    $('.product-content').html('<h4 class="text-warning" style="margin:100px auto;">There are no products.</h4>'); 
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log(error); 
+            }
+        });
+    }
+</script>
+
+  
+@endpush

@@ -85,9 +85,13 @@ Route::get('/shop', function () {
 });
 
 // Product
-Route::get('product-detail', 'App\Http\Controllers\ProductController@getAllProduct')->name('product-all');
+//Route::get('product-detail', 'App\Http\Controllers\ProductController@getAllProduct')->name('product-all');
 Route::get('product-detail/{slug}', 'App\Http\Controllers\ProductController@productDetail')->name('product-detail');
 Route::get('/product-cat/{slug}', 'App\Http\Controllers\ProductController@productCat')->name('product-cat');
+
+Route::get('/product-list/{slug}', 'App\Http\Controllers\ProductController@getAllProduct')->name('product-list');
+Route::get('get-product-list', 'App\Http\Controllers\ProductController@getProductList')->name('get-product-list');
+
 Route::match(['get','post'],'/filter','App\Http\Controllers\FrontendController@productFilter')->name('shop.filter');
 
 Route::get('/product', function () {
