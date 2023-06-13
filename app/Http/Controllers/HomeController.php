@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Rules\MatchOldPassword;
 use Hash;
+use App\Models\Category;
 
 class HomeController extends Controller
 {
@@ -46,5 +47,6 @@ class HomeController extends Controller
     public function updateProfile(Request $request){
         User::find(auth()->user()->id)->update(['name'=> $request->get('name')]);
         return redirect()->back()->with('success','Name successfully changed');;
-    }
+    }      
 }
+

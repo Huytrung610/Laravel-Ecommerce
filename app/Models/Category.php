@@ -49,4 +49,9 @@ class Category extends Model
             ->get()
             ->sortBy('sort_order');
     }
+
+    public static function getParentCategories()
+    {
+        return self::where('parent_id', Category::CATEGORY_PARENT_ID)->get();
+    }
 }

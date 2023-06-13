@@ -119,10 +119,50 @@ class ProductController extends Controller
         return redirect()->route('product.index');
     }
 
-    public function getAllProduct(){
-        $products = Product::all();
-        return view('frontend.pages.product-lists',compact('products') );
+    public function getAllProduct(Request $request, $slug){
+        $category = Category::where('slug', $slug)->firstOrFail();
+        $productList = [];
+        $childCategories = [];
+        // Lặp qua từng category con
+        foreach ($category->child_cat as $childCategory) {
+            $products = $childCategory->products;
+            $productList = array_merge($productList, $products->all());
+            $childCategories[] = $childCategory;
+        }
+
+        return view('frontend.pages.product-lists',compact('productList', 'childCategories') );
     }
+
+    public function getProductList(Request $request)
+    {
+        $categoryId = $request->input('category_id');
+        $slug = $request->input('slug');
+    
+        // Xử lý dữ liệu và trả về kết quả cho yêu cầu AJAX
+    
+        // Ví dụ:
+        $category = Category::where('id', $categoryId)->first();
+    
+        if ($category) {
+            $products = $category->products()->get();
+            $productList = [];
+    
+            foreach ($products as $product) {
+                $productList[] = [
+                    'url' => route('product-detail', $product->slug),
+                    'photo' => $product->photo,
+                    'title' => $product->title,
+                    'price' => $product->price
+                ];
+            }
+    
+            return response()->json($productList);
+        } else {
+            // Xử lý khi không tìm thấy danh mục
+            abort(404);
+        }
+    }
+    
 
     public function productDetail($slug)
     {   
@@ -153,7 +193,6 @@ class ProductController extends Controller
     }
 
 
-   
 }
 
 
