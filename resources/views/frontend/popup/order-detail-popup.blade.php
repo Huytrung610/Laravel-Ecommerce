@@ -40,17 +40,39 @@ $defaultAddress =$user->getAddressDefault() ?? $listAddress->first();
                         <span class="phone"></span>
                     </p>
                   </div>
+
                   <div class="col">
-                    <p class="title"><strong>Order Item:</strong> </p>
+                    {{-- <p class="title"><strong>Order Item:</strong> </p>
                     <div id="order_product">
                           <p class="order-item">
                             <span>iphone 14 pro</span>
                         </p>
-                    
+                    </div> --}}
+                    <div class="row">
+                      <div class="col-8">
+                        <p class="title"><strong>Order Item:</strong> </p>
+                         <div id="order_product">
+                          <p class="order-item">
+                            <span>iphone 14 pro</span>
+                        </p>
+                        </div>
+                      </div>
+
+                      <div class="col-4">
+                        <p class="title"><strong>Quantity:</strong></p>
+                          <div id="order_product_quantity">
+                           <p class="order-item-quantity">
+                             <span>100 </span>
+                           </p>
+                         </div>
+                      </div>
                     </div>
                   </div>
+
+
                 </div>
       
+
                 <hr>
       
                 <div class="row">
