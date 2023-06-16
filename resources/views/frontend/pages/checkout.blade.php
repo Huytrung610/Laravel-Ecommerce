@@ -122,7 +122,7 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
             
             
             
-            <form class="form" method="POST" action="{{route('cart.order')}}">
+            <form class="form" method="POST" action="{{ route('cart.order') }}">
               @csrf
               <div class="cart-totals bg-grey ">
    
@@ -149,7 +149,7 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
                 <select id="payment-method" name="payment-method" class="form-control" required>
                   <option value="">Select payment method</option>
                   <option value="credit-card">Cash on Delivery</option>
-                  <option value="paypal">VN Pay</option>
+                  <option value="vnpay">VN Pay</option>
                 </select>
               </div>
 
@@ -211,5 +211,4 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
     </div>
   </section> 
 
-    {{-- thiếu dòng @endsection cho section maincontent sẽ bị mất head --}}
 @endsection 

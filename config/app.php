@@ -110,6 +110,11 @@ return [
 
     'faker_locale' => 'en_US',
 
+    
+    'VNPAY_URL' => env('VNPAY_URL'),
+    'VNPAY_TMNCODE' => env('VNPAY_TMNCODE'),
+    'VNPAY_HASHSECRET' => env('VNPAY_HASHSECRET'),
+    'VNPAY_RETURN_URL' => env('VNPAY_RETURN_URL'),
     /*
     |--------------------------------------------------------------------------
     | Encryption Key

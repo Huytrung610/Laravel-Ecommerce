@@ -56,8 +56,8 @@ Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
     Route::get('/checkout','App\Http\Controllers\CartController@checkout')->name('checkout');
 
     // Order section
-    Route::post('cart/order','App\Http\Controllers\OrderController@store')->name('cart.order');
-    Route::get('/checkout-success', 'App\Http\Controllers\CartController@showSuccessCheckout')->name('checkout.success');
+    Route::post('cart/order', 'App\Http\Controllers\OrderController@store')->name('cart.order');
+    Route::get('/checkout-success','App\Http\Controllers\CartController@showSuccessCheckout')->name('checkout.success');
 
     // Checkout section
     Route::get('/checkout','App\Http\Controllers\CartController@checkout')->name('checkout');
