@@ -404,7 +404,8 @@ $parentCategories = \App\Models\Category::getParentCategories();
     <div class="swiper-pagination"></div>
 </section>
 <script>
-    function scrollToCategory(slug) {
+    function scrollToCategory(slug, event) {
+        event.preventDefault();
         var target = document.getElementById(slug);
 
         if (target) {
