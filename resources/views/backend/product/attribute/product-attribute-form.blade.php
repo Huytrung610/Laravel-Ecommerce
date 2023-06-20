@@ -29,6 +29,7 @@
                     <div class="form-group">
                         <input class="form-control" type="hidden" name="product_id" value="{{ $product->id }}">
                     </div>
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>

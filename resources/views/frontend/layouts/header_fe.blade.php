@@ -50,7 +50,7 @@
                         
                         @foreach ($parentCategories as $category)
                             <li class="nav-item">
-                                <a class="nav-link me-4" href="{{ $category->slug }}" onclick="scrollToCategory('{{ $category->slug }}')">{{ $category->title }}</a>
+                                <a class="nav-link me-4" href=""  onclick="scrollToCategory('{{ $category->slug }}', event)">{{ $category->title }}</a>
                             </li>
                         @endforeach
                         
