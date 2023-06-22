@@ -79,10 +79,19 @@ Route::get('user/logout','App\Http\Controllers\FrontendController@logout')->name
 
 Route::get('/index', function () {
     return view('frontend.index');
-});
+})->name('index');
+
 Route::get('/shop', function () {
     return view('frontend.pages.shop');
 });
+
+//Blog and post
+Route::get('/blog', function () {
+    return view('frontend.pages.blog');
+})->name('blog');
+Route::get('/posts', function () {
+    return view('frontend.pages.posts');
+})->name('posts');
 
 // Product
 //Route::get('product-detail', 'App\Http\Controllers\ProductController@getAllProduct')->name('product-all');
