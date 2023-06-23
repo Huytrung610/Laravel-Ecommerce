@@ -216,8 +216,13 @@ class OrderController extends Controller
     }
     $listProductAttr = [];
     $attributeModel = new Attribute();
+    $cartModel = new Cart();
     foreach($listProductId as $productId){
         $listProductAttr[] = $attributeModel->getSku($productId);
+    }
+    $listQtyCart = [];
+    foreach($listProductId as $productId){
+        $listQtyCart[] = $cartModel->getQtyByCart($productId);
     }
     $listProductName = [];
     foreach($listProductAttr as $productAttr){
@@ -228,7 +233,7 @@ class OrderController extends Controller
         return response()->json(['error' => 'Order not found'], 404);
     } 
 
-    return response()->json(['data' => $order, 'listProductName' => $listProductName]);
+    return response()->json(['data' => $order, 'listProductName' => $listProductName, 'listQtyCart'=> $listQtyCart]);
 }
 
 
