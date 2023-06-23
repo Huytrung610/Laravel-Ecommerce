@@ -244,13 +244,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     var orderItemContainer = $('.modal-body #order_product');
                     orderItemContainer.empty(); // Xóa các phần tử hiện tại trong container
-    
+                    var orderItemQtyContainer = $('.modal-body #order_product_quantity');
+                    orderItemQtyContainer.empty(); // Xóa các phần tử hiện tại trong container
                     // Duyệt qua danh sách listProductName và thêm vào container
                     var listProductName = response['listProductName'];
                     for (var i = 0; i < listProductName.length; i++) {
                         var productName = listProductName[i];
                         var orderItem = $('<p class="order-item"><span>' + productName + '</span></p>');
                         orderItemContainer.append(orderItem);
+                    }
+                    var listProductQty = response['listQtyCart'];
+                    console.log(listProductQty);
+                    for (var i = 0; i < listProductQty.length; i++) {
+                        var productQty = listProductQty[i];
+                        var orderItemqty = $('<p class="order-item-quantity"><span>' + productQty + '</span></p>');
+                        orderItemQtyContainer.append(orderItemqty);
                     }
                 },
                 error: function(xhr, status, error) {
