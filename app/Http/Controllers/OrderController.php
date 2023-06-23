@@ -222,7 +222,7 @@ class OrderController extends Controller
     }
     $listQtyCart = [];
     foreach($listProductId as $productId){
-        $listQtyCart[] = $cartModel->getQtyByCart($productId);
+        $listQtyCart[] = $cartModel->getQtyByCart($productId,$id);
     }
     $listProductName = [];
     foreach($listProductAttr as $productAttr){
