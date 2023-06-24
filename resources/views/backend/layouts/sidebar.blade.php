@@ -3,9 +3,9 @@
   <!-- Sidebar - Brand -->
   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin')}}">
     <div class="sidebar-brand-icon">
-        <img src="" alt="logo">
+      <img style="width:125px;" src="{{ asset('frontend/images/main-logo.png') }}" class="logo">
     </div>
-    <div class="sidebar-brand-text mx-3">{{__('Apple Store')}}</div>
+    <div style="font-size:13px" class="sidebar-brand-text mx-3">{{__('DT Group')}}</div>
   </a>
 
   <!-- Divider -->
@@ -14,7 +14,7 @@
   <!-- Nav Item - Dashboard -->
   <li class="nav-item">
     <a class="nav-link" href="{{route('admin')}}">
-      <i class="fas fa-fw fa-tachometer-alt"></i>
+      <i class="fas fa-chart-line"></i>
       <span>{{__('Dashboard')}}</span></a>
   </li>
 
@@ -30,7 +30,7 @@
   <!-- Nav Item - Charts -->
   <li class="nav-item ">
       <a class="nav-link" href="{{route('file-manager')}}">
-          <i class="fas fa-fw fa-chart-area"></i>
+        <i class="fab fa-medium"></i>
           <span>{{__('Media Manager')}}</span></a>
   </li>
 
@@ -70,28 +70,28 @@
   </li> --}}
   <li class="nav-item">
     <a class="nav-link" href="{{route('category.index')}}">
-        <i class="fas fa-hammer fa-chart-area"></i>
+      <i class="fas fa-tags"></i>
         <span>{{__('Category')}}</span>
     </a>
 </li>
   {{-- Products --}}
   <li class="nav-item">
     <a class="nav-link" href="{{route('product.index')}}">
-        <i class="fas fa-hammer fa-chart-area"></i>
+      <i class="fas fa-tablet-alt"></i>
         <span>{{__('Products')}}</span>
     </a>
   </li>
   <!--Orders -->
   <li class="nav-item">
       <a class="nav-link" href="{{route('order.index')}}">
-          <i class="fas fa-hammer fa-chart-area"></i>
+        <i class="fas fa-truck"></i>
           <span>{{__('Orders')}}</span>
       </a>
   </li>
   <!--Receipt -->
   <li class="nav-item">
       <a class="nav-link" href="#">
-          <i class="fas fa-hammer fa-chart-area"></i>
+        <i class="fas fa-receipt"></i>
           <span>{{__('Receipt')}}</span>
       </a>
   </li>
@@ -107,7 +107,7 @@
   <!-- Posts -->
   <li class="nav-item">
     <a class="nav-link collapsed wgt-collapse" data-target="#postCollapse" aria-expanded="true" aria-controls="postCollapse">
-      <i class="fas fa-fw fa-folder"></i>
+      <i class="fab fa-blogger"></i>
       <span>{{__('Posts')}}</span>
     </a>
     <div id="postCollapse" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
@@ -144,7 +144,7 @@
   </div>
   <li class="nav-item">
     <a class="nav-link" href="{{route('users.index')}}">
-        <i class="fas fa-hammer fa-chart-area"></i>
+      <i class="fas fa-users"></i>
         <span>{{__('All Customer')}}</span>
     </a>
 </li>
