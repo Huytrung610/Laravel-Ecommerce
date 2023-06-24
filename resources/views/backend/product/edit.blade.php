@@ -133,6 +133,14 @@
     <script>
         $('#lfm').filemanager('image');
     </script>
+    <script>
+        $('#attr-photo').filemanager('image');
+    </script>
+    <script>
+        $('#attr-photo').filemanager('image', { input: "#thumbnail-attribute" });
+    </script>
+
+    
 
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.js"></script>
@@ -173,7 +181,7 @@
         });
        
 
-      </script>
+    </script>
 
     <script>
        $.ajaxSetup({
@@ -200,6 +208,7 @@
                          $('form input[name=attribute_color]').val(response.attribute.color);
                          $('form input[name=attribute_price]').val(response.attribute.price);
                          $('form input[name=attribute_stock]').val(response.attribute.stock);
+                         $('form input[name=attribute-photo]').val(response.attribute.photo);
                     },
                     error: function (response){
                         console.log(response);

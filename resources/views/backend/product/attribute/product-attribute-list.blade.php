@@ -6,6 +6,7 @@
             <th>{{ __('Color') }}</th>
             <th>{{ __('Price') }}</th>
             <th>{{ __('Stock') }}</th>
+            <th>{{ __('Photo') }}</th>
             <th>{{ __('Action') }}</th>
         </tr>
         </thead>
@@ -15,6 +16,7 @@
             <th>{{ __('Color') }}</th>
             <th>{{ __('Price') }}</th>
             <th>{{ __('Stock') }}</th>
+            <th>{{ __('Photo') }}</th>
             <th>{{ __('Action') }}</th>
         </tr>
         </tfoot>
@@ -25,6 +27,13 @@
                 <td class="color-box">{{ $attribute->color }}</td>
                 <td>{{ $attribute->price }}</td>
                 <td>{{ $attribute->stock }}</td>
+                <td>
+                    @php
+                        $photo=explode(',',$attribute->photo);
+                    @endphp
+                    <img src="{{$photo[0]}}" class="img-fluid zoom" style="max-width:80px"
+                    alt="{{$attribute->photo}}">
+                </td>
                 <td>
                     <a href="#"
                        class="btn btn-primary btn-sm float-left mr-1 edit_attribute"

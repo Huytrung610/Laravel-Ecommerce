@@ -15,7 +15,8 @@ class Attribute extends Model
         'price',
         'stock',
         'color',
-        'product_id'
+        'product_id',
+        'photo'
     ];
 
     

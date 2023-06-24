@@ -167,19 +167,18 @@ class ProductController extends Controller
     public function productDetail($slug)
     {   
 
-        // Xử lý yêu cầu Ajax
         if(request()->ajax()) {
             $color = request()->input('color');
-            $sku = request()->input('sku'); // Lấy SKU từ yêu cầu Ajax
+            $sku = request()->input('sku'); 
             $attribute = Attribute::where('color', $color)->where('sku',$sku )
             ->first();
-        // Xử lý logic để lấy dữ liệu price và stock dựa trên SKU
-
-        // Trả về response dưới dạng JSON
+       
+       
         return response()->json([
             'price' => $attribute->price,
             'stock' => $attribute->stock,
-            'sku' => $attribute->sku
+            'sku' => $attribute->sku,
+            'photo' =>$attribute->photo
         ]);
     }
         $productRepository = new ProductRepository();

@@ -48,7 +48,7 @@
                                     </ul>        
                                     <ul class="select-list list-unstyled d-flex product-color">
                                         <li class="select-item pe-3" data-val="Cream" title="Cream">
-                                            <span class="cream active" data-color="#f4e9d4" data-pic="{{ $productDetail->photo }}"></span>             
+                                            <span class="cream active photo-attr" data-color="#f4e9d4" data-pic="{{ $productDetail->photo }}"></span>             
                                         </li>
                                     </ul>
                                 </div>
@@ -183,16 +183,19 @@
                     // Cập nhật giá trị price và stock
                     var price = response.price;
                     var stock = response.stock;
-                    var sku = response.sku
+                    var sku = response.sku;
+                    var pic = response.photo;
 
                     // Hiển thị giá trị mới
                     $('.price-product').text(price);
                     $('.stock-product').text(stock);
                     $('.sku-product').val(sku);
-
+                    $('.photo-attr').attr('data-pic', pic);
+                    var imageUrl = $('.product-color span').attr("data-pic");
+                     $(".img-fluid").attr("src", imageUrl);
                 },
                 error: function(xhr, status, error) {
-                    console.error(error);
+                    console.error(error); 
                 }
             });
         });
@@ -223,26 +226,8 @@
      // Lấy URL ảnh của màu đầu tiên và đặt nó vào thuộc tính src của ảnh
      var firstColorImageUrl = $(".product-color span:first-child").attr("data-pic");
          $(".img-fluid").attr("src", firstColorImageUrl);
-    });
-
-    // $('.open-sign-up-popup-wgt').click(function () {
-    //     $('#sign-up-popup').modal('show');
-    // });
-    // $('.sign-up-btn').click(function () {
-    //     window.location = "{{route('login.form')}}"
-    // });
-
-    // $(".btn-add-to-cart.add-to-cart").click(function() {
-    //     $(this).toggleClass("open");
-    //     $(this).next().slideToggle();
-    // });
-    // $('.open-sign-up-popup').click(function() {
-    //     $('#sign-up-popup').modal('show');
-    // });
-    // $('.sign-up-btn').click(function() {
-    //     window.location= "{{route('login.form')}}"
-    // });
-    
+     });
+ 
     </script>
 
 
