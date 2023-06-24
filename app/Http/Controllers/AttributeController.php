@@ -118,6 +118,7 @@ return redirect()->back()->with($flash['status'], $flash['message']);
         $attributeModel->price  = $data['attribute_price'] ?? '';
         $attributeModel->stock  = $data['attribute_stock'] ?? null;
         $attributeModel->product_id = $data['product_id'] ?? null;
+        $attributeModel->photo =  $data['attribute-photo'];
 
         $attributeModel->save();
     }

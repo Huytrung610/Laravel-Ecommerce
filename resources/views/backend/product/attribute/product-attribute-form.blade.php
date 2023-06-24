@@ -29,7 +29,21 @@
                     <div class="form-group">
                         <input class="form-control" type="hidden" name="product_id" value="{{ $product->id }}">
                     </div>
-                    
+                    <div class="form-group">
+                        <label for="inputPhoto" class="col-form-label">{{__('Photo')}}<span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <a id="attr-photo" data-input="thumbnail-attribute" data-preview="holder"  class="btn btn-primary text-white">
+                                    <i class="fa fa-picture-o"></i>{{__('Choose')}}
+                                </a>                                
+                            </span>
+                            <input id="thumbnail-attribute" name="attribute-photo" class="form-control" type="text">
+                        </div>
+                        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+                        @error('photo')
+                        <span class="text-danger">{{$message}}</span>
+                        @enderror
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
