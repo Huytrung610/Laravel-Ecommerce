@@ -142,17 +142,17 @@ $parentCategories = \App\Models\Category::getParentCategories();
                             border-radius: 10%;">
                                 <img src="{{ asset('frontend/images/item_1.png') }}" alt="product-item" class="img-fluid">
                             </div>
-                            <div class="cart-concern position-absolute">
+                            {{-- <div class="cart-concern position-absolute">
                                 <div class="cart-button d-flex">
                                     <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
                                 <h3 class="card-title text-uppercase">
                                     <a href="#">Iphone 14 ProMax 128gb</a>
                                 </h3>
                             </div>
-                            <h5 class="item-price text-primary">28.000.000 VNĐ</h5>
+                            <h5 class="item-price text-primary">28.000.000 ₫</h5>
                         </div>
                     </div>
                     <div class="swiper-slide">
@@ -161,18 +161,18 @@ $parentCategories = \App\Models\Category::getParentCategories();
                             border-radius: 10%;">
                                 <img  src="{{ asset('frontend/images/item_2.png') }}" alt="product-item" class="img-fluid">
                             </div>
-                            <div class="cart-concern position-absolute">
+                            {{-- <div class="cart-concern position-absolute">
                                 <div class="cart-button d-flex">
                                     <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
                                 <h3 class="card-title text-uppercase">
                                     <a href="#">Iphone 14 Pro</a>
                                 </h3>
                                 <!-- <span class="item-price text-primary">$1100</span> -->
                             </div>
-                            <h5 class="item-price text-primary">24.900.000 VNĐ</h5>
+                            <h5 class="item-price text-primary">24.900.000 ₫</h5>
                         </div>
                     </div>
                     <div class="swiper-slide">
@@ -181,17 +181,17 @@ $parentCategories = \App\Models\Category::getParentCategories();
                             border-radius: 10%;">
                                 <img  src="{{ asset('frontend/images/item_1.png') }}"  alt="product-item" class="img-fluid">
                             </div>
-                            <div class="cart-concern position-absolute">
+                            {{-- <div class="cart-concern position-absolute">
                                 <div class="cart-button d-flex">
                                     <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
                                 <h3 class="card-title text-uppercase">
                                     <a href="#">Iphone 14 ProMax 128gb</a>
                                 </h3>
                             </div>
-                            <h5 class="item-price text-primary">28.000.000 VNĐ</h5>
+                            <h5 class="item-price text-primary">28.000.000 ₫</h5>
                         </div>
                     </div>
                     <div class="swiper-slide">
@@ -200,17 +200,17 @@ $parentCategories = \App\Models\Category::getParentCategories();
                             border-radius: 10%;">
                                 <img src="{{ asset('frontend/images/item_2.png') }}"  alt="product-item" class="img-fluid">
                             </div>
-                            <div class="cart-concern position-absolute">
+                            {{-- <div class="cart-concern position-absolute">
                                 <div class="cart-button d-flex">
                                     <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
                                 <h3 class="card-title text-uppercase">
                                     <a href="#">Iphone 14 ProMax 128gb</a>
                                 </h3>
                             </div>
-                            <h5 class="item-price text-primary">28.000.000 VNĐ</h5>
+                            <h5 class="item-price text-primary">28.000.000 ₫</h5>
                         </div>
                     </div>
                     <div class="swiper-slide">
@@ -219,17 +219,17 @@ $parentCategories = \App\Models\Category::getParentCategories();
                             border-radius: 10%;">
                                 <img src="{{ asset('frontend/images/item_1.png') }}"  alt="product-item" class="img-fluid">
                             </div>
-                            <div class="cart-concern position-absolute">
+                            {{-- <div class="cart-concern position-absolute">
                                 <div class="cart-button d-flex">
                                     <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
                                 <h3 class="card-title text-uppercase">
                                     <a href="#">Iphone 14 ProMax 128gb</a>
                                 </h3>
                             </div>
-                            <h5 class="item-price text-primary">28.000.000 VNĐ</h5>
+                            <h5 class="item-price text-primary">28.000.000 ₫</h5>
                         </div>
                     </div>
                 </div>
