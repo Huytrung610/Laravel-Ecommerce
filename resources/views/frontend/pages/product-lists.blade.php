@@ -189,7 +189,7 @@
                         productListHTML += '<h3 class="card-title text-uppercase">';
                         productListHTML += '<a href="#">' + product.title + '</a>';
                         productListHTML += '</h3>';
-                        productListHTML += '<span class="item-price text-primary">' + product.price + '</span>';
+                        productListHTML += '<span class="item-price text-primary">' + product.price + ' VNĐ</span>';
                         productListHTML += '</div>';
                         productListHTML += '</div>';
                         productListHTML += '</div>';

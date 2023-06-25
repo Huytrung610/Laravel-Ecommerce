@@ -59,11 +59,12 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
                         @php
                              $productHelper = new \App\Helpers\Backend\ProductHelper();
                              $productName =  $productHelper->convertSlugToTitle($cart->product_attr['sku']);
+                             $productPrice =  $productHelper->formatPrice($cart->product_attr->price);
                         @endphp
                                 <a href="">{{$productName}}</a>
                               </h3> 
                               <div class="card-price">
-                        <span class="money text-primary">{{$cart['amount']}}</span>
+                        <span class="money text-primary">{{$productPrice}}</span>
                       </div>
                     </div>
                   </div>

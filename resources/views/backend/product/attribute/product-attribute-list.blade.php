@@ -22,10 +22,14 @@
         </tfoot>
         <tbody>
         @foreach($attributes as $attribute)
+            @php
+                $productHelper = new \App\Helpers\Backend\ProductHelper();
+                $productPrice =  $productHelper->formatPrice($attribute->price);
+            @endphp
             <tr>
                 <td>{{ $attribute->sku }}</td>
                 <td class="color-box">{{ $attribute->color }}</td>
-                <td>{{ $attribute->price }}</td>
+                <td>{{ $productPrice }}</td>
                 <td>{{ $attribute->stock }}</td>
                 <td>
                     @php
