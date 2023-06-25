@@ -51,10 +51,12 @@ class ProductHelper
     }
 
     public function convertSlugToTitle($slug){
-        $title = str_replace('-', ' ', $slug); // Thay thế kí tự "-" bằng khoảng trắng
-        $title = ucwords($title); // Viết hoa chữ cái đầu của từng từ
+        $title = str_replace('-', ' ', $slug); 
+        $title = ucwords($title); 
         return $title;
     }
-  
-  
+
+    public function formatPrice($productPrice){
+       return number_format($productPrice, 0, ',', '.');
+    }
 }

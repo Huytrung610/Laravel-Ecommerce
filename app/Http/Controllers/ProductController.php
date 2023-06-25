@@ -135,30 +135,30 @@ class ProductController extends Controller
 
     public function getProductList(Request $request)
     {
+        $helper = new \App\Helpers\Backend\ProductHelper();
         $categoryId = $request->input('category_id');
         $slug = $request->input('slug');
     
-        // Xử lý dữ liệu và trả về kết quả cho yêu cầu AJAX
-    
-        // Ví dụ:
         $category = Category::where('id', $categoryId)->first();
     
         if ($category) {
             $products = $category->products()->get();
             $productList = [];
-    
             foreach ($products as $product) {
+                // Lấy giá nhỏ nhất và giá cao nhất của từng sản phẩm
+                $minPrice =$helper->formatPrice($product->attributes()->min('price'));
+                $maxPrice = $helper->formatPrice($product->attributes()->max('price'));
+    
                 $productList[] = [
                     'url' => route('product-detail', $product->slug),
                     'photo' => $product->photo,
                     'title' => $product->title,
-                    'price' => $product->price
+                    'price' =>  $minPrice . ' - ' . $maxPrice
                 ];
             }
     
             return response()->json($productList);
         } else {
-            // Xử lý khi không tìm thấy danh mục
             abort(404);
         }
     }
@@ -166,7 +166,7 @@ class ProductController extends Controller
 
     public function productDetail($slug)
     {   
-
+        $helper = new \App\Helpers\Backend\ProductHelper();
         if(request()->ajax()) {
             $color = request()->input('color');
             $sku = request()->input('sku'); 
@@ -175,7 +175,7 @@ class ProductController extends Controller
        
        
         return response()->json([
-            'price' => $attribute->price,
+            'price' => $helper->formatPrice($attribute->price),
             'stock' => $attribute->stock,
             'sku' => $attribute->sku,
             'photo' =>$attribute->photo
