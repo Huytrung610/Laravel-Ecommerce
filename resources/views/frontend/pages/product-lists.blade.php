@@ -175,22 +175,24 @@
                         productListHTML += '<img src="' + product.photo + '" alt="product-item" class="img-fluid">';
                         productListHTML += '</div>';
                         productListHTML += '</a>';
-                        productListHTML += '<div class="cart-concern position-absolute">';
-                        productListHTML += '<div class="cart-button d-flex">';
-                        productListHTML += '<div class="btn-left">';
-                        productListHTML += '<a href="#" class="btn btn-medium btn-black">Add to Cart</a>';
-                        productListHTML += '<svg class="cart-outline position-absolute">';
-                        productListHTML += '<use xlink:href="#cart-outline"></use>';
-                        productListHTML += '</svg>';
-                        productListHTML += '</div>';
-                        productListHTML += '</div>';
-                        productListHTML += '</div>';
-                        productListHTML += '<div class="card-detail d-flex justify-content-between pt-3 pb-3">';
+                        // productListHTML += '<div class="cart-concern position-absolute">';
+                        // productListHTML += '<div class="cart-button d-flex">';
+                        // productListHTML += '<div class="btn-left">';
+                        // productListHTML += '<a href="#" class="btn btn-medium btn-black">Add to Cart</a>';
+                        // productListHTML += '<svg class="cart-outline position-absolute">';
+                        // productListHTML += '<use xlink:href="#cart-outline"></use>';
+                        // productListHTML += '</svg>';
+                        // productListHTML += '</div>';
+                        // productListHTML += '</div>';
+                        // productListHTML += '</div>';
+                        productListHTML += '<div class="card-detail d-flex justify-content-between pt-3 " >';
                         productListHTML += '<h3 class="card-title text-uppercase">';
                         productListHTML += '<a href="#">' + product.title + '</a>';
                         productListHTML += '</h3>';
-                        productListHTML += '<span class="item-price text-primary">' + product.price + ' VNĐ</span>';
+
                         productListHTML += '</div>';
+                        productListHTML += '<span class="item-price text-primary" style="font-size:19px;">' + product.price + ' ₫</span>';
+                        
                         productListHTML += '</div>';
                         productListHTML += '</div>';
                     });

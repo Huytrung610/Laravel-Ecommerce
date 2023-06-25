@@ -25,7 +25,7 @@
                         <h3 itemprop="name" class="display-7 text-uppercase">{{$productDetail->title}}</h3>
                     </div>
                     <div class="product-price pt-3 pb-3">
-                        <strong class="text-primary display-6 fw-bold price-product">{{$productDetail->price}}</strong>
+                        <strong class="text-primary display-6 fw-bold price-product">{{$productDetail->price}}</strong> 
                     </div>
                     <p>{{strip_tags($productDetail->summary)}}
                     </p>
@@ -196,7 +196,7 @@
                     var pic = response.photo;
 
                     // Hiển thị giá trị mới
-                    $('.price-product').text(price);
+                    $('.price-product').text(price + '  ₫');
                     $('.stock-product').text(stock);
                     $('.sku-product').val(sku);
                     $('.photo-attr').attr('data-pic', pic);
