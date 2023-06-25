@@ -35,26 +35,35 @@
                             <div class="color-options product-select">
                                 <div class="color-toggle" data-option-index="0">
                                     <h4 class="item-title text-uppercase text-dark text-decoration-underline">Color:</h4>
-                                    <ul class="select-list list-unstyled d-flex" id="color-list">
+                                    <ul class="select-list list-unstyled d-flex product-color" id="color-list">
                                         @php  
                                             $listColor = App\Models\Attribute::where('product_id', $productDetail->id)->get();    
                                         @endphp
                                         @foreach($listColor as $color )
                                         <input type="hidden" name="sku" class="sku-product" value="{{$color->sku}}">
                                         <li class="select-item color-product pe-3" data-val="{{$color->sku}}" data-color="{{$color->color}}">
-                                            <a href="#">{{$color->color}}</a>
+                                            {{-- <a href="#">{{$color->color}}</a> --}}
+                                            <span class=" active photo-attr"  data-pic="{{ $productDetail->photo }}" style="background-color: {{$color->color}};">
+                                                <a href="#"></a>
+                                            </span> 
                                         </li>
                                         @endforeach
                                     </ul>        
-                                    <ul class="select-list list-unstyled d-flex product-color">
+                                    {{-- <ul class="select-list list-unstyled d-flex product-color">
                                         <li class="select-item pe-3" data-val="Cream" title="Cream">
                                             <span class="cream active photo-attr" data-color="#f4e9d4" data-pic="{{ $productDetail->photo }}"></span>             
                                         </li>
-                                    </ul>
+                                    </ul> --}}
                                 </div>
                             </div>
-                            <div class="product-quantity">
-                                <div class="stock-number text-dark stock-product"></div>
+                            <div class="product-quantity" style="padding-top: 20px">
+                                {{-- <div class="stock-number text-dark stock-product"></div> --}}
+                                <div class="container text-center" style="padding: 0px">
+                                    <div class="row row-cols-auto">
+                                      <div class="col" style=" "> <h5>IN STOCK :</h5></div>
+                                      <div class="col stock-number text-dark stock-product"></div>
+                                    </div>
+                                </div>
                                 <div class="stock-button-wrap pt-3">
                                     
                                     <div class="input-group product-qty">
