@@ -1,5 +1,5 @@
 {{-- trang header_fe chỉ dùng cho index_fe --}}
-@include('frontend.popup.search')
+{{-- @include('frontend.popup.search') --}}
  {{-- @if ($errors->any())
     <div class="alert alert-danger alert-dismissable fade show text-center">
         <ul>
@@ -22,6 +22,7 @@
 
 @endphp
 <header id="header" class="site-header header-scrolled position-fixed text-black bg-light header">
+    @include('frontend.popup.search') 
     <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('index') }}">
@@ -49,8 +50,11 @@
                         @endphp
                         
                         @foreach ($parentCategories as $category)
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link me-4" href=""  onclick="scrollToCategory('{{ $category->slug }}', event)">{{ $category->title }}</a>
+                            </li> --}}
+                            <li class="nav-item">
+                                <a class="nav-link me-4" href="{{ route('product-list', ['slug' => $category->slug]) }}"  >{{ $category->title }}</a>
                             </li>
                         @endforeach
                         
@@ -62,18 +66,18 @@
                             <a class="nav-link me-4 dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Pages</a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="aboutus" class="dropdown-item">About Us</a>
+                                    <a href="{{ route('aboutus') }}" class="dropdown-item">About Us</a>
                                 </li>
                                  <li>
                                     {{-- <a href="blog" class="dropdown-item">Blog</a> --}}
                                     <a href="{{ route('blog') }}" class="dropdown-item">Blog</a>
                                 </li> 
-                                <li>
+                                {{-- <li>
                                     <a href="shop" class="dropdown-item">Shop</a>
-                                </li>
-                                <li>
+                                </li> --}}
+                                {{-- <li>
                                     <a href="cart" class="dropdown-item">Cart</a>
-                                </li>
+                                </li> --}}
                                 {{-- <li>
                                     <a href="checkout.html" class="dropdown-item">Checkout</a>
                                 </li> --}}
@@ -89,8 +93,22 @@
                             </ul>
                         </li>
                         <li class="nav-item">
+                            <div class="user-items ">
+                                <ul class="d-flex justify-content-end list-unstyled">
+                                    <li class="search-item pe-3">
+                                        <a href="#" class="search-button">
+                                            <svg class="search">
+                                                 <use xlink:href="#search"></use>
+                                            </svg>
+                                        </a>
+                                    </li> 
+                                </ul>
+                            </div>
+                
+                        </li>
+                        <li class="nav-item">
                             @if(Auth::check())
-                            <div class="user-items ps-5">
+                            <div class="user-items ">
                                 <ul class="d-flex justify-content-end list-unstyled">
                                    
                                     {{-- khi user chưa đăng nhập --}}
@@ -131,13 +149,13 @@
                                         </a>
                                     </li>
 
-                                    <li class="search-item pe-3">
+                                    {{-- <li class="search-item pe-3">
                                         <a href="#" class="search-button">
                                             <svg class="search">
                                                  <use xlink:href="#search"></use>
                                             </svg>
                                         </a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </div>
                     
@@ -145,6 +163,22 @@
                                 <li class="box_login"><a class="login" href="{{route('login.form')}}">{{ __('Login') }}</a></li>
                             @endif                      
                         </li>
+
+                        {{-- <li class="nav-item">
+                            <div class="user-items ps-5">
+                                <ul class="d-flex justify-content-end list-unstyled">
+                                    <li class="search-item pe-3">
+                                        <a href="#" class="search-button">
+                                            <svg class="search">
+                                                 <use xlink:href="#search"></use>
+                                            </svg>
+                                        </a>
+                                    </li> 
+                                </ul>
+                            </div>
+                
+                        </li> --}}
+
                     </ul>
                 </div>
             </div>

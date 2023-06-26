@@ -81,9 +81,9 @@ Route::get('/index', function () {
     return view('frontend.index');
 })->name('index');
 
-Route::get('/shop', function () {
-    return view('frontend.pages.shop');
-});
+// Route::get('/shop', function () {
+//     return view('frontend.pages.shop');
+// });
 
 //Blog and post
 Route::get('/blog', function () {
@@ -107,12 +107,12 @@ Route::get('/product', function () {
     return view('frontend.pages.product_detail');
 });
 
-Route::get('/cart', function () {
-    return view('frontend.pages.checkout');
-});
+// Route::get('/cart', function () {
+//     return view('frontend.pages.checkout');
+// });
 
 Route::get('/aboutus', function () {
     return view('frontend.pages.aboutus');
-});
+})->name('aboutus');
 
 
