@@ -10,8 +10,8 @@
 	@include('frontend.layouts.header')
     <!--/ End Header --> --}}
     @include('frontend.layouts.notification')
-    <!-- Header -->
-    @include('frontend.layouts.header_fe')
+    {{-- <!-- Header -->
+    @include('frontend.layouts.header_fe') --}}
     <!--/ End Header -->
     @yield('main-content')
     <!-- Footer -->

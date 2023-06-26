@@ -53,7 +53,7 @@
     @csrf
     <div class="container">
       <div class="row">
-          <main class="col-md-9">
+          <main class="">
               <div class="product-content product-store d-flex justify-content-between flex-wrap">
                 {{-- @if(count($productList)>0)
                     @foreach($productList as $product)
@@ -86,7 +86,7 @@
                 @else
                     <h4 class="text-warning" style="margin:100px auto;">There are no products.</h4>
                 @endif --}}
-              <nav class="navigation paging-navigation text-center padding-medium" role="navigation">
+              {{-- <nav class="navigation paging-navigation text-center padding-medium" role="navigation">
                   <div class="pagination loop-pagination d-flex justify-content-center align-items-center">
                       <a href="#">
                           <svg class="chevron-left pe-3">
@@ -104,9 +104,9 @@
             </svg>
                       </a>
                   </div>
-              </nav>
+              </nav> --}}
           </main>
-          <aside class="col-md-3">
+          {{-- <aside class="col-md-3">
               <div class="sidebar">
                   <div class="widget-menu">
                       <div class="widget-search-bar">
@@ -146,7 +146,7 @@
                       </ul>
                     </div>
               </div>
-          </aside>
+          </aside> --}}
       </div>
   </div>
 </form>
@@ -210,3 +210,4 @@
 
   
 @endpush
+
