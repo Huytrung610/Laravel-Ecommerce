@@ -51,7 +51,7 @@
 
                 <div class="form-group">
                     <label for="sub_category_id">{{__('Category')}}<span class="text-danger">*</span></label>
-                    <select name="sub_category_id" id="sub_category_id" class="form-control">
+                    <select name="sub_category_id" id="sub_category_id" class="form-control" required>
                         <option value="">{{__('--Select any sub category--')}}</option>
                         @foreach($categories as $key=>$cat_data)
                             @if($cat_data->parent_id != 0)

@@ -55,98 +55,7 @@
       <div class="row">
           <main class="">
               <div class="product-content product-store d-flex justify-content-between flex-wrap">
-                {{-- @if(count($productList)>0)
-                    @foreach($productList as $product)
-                        <div class="col-lg-4 col-md-6">
-                            <div class="product-card position-relative pe-3 pb-3">
-                                <a href="{{route('product-detail',$product->slug)}}">
-                                    <div class="image-holder">
-                                        <img src="{{$product->photo}}" alt="product-item" class="img-fluid">
-                                    </div>
-                                </a>
-                                <div class="cart-concern position-absolute">
-                                    <div class="cart-button d-flex">
-                                        <div class="btn-left">
-                                            <a href="#" class="btn btn-medium btn-black">Add to Cart</a>
-                                            <svg class="cart-outline position-absolute">
-                            <use xlink:href="#cart-outline"></use>
-                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-detail d-flex justify-content-between pt-3 pb-3">
-                                    <h3 class="card-title text-uppercase">
-                                        <a href="#">{{$product->title}}</a>
-                                    </h3>
-                                    <span class="item-price text-primary">$980</span>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                @else
-                    <h4 class="text-warning" style="margin:100px auto;">There are no products.</h4>
-                @endif --}}
-              {{-- <nav class="navigation paging-navigation text-center padding-medium" role="navigation">
-                  <div class="pagination loop-pagination d-flex justify-content-center align-items-center">
-                      <a href="#">
-                          <svg class="chevron-left pe-3">
-              <use xlink:href="#chevron-left"></use>
-            </svg>
-                      </a>
-                      <span aria-current="page" class="page-numbers current pe-3">1</span>
-                      <a class="page-numbers pe-3" href="#">2</a>
-                      <a class="page-numbers pe-3" href="#">3</a>
-                      <a class="page-numbers pe-3" href="#">4</a>
-                      <a class="page-numbers" href="#">5</a>
-                      <a href="#">
-                          <svg class="chevron-right ps-3">
-              <use xlink:href="#chevron-right"></use>
-            </svg>
-                      </a>
-                  </div>
-              </nav> --}}
           </main>
-          {{-- <aside class="col-md-3">
-              <div class="sidebar">
-                  <div class="widget-menu">
-                      <div class="widget-search-bar">
-                          <form role="search" method="get" class="d-flex">
-                              <input class="search-field" placeholder="Search" type="search">
-                              <div class="search-icon bg-dark">
-                                  <a href="#">
-                                      <svg class="search text-light">
-                    <use xlink:href="#search"></use>
-                  </svg>
-                                  </a>
-                              </div>
-                          </form>
-                      </div>
-                  </div>
-                  <div class="widget-product-categories pt-5">
-                      <h5 class="widget-title text-decoration-underline text-uppercase">Categories</h5>
-                      <ul class="product-categories sidebar-list list-unstyled">
-                          <li class="cat-item">
-                              <a href="/collections/categories">All</a>
-                          </li>
-                          <li class="cat-item">
-                              <a href="">iPhone</a>
-                          </li>
-                          <li class="cat-item">
-                              <a href="">iPad</a>
-                          </li>
-                          <li class="cat-item">
-                              <a href="">Macbook</a>
-                          </li>
-                          <li class="cat-item">
-                              <a href="">Watches</a>
-                          </li>
-                          <li class="cat-item">
-                              <a href="">Âm thanh</a>
-                          </li>
-                      </ul>
-                    </div>
-              </div>
-          </aside> --}}
       </div>
   </div>
 </form>
@@ -175,16 +84,6 @@
                         productListHTML += '<img src="' + product.photo + '" alt="product-item" class="img-fluid">';
                         productListHTML += '</div>';
                         productListHTML += '</a>';
-                        // productListHTML += '<div class="cart-concern position-absolute">';
-                        // productListHTML += '<div class="cart-button d-flex">';
-                        // productListHTML += '<div class="btn-left">';
-                        // productListHTML += '<a href="#" class="btn btn-medium btn-black">Add to Cart</a>';
-                        // productListHTML += '<svg class="cart-outline position-absolute">';
-                        // productListHTML += '<use xlink:href="#cart-outline"></use>';
-                        // productListHTML += '</svg>';
-                        // productListHTML += '</div>';
-                        // productListHTML += '</div>';
-                        // productListHTML += '</div>';
                         productListHTML += '<div class="card-detail d-flex justify-content-between pt-3 " >';
                         productListHTML += '<h3 class="card-title text-uppercase">';
                         productListHTML += '<a href="#">' + product.title + '</a>';
