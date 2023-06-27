@@ -25,8 +25,67 @@
                     </div>
                 </a>
             </div>
-            <!-- Products -->
-        <div class="row">
+            <!-- Products -->   
             <!-- Content Row -->
         </div>
+        <div class="col-xl-9 col-lg-7">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Statistic</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="chart_statistic"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+         var labels = {!! json_encode($labels) !!};
+    var revenues = {!! json_encode($revenues) !!};
+    var quantities = {!! json_encode($quantities) !!};
+
+    var ctx = document.getElementById('chart_statistic').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Revenue',
+                    data: revenues,
+                    borderColor: 'rgb(255, 99, 132)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true
+                },
+                {
+                    label: 'Quantity',
+                    data: quantities,
+                    borderColor: 'rgb(54, 162, 235)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    fill: true
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Month'
+                    }
+                },
+                y: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Amount'
+                    }
+                }
+            }
+        }
+    });
+    </script>
 @endsection
