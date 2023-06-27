@@ -17,7 +17,7 @@ Route::group([
     'namespace'  => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
     
-    Route::get('/dashboard',[\App\Http\Controllers\AdminController::class, 'index'])->name('admin');
+    Route::get('/dashboard',[\App\Http\Controllers\AdminController::class, 'getRevenueByMonth'])->name('admin');
     Route::resource('users','\App\Http\Controllers\UsersController');
     Route::get('/file-manager',function(){
         return view('backend.layouts.file-manager');

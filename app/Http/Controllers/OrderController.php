@@ -189,7 +189,7 @@ class OrderController extends Controller
                     $product->save();
                 }
             }
-
+            $data['delivery_date'] = $request->get('delivery_date');
             $order->fill($data)->save();
             request()->session()->flash('success', __('Successfully updated order'));
 
