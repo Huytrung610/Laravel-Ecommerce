@@ -83,7 +83,7 @@
                                     </div>
                                     @guest
                                         <div class="qty-button d-flex flex-wrap pt-3 btn-add-to-cart">
-                                            <button type="submit" class="btn btn-primary btn-medium text-uppercase me-3 mt-3">Buy now</button>
+                                            
                                             {{-- <button type="button" name="add-to-cart" value="1269" class="btn btn-black btn-medium text-uppercase mt-3 add-to-cart open-sign-up-popup">Add to cart</button> --}}
                                             <button type="button" name="add-to-cart" class="btn btn-black btn-medium text-uppercase mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                 Add to cart
@@ -100,30 +100,7 @@
                             </div>
                         </div>
                     </form>
-                    <div class="meta-product py-2">
-                        <div class="meta-item d-flex align-items-baseline">
-                            <h4 class="item-title no-margin pe-2">Category:</h4>
-                            <ul class="select-list list-unstyled d-flex">
-                                <li data-value="S" class="select-item">
-                                    <a href="#">Watch</a>,
-                                </li>
-                                <li data-value="S" class="select-item">
-                                    <a href="#"> Screen touch</a>,
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="meta-item d-flex align-items-baseline">
-                            <h4 class="item-title no-margin pe-2">Tags:</h4>
-                            <ul class="select-list list-unstyled d-flex">
-                                <li data-value="S" class="select-item">
-                                    <a href="#">Classic</a>,
-                                </li>
-                                <li data-value="S" class="select-item">
-                                    <a href="#"> Modern</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
         </div>

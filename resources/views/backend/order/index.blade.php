@@ -110,7 +110,10 @@
                         @endforeach
                         </tbody>
                     </table>
-                    <div class="total-amount float-right">Total Amount: {{ number_format($totalAmount, 2) }} vnd</div>
+                    {{-- <div class="total-amount float-right">Total Amount: {{ number_format($totalAmount, 2) }} vnd</div> --}}
+                    <div class="total-amount float-right" style="border: 2px solid ; padding: 10px; background-color: #e3e6f0; font-weight: bold;text-transform:uppercase;">
+                        Total Amount: {{ number_format($totalAmount, 2) }} vnđ
+                    </div>
 
 
 {{--                    <span style="float:right">{{$orders->links()}}</span>--}}
