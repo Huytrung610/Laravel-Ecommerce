@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 @section('title', env('APP_NAME') . ' || DASHBOARD')
 @section('main-content')
-    <div class="container-fluid">
+    {{-- <div class="container-fluid"> --}}
     @include('backend.layouts.notification')
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -35,6 +35,50 @@
                 </div>
                 <div class="card-body">
                     <canvas id="chart_statistic"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-9 col-lg-7">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Best-selling Products</h6>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Tên sản phẩm</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Lợi nhuận thu về</th>
+                            
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">
+                                <a href="#">Iphone 14 promax</a>
+                            </th>
+                            <td>50</td>
+                            <td>100.000.00 VNĐ</td>  
+                          </tr>
+                          <tr>
+                            <th scope="row">
+                                <a href="#">macbook pro 2023 </a>
+                            </th>
+                            <td>15</td>
+                            <td>50.000.000 VNĐ</td>
+                            
+                          </tr>
+                          <tr>
+                            <th scope="row">
+                                <a href="#">macbook pro 2023 </a>
+                            </th>
+                            <td>15</td>
+                            <td>20.000.000 VNĐ</td>
+                            
+                          </tr>
+                        </tbody>
+                      </table>
                 </div>
             </div>
         </div>
