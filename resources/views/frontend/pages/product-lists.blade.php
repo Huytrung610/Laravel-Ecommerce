@@ -41,7 +41,7 @@
         @foreach ($childCategories as $childCategory)
             <div class="col-md-auto item-box">
                 <div class="title">
-                    <a href="{{ route('product-list', ['slug' => $childCategory->slug]) }}" data-slug="{{ $childCategory->slug }}" data-id="{{ $childCategory->id }}" onclick="getProductListByCategory(event)">{{ $childCategory->title }}</a>
+                    <a href="{{ route('product-list', ['slug' => $childCategory->slug]) }}" data-slug="{{ $childCategory->slug }}" data-id="{{ $childCategory->id }}" onclick="getProductListByCategory(event)" style="font-size:20px;font-weight:600px;text-transform:uppercase">{{ $childCategory->title }}</a>
                 </div>
             </div>
         @endforeach
@@ -54,7 +54,7 @@
     <div class="container">
       <div class="row">
           <main class="">
-              <div class="product-content product-store d-flex justify-content-between flex-wrap">
+              <div class="product-content product-store d-flex  flex-wrap">
           </main>
       </div>
   </div>

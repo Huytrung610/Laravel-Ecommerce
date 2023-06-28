@@ -72,6 +72,7 @@
                     </span>
                         <input id="thumbnail" class="form-control" type="text" name="photo">
                     </div>
+                    <small id="warningInputImg" class="form-text " style="font-size: 14px;color:red;margin-bottom: 26px;"> *Image size must be: 550 x 550</small>
                     <div id="holder" style="margin-top:15px;max-height:100px;"></div>
                     @error('photo')
                     <span class="text-danger">{{$message}}</span>
