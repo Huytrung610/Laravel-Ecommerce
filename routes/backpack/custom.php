@@ -41,7 +41,8 @@ Route::group([
 
     //Order
     Route::resource('/order','\App\Http\Controllers\OrderController');
-    Route::get('order/receipt/show/{id}','App\Http\Controllers\OrderController@showOrderReceipt')->name('order.receipt.show');
-    Route::get('order/receipt/edit/{id}',[\App\Http\Controllers\OrderController::class,'editOrderReceipt'])->name('order.receipt.edit');
+    Route::get('order/receipt/index','\App\Http\Controllers\OrderController@getOrderReceipt')->name('order.receipt.index');
+    Route::get('order/receipt/show/{id}','\App\Http\Controllers\OrderController@showOrderReceipt')->name('order.receipt.show');
+    Route::get('order/receipt/edit/{id}','\App\Http\Controllers\OrderController@editOrderReceipt')->name('order.receipt.edit');
     Route::delete('order/receipt/destroy/{id}',[\App\Http\Controllers\OrderController::class,'destroyOrderReceipt'])->name('order.receipt.destroy');
 }); // this should be the absolute last line of this file

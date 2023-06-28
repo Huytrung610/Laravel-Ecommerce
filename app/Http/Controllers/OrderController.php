@@ -16,11 +16,30 @@ use App\Helpers\Api\CartHelper;
 class OrderController extends Controller
 {
     
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::orderBy('id', 'DESC')->get();
-        return view('backend.order.index')->with('orders', $orders);
+        $start_date = $request->get('start_date');
+        $end_date = $request->get('end_date');
+
+        $query = Order::orderBy('id', 'DESC')->where('status', '<>', 'delivered');
+
+        if ($start_date && $end_date) {
+            $query->whereBetween('created_at', [$start_date, $end_date]);
+        }
+
+        $orders = $query->get();
+        $totalAmount = $orders->sum('total_amount');
+
+        if (!$start_date && !$end_date) {
+            $totalAmount = Order::where('status', '<>', 'delivered')->sum('total_amount');
+        }
+
+        return view('backend.order.index')
+            ->with('orders', $orders)
+            ->with('totalAmount', $totalAmount);
     }
+
+    
 
     public function store(Request $request)
     {
@@ -206,35 +225,60 @@ class OrderController extends Controller
     }
 
     public function showOrderDetail($id)
-{
-    $productHelper = new ProductHelper();
-    $order = Order::find($id);
-    $orderItems = $order->cart_info ?? [];
-    $listProductId = [];
-    foreach ($orderItems as $item){
-        $listProductId[] = $item['product_id'];
-    }
-    $listProductAttr = [];
-    $attributeModel = new Attribute();
-    $cartModel = new Cart();
-    foreach($listProductId as $productId){
-        $listProductAttr[] = $attributeModel->getSku($productId);
-    }
-    $listQtyCart = [];
-    foreach($listProductId as $productId){
-        $listQtyCart[] = $cartModel->getQtyByCart($productId,$id);
-    }
-    $listProductName = [];
-    foreach($listProductAttr as $productAttr){
-        $listProductName[] = $productHelper->convertSlugToTitle($productAttr);
-    }
-   
-    if (!$order) {
-        return response()->json(['error' => 'Order not found'], 404);
-    } 
+    {
+        $productHelper = new ProductHelper();
+        $order = Order::find($id);
+        $orderItems = $order->cart_info ?? [];
+        $listProductId = [];
+        foreach ($orderItems as $item){
+            $listProductId[] = $item['product_id'];
+        }
+        $listProductAttr = [];
+        $attributeModel = new Attribute();
+        $cartModel = new Cart();
+        foreach($listProductId as $productId){
+            $listProductAttr[] = $attributeModel->getSku($productId);
+        }
+        $listQtyCart = [];
+        foreach($listProductId as $productId){
+            $listQtyCart[] = $cartModel->getQtyByCart($productId,$id);
+        }
+        $listProductName = [];
+        foreach($listProductAttr as $productAttr){
+            $listProductName[] = $productHelper->convertSlugToTitle($productAttr);
+        }
+    
+        if (!$order) {
+            return response()->json(['error' => 'Order not found'], 404);
+        } 
 
-    return response()->json(['data' => $order, 'listProductName' => $listProductName, 'listQtyCart'=> $listQtyCart]);
-}
+        return response()->json(['data' => $order, 'listProductName' => $listProductName, 'listQtyCart'=> $listQtyCart]);
+    }
+
+    public function getOrderReceipt(Request $request)
+    {
+        $start_date = $request->get('start_date');
+        $end_date = $request->get('end_date');
+    
+        $query = Order::orderBy('id', 'DESC')->where('status', Order::STATUS_DELIVERY);
+    
+        if ($start_date && $end_date) {
+            $query->whereBetween('delivery_date', [$start_date, $end_date]);
+        }
+        if (!$start_date && !$end_date) {
+            $totalAmount = Order::where('status', Order::STATUS_DELIVERY)->sum('total_amount');
+        }
+    
+        $orders = $query->get();
+        $totalAmount = $orders->sum('total_amount');
+    
+        return view('backend.order.index')
+            ->with('orders', $orders)
+            ->with('status', Order::STATUS_DELIVERY)
+            ->with('orderReceipt', Order::ORDER_RECEIPT)
+            ->with('totalAmount', $totalAmount);
+    }
+    
 
 
 }

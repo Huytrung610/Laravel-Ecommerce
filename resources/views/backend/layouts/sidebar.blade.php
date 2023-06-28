@@ -90,7 +90,7 @@
   </li>
   <!--Receipt -->
   <li class="nav-item">
-      <a class="nav-link" href="#">
+      <a class="nav-link" href="{{route('order.receipt.index')}}">
         <i class="fas fa-receipt"></i>
           <span>{{__('Receipt')}}</span>
       </a>
