@@ -10,6 +10,19 @@
         </div>
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary float-left">{{__('Order Lists')}}</h6>
+            <div class="float-right">
+                <form action="{{ route('order.receipt.index') }}" method="GET" class="form-inline">
+                    <div class="form-group">
+                        <label for="start_date">{{__('Start Date')}}:</label>
+                        <input type="date" class="form-control mx-sm-2" id="start_date" name="start_date">
+                    </div>
+                    <div class="form-group">
+                        <label for="end_date">{{__('End Date')}}:</label>
+                        <input type="date" class="form-control mx-sm-2" id="end_date" name="end_date">
+                    </div>
+                    <button type="submit" class="btn btn-primary">{{__('Filter')}}</button>
+                </form>
+            </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -24,10 +37,9 @@
                             <th>{{__('Detail Address')}}</th>
                             <th>{{__('Quantity')}}</th>
                             <th>{{__('Date')}}</th>
-                            {{-- <th>{{__('Delivery date')}}</th> --}}
+                            <th>{{__('Delivery date')}}</th>
                             <th>{{__('Total Amount')}} </th>
                             <th>{{__('Payment Method')}} </th>
-
                             <th>{{__('Status')}}</th>
                             <th>{{__('Action')}}</th>
                         </tr>
@@ -41,10 +53,9 @@
                             <th>{{__('Detail Address')}}</th>
                             <th>{{__('Quantity')}}</th>
                             <th>{{__('Date')}}</th>
-                            {{-- <th>{{__('Delivery date')}}</th> --}}
+                            <th>{{__('Delivery date')}}</th>
                             <th>{{__('Total Amount')}}</th>
                             <th>{{__('Payment Method')}} </th>
-
                             <th>{{__('Status')}}</th>
                             <th>{{__('Action')}}</th>
                         </tr>
@@ -62,7 +73,8 @@
                                 <td>{{$order->detail_address}}</td>
                                 <td>{{$order->quantity}}</td>
                                 <td>{{date_format($order->created_at, "Y/m/d")}}</td>
-                                <td>${{number_format($order->total_amount,2)}}</td>
+                                <td>{{ $order->delivery_date ? \Illuminate\Support\Carbon::parse($order->delivery_date)->format("Y/m/d") : '' }}</td>
+                                <td>{{number_format($order->total_amount,2)}} vnd</td>
                                 <td>{{$order->payment_method}}</td>
                                 <td>
                                     @if($order->status=='new')
@@ -93,19 +105,14 @@
                                             $destroyUrl = route('order.receipt.destroy',[$order->id]);
                                         }
                                     @endphp
-                                    <form method="POST" action="{{$destroyUrl}}">
-                                        @csrf
-                                        @method('delete')
-                                        <button class="btn btn-danger btn-sm dltBtn" data-id="{{$order->id}}"
-                                                style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
-                                                data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </form>
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
+                    <div class="total-amount float-right">Total Amount: {{ number_format($totalAmount, 2) }} vnd</div>
+
+
 {{--                    <span style="float:right">{{$orders->links()}}</span>--}}
                 @else
                     <h6 class="text-center">{{__('No orders found!!! Please order some products')}}</h6>

@@ -49,10 +49,10 @@
                             <a href="{{route('order.edit',$order->id)}}" class="btn btn-primary btn-sm float-left mr-1"
                                style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit"
                                data-placement="bottom"><i class="fas fa-edit"></i></a>
-                            @else
+                            {{-- @else
                                 <a href="{{route('order.receipt.edit',$order->id)}}" class="btn btn-primary btn-sm float-left mr-1"
                                    style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit"
-                                   data-placement="bottom"><i class="fas fa-edit"></i></a>
+                                   data-placement="bottom"><i class="fas fa-edit"></i></a> --}}
                             @endif
                             @php
                                 $destroyUrl = route('order.destroy',[$order->id]);
@@ -60,16 +60,7 @@
                                     $destroyUrl = route('order.receipt.destroy',[$order->id]);
                                 }
                             @endphp
-                            <form method="POST" action="{{$destroyUrl}}">
-                                @csrf
-                                @method('delete')
-                                <button class="btn btn-danger btn-sm dltBtn" data-id="{{$order->id}}"
-                                        style="height:30px; width:30px;border-radius:50%"
-                                        data-toggle="tooltip" data-placement="bottom" title="Delete">
-                                    <i class="fas fa-trash-alt"></i></button>
-                            </form>
                         </td>
-
                     </tr>
                     </tbody>
                 </table>
@@ -96,7 +87,7 @@
                                         </tr>
                                         <tr>
                                             <td>{{ __('Order Status') }}</td>
-                                            <td> : {{$order->status}}</td>
+                                            <td> : {{$order->status}} in ({{$order->delivery_date ?? ''}}) </td>
                                         </tr>
                                         <tr>
                                             <td>{{ __('Total Amount') }}</td>

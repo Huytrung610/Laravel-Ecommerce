@@ -11,6 +11,7 @@ class Order extends Model
     const STATUS_PROCESS = 'process';
     const STATUS_DELIVERY = 'delivered';
     const STATUS_CANCEL = 'cancel';
+    const ORDER_RECEIPT = 1;
 
     const LIST_ORDER_STATUS = [
         self::STATUS_NEW,
