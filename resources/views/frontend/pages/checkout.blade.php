@@ -64,7 +64,7 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
                                 <a href="">{{$productName}}</a>
                               </h3> 
                               <div class="card-price">
-                        <span class="money text-primary">{{$productPrice}}</span>
+                        <span class="money text-primary">{{$productPrice}}đ</span>
                       </div>
                     </div>
                   </div>
@@ -85,13 +85,13 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
                           </div>
                           <div class="col-md-4">
                             <div class="total-price">
-                              <span class="money text-primary">{{$cart['amount']}} </span>
+                              <span class="money text-primary">{{$cart['amount']}}đ</span>
                             </div>
                           </div>   
                         </div>             
                       </div>
 
-                      <div class="col-lg-1 col-md-1" style="padding-left: 35px;">
+                      <div class="col-lg-1 col-md-1" style="padding-left: 55px;">
                         <div class="cart-remove">
                           <a href="{{route('cart-delete',$cart->id)}}">
                             <svg class="close" width="28px">
@@ -136,7 +136,7 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
                         <td data-title="Sub total">
                           <span class="price-amount amount text-primary ps-5">
                             <bdi>
-                              <span class="price-currency-symbol" data-price="{{Helper::totalCartPrice()}}">$</span>{{Helper::totalCartPrice()}}</bdi>
+                              <span class="price-currency-symbol" data-price="{{Helper::totalCartPrice()}}"></span>{{Helper::totalCartPrice()}} VNĐ</bdi>
                           </span>
                         </td>
                       </tr>
@@ -159,7 +159,7 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
                   <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
                       <span>Contact Info</span>
-                      <a href="#" class=" change_addressdefault change-link">Change</a>
+                      <a href=" {{route('profile')}}" class=" change_addressdefault change-link">CHANGE </a>
                     </div>
                   </div>
                   <div class="row">

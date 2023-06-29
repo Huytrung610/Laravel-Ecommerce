@@ -29,28 +29,31 @@
   
 </section>
 <div class="shopify-grid padding-large">
-    <div class="container" style="font-size: 16px;margin-bottom: 3%;"  >
+  <div class="container" style="font-size: 16px;margin-bottom: 3%;"  >
        
-       <div class="row">
-        @foreach ($childCategories as $childCategory)
-            <div class="col-md-auto item-box">
-                <div class="title">
-                    <a href="{{ route('product-list', ['slug' => $childCategory->slug]) }}" data-slug="{{ $childCategory->slug }}" data-id="{{ $childCategory->id }}" onclick="getProductListByCategory(event)" style="font-size:20px;font-weight:600px;text-transform:uppercase">{{ $childCategory->title }}</a>
-                </div>
-            </div>
-        @endforeach
-        <div class="input-group">
-            <div class="form-outline">
-              <input type="search" id="form1" class="form-control" />
-            </div>
-            <button type="button" class="btn btn-primary" onclick="searchProducts()">
-                <i class="fas fa-search"></i>
-              </button>              
+    <div class="d-flex mb-3">
+      @foreach ($childCategories as $childCategory)
+        <div class="p-2" style="margin-left: 16px;">
+          <div class="title">
+              <a href="{{ route('product-list', ['slug' => $childCategory->slug]) }}" data-slug="{{ $childCategory->slug }}" data-id="{{ $childCategory->id }}" onclick="getProductListByCategory(event)" style="font-size:20px;font-weight:600px;text-transform:uppercase">{{ $childCategory->title }}</a>
           </div>
+        </div>
+      @endforeach
+  
+       <div class="ms-auto p-2">
+          <div class="input-group">
+              <div class="form-outline">
+                <input type="search" id="form1" class="form-control" />
+              </div>
+                 <button type="button" class="btn btn-primary" onclick="searchProducts()">
+                     <i class="fas fa-search"></i>
+                 </button>              
+          </div>
+        </div>
+
     </div>
-    
-    
-      </div>
+  </div>
+
     <form action="{{route('shop.filter')}}" method="POST" class="h-auto">
     @csrf
     <div class="container">
