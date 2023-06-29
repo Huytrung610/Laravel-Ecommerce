@@ -11,7 +11,7 @@
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary float-left">{{__('Order Lists')}}</h6>
             <div class="float-right">
-                <form action="{{ route('order.receipt.index') }}" method="GET" class="form-inline">
+                <form action="{{ Request::is('admin/order') ? route('order.index') : route('order.receipt.index') }}" method="GET" class="form-inline">
                     <div class="form-group">
                         <label for="start_date">{{__('Start Date')}}:</label>
                         <input type="date" class="form-control mx-sm-2" id="start_date" name="start_date">

@@ -278,7 +278,6 @@ class OrderController extends Controller
             ->with('orderReceipt', Order::ORDER_RECEIPT)
             ->with('totalAmount', $totalAmount);
     }
-    
 
 
 }

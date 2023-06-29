@@ -53,30 +53,23 @@
                             
                           </tr>
                         </thead>
+            
                         <tbody>
-                          <tr>
-                            <th scope="row">
-                                <a href="#">Iphone 14 promax</a>
-                            </th>
-                            <td>50</td>
-                            <td>100.000.00 VNĐ</td>  
-                          </tr>
-                          <tr>
-                            <th scope="row">
-                                <a href="#">macbook pro 2023 </a>
-                            </th>
-                            <td>15</td>
-                            <td>50.000.000 VNĐ</td>
-                            
-                          </tr>
-                          <tr>
-                            <th scope="row">
-                                <a href="#">macbook pro 2023 </a>
-                            </th>
-                            <td>15</td>
-                            <td>20.000.000 VNĐ</td>
-                            
-                          </tr>
+                          @foreach($products as $product)
+                          @php
+                            $attribute = new \App\Models\Attribute;
+                            $productHelper = new \App\Helpers\Backend\ProductHelper();
+                            $attrSku = $attribute->getSku($product['product_id']);
+                            $productName =  $productHelper->convertSlugToTitle($attrSku);
+                             @endphp 
+                            <tr>
+                                <th scope="row">
+                                    <a href="#">{{$productName}}</a>
+                                </th>
+                                <td>{{$product['total_quantity']}}</td>
+                                <td>{{$product['total_amount']}} VNĐ</td>  
+                            </tr>
+                            @endforeach
                         </tbody>
                       </table>
                 </div>

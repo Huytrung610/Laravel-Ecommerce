@@ -10,14 +10,7 @@ class Attribute extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'sku',
-        'price',
-        'stock',
-        'color',
-        'product_id',
-        'photo'
-    ];
+    protected $fillable = ['sku','price','stock','color','product_id','photo'];
 
     
     public function product()
@@ -40,5 +33,6 @@ class Attribute extends Model
     public function getSku($productId){
         return $this->where('id', $productId)->value('sku');
     }
+
     
 }
