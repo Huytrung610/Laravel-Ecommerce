@@ -45,4 +45,7 @@ Route::group([
     Route::get('order/receipt/show/{id}','\App\Http\Controllers\OrderController@showOrderReceipt')->name('order.receipt.show');
     Route::get('order/receipt/edit/{id}','\App\Http\Controllers\OrderController@editOrderReceipt')->name('order.receipt.edit');
     Route::delete('order/receipt/destroy/{id}',[\App\Http\Controllers\OrderController::class,'destroyOrderReceipt'])->name('order.receipt.destroy');
+
+    // Post
+    Route::resource('/post','\App\Http\Controllers\PostController');
 }); // this should be the absolute last line of this file

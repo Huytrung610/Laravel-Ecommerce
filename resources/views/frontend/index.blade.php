@@ -607,58 +607,28 @@ $fourthCategory = $parentCategories[3];
             <div class="display-header d-flex justify-content-between pb-3">
                 <h2 class="display-7 text-dark text-uppercase">Tin tức công nghệ</h2>
                 <div class="btn-right">
-                    <a href="blog.html" class="btn btn-medium btn-normal text-uppercase">Read Blog</a>
+                    <a href="{{route('blog')}}" class="btn btn-medium btn-normal text-uppercase">Read Blog</a>
                 </div>
             </div>
             <div class="post-grid d-flex flex-wrap justify-content-between">
-                <div class="col-lg-4 col-sm-12">
-                    <div class="card border-none me-3">
-                        <div class="card-image">
-                            <img src="{{ asset('frontend/images/post-item1.jpg') }}" alt="" class="img-fluid">
+                @foreach ($posts as $post)
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="card border-none me-3">
+                            <div class="card-image">
+                                <img src="{{$post->photo }}" alt="" class="img-fluid">
+                            </div>
+                        </div>
+                        <div class="card-body text-uppercase">
+                            <div class="card-meta text-muted">
+                                <span class="meta-date">{{$post->created_at->format('d/m/YY') }}</span>
+                            </div>
+                            <h3 class="card-title">
+                                <a href="{{route('blog.detail',$post->slug)}}">{{$post->title }}</a>
+                            </h3>
                         </div>
                     </div>
-                    <div class="card-body text-uppercase">
-                        <div class="card-meta text-muted">
-                            <span class="meta-date">feb 22, 2023</span>
-                            <span class="meta-category">- Gadgets</span>
-                        </div>
-                        <h3 class="card-title">
-                            <a href="#">máy chơi game "quốc dân" của năm 2023 ra mắt</a>
-                        </h3>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-12">
-                    <div class="card border-none me-3">
-                        <div class="card-image">
-                            <img  src="{{ asset('frontend/images/post-item2.jpg') }}" alt="" class="img-fluid">
-                        </div>
-                    </div>
-                    <div class="card-body text-uppercase">
-                        <div class="card-meta text-muted">
-                            <span class="meta-date">feb 25, 2023</span>
-                            <span class="meta-category">- Technology</span>
-                        </div>
-                        <h3 class="card-title">
-                            <a href="#">Tai nghe dành cho dân thể thao</a>
-                        </h3>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-12">
-                    <div class="card border-none me-3">
-                        <div class="card-image">
-                            <img src="{{ asset('frontend/images/post-item3.jpg') }}" alt="" class="img-fluid">
-                        </div>
-                    </div>
-                    <div class="card-body text-uppercase">
-                        <div class="card-meta text-muted">
-                            <span class="meta-date">feb 22, 2023</span>
-                            <span class="meta-category">- Camera</span>
-                        </div>
-                        <h3 class="card-title">
-                            <a href="#">Top 10 Máy ảnh mini được đánh giá cao thời điểm hiện tại</a>
-                        </h3>
-                    </div>
-                </div>
+               @endforeach
+                
             </div>
         </div>
     </div>
