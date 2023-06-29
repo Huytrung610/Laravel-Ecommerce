@@ -76,14 +76,7 @@ Route::post('user/login','App\Http\Controllers\FrontendController@loginSubmit')-
 Route::post('user/register', 'App\Http\Controllers\FrontendController@registerSubmit')->name('register.submit');
 Route::get('user/logout','App\Http\Controllers\FrontendController@logout')->name('user.logout');
 
-
-Route::get('/index', function () {
-    return view('frontend.index');
-})->name('index');
-
-
 //Blog and post
-
 Route::get('/blog','\App\Http\Controllers\Frontend\PostController@listing')->name('blog');
 Route::get('/blog-detail/{slug}','\App\Http\Controllers\Frontend\PostController@index')->name('blog.detail');
 
