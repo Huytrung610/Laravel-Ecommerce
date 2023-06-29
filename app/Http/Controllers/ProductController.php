@@ -167,11 +167,17 @@ class ProductController extends Controller
     {
         $searchValue = $request->input('search');
         $helper = new \App\Helpers\Backend\ProductHelper();
-        $products = Product::where('title', 'like', '%' . $searchValue . '%')->get();
-
+        
+        if ($searchValue) {
+            $products = Product::where('title', 'like', '%' . $searchValue . '%')->get();
+        } else {
+            $products = Product::all();
+        }
+        
         $productList = [];
+        
         foreach ($products as $product) {
-            $minPrice =$helper->formatPrice($product->attributes()->min('price'));
+            $minPrice = $helper->formatPrice($product->attributes()->min('price'));
             $maxPrice = $helper->formatPrice($product->attributes()->max('price'));
 
             $productList[] = [
@@ -183,7 +189,8 @@ class ProductController extends Controller
         }
 
         return response()->json($productList);
-    }
+}
+
 
     
 
