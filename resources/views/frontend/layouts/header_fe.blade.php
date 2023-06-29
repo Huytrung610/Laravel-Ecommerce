@@ -70,7 +70,7 @@
                                 </li>
                                  <li>
                                     {{-- <a href="blog" class="dropdown-item">Blog</a> --}}
-                                    <a href="{{ route('blog') }}" class="dropdown-item">Blog</a>
+                                    <a href="{{route('blog')}}" class="dropdown-item">Blog</a>
                                 </li> 
                                 {{-- <li>
                                     <a href="shop" class="dropdown-item">Shop</a>
