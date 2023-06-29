@@ -22,7 +22,7 @@
 
 @endphp
 <header id="header" class="site-header header-scrolled position-fixed text-black bg-light header">
-    @include('frontend.popup.search') 
+    {{-- @include('frontend.popup.search')  --}}
     <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('home') }}">
@@ -92,7 +92,7 @@
                                 </li> --}}
                             </ul>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <div class="user-items ">
                                 <ul class="d-flex justify-content-end list-unstyled">
                                     <li class="search-item pe-3">
@@ -105,7 +105,7 @@
                                 </ul>
                             </div>
                 
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             @if(Auth::check())
                             <div class="user-items ">
