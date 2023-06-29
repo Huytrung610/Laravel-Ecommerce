@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use App\Helpers\Frontend\OrderHelper;
 use App\Models\Order;
+use App\Models\Post;
 
 class FrontendController extends Controller
 {
@@ -23,7 +24,10 @@ class FrontendController extends Controller
 
     public function home()
     {
-        return view('frontend.index');
+        $posts = Post::where('status', 'active')->orderBy('id', 'DESC')->get();
+
+        return view('frontend.index')
+        ->with('posts', $posts);
           
     }
  

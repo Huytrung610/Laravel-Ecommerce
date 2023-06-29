@@ -81,17 +81,12 @@ Route::get('/index', function () {
     return view('frontend.index');
 })->name('index');
 
-// Route::get('/shop', function () {
-//     return view('frontend.pages.shop');
-// });
 
 //Blog and post
-Route::get('/blog', function () {
-    return view('frontend.pages.blog');
-})->name('blog');
-Route::get('/posts', function () {
-    return view('frontend.pages.posts');
-})->name('posts');
+
+Route::get('/blog','\App\Http\Controllers\Frontend\PostController@listing')->name('blog');
+Route::get('/blog-detail/{slug}','\App\Http\Controllers\Frontend\PostController@index')->name('blog.detail');
+
 
 // Product
 //Route::get('product-detail', 'App\Http\Controllers\ProductController@getAllProduct')->name('product-all');
@@ -107,9 +102,6 @@ Route::get('/product', function () {
     return view('frontend.pages.product_detail');
 });
 
-// Route::get('/cart', function () {
-//     return view('frontend.pages.checkout');
-// });
 
 Route::get('/aboutus', function () {
     return view('frontend.pages.aboutus');

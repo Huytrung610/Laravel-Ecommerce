@@ -113,8 +113,8 @@
     <div id="postCollapse" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Post Options:</h6>
-        <a class="collapse-item" href="#">{{__('Posts')}}</a>
-        <a class="collapse-item" href="#">{{__('Add Post')}}</a>
+        <a class="collapse-item" href="{{route('post.index')}}">{{__('Posts')}}</a>
+        <a class="collapse-item" href="{{route('post.create')}}">{{__('Add Post')}}</a>
       </div>
     </div>
   </li>

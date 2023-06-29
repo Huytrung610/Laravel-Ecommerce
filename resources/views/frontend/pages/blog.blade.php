@@ -37,63 +37,6 @@
             <aside class="col-md-3">
                 <div class="sidebar">
                     <div class="sidebar-filter pt-5">                    
-                        {{-- <div class="widget sidebar-recent-post mb-5">
-                            <h5 class="widget-title text-uppercase">Latest Posts</h5>
-                            <div class="sidebar-post-item">
-                                <div class="d-flex flex-wrap align-items-center mb-3">
-                                    <div class="col-lg-6">
-                                        <div class="card-image pe-3 pb-2">
-                                            <a href="#">
-                                                <img src="{{ asset('frontend/images/post-small-image1.jpg') }}" alt="blog" class="img-fluid">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="card-content">
-                                            <h4 class="card-title">
-                                                <a href="#">TOP 10 SMALL CAMERA IN THE WORLD</a>
-                                            </h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="sidebar-post-item">
-                                <div class="d-flex flex-wrap align-items-center mb-3">
-                                    <div class="col-lg-6">
-                                        <div class="card-image pe-3 pb-2">
-                                            <a href="#">
-                                                <img src="{{ asset('frontend/images/post-small-image2.jpg') }}" alt="blog" class="img-fluid">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="card-content">
-                                            <h4 class="card-title">
-                                                <a href="#">TECHNOLOGY HACK YOU WON’T GET</a>
-                                            </h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="sidebar-post-item">
-                                <div class="d-flex flex-wrap align-items-center mb-3">
-                                    <div class="col-lg-6">
-                                        <div class="card-image pe-3 pb-2">
-                                            <a href="#">
-                                                <img src="{{ asset('frontend/images/post-small-image3.jpg') }}" alt="blog" class="img-fluid">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="card-content">
-                                            <h4 class="card-title">
-                                                <a href="#">GET SOME COOL GADGETS IN 2023</a>
-                                            </h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
                         <div class="widget sidebar-social-links mb-5">
                             <h5 class="widget-title text-uppercase">Social Links</h5>
                             <ul class="sidebar-list list-unstyled">
@@ -119,81 +62,31 @@
             </aside>
             <main class="col-md-9">
                 <div class="row">
+                    @foreach($posts as $post)
                     <div class="col-lg-4">
                         <div class="card border-none">
                             <div class="card-image">
-                                <img src="{{ asset('frontend/images/post-item1.jpg') }}" alt="" class="img-fluid">
+                                <img src="{{ $post->photo }}" alt="" class="img-fluid">
                             </div>
                         </div>
                         <div class="card-body text-uppercase">
                             <div class="card-meta text-muted">
-                                <span class="meta-date">feb 22, 2023</span>
+                                <span class="meta-date">{{ $post->created_at->format('d/m/Y')}}</span>
                                 <span class="meta-category">- Gadgets</span>
                             </div>
                             <h3 class="card-title">
-                                <a href="#">Máy chơi Game "Quốc Dân" của năm 2023 sắp ra mắt</a>
+                                <a href="{{route('blog.detail',$post->slug)}}">{{ $post->title}}</a>
                             </h3>
                         </div>
                     </div>
-                   
-                   
-                    <div class="col-lg-4">
-                        <div class="card border-none">
-                            <div class="card-image">
-                                <img src="{{ asset('frontend/images/post-item4.jpg') }}" alt="" class="img-fluid">
-                            </div>
-                        </div>
-                        <div class="card-body text-uppercase">
-                            <div class="card-meta text-muted">
-                                <span class="meta-date">feb 27, 2023</span>
-                                <span class="meta-category">- technology</span>
-                            </div>
-                            <h3 class="card-title">
-                                <a href="#">Get some cool gadgets in 2023</a>
-                            </h3>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="card border-none">
-                            <div class="card-image">
-                                <img src="{{ asset('frontend/images/post-item5.jpg') }}" alt="" class="img-fluid">
-                            </div>
-                        </div>
-                        <div class="card-body text-uppercase">
-                            <div class="card-meta text-muted">
-                                <span class="meta-date">March 09, 2023</span>
-                                <span class="meta-category">- technology</span>
-                            </div>
-                            <h3 class="card-title">
-                                <a href="{{ route('posts') }}">APPLE CHO RA MẮT KÍNH THỰC TẾ ẢO VISION PRO</a>
-                            </h3>
-                        </div>
-                    </div>
-                   
-                  
-                    
-                    
+                    @endforeach
                 </div>
-                <nav class="navigation paging-navigation text-center padding-medium" role="navigation">
-                    <div class="pagination loop-pagination d-flex justify-content-center align-items-center">
-                        <a href="#">
-                            <svg class="chevron-left pe-3">
-                <use xlink:href="#chevron-left"></use>
-              </svg>
-                        </a>
-                        <span aria-current="page" class="page-numbers current pe-3">1</span>
-                        <a class="page-numbers pe-3" href="#">2</a>
-                        <a class="page-numbers pe-3" href="#">3</a>
-                        <a class="page-numbers pe-3" href="#">4</a>
-                        <a class="page-numbers" href="#">5</a>
-                        <a href="#">
-                            <svg class="chevron-right ps-3">
-                <use xlink:href="#chevron-right"></use>
-              </svg>
-                        </a>
-                    </div>
-                </nav>
             </main>
+            @if($posts->count())
+                <div class="pagination">
+                    {!! $posts->links('pagination::bootstrap-4') !!}
+                </div>
+            @endif
         </div>
     </div>
 </section>
