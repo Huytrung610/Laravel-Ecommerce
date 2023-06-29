@@ -21,7 +21,7 @@
             <h1 class="display-2 text-uppercase text-dark">Blog</h1>
             <div class="breadcrumbs">
               <span class="item">
-                <a href="{{ route('index') }}">Home ></a>
+                <a href="{{ route('home') }}">Home ></a>
               </span>
               <span class="item">Blog</span>
             </div>
