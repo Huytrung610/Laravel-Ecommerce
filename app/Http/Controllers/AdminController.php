@@ -28,7 +28,9 @@ class AdminController extends Controller
     $revenues = [];
     $quantities = [];
 
+   
     $orderIds = Order::where('status', 'delivered')->pluck('id')->toArray();
+
     $topProducts = Cart::whereIn('order_id', $orderIds)
         ->select('product_id', DB::raw('SUM(quantity) as total_quantity'))
         ->groupBy('product_id')
@@ -36,11 +38,12 @@ class AdminController extends Controller
         ->limit(3)
         ->pluck('product_id')
         ->toArray();
-
+    
     $products = Cart::whereIn('order_id', $orderIds)
         ->whereIn('product_id', $topProducts)
         ->select('product_id', DB::raw('SUM(quantity) as total_quantity'), DB::raw('SUM(amount) as total_amount'))
         ->groupBy('product_id')
+        ->orderByDesc('total_quantity')
         ->get()
         ->toArray();
 
