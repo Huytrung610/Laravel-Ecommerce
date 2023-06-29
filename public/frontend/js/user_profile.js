@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
     $(document).ready(function() {
         $('input[name="use"]').on('change', function() {
             var addressId = $(this).data('id');
-            
+
             // Gửi AJAX request đến server
             $.ajax({
                 url: '/user/update-default-address',
@@ -295,8 +295,36 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
-            
 
-    
 
+
+
+});
+
+
+// đoạn code lọc theo filter orders
+function updateFilter(filterName) {
+    document.getElementById("dropdownMenuButton").innerHTML = filterName;
+}
+
+function filterOrders(status) {
+    var tableRows = document.querySelectorAll('#orderTable tbody tr');
+    tableRows.forEach(function(row) {
+        var rowStatus = row.getAttribute('data-status');
+        if (status === 'all' || status === 'all orders' || rowStatus === status) {
+            row.style.display = 'table-row';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    var dropdownItems = document.querySelectorAll('.dropdown-item');
+    dropdownItems.forEach(function(item) {
+        item.addEventListener('click', function() {
+            var selectedStatus = this.textContent.toLowerCase();
+            filterOrders(selectedStatus);
+        });
+    });
 });

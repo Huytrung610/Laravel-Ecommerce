@@ -6,15 +6,16 @@
                 Filter orders
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">All orders</a>
-                <a class="dropdown-item" href="#">New</a>
-                <a class="dropdown-item" href="#">Processing</a>
-                <a class="dropdown-item" href="#">Complete</a>
+                <a class="dropdown-item" href="#" onclick="updateFilter('All orders')">All orders</a>
+                <a class="dropdown-item" href="#" onclick="updateFilter('New')">New</a>
+                <a class="dropdown-item" href="#" onclick="updateFilter('Process')">Process</a>
+                <a class="dropdown-item" href="#" onclick="updateFilter('Delivered')">Delivered</a>
+                <a class="dropdown-item" href="#" onclick="updateFilter('Cancel')">Cancel</a>
             </div>
         </div>
     </div>
     <br>
-    <table class="table table-hover">
+    <table class="table table-hover" id="orderTable">
         <thead>
             <tr>
                 <th scope="col">Order ID</th>
@@ -30,16 +31,28 @@
                             $detail_address = $order->detail_address ?? '';
 
                         @endphp
-            <tr>
+            <tr data-status="{{ $order->status }}">
                 {{-- <th scope="row"><a href="#">3456789JQK</a></th> --}}
                 <th scope="row"><a href="#" class="order-detail-link" data-order-id="{{ $order->id }}" data-toggle="modal" data-target=".bd-example-modal-xl"> {{ $order->order_number }}</a></th>
                 @include('frontend.popup.order-detail-popup')
 
                 <td>{{ $detail_address }}</td>
                 <td>{{$order->quantity}}</td>
-                <td>
+                {{-- <td>
                     <span class="status-complete">{{$order->status}}</span>
+                </td> --}}
+                <td>
+                    @if($order->status=='new')
+                        <span class="badge badge-primary">{{$order->status}}</span>
+                    @elseif($order->status=='process')
+                        <span class="badge badge-warning">{{$order->status}}</span>
+                    @elseif($order->status=='delivered')
+                        <span class="badge badge-success">{{$order->status}}</span>
+                    @else
+                        <span class="badge badge-danger">{{$order->status}}</span>
+                    @endif
                 </td>
+                
             </tr>
             @endforeach
         </tbody>
