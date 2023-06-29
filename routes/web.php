@@ -95,6 +95,9 @@ Route::get('/product', function () {
     return view('frontend.pages.product_detail');
 });
 
+//search
+Route::get('/search-products','App\Http\Controllers\ProductController@searchProducts')->name('search-products');
+
 
 Route::get('/aboutus', function () {
     return view('frontend.pages.aboutus');

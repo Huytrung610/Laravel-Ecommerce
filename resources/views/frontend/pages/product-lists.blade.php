@@ -30,13 +30,6 @@
 </section>
 <div class="shopify-grid padding-large">
     <div class="container" style="font-size: 16px;margin-bottom: 3%;"  >
-        {{-- <div class="row">    
-           <div class="col-md-auto item-box" >
-                <div class="title">
-                    <a href="" title="All model">Tất cả </a>
-                </div>
-           </div>
-       </div> --}}
        
        <div class="row">
         @foreach ($childCategories as $childCategory)
@@ -46,6 +39,14 @@
                 </div>
             </div>
         @endforeach
+        <div class="input-group">
+            <div class="form-outline">
+              <input type="search" id="form1" class="form-control" />
+            </div>
+            <button type="button" class="btn btn-primary" onclick="searchProducts()">
+                <i class="fas fa-search"></i>
+              </button>              
+          </div>
     </div>
     
     
@@ -106,6 +107,48 @@
             }
         });
     }
+
+    function searchProducts() {
+  var searchValue = $('#form1').val(); // Lấy giá trị từ ô input search
+
+  $.ajax({
+    url: '{{ route('search-products') }}',
+    method: 'GET',
+    data: { search: searchValue },
+    success: function(response) {
+      // Xử lý dữ liệu phản hồi từ server
+      if (response.length > 0) {
+        var productListHTML = '';
+        $.each(response, function(index, product) {
+            productListHTML += '<div class="col-lg-4 col-md-6">';
+            productListHTML += '<div class="product-card position-relative pe-3 pb-3">';
+            productListHTML += '<a href="' + product.url + '">';
+            productListHTML += '<div class="image-holder">';
+            productListHTML += '<img src="' + product.photo + '" alt="product-item" class="img-fluid">';
+            productListHTML += '</div>';
+            productListHTML += '</a>';
+            productListHTML += '<div class="card-detail d-flex justify-content-between pt-3 " >';
+            productListHTML += '<h3 class="card-title text-uppercase">';
+            productListHTML += '<a href="#">' + product.title + '</a>';
+            productListHTML += '</h3>';
+
+            productListHTML += '</div>';
+            productListHTML += '<span class="item-price text-primary" style="font-size:19px;">' + product.price + ' ₫</span>';
+                        
+            productListHTML += '</div>';
+            productListHTML += '</div>';
+        });
+        $('.product-content').html(productListHTML); 
+      } else {
+        $('.product-content').html('<h4 class="text-warning" style="margin:100px auto;">No products found.</h4>');
+      }
+    },
+    error: function(xhr, status, error) {
+      console.log(error);
+    }
+  });
+}
+
 </script>
 
   

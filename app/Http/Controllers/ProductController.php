@@ -162,6 +162,29 @@ class ProductController extends Controller
             abort(404);
         }
     }
+
+    public function searchProducts(Request $request)
+    {
+        $searchValue = $request->input('search');
+        $helper = new \App\Helpers\Backend\ProductHelper();
+        $products = Product::where('title', 'like', '%' . $searchValue . '%')->get();
+
+        $productList = [];
+        foreach ($products as $product) {
+            $minPrice =$helper->formatPrice($product->attributes()->min('price'));
+            $maxPrice = $helper->formatPrice($product->attributes()->max('price'));
+
+            $productList[] = [
+                'url' => route('product-detail', $product->slug),
+                'photo' => $product->photo,
+                'title' => $product->title,
+                'price' =>  $minPrice . ' - ' . $maxPrice
+            ];
+        }
+
+        return response()->json($productList);
+    }
+
     
 
     public function productDetail($slug)
