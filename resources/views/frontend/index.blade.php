@@ -582,11 +582,6 @@ $fourthCategory = $parentCategories[3];
 </section>
 {{-- @endforeach --}}
 
-
-
-
-
-
 <section id="yearly-sale" class="bg-light-blue overflow-hidden mt-5 padding-xlarge" style="background-image: url('{{ asset('frontend/images/single-image1.png') }}');background-position: right; background-repeat: no-repeat;">
     <div class="row d-flex flex-wrap align-items-center">
         <div class="col-md-6 col-sm-12">
