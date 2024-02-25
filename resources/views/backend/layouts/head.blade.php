@@ -15,5 +15,6 @@
  
 <!-- Custom styles FOR this template-->
 <link href="{{ asset('backend/css/sb-admin-2.min.css') }}" rel="stylesheet" type="text/css">
-
+{{-- Tailwind --}}
+@vite('resources/css/app.css')
 </head>

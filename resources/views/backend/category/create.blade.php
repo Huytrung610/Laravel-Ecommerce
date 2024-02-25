@@ -78,8 +78,8 @@
 
     
     <div class="form-group mb-3">
-        <button type="reset" class="btn btn-warning">{{ __('Reset') }}</button>
-        <button class="btn btn-success" type="submit">{{ __('Submit') }}</button>
+        <button type="reset" class="tw-bg-yellow-500 hover:tw-bg-yellow-700 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-border tw-border-yellow-700 tw-rounded">{{ __('Reset') }}</button>
+        <button class="tw-bg-blue-500 hover:tw-bg-blue-700 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-border tw-border-blue-700 tw-rounded " type="submit">{{ __('Submit') }}</button>
     </div>
     </form>
     </div>

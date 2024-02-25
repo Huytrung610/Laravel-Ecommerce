@@ -605,7 +605,7 @@ $fourthCategory = $parentCategories[3];
                     <a href="{{route('blog')}}" class="btn btn-medium btn-normal text-uppercase">Read Blog</a>
                 </div>
             </div>
-            <div class="post-grid d-flex flex-wrap justify-content-between">
+            {{-- <div class="post-grid d-flex flex-wrap justify-content-between">
                 @foreach ($posts as $post)
                     <div class="col-lg-4 col-sm-12">
                         <div class="card border-none me-3">
@@ -624,7 +624,7 @@ $fourthCategory = $parentCategories[3];
                     </div>
                @endforeach
                 
-            </div>
+            </div> --}}
         </div>
     </div>
 </section>
