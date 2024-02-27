@@ -33,15 +33,15 @@ class PostController extends Controller
         $descriptionPress = htmlspecialchars_decode($request->get('description'),ENT_QUOTES);
         $decodeDescriptionPress = str_replace('&nbsp;', ' ',$descriptionPress);
         $data['description'] = $decodeDescriptionPress;
-        $slug=Str::slug($request->title);
-        $count=Post::where('slug',$slug)->count();
+        $slug = Str::slug($request->title);
+        $count = Post::where('slug',$slug)->count();
         if($count>0){
             $slug=$slug.'-'.date('ymdis').'-'.rand(0,999);
         }
         $data['slug']=$slug;
         // return $data;
 
-        $status=Post::create($data);
+        $status= Post::create($data);
         if($status){
             request()->session()->flash('success','Post Successfully added');
         }

@@ -157,9 +157,7 @@
        <div id="collapseSetting" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
            <div class="bg-white py-2 collapse-inner rounded">
                <h6 class="collapse-header">{{__('Settings:')}}</h6>
-               <a class="collapse-item">{{__('General setting')}}</a>
-               <a class="collapse-item" href="#">{{__('Version setting')}}</a>
-               <a class="collapse-item" href="#">{{__('Currency symbol setting')}}</a>
+               <a class="collapse-item" href="{{ route('settings') }}">{{__('General setting')}}</a>
            </div>
        </div>
   </li>
