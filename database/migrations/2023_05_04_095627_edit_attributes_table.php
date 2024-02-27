@@ -11,15 +11,30 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('attributes', function (Blueprint $table) {
-            $table->integer('stock')->default(1); 
-            $table->float('price');
-            $table->string('sku')->unique();
-            $table->string('color');
-            $table->unsignedBigInteger('product_id')->nullable();
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+        $existingColumns = Schema::getColumnListing('attributes');
 
-            $table->dropColumn('name');
+        $columnsToCheck = ['stock', 'price', 'sku', 'color', 'product_id', 'name'];
+
+        $columnsToAdd = array_diff($columnsToCheck, $existingColumns);
+
+        Schema::table('attributes', function (Blueprint $table) use ($columnsToAdd) {
+            foreach ($columnsToAdd as $column) {
+                if ($column === 'stock') {
+                    $table->integer('stock')->notnull()->default('1');
+                } elseif ($column === 'price') {
+                    $table->float('price');
+                } elseif ($column === 'sku') {
+                    $table->string('sku')->unique();
+                } elseif ($column === 'color') {
+                    $table->string('color');
+                } elseif ($column === 'product_id') {
+                    $table->unsignedBigInteger('product_id')->nullable();
+                    $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+                } 
+            }
+            if (Schema::hasColumn('attributes', 'name')) {
+                $table->dropColumn('name');
+            }
         });
     }
 

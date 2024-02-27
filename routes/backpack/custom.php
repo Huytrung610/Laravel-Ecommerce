@@ -48,4 +48,8 @@ Route::group([
 
     // Post
     Route::resource('/post','\App\Http\Controllers\PostController');
+    
+    //General Settings
+    Route::get('general-setting',[\App\Http\Controllers\GeneralSettingController::class,'index'])->name('settings');
+    Route::post('setting/update',[\App\Http\Controllers\GeneralSettingController::class, 'update'])->name('settings.update');
 }); // this should be the absolute last line of this file
