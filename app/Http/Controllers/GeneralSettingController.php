@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\GeneralSetting;
+use Illuminate\Validation\Rule;
+use App\Helpers\Backend\GeneralSettingHelper;
 class GeneralSettingController extends Controller
 {
     /**
@@ -41,7 +43,7 @@ class GeneralSettingController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
         
     }
@@ -61,15 +63,17 @@ class GeneralSettingController extends Controller
     public function update(Request $request)
     {
         $data = $request->all();
+        if (isset($data['contact_phone'])) {
+            $data['contact_phone'] = GeneralSettingHelper::formatPhoneNumber($data['contact_phone']);
+        }   
         $this->validate($request, [
             'url_instagram' => 'string',
             'url_facebook' => 'string',
             'logo_path' => 'required',
             'address' => 'string',
             'email' => 'email',
-            'contact_phone' => 'string',
+            'contact_phone'
         ]);
-        $data = $request->all();
         $settings = GeneralSetting::first();
         if(!$settings) {
             $status= GeneralSetting::create($data);

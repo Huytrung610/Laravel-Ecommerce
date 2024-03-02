@@ -12,7 +12,9 @@
     <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('home') }}">
-                <img src="{{ asset('frontend/images/main-logo.png') }}" class="logo">
+                @if(isset($settings['logo_path']) && $settings['logo_path'])
+                <img src="{{ $settings['logo_path'] }}" class="logo">
+                @endif
             </a>
             <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
         <svg class="navbar-icon">

@@ -36,7 +36,7 @@
           @enderror
         </div>
         <div class="form-group">
-          <label for="inputTitle" class="col-form-label">Email</label>
+        <label for="inputTitle" class="col-form-label">Email</label>
           <input id="inputTitle" type="email" name="email" placeholder="Enter Email"  value="{{ $data->email }}" class="form-control">
           @error('email')
           <span class="text-danger">{{$message}}</span>
