@@ -628,6 +628,7 @@ $fourthCategory = $parentCategories[3];
         </div>
     </div>
 </section>
+@include('frontend.layouts.subscribe')
 <section id="testimonials" class="position-relative">
     <div class="container">
         <div class="row">

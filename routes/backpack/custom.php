@@ -38,7 +38,11 @@ Route::group([
     Route::resource('customer-address', '\App\Http\Controllers\CustomerAddressController');
     Route::get('customer-address/show/{id}', [\App\Http\Controllers\CustomerAddressController::class, 'showFormEditProfile']);
     Route::post('customer-address/update/{id}', [\App\Http\Controllers\CustomerAddressController::class, 'update']);
-
+    
+    // Newsletter Subcriber
+    Route::get('subcribers',  [\App\Http\Controllers\NewsletterSubcriberController::class, 'index'])->name('subcriber');
+    Route::post('update-subscriber-status',[\App\Http\Controllers\NewsletterSubcriberController::class,'updateSubscriberStatus'])->name('update-subscriber-status');
+    
     //Order
     Route::resource('/order','\App\Http\Controllers\OrderController');
     Route::get('order/receipt/index','\App\Http\Controllers\OrderController@getOrderReceipt')->name('order.receipt.index');
@@ -52,4 +56,5 @@ Route::group([
     //General Settings
     Route::get('general-setting',[\App\Http\Controllers\GeneralSettingController::class,'index'])->name('settings');
     Route::post('setting/update',[\App\Http\Controllers\GeneralSettingController::class, 'update'])->name('settings.update');
+
 }); // this should be the absolute last line of this file
