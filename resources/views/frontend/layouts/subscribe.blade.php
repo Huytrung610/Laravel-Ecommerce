@@ -1,3 +1,20 @@
+
+@if (session('subscribe_status'))
+    @if (session('subscribe_status') == 'success')
+        <div class="alert alert-success">
+            {{ session('message', 'Thanks for Subscribing') }}
+        </div>
+    @elseif (session('subscribe_status') == 'error')
+        <div class="alert alert-danger">
+            {{ session('message', 'Failed to Subscribe') }}
+        </div>
+    @endif
+    @php
+        // Xóa thông báo sau khi hiển thị
+        session()->forget('subscribe_status');
+    @endphp
+@endif
+
 <section id="subscribe" class="container-grid padding-large position-relative overflow-hidden">
     <div class="container">
         <div class="row">
@@ -9,10 +26,14 @@
                     </div>
                 </div>
                 <div class="col-md-5 col-sm-12">
-                    <form class="subscription-form validate">
+                    <form class="subscription-form validate" method="POST">
+                        @csrf
                         <div class="input-group flex-wrap">
-                            <input class="form-control btn-rounded-none" type="email" name="EMAIL" placeholder="Your email address here" required="">
-                            <button class="btn btn-medium btn-primary text-uppercase btn-rounded-none" type="submit" name="subscribe">Subscribe</button>
+                            <input class="form-control btn-rounded-none" id="email_subcriber" type="email" name="EMAIL" placeholder="Your email address here" required="">
+                            <button class="btn btn-medium btn-primary text-uppercase btn-rounded-none btn-add-subcriber" 
+                                    type="submit"
+                                    name="subscribe">Subscribe
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -20,3 +41,11 @@
         </div>
     </div>
 </section>
+@push('after_scripts')
+    <script src="{{ mix('js/frontend/newsletter.js') }}"></script>
+@endpush
+
+<script>
+    
+
+</script>

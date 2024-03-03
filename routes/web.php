@@ -98,6 +98,9 @@ Route::get('/product', function () {
 //search
 Route::get('/search-products','App\Http\Controllers\ProductController@searchProducts')->name('search-products');
 
+//Subcriber 
+Route::post('/add-subcriber','App\Http\Controllers\NewsletterSubcriberController@addSubcriber')->name('add-subcriber');
+
 
 Route::get('/aboutus', function () {
     return view('frontend.pages.aboutus');
