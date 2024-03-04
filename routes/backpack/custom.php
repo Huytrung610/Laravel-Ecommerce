@@ -41,7 +41,7 @@ Route::group([
     
     // Newsletter Subcriber
     Route::get('subcribers',  [\App\Http\Controllers\NewsletterSubcriberController::class, 'index'])->name('subcriber');
-    Route::post('update-subscriber-status',[\App\Http\Controllers\NewsletterSubcriberController::class,'updateSubscriberStatus'])->name('update-subscriber-status');
+    Route::get('update-subscriber-status',[\App\Http\Controllers\NewsletterSubcriberController::class,'updateSubscriberStatus'])->name('update-subscriber-status');
     
     //Order
     Route::resource('/order','\App\Http\Controllers\OrderController');
