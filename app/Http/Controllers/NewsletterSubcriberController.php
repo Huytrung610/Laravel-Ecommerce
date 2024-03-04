@@ -70,24 +70,18 @@ class NewsletterSubcriberController extends Controller
 
     public function updateSubscriberStatus(Request $request)
     {
-        try {
-            if ($request->ajax()) {
-                $data = $request->all();
-    
-                $subscriber = NewsletterSubscriber::findOrFail($data['subscriber_id']);
-    
-                $subscriber->status = $data['status'];
-                $subscriber->save();
-    
-                return response()->json(['success' => true]);
-            }
-    
-            return response()->json(['error' => 'Invalid request']);
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => 'Subscriber not found']);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
+        $data = $request->all();
+        $subscriber = NewsletterSubcriber::findOrFail($data['subscriber_id']);
+        $subscriber->status = $data['status'];
+        $status= $subscriber->save();
+
+        if($status){
+            request()->session()->flash('success','Status subscriber successfully updated');
         }
+        else{
+            request()->session()->flash('error','Error while update status ');
+        }
+        return redirect()->route('subcriber');
     }
     /**
      * Update the specified resource in storage.

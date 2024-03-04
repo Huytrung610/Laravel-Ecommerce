@@ -1,20 +1,17 @@
 $(document).ready(function () {
     $('#subcriber-status-form .check-status-subcriber').change(function (e) {
         e.preventDefault();
-        var isChecked = $(this).prop('checked');
-        var currentUrl = window.location.origin;
-        var updateUrl = window.location.origin + '/admin/update-subscriber-status';
-
+        var isChecked = $(this).prop('checked') == true ? 1 : 0; 
         var subscriberId = $(this).data('subscriber-id');
         let _token = $('meta[name="csrf-token"]').attr('content');
+
         $.ajax({
-            url: updateUrl,
-            type: 'POST',
-            dataType: 'json',
+            url: '/admin/update-subscriber-status',
+            type: 'GET',
             data: {
                 '_token': '{{ csrf_token() }}',
                 'subscriber_id': subscriberId,
-                'status': isChecked ? '1' : '0'
+                'status': isChecked 
             },
             success: function (response) {
                 console.log(response);

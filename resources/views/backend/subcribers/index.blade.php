@@ -36,21 +36,20 @@
 
             @foreach($subcribers as $subcriber)
                 <tr>
-                    <td>{{$subcriber->email_subcriber}}</td>
+                    <td>{{ $subcriber->email_subcriber }}</td>
                     <td>{{
                           date ('F j, Y, g:i a',
                           strtotime($subcriber->created_at))}}</td>
                     <td>
-                        @php
-                          $statusSubcriberActive= \App\Models\NewsletterSubcriber::STATUS_ACTIVE;
-                          $statusSubcriberDeactive= \App\Models\NewsletterSubcriber::STATUS_INACTIVE;
-                        @endphp
-                        <div class="form-check form-switch" id="subcriber-status-form">
-                          <input class="form-check-input check-status-subcriber" @if($subcriber->status==$statusSubcriberActive ) checked @endif 
-                              type="checkbox" role="switch" id="flexSwitchCheckDefault"
+                      @php
+                          $statusSubcriberActive = \App\Models\NewsletterSubcriber::STATUS_ACTIVE;
+                      @endphp
+                      <form class="form-check form-switch" id="subcriber-status-form">
+                          <input class="form-check-input check-status-subcriber" @if($subcriber->status==$statusSubcriberActive) checked @endif 
+                              type="checkbox" role="switch" id="flexSwitchCheckDefault_{{ $subcriber->id }}"
                               data-subscriber-id="{{ $subcriber->id }}">
-                        </div>
-                    </td>
+                      </form>
+                  </td>
                     <td>
                     <form method="POST" action="">
                       @csrf
