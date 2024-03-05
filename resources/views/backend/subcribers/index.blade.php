@@ -51,10 +51,10 @@
                       </form>
                   </td>
                     <td>
-                    <form method="POST" action="">
+                    <form method="POST" action="{{ route('subscriber.destroy', ['id' => $subcriber->id]) }}">
                       @csrf
                       @method('delete')
-                          <button class="btn btn-danger btn-sm dltBtn" data-id="{{$subcriber->id}}"
+                          <button class="btn btn-danger btn-sm dltBtn-subscriber" data-id="{{$subcriber->id}}"
                                   style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
                                   data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i>
                           </button>
@@ -113,34 +113,4 @@
         }
   </script>
   <script src="{{ mix('js/backend/newsletter.js') }}"></script>
-  <script>
-   
-      $(document).ready(function(){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-          $('.dltBtn').click(function(e){
-              var form=$(this).closest('form');
-              var dataID=$(this).data('id');
-              // alert(dataID);
-              e.preventDefault();
-              swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this data!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                       form.submit();
-                    } else {
-                        swal("Your data is safe!");
-                    }
-                });
-          })
-      })
-  </script>
 @endpush

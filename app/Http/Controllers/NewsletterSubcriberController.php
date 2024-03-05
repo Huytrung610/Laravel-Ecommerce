@@ -96,6 +96,16 @@ class NewsletterSubcriberController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $subscriber = NewsletterSubcriber::findOrFail($id);
+
+        $status = $subscriber->delete();
+
+        if($status){
+            request()->session()->flash('success','Subcscriber successfully deleted');
+        }
+        else{
+            request()->session()->flash('error','Error while deleting Subcscriber ');
+        }
+        return redirect()->route('subcriber');
     }
 }

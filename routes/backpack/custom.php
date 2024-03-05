@@ -42,6 +42,7 @@ Route::group([
     // Newsletter Subcriber
     Route::get('subcribers',  [\App\Http\Controllers\NewsletterSubcriberController::class, 'index'])->name('subcriber');
     Route::get('update-subscriber-status',[\App\Http\Controllers\NewsletterSubcriberController::class,'updateSubscriberStatus'])->name('update-subscriber-status');
+    Route::delete('subcribers/destroy/{id}', [\App\Http\Controllers\NewsletterSubcriberController::class, 'destroy'])->name('subscriber.destroy');
     
     //Order
     Route::resource('/order','\App\Http\Controllers\OrderController');
