@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    //Change status
     $('#subcriber-status-form .check-status-subcriber').change(function (e) {
         e.preventDefault();
         var isChecked = $(this).prop('checked') == true ? 1 : 0; 
@@ -21,4 +22,34 @@ $(document).ready(function () {
             }
         });
     });
+
+    // Delete subscriber
+   
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+        $('.dltBtn-subscriber').click(function(e){
+            var form = $(this).closest('form');
+            var dataID = $(this).data('id');
+            // alert(dataID);
+            e.preventDefault();
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this data!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    form.submit();
+                } else {
+                    swal("Your data is safe!");
+                }
+            });
+        })
+   
+
 });
