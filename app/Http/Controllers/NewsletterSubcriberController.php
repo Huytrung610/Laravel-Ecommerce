@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\NewsletterSubcriber;
+use App\Exports\subscribersExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Carbon;
+
 
 class NewsletterSubcriberController extends Controller
 {
@@ -89,6 +93,12 @@ class NewsletterSubcriberController extends Controller
     public function update(Request $request, string $id)
     {
         //
+    }
+    public function exportSubscribers()  {
+        $formattedDate = Carbon::now()->format('d-m-y');
+        $filename = 'subscribers_' . $formattedDate . '.xlsx';
+    
+        return Excel::download(new subscribersExport, $filename);
     }
 
     /**

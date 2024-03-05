@@ -9,8 +9,9 @@
             @include('backend.layouts.notification')
          </div>
      </div>
-    <div class="card-header py-3">
+    <div class="card-header py-3 tw-flex tw-justify-between ">
       <h6 class="m-0 font-weight-bold text-primary float-left">{{ __('Subcriber Lists') }}</h6>
+      <button type="button" class="tw-text-white tw-bg-blue-700 tw-px-4 tw-py-2 tw-rounded hover:tw-bg-blue-800 hover:tw-text-white"><a class="hover:tw-text-white hover:tw-no-underline" href="{{route('export-subscibers')}}">Export subscriber list</a></button>
     </div>
     <div class="card-body">
       <div class="table-responsive">
