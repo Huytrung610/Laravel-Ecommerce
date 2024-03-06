@@ -78,7 +78,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <!-- Page level custom scripts -->
     <script src="{{asset('backend/js/demo/datatables-demo.js')}}"></script>
-    <script src="{{ mix('/js/backend/storeView.js') }}"></script>
     <script>
         $('#banner-dataTable').DataTable({
             "columnDefs": [
