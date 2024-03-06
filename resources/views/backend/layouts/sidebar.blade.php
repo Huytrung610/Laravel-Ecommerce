@@ -74,6 +74,13 @@
         <span>{{__('Category')}}</span>
     </a>
 </li>
+{{-- Brand --}}
+  <li class="nav-item">
+    <a class="nav-link" href="{{route('brand.index')}}">
+      <i class="fas fa-tags"></i>
+        <span>{{__('Brand')}}</span>
+    </a>
+  </li>
   {{-- Products --}}
   <li class="nav-item">
     <a class="nav-link" href="{{route('product.index')}}">
@@ -133,6 +140,8 @@
         </div>
       </div>
     </li>
+
+    
 
     <!-- Tags -->
 

@@ -29,6 +29,9 @@ Route::group([
     Route::resource('/attribute','\App\Http\Controllers\AttributeController');
     Route::get('attribute-edit/{id}',[\App\Http\Controllers\AttributeController::class,'edit']);
     Route::post('attribute/update/{id}', [\App\Http\Controllers\AttributeController::class, 'update']);
+
+    //Brand
+    Route::resource('/brand', '\App\Http\Controllers\BrandController');
     
     // Password Change
     Route::get('change-password', [\App\Http\Controllers\AdminController::class, 'changePassword'])->name('change.password.form');

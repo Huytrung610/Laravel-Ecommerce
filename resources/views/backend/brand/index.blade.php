@@ -10,20 +10,20 @@
             </div>
         </div>
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary float-left">{{__('Category Lists')}}</h6>
-            <a href="{{route('category.create')}}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip"
-               data-placement="bottom" title="{{__('Add Category')}}"><i class="fas fa-plus"></i>{{__(' Add Category')}}
+            <h6 class="m-0 font-weight-bold text-primary float-left">{{__('Brand Lists')}}</h6>
+            <a href="{{route('brand.create')}}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip"
+               data-placement="bottom" title="{{__('Add Brand')}}"><i class="fas fa-plus"></i>{{__(' Add Brand')}}
             </a>
         </div>
       
         <div class="card-body">
             <div class="table-responsive">
-                @if(count($categories)>0)
+                @if(count($brands)>0)
                     <table class="table table-bordered" id="banner-dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
                             <th>{{__('ID')}}</th>
-                            <th>{{__('Title')}}</th>
+                            <th>{{__('Name')}}</th>
                             <th>{{__('Slug')}}</th>
                             <th>{{__('Status')}}</th>
                             <th>{{__('Action')}}</th>
@@ -32,35 +32,35 @@
                         <tfoot>
                         <tr>
                             <th>{{__('ID')}}</th>
-                            <th>{{__('Title')}}</th>
+                            <th>{{__('Name')}}</th>
                             <th>{{__('Slug')}}</th>
                             <th>{{__('Status')}}</th>
                             <th>{{__('Action')}}</th>
                         </tr>
                         </tfoot>
                         <tbody>
-                        @foreach($categories as $category)
+                        @foreach($brands as $brand)
                             <tr>
-                                <td>{{$category->id}}</td>
-                                <td>{{$category->title}}</td>
-                                <td>{{$category->slug}}</td>
+                                <td>{{$brand->id}}</td>
+                                <td>{{$brand->name}}</td>
+                                <td>{{$brand->slug}}</td>
                                 <td>
-                                    @if($category->status=='active')
-                                        <span class="badge badge-success">{{$category->status}}</span>
+                                    @if($brand->status=='active')
+                                        <span class="badge badge-success">{{$brand->status}}</span>
                                     @else
-                                        <span class="badge badge-warning">{{$category->status}}</span>
+                                        <span class="badge badge-warning">{{$brand->status}}</span>
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{route('category.edit',$category->id)}}"
+                                    <a href="{{route('brand.edit',$brand->id)}}"
                                        class="btn btn-primary btn-sm float-left mr-1"
                                        style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
                                        title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                                    <form method="POST" action="{{route('category.destroy',[$category->id])}}">
+                                    <form method="POST" action="{{route('brand.destroy',[$brand->id])}}">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-danger btn-sm dltBtn"
-                                                data-id="{{$category->id}}"
+                                                data-id="{{$brand->id}}"
                                                 style="height:30px;width:30px;border-radius:50%"
                                                 data-toggle="tooltip"
                                                 data-placement="bottom" title="{{__('Delete')}}">
@@ -72,7 +72,7 @@
                         </tbody>
                     </table>
                 @else
-                    <h6 class="text-center">{{__('No Categories found!!! Please create Category')}}</h6>
+                    <h6 class="text-center">{{__('No Brands found!!! Please create brand')}}</h6>
                 @endif
             </div>
         </div>
