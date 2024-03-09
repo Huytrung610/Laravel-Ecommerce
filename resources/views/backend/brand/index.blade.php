@@ -45,10 +45,14 @@
                                 <td>{{$brand->name}}</td>
                                 <td>{{$brand->slug}}</td>
                                 <td>
-                                    @if($brand->status=='active')
-                                        <span class="badge badge-success">{{$brand->status}}</span>
+                                    @php
+                                        $statusBrandActive = \App\Models\Brand::STATUS_ACTIVE;
+                                        $statusBrandInactive = \App\Models\Brand::STATUS_INACTIVE;
+                                    @endphp
+                                    @if ( $brand->status== $statusBrandActive )
+                                        <span class="badge badge-success">Active</span>
                                     @else
-                                        <span class="badge badge-warning">{{$brand->status}}</span>
+                                        <span class="badge badge-warning">Inactive</span>
                                     @endif
                                 </td>
                                 <td>
@@ -59,7 +63,7 @@
                                     <form method="POST" action="{{route('brand.destroy',[$brand->id])}}">
                                         @csrf
                                         @method('delete')
-                                        <button class="btn btn-danger btn-sm dltBtn"
+                                        <button class="btn btn-danger btn-sm dltBtn-brand"
                                                 data-id="{{$brand->id}}"
                                                 style="height:30px;width:30px;border-radius:50%"
                                                 data-toggle="tooltip"
@@ -98,35 +102,6 @@
                 }
             ]
         });
-
-        function deleteData(id) {
-        }
     </script>
-    <script>
-        $(document).ready(function () {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $('.dltBtn').click(function (e) {
-                var form = $(this).closest('form');
-                var dataID = $(this).data('id');
-                e.preventDefault();
-                swal({
-                    title: "{{__('Are you sure?')}}",
-                    text: "{{__('Once deleted, you will not be able to recover this data!')}}",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                }).then((willDelete) => {
-                    if (willDelete) {
-                        form.submit();
-                    } else {
-                        swal("{{__('Your data is safe!')}}");
-                    }
-                });
-            })
-        })
-    </script>
+    <script src="{{ mix('js/backend/brand.js') }}"></script>
 @endpush

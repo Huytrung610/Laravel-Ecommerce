@@ -3,15 +3,16 @@
 ?>
 @section('main-content')
     <div class="card">
-        <h5 class="card-header">{{ __('Add Brand') }}</h5>
+        <h5 class="card-header">{{ __('Edit Brand') }}</h5>
         <div class="card-body">
-            <form method="post" action="{{ route('brand.store') }}">
-                {{ csrf_field() }}
+            <form method="post" action="{{route('brand.update',$brand->id)}}">
+                @csrf
+                @method('PATCH')
                 <input type="hidden" name="store_id" id="currentStoreView" value="0" />
                 <div class="form-group">
                     <label for="inputTitle" class="col-form-label">{{ __('Name') }}<span
                             class="text-danger">*</span></label>
-                    <input id="inputTitle" type="text" name="name" placeholder="{{ __('Enter name') }}"
+                    <input id="inputTitle" type="text" name="name" value="{{$brand->name}}" placeholder="{{ __('Enter name') }}"
                         class="form-control">
                     @error('name')
                         <span class="text-danger">{{ $message }}</span>
@@ -20,7 +21,7 @@
                 <div class="form-group">
                     <label for="slug" class="col-form-label">{{ __('Slug') }}<span
                             class="text-danger">*</span></label>
-                    <input id="slug" type="text" name="slug" placeholder="{{ __('Enter Slug') }}"
+                    <input id="slug" type="text" name="slug" value="{{$brand->slug}}" placeholder="{{ __('Enter Slug') }}"
                         class="form-control">
                     @error('slug')
                         <span class="text-danger">{{ $message }}</span>
@@ -28,15 +29,15 @@
                 </div>
                 <div class="form-group category-type">
                     <label for="summary" class="col-form-label">{{ __('Category Type') }}<span class="text-danger">*</span></label>
-                    <select name="category[]" id="category-type" class="form-control categories-brand">
+                    <select name="category[]" id="category-type" class="form-control categories-brand" multiple>
                         @foreach ($categories as $key => $value)
-                            <option value="{{$value->id}}" selected="selected">{{$value->title}}</option>
+                            <option value="{{ $value->id }}" {{ in_array($value->id, $selectedCategories) ? 'selected' : '' }}>{{$value->title}}</option>
                         @endforeach
                     </select>
                     @error('category[]')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
-                </div>
+                </div>                
                 <div class="form-group">
                     <label for="inputLogo" class="col-form-label">Logo</label>
                     <div class="input-group">
@@ -59,8 +60,8 @@
                 <div class="form-group">
                     <label for="status" class="col-form-label">{{ __('Status') }}<span class="text-danger">*</span></label>
                     <select name="status" class="form-control">
-                        <option value="{{ $statusBrandActive }}">{{ __('Active') }}</option>
-                        <option value="{{ $statusBrandInactive }}">{{ __('Inactive') }}</option>
+                        <option value="{{ $statusBrandActive }}" {{(($brand->status == $statusBrandActive)? 'selected' : '')}}>{{ __('Active') }}</option>
+                        <option value="{{ $statusBrandInactive }}" {{(($brand->status== $statusBrandInactive )? 'selected' : '')}}>{{ __('Inactive') }}</option>
                     </select>
                     @error('status')
                         <span class="text-danger">{{ $message }}</span>
@@ -71,8 +72,7 @@
     </div>
     
     <div class="form-group mb-3">
-        <button type="reset" class="tw-bg-yellow-500 hover:tw-bg-yellow-700 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-border tw-border-yellow-700 tw-rounded">{{ __('Reset') }}</button>
-        <button class="tw-bg-blue-500 hover:tw-bg-blue-700 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-border tw-border-blue-700 tw-rounded " type="submit">{{ __('Submit') }}</button>
+        <button class="tw-bg-blue-500 hover:tw-bg-blue-700 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-border tw-border-blue-700 tw-rounded" type="submit">{{ __('Submit') }}</button>
     </div>
     </form>
     </div>
