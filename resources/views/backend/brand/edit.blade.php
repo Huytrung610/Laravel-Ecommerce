@@ -29,15 +29,20 @@
                 </div>
                 <div class="form-group category-type">
                     <label for="summary" class="col-form-label">{{ __('Category Type') }}<span class="text-danger">*</span></label>
-                    <select name="category[]" id="category-type" class="form-control categories-brand" multiple>
-                        @foreach ($categories as $key => $value)
-                            <option value="{{ $value->id }}" {{ in_array($value->id, $selectedCategories) ? 'selected' : '' }}>{{$value->title}}</option>
-                        @endforeach
+                    <select name="category[]" id="brand-target" class="form-control categories-brand" multiple>
+                        @foreach($parentCategories as $parentCategory)
+                            <optgroup label="{{ $parentCategory->title }}" class="optgroup">
+                                @foreach($childCategories->where('parent_id', $parentCategory->id) as $childCategory)
+                                    <option value="{{ $childCategory->id }}" {{ in_array($childCategory->id, $selectedCategories) ? 'selected' : '' }} class="optnormal">{{ $childCategory->title }}</option>
+                                @endforeach   
+                                <option value="{{ $parentCategory->id }}" {{ in_array($parentCategory->id, $selectedCategories) ? 'selected' : '' }} hidden class="opthidden">{{ $parentCategory->title }}</option>
+                            </optgroup>
+                            @endforeach  
                     </select>
                     @error('category[]')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
-                </div>                
+                </div>          
                 <div class="form-group">
                     <label for="inputLogo" class="col-form-label">Logo</label>
                     <div class="input-group">

@@ -31,12 +31,14 @@ class BrandController extends Controller
     {
         $brands = Brand::orderBy('id','ASC')->get();
         $categories = Category::orderBy('id','ASC')->get();
+        $childCategories = Category::getSubCategory(); 
+        $parentCategories = Category::getParentCategories();
         
-        return view('backend.brand.create')->with('brands', $brands)->with('categories', $categories);
+        return view('backend.brand.create')->with('brands', $brands)->with('categories', $categories)->with('childCategories', $childCategories)->with('parentCategories', $parentCategories);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly crea ted resource in storage.
      */
     public function store(Request $request)
     {
@@ -84,11 +86,16 @@ class BrandController extends Controller
     {
         $brand = Brand::findOrFail($id);
         $categories = Category::all();
-        $selectedCategories = $brand->categories->pluck('id')->toArray();
+        $childCategories = Category::getSubCategory(); 
+        $parentCategories = Category::getParentCategories();
+        $selectedCategories = $brand->categories->modelKeys();
+
         return view('backend.brand.edit')
         ->with('brand', $brand)
         ->with('categories', $categories)
-        ->with('selectedCategories', $selectedCategories);
+        ->with('selectedCategories', $selectedCategories)
+        ->with('childCategories', $childCategories)
+        ->with('parentCategories', $parentCategories);
     }
 
     /**
