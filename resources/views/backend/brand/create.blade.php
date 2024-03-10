@@ -7,7 +7,6 @@
         <div class="card-body">
             <form method="post" action="{{ route('brand.store') }}">
                 {{ csrf_field() }}
-                <input type="hidden" name="store_id" id="currentStoreView" value="0" />
                 <div class="form-group">
                     <label for="inputTitle" class="col-form-label">{{ __('Name') }}<span
                             class="text-danger">*</span></label>
@@ -26,17 +25,23 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-                <div class="form-group category-type">
-                    <label for="summary" class="col-form-label">{{ __('Category Type') }}<span class="text-danger">*</span></label>
-                    <select name="category[]" id="category-type" class="form-control categories-brand">
-                        @foreach ($categories as $key => $value)
-                            <option value="{{$value->id}}" selected="selected">{{$value->title}}</option>
+                <div class="form-group">
+                    <label for="category[]" class="col-form-label">{{ __('Category Type') }}<span class="text-danger">*</span></label>
+                    <select name="category[]" id="brand-target" data-placeholder="Select categories" multiple='multiple'>
+                        @foreach($parentCategories as $parentCategory)
+                            <optgroup label="{{ $parentCategory->title }}" class="optgroup">
+                                @foreach($childCategories->where('parent_id', $parentCategory->id) as $childCategory)
+                                    <option value="{{ $childCategory->id }}" class="optnormal">{{ $childCategory->title }}</option>
+                                @endforeach   
+                                <option value="{{ $parentCategory->id }}" hidden class="opthidden">{{ $parentCategory->title }}</option>
+                            </optgroup>
                         @endforeach
                     </select>
                     @error('category[]')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
+                
                 <div class="form-group">
                     <label for="inputLogo" class="col-form-label">Logo</label>
                     <div class="input-group">
@@ -45,17 +50,17 @@
                             <i class="fa fa-picture-o"></i> Choose
                             </a>
                         </span>
-                    <input id="thumbnail" class="form-control" type="text" name="logo_brand" value="{{old('logo_brand')}}">
-                  </div>
-                  <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+                        <input id="thumbnail" class="form-control" type="text" name="logo_brand" value="{{old('logo_brand')}}">
+                    </div>
+                    <div id="holder" style="margin-top:15px;max-height:100px;"></div>
                     @error('photo')
                     <span class="text-danger">{{$message}}</span>
                     @enderror
-                  </div>
-                     @php
-                        $statusBrandActive = \App\Models\Brand::STATUS_ACTIVE;
-                        $statusBrandInactive = \App\Models\Brand::STATUS_INACTIVE;
-                     @endphp
+                </div>
+                  @php
+                    $statusBrandActive = \App\Models\Brand::STATUS_ACTIVE;
+                    $statusBrandInactive = \App\Models\Brand::STATUS_INACTIVE;
+                 @endphp
                 <div class="form-group">
                     <label for="status" class="col-form-label">{{ __('Status') }}<span class="text-danger">*</span></label>
                     <select name="status" class="form-control">
@@ -65,17 +70,13 @@
                     @error('status')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
+                </div>      
+                <div class="form-group mb-3">
+                    <button type="reset" class="tw-bg-yellow-500 hover:tw-bg-yellow-700 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-border tw-border-yellow-700 tw-rounded">{{ __('Reset') }}</button>
+                    <button class="tw-bg-blue-500 hover:tw-bg-blue-700 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-border tw-border-blue-700 tw-rounded " type="submit">{{ __('Submit') }}</button>
                 </div>
+            </form>
         </div>
-        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
-    </div>
-    
-    <div class="form-group mb-3">
-        <button type="reset" class="tw-bg-yellow-500 hover:tw-bg-yellow-700 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-border tw-border-yellow-700 tw-rounded">{{ __('Reset') }}</button>
-        <button class="tw-bg-blue-500 hover:tw-bg-blue-700 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-border tw-border-blue-700 tw-rounded " type="submit">{{ __('Submit') }}</button>
-    </div>
-    </form>
-    </div>
     </div>
 @endsection
 
@@ -128,12 +129,11 @@
       
           // Initialize summernote with LFM button in the popover button group
           // Please note that you can add this button to any other button group you'd like
-          $(document).ready(function() {
+  
             $('#description').summernote({
                 placeholder: "Write detail description.....",
                 tabsize: 2,
                 height: 150
-            });
             });
         });
 
