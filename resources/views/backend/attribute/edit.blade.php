@@ -4,22 +4,33 @@
 @section('main-content')
 
     <div class="card">
-        <div class="card-header card-tabs d-flex">
-            <div id="attribute" class="tab-header">{{ __('Attribute') }}</div>
-        </div>
+        <h5 class="card-header">{{ __('Attribute') }}</h5>
         <div class="card-body">
             <form method="post" action="{{route('attribute.update',$attribute->id)}}">
                 @csrf
                 @method('PATCH')
                 <div class="form-group">
-                    <label for="inputTitle" class="col-form-label">{{__('Title')}}<span class="text-danger">*</span></label>
-                    <input id="inputTitle" type="text" name="name" placeholder="{{__('Enter name')}}"
+                    <label for="inputName" class="col-form-label">{{__('Title')}}<span class="text-danger">*</span></label>
+                    <input id="inputName" type="text" name="name" placeholder="{{__('Enter name')}}"
                            value="{{$attribute->name}}" class="form-control">
                     @error('title')
                     <span class="text-danger">{{$message}}</span>
                     @enderror
                 </div>
-                
+                <div class="form-group tw-flex tw-flex-col tw-gap-5">
+                    <label for="attributeValues" class="col-form-label">{{ __('Attribute Values') }}</label>
+                    <div id="attributeValuesContainer">
+                        @if(isset($attribute) && $attribute->attributeValues)
+                            @foreach($attribute->attributeValues as $value)
+                                <div class="attribute-value-container tw-flex tw-gap-5">
+                                    <input type="text" name="attribute_values[]" value="{{ $value->value }}" class="form-control mt-2">
+                                    <button type="button" class="btn btn-danger removeAttributeValue">Remove</button>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                    <button type="button" id="addAttributeValue" class="btn btn-primary tw-w-[12%]">Add more value</button>
+                </div>
                 <div class="form-group mb-3">
                     <button class="btn btn-success" type="submit">{{__('Update')}}</button>
 
@@ -49,25 +60,56 @@
         });
     </script>
     <script>
-        $('#is_parent').change(function () {
-            var isChecked = $('#is_parent').prop('checked');
-            if (isChecked) {
-                $('#parent_cat_div').addClass('d-none');
-                $('#parent_cat_div').val('');
-            } else {
-                $('#parent_cat_div').removeClass('d-none');
+        $(document).ready(function () {
+            let attributeValueCounter = {{ isset($attribute->values) ? count($attribute->values) : 0 }};
+
+            // Event listener for the "Add Attribute Value" button
+            $('#addAttributeValue').on('click', function () {
+                // Increment the counter for unique input IDs
+                attributeValueCounter++;
+
+                // Create a new input element for attribute value
+                let inputElement = $('<input>')
+                    .attr({
+                        type: 'text',
+                        name: 'attribute_values[]',
+                        placeholder: 'Enter attribute value',
+                        class: 'form-control mt-2 '
+                    });
+
+                // Create a new div to hold the input element
+                let containerDiv = $('<div>').addClass('attribute-value-container tw-flex tw-gap-5').append(inputElement);
+
+                // Create a new button for removing the attribute value
+                let removeButton = $('<button>')
+                    .attr({
+                        type: 'button',
+                        class: 'btn btn-danger removeAttributeValue'
+                    })
+                    .text('Remove');
+
+                // Append the remove button to the container
+                containerDiv.append(removeButton);
+
+                // Append the container to the values container
+                $('#attributeValuesContainer').append(containerDiv);
+            });
+
+            // Event listener for removing attribute values
+            $(document).on('click', '.removeAttributeValue', function () {
+                // Remove the parent container when the remove button is clicked
+                $(this).closest('.attribute-value-container').remove();
+            });
+
+            // Show or hide remove buttons based on the existence of attribute values
+            function toggleRemoveButtons() {
+                let hasAttributeValues = $('#attributeValuesContainer').find('.attribute-value-container').length > 0;
+                $('.removeAttributeValue').toggle(hasAttributeValues);
             }
-        })
 
-        $('.tab-header').on('click', function () {
-            var t = $(this).attr('id');
-            $(this).addClass('active');
-            $('.tab-header').not($(this)).removeClass('active');
-
-        if ($(this).hasClass('active')) {
-             $('.card-body').hide();
-            $('#tab-' + t).show();
-        }
-  });
+            // Initial toggle when the page loads
+            toggleRemoveButtons();
+        });
     </script>
+    
 @endpush
