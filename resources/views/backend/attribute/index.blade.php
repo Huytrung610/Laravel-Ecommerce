@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary float-left">{{__('Category Lists')}}</h6>
+            <h6 class="m-0 font-weight-bold text-primary float-left">{{__('Attribute Lists')}}</h6>
             <a href="{{route('attribute.create')}}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip"
                data-placement="bottom" title="{{__('Add Attribute')}}"><i class="fas fa-plus"></i>{{__(' Add Attribute')}}
             </a>
@@ -21,7 +21,7 @@
                         <thead>
                         <tr>
                             <th>{{__('ID')}}</th>
-                            <th>{{__('Title')}}</th>
+                            <th>{{__('Name')}}</th>
                             <th>{{__('Action')}}</th>
 
                         </tr>
@@ -29,7 +29,7 @@
                         <tfoot>
                         <tr>
                             <th>{{__('ID')}}</th>
-                            <th>{{__('Title')}}</th>
+                            <th>{{__('Name')}}</th>
                             <th>{{__('Action')}}</th>
 
                         </tr>

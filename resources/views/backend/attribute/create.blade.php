@@ -8,7 +8,7 @@
             <form method="post" action="{{ route('attribute.store') }}">
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <label for="inputTitle" class="col-form-label">{{ __('Title') }}<span
+                    <label for="inputTitle" class="col-form-label">{{ __('Name') }}<span
                             class="text-danger">*</span></label>
                     <input id="inputTitle" type="text" name="name" placeholder="{{ __('Enter Name Attribute') }}"
                         class="form-control">

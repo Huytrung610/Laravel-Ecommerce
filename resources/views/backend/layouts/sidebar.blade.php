@@ -83,10 +83,16 @@
   </li>
   {{-- Products --}}
   <li class="nav-item">
-    <a class="nav-link" href="{{route('product.index')}}">
+    <a class="nav-link collapsed wgt-collapse" class="nav-link collapsed wgt-collapse" data-target="#productCollapse" aria-expanded="true" aria-controls="productCollapse">
       <i class="fas fa-tablet-alt"></i>
         <span>{{__('Products')}}</span>
     </a>
+    <div id="productCollapse" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Product Options:</h6>
+        <a class="collapse-item" href="{{route('product.index')}}">{{__('Products')}}</a>
+        <a class="collapse-item" href="{{route('attribute.index')}}">{{__('Attributes')}}</a>
+    </div>
   </li>
   <!--Orders -->
   <li class="nav-item">

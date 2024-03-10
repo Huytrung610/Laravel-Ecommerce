@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Attribute;
+use App\Models\AttributeValue;
 
 class AttributeController extends Controller
 {
@@ -22,65 +23,57 @@ class AttributeController extends Controller
     
     public function store(Request $request)
     {
-        $flash = array(
-            'status' => 'success',
-            'message' => 'Successfully added new attribute'
-        );
+       $attributes = Attribute::orderBy('id','ASC')->get();
+       $attributeSave = '';
         try {
-            $data = $request->all();
-            $data['product_id'] = $data['product_id'];
-
-            $attributeModel = new Attribute();
-            $this->prepareAttributeDataModel($attributeModel, $data);
-        } catch (\Exception $e) {
-            $flash['status']  = 'error';
-            $flash['message'] = $e->getMessage();
+            $data['name'] = $request->get('name');
+            $attributes = Attribute::create($data);
+            request()->session()->flash('success', __('Attribute successfully added'));
         }
-
-return redirect()->back()->with($flash['status'], $flash['message']);
+        catch (\Exception $exception) {
+            request()->session()->flash('error', __($exception->getMessage()));
+            redirect()->route('brand.create');
+        }
+        return redirect()->route('attribute.index')->with('attributes', $attributes);
     }
 
     public function edit($id)
     {
-        $attribute = Attribute::find($id);
-        if($attribute){
-            return response()->json([
-                'status' =>200,
-                'attribute' => $attribute,
-            ]);
-        }
-        else{
-             return response()->json([
-                'status' =>404,
-                'attribute' => $attribute,
-                'message' =>"Attribute not found!",
-            ]);
-        }
-       
+        $attribute = Attribute::with('attributeValues')->find($id);
+        return view('backend.attribute.edit')->with('attribute',$attribute);
        
     }
 
     public function update(Request $request, $id)
     {
-        $flash = array(
-            'status' => 'success',
-            'message' => 'Successfully updated'
-        );
+        $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
 
-        try {
-            $attribute = Attribute::findOrFail($id);
-            $data = $request->all();
-            
-            $data['product_id'] = $data['product_id'];
-            $this->prepareAttributeDataModel($attribute, $data);
+        $attribute = Attribute::findOrFail($id);
+        $attribute->name = $request->input('name');
+        $attribute->save();
 
-        } catch (\Exception $e) {
-            $flash['status']  = 'error';
-            $flash['message'] = $e->getMessage();
+        // Get IDs of existing attribute values
+        $existingValueIds = $attribute->attributeValues->pluck('id')->toArray();
+
+        // Update or create attribute values
+        $attributeValues = $request->input('attribute_values', []);
+
+        foreach ($attributeValues as $value) {
+            // Update existing values or create new ones
+            $attribute->attributeValues()->updateOrCreate(
+                ['id' => array_shift($existingValueIds)], // Use the ID for update
+                ['value' => $value]
+            );
         }
 
-        return redirect()->back()->with($flash['status'], $flash['message']);
+        // Delete any remaining values that were not updated or created
+        $attribute->attributeValues()->whereIn('id', $existingValueIds)->delete();
+
+        return redirect()->route('attribute.edit', ['attribute' => $id]);
     }
+
    
     
     public function destroy($id)

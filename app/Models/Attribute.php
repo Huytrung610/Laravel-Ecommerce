@@ -10,13 +10,8 @@ class Attribute extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['sku','price','stock','color','product_id','photo'];
+    protected $fillable = ['name'];
 
-    
-    public function product()
-    {
-        return $this->belongsTo(Product::class, 'product_id', 'id');
-    }
 
     public function carts()
     {
@@ -32,6 +27,10 @@ class Attribute extends Model
     
     public function getSku($productId){
         return $this->where('id', $productId)->value('sku');
+    }
+    public function attributeValues()
+    {
+        return $this->hasMany(AttributeValue::class);
     }
 
     
