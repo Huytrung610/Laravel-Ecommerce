@@ -4,36 +4,12 @@ window.$ = $;
 
 require('select2');
 $(document).ready(function () {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-        $('.dltBtn-brand').click(function(e){
-            var form = $(this).closest('form');
-            var dataID = $(this).data('id');
-            e.preventDefault();
-            swal({
-                title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this data!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    form.submit();
-                } else {
-                    swal("Your data is safe!");
-                }
-            });
-        })
-        // Select brand category
-        const selectField = $('#brand-target');
+    const selectField = $('#product-target');
 
         const setSelect2 = function() {
         selectField.select2({
             width: '100%',
+            maximumSelectionLength: 1,
             templateResult: function(option) {
             if (option.element && (option.element).hasAttribute('hidden')) {
                 return null;
@@ -73,7 +49,29 @@ $(document).ready(function () {
             }, 500);
         }
         });
-
-
-        // 
+         // Event khi có sự thay đổi trong Select2
+         selectField.on('change', function (e) {
+            // Kiểm tra nếu đã chọn nhiều hơn 1 mục, giữ lại mục cuối cùng
+            if ($(this).val() && $(this).val().length > 1) {
+                let lastValue = $(this).val().pop();
+                $(this).val([lastValue]).trigger('change');
+            }
+        });
+    
+        // Event khi Select2 mở ra
+        selectField.on('select2:opening', function (e) {
+            // Nếu đã chọn 1 mục, giữ lại giá trị hiện tại
+            if ($(this).val() && $(this).val().length === 1) {
+                let currentValue = $(this).val()[0];
+                $(this).val([currentValue]).trigger('change');
+            }
+        });
+    
+        // Event khi Select2 đóng
+        selectField.on('select2:closing', function (e) {
+            // Nếu chưa chọn mục nào, bỏ qua sự kiện đóng để giữ lại Select2 mở ra
+            if (!$(this).val() || $(this).val().length === 0) {
+                e.preventDefault();
+            }
+        });
 });

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Attribute;
+use App\Models\Brand;
 use App\Models\AttributeValue;
 use App\Http\Controllers\CategoryController;
 use App\Helpers\Backend\ProductHelper;
@@ -24,7 +25,10 @@ class ProductController extends Controller
     public function create()
     {
         $category = Category::get();
-        return view('backend.product.create')->with('categories', $category);
+        $brands = Brand::get();
+        $childCategories = Category::getSubCategory(); 
+        $parentCategories = Category::getParentCategories();
+        return view('backend.product.create')->with('categories', $category)->with('brands', $brands)->with('childCategories', $childCategories)->with('parentCategories', $parentCategories);
     }
 
     public function store(Request $request)
@@ -40,7 +44,8 @@ class ProductController extends Controller
                 $slug = $slug . '-' . date('ymdis') . '-' . rand(0, 999);
             }
             $data['slug'] = $slug;
-            $data['category_id'] = $request->get('sub_category_id');
+            $data['category_id'] = $request->get('category');
+            $data['brand_id'] = $request->get('brand_id');
             $data['photo'] = $request->get('photo') ;
             $data['discount'] = 20;
             $productSave = Product::create($data);
@@ -60,22 +65,34 @@ class ProductController extends Controller
     }
 
     public function edit(Request $request, $id)
-    {
-        $category = Category::all();
-        $attributes = Attribute::where('product_id', $id)->get();
-        
-        $product = Product::where('id', $id)->first();
-        if (!isset($product->id)){
-            return Redirect::back()->with('error','This product has been existed');
-        }
-        if ($product->getAttribute('deleted_at') != null) {
-            return Redirect::back()->with('error','This product has been deleted');
-        } else {
+{
+    $product = Product::findOrFail($id);
+    $childCategories = Category::getSubCategory(); 
+    $parentCategories = Category::getParentCategories();
+    $selectedCategory = $product->getAttribute('category_id'); // hoặc $product->category_id
+    $brands = Brand::get();
 
-            return view('backend.product.edit')->with('product', $product)
-                ->with('categories', $category)->with('attributes',$attributes);
-        }
+    if ($product->category && $product->category->count() > 0) {
+        $selectedCategory = [$product->category->id];
     }
+
+    if (!isset($product->id)) {
+        return Redirect::back()->with('error', 'This product has been existed');
+    }
+
+    if ($product->getAttribute('deleted_at') != null) {
+        return Redirect::back()->with('error', 'This product has been deleted');
+    }
+
+    return view('backend.product.edit')->with('product', $product)
+        ->with('brands', $brands)
+        ->with('childCategories', $childCategories)
+        ->with('selectedCategory', $selectedCategory)
+        ->with('parentCategories', $parentCategories);
+}
+
+
+
 
     public function productCat(Request $request)
     {
@@ -92,7 +109,6 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $attributes = Attribute::all();
 
             $productHelper = new ProductHelper();
             $product = Product::findOrFail($id);

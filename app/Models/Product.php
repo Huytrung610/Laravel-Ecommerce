@@ -27,6 +27,7 @@ class Product extends Model
         'summary',
         'description',
         'category_id',
+        'brand_id',
         'discount',
         'status',
         'photo',
@@ -37,6 +38,10 @@ class Product extends Model
     public function category()
     {
       return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
     }
 
     
