@@ -50,15 +50,30 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="sub_category_id">{{__('Category')}}<span class="text-danger">*</span></label>
-                    <select name="sub_category_id" id="sub_category_id" class="form-control" required>
-                        <option value="">{{__('--Select any sub category--')}}</option>
-                        @foreach($categories as $key=>$cat_data)
-                            @if($cat_data->parent_id != 0)
-                                <option value='{{$cat_data->id}}'>{{$cat_data->title}}</option>
-                            @endif
+                    <label for="brand_id">{{__('Brand')}}<span class="text-danger">*</span></label>
+                    <select name="brand_id" id="brand_id" class="form-control" required>
+                        <option value="">{{__('--Select any brand--')}}</option>
+                        @foreach($brands as $key=>$brand)
+                                <option value='{{$brand->id}}'>{{ $brand->name }}</option>
                         @endforeach
                     </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="category_id" class="col-form-label">{{ __('Category Type') }}<span class="text-danger">*</span></label>
+                    <select name="category_id" id="product-target" data-placeholder="Select categories" multiple='multiple'>
+                        @foreach($parentCategories as $parentCategory)
+                            <optgroup label="{{ $parentCategory->title }}" class="optgroup">
+                                @foreach($childCategories->where('parent_id', $parentCategory->id) as $childCategory)
+                                    <option value="{{ $childCategory->id }}" class="optnormal">{{ $childCategory->title }}</option>
+                                @endforeach   
+                                <option value="{{ $parentCategory->id }}" hidden class="opthidden">{{ $parentCategory->title }}</option>
+                            </optgroup>
+                        @endforeach
+                    </select>
+                    @error('category_id')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
                 
                 <div class="form-group">
@@ -88,6 +103,7 @@
 
 @endsection
 
+
 @push('styles')
     <link rel="stylesheet" href="{{asset('backend/summernote/summernote.min.css')}}"> 
     <link rel="stylesheet"
@@ -97,7 +113,7 @@
 @push('after_scripts')
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     {{-- <script src="{{asset('backend/summernote/summernote.min.js')}}"></script> --}}
-
+    
 
     <script>
         $('#lfm').filemanager('image');
@@ -140,12 +156,9 @@
           $('#summary').summernote()
           $('#description').summernote()
         });
-       
-
+        
       </script>
+<script src="{{ mix('js/backend/product.js') }}"></script>
 @endpush
-
-   
-
 
 

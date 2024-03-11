@@ -53,29 +53,46 @@
                 <div class="form-group">
                     <label for="summary" class="col-form-label">{{__('Short Description')}}<span
                             class="text-danger">*</span></label>
-                    <textarea class="form-control" id="summary" name="summary">{{$product->summary}}</textarea>
+                    <textarea class="form-control" id="" name="summary">{{$product->summary}}</textarea>
                     @error('summary')
                     <span class="text-danger">{{$message}}</span>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="description" class="col-form-label">{{__('Description')}}</label>
-                    <textarea class="form-control" id="description"
+                    <textarea class="form-control" id=""
                               name="description">{{$product->description}}</textarea>
                     @error('description')
                     <span class="text-danger">{{$message}}</span>
                     @enderror
                 </div>
-
+                
                 <div class="form-group">
-                    <label for="category_id">{{__('Category')}}<span class="text-danger">*</span></label>
-                    <select name="category_id" id="category_id" class="form-control">
-                        <option value="">{{__('--Select any category--')}}</option>
-                        @foreach($categories as $key=>$catData)
+                    <label for="brand_id">{{__('Brand')}}</label>
+                    <select name="brand_id" id="brand_id" class="form-control">
+                        <option value="">{{__('--Select any brand--')}}</option>
+                        @foreach($brands as $key=>$brand)
                             <option
-                                value='{{$catData->id}}' {{(($product->category_id==$catData->id)? 'selected' : '')}}>{{$catData->title}}</option>
+                                value='{{$brand->id}}' {{(($product->brand_id==$brand->id)? 'selected' : '')}}>{{$brand->name}}</option>
                         @endforeach
                     </select>
+                </div>
+                
+                <div class="form-group category-type">
+                    <label for="category_id" class="col-form-label">{{ __('Category Type') }}<span class="text-danger">*</span></label>
+                    <select name="category_id" id="product-target" class="form-control categories-product" multiple>
+                        @foreach($parentCategories as $parentCategory)
+                            <optgroup label="{{ $parentCategory->title }}" class="optgroup">
+                                @foreach($childCategories->where('parent_id', $parentCategory->id) as $childCategory)
+                                    <option value="{{ $childCategory->id }}" {{  in_array($childCategory->id, $selectedCategory) ? 'selected' : '' }} class="optnormal">{{ $childCategory->title }}</option>
+                                @endforeach   
+                                <option value="{{ $parentCategory->id }}" {{ in_array($parentCategory->id, $selectedCategory) ? 'selected' : '' }} hidden class="opthidden">{{ $parentCategory->title }}</option>
+                            </optgroup>
+                        @endforeach  
+                    </select>
+                    @error('category_id')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -108,11 +125,11 @@
             </button>
 
             <!-- Modal add new address  -->
-            @include('backend.product.attribute.product-attribute-form')
+            {{-- @include('backend.product.attribute.product-attribute-form') --}}
             <!-- End Modal -->
 
             <!-- Customer address list -->
-            @include('backend.product.attribute.product-attribute-list')
+            {{-- @include('backend.product.attribute.product-attribute-list') --}}
         </div>
         
     </div>
@@ -130,7 +147,7 @@
     {{-- <script src="{{asset('backend/summernote/summernote.min.js')}}"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-    
+    <script src="{{ mix('js/backend/product.js') }}"></script>
     <script>
         $('#lfm').filemanager('image');
     </script>
