@@ -29,6 +29,9 @@ Route::group([
     Route::resource('/attribute','\App\Http\Controllers\AttributeController');
     Route::get('attribute-edit/{id}',[\App\Http\Controllers\AttributeController::class,'edit']);
     Route::post('attribute/update/{id}', [\App\Http\Controllers\AttributeController::class, 'update']);
+    Route::get('get-attributes',  [\App\Http\Controllers\AttributeController::class, 'getAttributes'])->name('admin.get-attributes');
+    Route::get('get-attribute-values', [\App\Http\Controllers\AttributeController::class, 'getAttributeValues'])->name('admin.get-attribute-values');    
+
 
     //Brand
     Route::resource('/brand', '\App\Http\Controllers\BrandController');

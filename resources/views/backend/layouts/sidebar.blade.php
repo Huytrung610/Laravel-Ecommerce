@@ -188,11 +188,13 @@
 </ul>
 @push('after_scripts')
   <script>
+     $(document).ready(function () {
       $('.wgt-collapse').click(function () {
           var elementId = $(this).attr('data-target');
           if (elementId && typeof elementId != 'undefined') {
               $(elementId).collapse('toggle');
           }
       });
+    });
   </script>
 @endpush

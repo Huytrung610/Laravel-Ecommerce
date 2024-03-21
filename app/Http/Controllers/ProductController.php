@@ -65,34 +65,32 @@ class ProductController extends Controller
     }
 
     public function edit(Request $request, $id)
-{
-    $product = Product::findOrFail($id);
-    $childCategories = Category::getSubCategory(); 
-    $parentCategories = Category::getParentCategories();
-    $selectedCategory = $product->getAttribute('category_id'); // hoặc $product->category_id
-    $brands = Brand::get();
+    {
+        $product = Product::findOrFail($id);
+        $childCategories = Category::getSubCategory(); 
+        $parentCategories = Category::getParentCategories();
+        $selectedCategory = $product->getAttribute('category_id'); 
+        $selectedCategory = $selectedCategory ? [$selectedCategory] : [];
+        $brands = Brand::get();
 
-    if ($product->category && $product->category->count() > 0) {
-        $selectedCategory = [$product->category->id];
+        if ($product->category && $product->category->count() > 0) {
+            $selectedCategory = [$product->category->id];
+        }
+
+        if (!isset($product->id)) {
+            return Redirect::back()->with('error', 'This product has been existed');
+        }
+
+        if ($product->getAttribute('deleted_at') != null) {
+            return Redirect::back()->with('error', 'This product has been deleted');
+        }
+
+        return view('backend.product.edit')->with('product', $product)
+            ->with('brands', $brands)
+            ->with('childCategories', $childCategories)
+            ->with('selectedCategory', $selectedCategory)
+            ->with('parentCategories', $parentCategories);
     }
-
-    if (!isset($product->id)) {
-        return Redirect::back()->with('error', 'This product has been existed');
-    }
-
-    if ($product->getAttribute('deleted_at') != null) {
-        return Redirect::back()->with('error', 'This product has been deleted');
-    }
-
-    return view('backend.product.edit')->with('product', $product)
-        ->with('brands', $brands)
-        ->with('childCategories', $childCategories)
-        ->with('selectedCategory', $selectedCategory)
-        ->with('parentCategories', $parentCategories);
-}
-
-
-
 
     public function productCat(Request $request)
     {
