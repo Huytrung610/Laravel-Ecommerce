@@ -19,9 +19,9 @@ Route::group([
     
     Route::get('/dashboard',[\App\Http\Controllers\AdminController::class, 'getRevenueByMonth'])->name('admin');
     Route::resource('users','\App\Http\Controllers\UsersController');
-    Route::get('/file-manager',function(){
-        return view('backend.layouts.file-manager');
-    })->name('file-manager');
+    // Route::get('/file-manager',function(){
+    //     return view('backend.layouts.file-manager');
+    // })->name('file-manager');
 
     Route::get('/profile',[\App\Http\Controllers\AdminController::class, 'profile'])->name('admin-profile');
     Route::resource('/category','\App\Http\Controllers\CategoryController');
@@ -64,5 +64,5 @@ Route::group([
     //General Settings
     Route::get('general-setting',[\App\Http\Controllers\GeneralSettingController::class,'index'])->name('settings');
     Route::post('setting/update',[\App\Http\Controllers\GeneralSettingController::class, 'update'])->name('settings.update');
-
+   
 }); // this should be the absolute last line of this file

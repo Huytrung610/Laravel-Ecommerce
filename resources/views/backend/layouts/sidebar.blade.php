@@ -29,7 +29,7 @@
   <!-- Nav Item - Pages Collapse Menu -->
   <!-- Nav Item - Charts -->
   <li class="nav-item ">
-      <a class="nav-link" href="{{route('file-manager')}}">
+      <a class="nav-link" href="">
         <i class="fab fa-medium"></i>
           <span>{{__('Media Manager')}}</span></a>
   </li>
