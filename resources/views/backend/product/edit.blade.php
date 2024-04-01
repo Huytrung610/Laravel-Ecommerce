@@ -18,121 +18,153 @@
     </div>
     @endif
     
-    <div class="card">
-        <div class="card-header card-tabs d-flex">
-            <div id="product" class="tab-header" style="border: 1px solid #ccc">{{ __('Edit Product') }}</div>
-            <div id="attribute" class="tab-header" style="border: 1px solid #ccc">{{ __('Attribute Product') }}</div>
-        </div>
-        <div class="card-body" id="tab-product">
-            <form method="post" action="{{route('product.update',$product->id)}}">
-                @csrf
-                @method('PATCH')
-                <input type="hidden" name="store_id" id="currentStoreView" value="0"/>
-                <div class="form-group">
-                    <label for="status" class="col-form-label">{{__('Status')}}<span
-                            class="text-danger">*</span></label>
-                    <select name="status" class="form-control">
-                        <option
-                            value="active" {{(($product->status=='active')? 'selected' : '')}}>{{__('Active')}}</option>
-                        <option
-                            value="inactive" {{(($product->status=='inactive')? 'selected' : '')}}>{{__('Inactive')}}</option>
-                    </select>
-                    @error('status')
-                    <span class="text-danger">{{$message}}</span>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="inputTitle" class="col-form-label">{{__('Title')}}<span
-                            class="text-danger">*</span></label>
-                    <input id="inputTitle" type="text" name="title" placeholder="{{__('Enter title')}}"
-                           value="{{$product->title}}" class="form-control">
-                    @error('title')
-                    <span class="text-danger">{{$message}}</span>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="summary" class="col-form-label">{{__('Short Description')}}<span
-                            class="text-danger">*</span></label>
-                    <textarea class="form-control" id="" name="summary">{{$product->summary}}</textarea>
-                    @error('summary')
-                    <span class="text-danger">{{$message}}</span>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="description" class="col-form-label">{{__('Description')}}</label>
-                    <textarea class="form-control" id=""
-                              name="description">{{$product->description}}</textarea>
-                    @error('description')
-                    <span class="text-danger">{{$message}}</span>
-                    @enderror
-                </div>
-                
-                <div class="form-group">
-                    <label for="brand_id">{{__('Brand')}}</label>
-                    <select name="brand_id" id="brand_id" class="form-control">
-                        <option value="">{{__('--Select any brand--')}}</option>
-                        @foreach($brands as $key=>$brand)
-                            <option
-                                value='{{$brand->id}}' {{(($product->brand_id==$brand->id)? 'selected' : '')}}>{{$brand->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                
-                <div class="form-group category-type">
-                    <label for="category_id" class="col-form-label">{{ __('Category Type') }}<span class="text-danger">*</span></label>
-                    <select name="category_id" id="product-target" class="form-control categories-product" multiple>
-                        @foreach($parentCategories as $parentCategory)
-                            <optgroup label="{{ $parentCategory->title }}" class="optgroup">
-                                @foreach($childCategories->where('parent_id', $parentCategory->id) as $childCategory)
-                                    <option value="{{ $childCategory->id }}" {{  in_array($childCategory->id, $selectedCategory) ? 'selected' : '' }} class="optnormal">{{ $childCategory->title }}</option>
-                                @endforeach   
-                                <option value="{{ $parentCategory->id }}" {{ in_array($parentCategory->id, $selectedCategory) ? 'selected' : '' }} hidden class="opthidden">{{ $parentCategory->title }}</option>
-                            </optgroup>
-                        @endforeach  
-                    </select>
-                    @error('category_id')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="inputPhoto" class="col-form-label">{{__('Photo')}}<span
-                            class="text-danger">*</span></label>
-                    <div class="input-group">
-                    <span class="input-group-btn">
-                        <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary text-white">
-                        <i class="fa fa-picture-o"></i>{{__('Choose')}}
-                        </a>
-                    </span>
-                        <input id="thumbnail" class="form-control" type="text" name="photo" value="{{$product->photo}}">
-                    </div>
-                    <small id="warningInputImg" class="form-text " style="font-size: 14px;color:red;margin-bottom: 26px;"> *Image size must be: 550 x 550</small>
-                    <div id="holder" style="margin-top:15px;max-height:100px;"></div>
-                    @error('photo')
-                    <span class="text-danger">{{$message}}</span>
-                    @enderror
-                </div>
-
-                <div class="form-group mb-3">
-                    <button class="btn btn-success" type="submit">{{__('Update')}}</button>
-                </div>
-            </form>
-        </div>
-        
-        <div class="card-body" id="tab-attribute">
-            <button type="button" id="add_attribute" class="btn btn-primary mb-4" data-toggle="modal" data-target="#formAttribute">
-                {{ __('Add Attribute') }}
-            </button>
-
-            <!-- Modal add new address  -->
-            {{-- @include('backend.product.attribute.product-attribute-form') --}}
-            <!-- End Modal -->
-
-            <!-- Customer address list -->
-            {{-- @include('backend.product.attribute.product-attribute-list') --}}
-        </div>
-        
+<div class="card">
+    <div class="card-header card-tabs d-flex">
+        <div id="product" class="tab-header" style="border: 1px solid #ccc">{{ __('Edit Product') }}</div>
+        <div id="attribute" class="tab-header" style="border: 1px solid #ccc">{{ __('Attribute Product') }}</div>
     </div>
+    <div class="card-body" id="tab-product">
+        <form method="post" action="{{route('product.update',$product->id)}}">
+            @csrf
+            @method('PATCH')
+            <input type="hidden" name="store_id" id="currentStoreView" value="0"/>
+            <div class="form-group">
+                <label for="status" class="col-form-label">{{__('Status')}}<span
+                        class="text-danger">*</span></label>
+                <select name="status" class="form-control">
+                    <option
+                        value="active" {{(($product->status=='active')? 'selected' : '')}}>{{__('Active')}}</option>
+                    <option
+                        value="inactive" {{(($product->status=='inactive')? 'selected' : '')}}>{{__('Inactive')}}</option>
+                </select>
+                @error('status')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="inputTitle" class="col-form-label">{{__('Title')}}<span
+                        class="text-danger">*</span></label>
+                <input id="inputTitle" type="text" name="title" placeholder="{{__('Enter title')}}"
+                        value="{{$product->title}}" class="form-control">
+                @error('title')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <input id="inputPhoto" type="text" name="Photo" placeholder="{{__('Enter Photo')}}"
+                        value="" class="upload-image form-control"
+                        autocomplete="off"
+                        data-type="Images">
+                @error('Photo')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="summary" class="col-form-label">{{__('Short Description')}}<span
+                        class="text-danger">*</span></label>
+                <textarea class="form-control" id="sumary-product" name="summary">{{$product->summary}}</textarea>
+                @error('summary')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="description" class="col-form-label">{{__('Description')}}</label>
+                <textarea class="form-control" id=""
+                            name="description">{{$product->description}}</textarea>
+                @error('description')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+            
+            <div class="form-group">
+                <label for="brand_id">{{__('Brand')}}</label>
+                <select name="brand_id" id="brand_id" class="form-control">
+                    <option value="">{{__('--Select any brand--')}}</option>
+                    @foreach($brands as $key=>$brand)
+                        <option
+                            value='{{$brand->id}}' {{(($product->brand_id==$brand->id)? 'selected' : '')}}>{{$brand->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+            
+            <div class="form-group category-type">
+                <label for="category_id" class="col-form-label">{{ __('Category Type') }}<span class="text-danger">*</span></label>
+                <select name="category_id" id="product-target" class="form-control categories-product" multiple>
+                    @foreach($parentCategories as $parentCategory)
+                        <optgroup label="{{ $parentCategory->Photo }}" class="optgroup">
+                            @foreach($childCategories->where('parent_id', $parentCategory->id) as $childCategory)
+                                <option value="{{ $childCategory->id }}" {{  in_array($childCategory->id, $selectedCategory) ? 'selected' : '' }} class="optnormal">{{ $childCategory->title }}</option>
+                            @endforeach   
+                            <option value="{{ $parentCategory->id }}" {{ in_array($parentCategory->id, $selectedCategory) ? 'selected' : '' }} hidden class="opthidden">{{ $parentCategory->title }}</option>
+                        </optgroup>
+                    @endforeach  
+                </select>
+                @error('category_id')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="inputPhoto" class="col-form-label">{{__('Photo')}}<span
+                        class="text-danger">*</span></label>
+                <div class="input-group">
+                    <input id="thumbnail" class="form-control upload-image" type="text" name="photo"  autocomplete="off"
+                    data-type="Images" value="{{$product->photo}}">
+                </div>
+                @error('photo')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+            <div class="form-group mb-3">
+                <button class="btn btn-success" type="submit">{{__('Update')}}</button>
+            </div>
+        </form>
+    </div>
+    <div class="card-body" id="tab-attribute">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="variant-checkbox">
+                    <input type="checkbox" id="variant-checkbox">
+                    <label for="variant-checkbox" class="turnOnVariant">Product with variants?</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="variant-wrapper tw-hidden">
+            <div class="row variant-container">
+                <div class="col-lg-3">
+                    <div class="attribute-title tw-text-blue-400">Attribute</div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="attribute-title tw-text-blue-400">Value Attribute</div>
+                </div>
+            </div>
+            <div class="variant-body">     
+            </div>
+            <div class="variant-foot tw-mb-5">
+                <button type="button" class="add-variant tw-border-blue-400 tw-border tw-text-white tw-bg-blue-400 tw-p-2">Add new attribute</button>
+            </div>
+        </div>
+        
+        <!-- Product Variant Table -->
+        {{-- @include('backend.product.attribute.product-attribute-list')  --}}
+        <div class="variant-wrapper tw-hidden">
+        </div>
+        <div class="product-variant">
+            <div class="variants-title">
+                <h2>Product Variants</h2>
+            </div>
+            <div class="table-responsive">
+                <table class="table productVariant-table">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+           
+        </div>
+    </div>
+    
+</div>
 
 @endsection
 
@@ -143,63 +175,63 @@
 
 @endpush
 @push('after_scripts')
-    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
-    {{-- <script src="{{asset('backend/summernote/summernote.min.js')}}"></script> --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    {{-- <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-    <script src="{{ mix('js/backend/product.js') }}"></script>
     <script>
-        $('#lfm').filemanager('image');
+        // $('#lfm').filemanager('image');
+        // $(document).ready(function(){
+      
+        //     // Define function to open filemanager window
+        //     var lfm = function(options, cb) {
+        //         var route_prefix = (options && options.prefix) ? options.prefix : '/laravel-filemanager';
+        //         window.open(route_prefix + '?type=' + options.type || 'file', 'FileManager', 'width=900,height=600');
+        //         window.SetUrl = cb;
+        //     };
+        
+        //     // Define LFM summernote button
+        //     var LFMButton = function(context) {
+        //         var ui = $.summernote.ui;
+        //         var button = ui.button({
+        //         contents: '<i class="note-icon-picture"></i> ',
+        //         tooltip: 'Insert image with filemanager',
+        //         click: function() {
+        
+        //             lfm({type: 'image', prefix: '/laravel-filemanager'}, function(lfmItems, path) {
+        //             lfmItems.forEach(function (lfmItem) {
+        //                 context.invoke('insertImage', lfmItem.url);
+        //             });
+        //             });
+        
+        //         }
+        //         });
+        //         return button.render();
+        //     };
+        
+        //     // Initialize summernote with LFM button in the popover button group
+        //     // Please note that you can add this button to any other button group you'd like
+        //     $(document).ready(function() {
+        //         $('#description').summernote({
+        //             placeholder: "Write detail description.....",
+        //             tabsize: 2,
+        //             height: 150
+        //         });
+        //     });
+        // });
+        // ClassicEditor
+        // .create( document.querySelector( '#sumary-product' ) )
+        // .catch( error => {
+        //     console.error( error );
+        // } );
+
     </script>
-    <script>
-        $('#attr-photo').filemanager('image');
-    </script>
-    <script>
-        $('#attr-photo').filemanager('image', { input: "#thumbnail-attribute" });
-    </script>
+    <script src="{{ mix('js/backend/product.js') }}"></script>      
+    <script src="/backend/ckfinder_2/ckfinder.js"></script>
+    <script src="{{ mix('js/backend/finder.js') }}"></script>
+
 
     
-
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.js"></script>
-    {{-- <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script> --}}
-    <script>
-        $(document).ready(function(){
-      
-          // Define function to open filemanager window
-          var lfm = function(options, cb) {
-            var route_prefix = (options && options.prefix) ? options.prefix : '/laravel-filemanager';
-            window.open(route_prefix + '?type=' + options.type || 'file', 'FileManager', 'width=900,height=600');
-            window.SetUrl = cb;
-          };
-      
-          // Define LFM summernote button
-          var LFMButton = function(context) {
-            var ui = $.summernote.ui;
-            var button = ui.button({
-              contents: '<i class="note-icon-picture"></i> ',
-              tooltip: 'Insert image with filemanager',
-              click: function() {
-      
-                lfm({type: 'image', prefix: '/laravel-filemanager'}, function(lfmItems, path) {
-                  lfmItems.forEach(function (lfmItem) {
-                    context.invoke('insertImage', lfmItem.url);
-                  });
-                });
-      
-              }
-            });
-            return button.render();
-          };
-      
-          // Initialize summernote with LFM button in the popover button group
-          // Please note that you can add this button to any other button group you'd like
-          $('#summary').summernote()
-          $('#description').summernote()
-        });
-       
-
-    </script>
 
     <script>
        $.ajaxSetup({
@@ -249,55 +281,589 @@
                 $('#tab-' + t).show();
             }
             });
-            $('#add_attribute').on('click', function () {
-                $("form :input:not([type=hidden])").val('');
-                $('#form_attribute').attr('action', location.origin + '/admin/attribute');
-                $('.form-attribute-title').text('Add a new attribute');
-            });
     </script> 
 
-    <script>
-        $(document).ready(function () {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $('.dltBtn').click(function (e) {
+            var form = $(this).closest('form');
+            e.preventDefault();
+            swal({
+                title: "{{__('Are you sure?')}}",
+                text: "{{__('Once deleted, you will not be able to recover this data!')}}",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        form.submit();
+                    } else {
+                        swal("{{__('Your data is safe!')}}");
+                    }
+                });
+        })  
+    })
+</script> 
+<script>
+    let currentVariantCount = 0; // Số lượng thuộc tính hiện tại
+    let maxVariantCount = 0; // Số lượng thuộc tính tối đa
+    let attributeValues = {};
+    let selectedAttributeValues = {};
+    
+    $(document).ready(function() {
+        var currentVariantCount = 0; // Số lượng thuộc tính hiện tại
+        var maxVariantCount = 0; // Số lượng thuộc tính tối đa
+        var attributeValues = {}; 
+        $(document).on('click', '.add-variant', function() {
+            var url = "{{ url('admin/get-attributes') }}";
+
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function(response) {
+                    var html = renderVariantItem(response);
+                    $('.variant-body').append(html);
+                    $('.productVariant-table thead').html('');
+                    $('.productVariant-table tbody').html('');
+                    currentVariantCount++;
+                    maxVariantCount = response.length; // Cập nhật maxVariantCount từ response
+                    checkMaxAttribute(currentVariantCount, maxVariantCount); 
+                    disabledAttributeCatlogueChoose(); 
                 }
             });
-            $('.dltBtn').click(function (e) {
-                var form = $(this).closest('form');
-                e.preventDefault();
-                swal({
-                    title: "{{__('Are you sure?')}}",
-                    text: "{{__('Once deleted, you will not be able to recover this data!')}}",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            form.submit();
-                        } else {
-                            swal("{{__('Your data is safe!')}}");
-                        }
-                    });
-            })
-        })
-    </script>
-       <script>
-        function hexToRgb(hex) {
-            var bigint = parseInt(hex.substring(1), 16);
-            var r = (bigint >> 16) & 255;
-            var g = (bigint >> 8) & 255;
-            var b = bigint & 255;
-            return "rgb(" + r + ", " + g + ", " + b + ")";
-        }
+        });
+        
+        removeAttribute();
+        disabledAttributeCatlogueChoose();
+        chooseVariantGroup();
+        createProductVariant();
+        removeDuplicatedValue ();
+        variantAlbum();
+        deleteVariantAlbum();
+        updateVariant();
+        cancleVariantUpdate();
+        saveVariantUpdate();
+});
+    function renderVariantItem(attributes) {
+        var html = '';
 
-        var boxes = document.getElementsByClassName("color-box"); // Lấy tất cả các phần tử có class "color-box"
-        for (var i = 0; i < boxes.length; i++) {
-            var hexColor = boxes[i].textContent; // Lấy giá trị mã màu hex từ nội dung của phần tử
-            var color = hexToRgb(hexColor); // Chuyển đổi mã hex thành màu sắc
-            boxes[i].style.backgroundColor = color; // Áp dụng màu sắc vào phần tử HTML
-            boxes[i].style.display = "block"; // Hiển thị phần tử
+        html += '<div class="row variant-item tw-mb-4">';
+        html += '<div class="col-lg-3">';
+        html += '<div class="attribute-catalogue">';
+        html += '<select name="" class="choose-attribute nice-select">';
+        html += '<option value="">---Select Attribute---</option>';
+        
+        $.each(attributes, function(index, attribute) {
+            html += '<option value="' + attribute.id + '">' + attribute.name + '</option>';
+        });
+
+        html += '</select>';
+        html += '</div>';
+        html += '</div>';
+        html += '<div class="col-lg-8">';
+        html += '<input type="text" disabled class="fake-variant form-control tw-h-12">';
+        html += '</div>';
+        html += '<div class="col-lg-1">';
+        html += '<button type="button" class="remove-attribute btn btn-danger">Delete</button>';
+        html += '</div>';
+        html += '</div>';
+
+        return html;
+    }
+    function disabledAttributeCatlogueChoose() {
+        let id = [];
+        $('.choose-attribute').each(function(){
+            let _this = $(this)
+            let selected = _this.find('option:selected').val();
+            if ( selected != 0){
+                id.push(selected)
+            }
+        })
+        $('.choose-attribute').find('option').removeAttr('disabled');
+        for(let i = 0; i < id.length; i++ ) {
+            $('.choose-attribute').find('option[value='+ id[i] + ']').prop('disabled', true);
         }
-    </script>
+    }
+    function checkMaxAttribute(currentCount, maxCount) {
+        if (currentCount >= maxCount) {
+            $('.add-variant').remove();    
+        } else {
+            $('.variant-foot').html('<button type="button" class="add-variant tw-border-blue-400 tw-border tw-text-white tw-bg-blue-400 tw-p-2">Add new attribute</button>');
+        }
+    }
+
+    //Remove attribute from variant product
+    function removeAttribute () {
+        $(document).on('click', '.remove-attribute', function(){
+            let _this = $(this);
+            _this.parents('.variant-item').remove();
+            createVariant();
+            checkMaxAttribute();
+        })
+    }
+    function select2Variant(attributeId)  {
+        let html = '<select class="selectVariant variant-'+ attributeId +'  form-control" name="attribute['+ attributeId +'][]" data-catid="'+attributeId+'"  multiple="multiple"></select>'
+        return html;
+    }
+    function chooseVariantGroup() {
+        $(document).on('change', '.choose-attribute', function(){
+            let _this = $(this);
+            let attributeId = _this.val();
+            if (attributeId != 0) {
+                _this.parents('.col-lg-3').siblings('.col-lg-8').html(select2Variant(attributeId))
+                getValueAttribute(attributeId);
+            
+            } else {
+                _this.parents('.col-lg-3').siblings('.col-lg-8').html('<input type="text" disabled class="fake-variant form-control tw-h-12">')
+            }
+            disabledAttributeCatlogueChoose();
+        })
+    }
+
+    function getValueAttribute(attributeId) {
+        $.ajax({
+            type: 'GET',
+            url: '{{url("admin/get-attribute-values")}}',
+            data: { attributeId: attributeId }, 
+            success: function(response) {
+                attributeValues = response;
+                selectedAttributeValues[attributeId] = attributeValues;
+                renderAttributeValues(attributeValues, attributeId);
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        }); 
+    }
+
+    function renderAttributeValues(values, attributeId) {
+        let selectVariant = $('.selectVariant');
+        
+        // Thêm các option mới từ danh sách giá trị thuộc tính vào selectVariant
+        $.each(values, function(index, value) {
+            let id = parseInt(attributeId);
+                if (value.attribute_id === id) {
+                    selectVariant.append($('<option>', {
+                        value: value.id,
+                        text: value.value
+                }));
+            }
+            
+        });
+
+        // Khởi tạo lại plugin select2 cho selectVariant
+        selectVariant.select2();
+    }
+
+    function createProductVariant() {
+        $(document).on('change', '.selectVariant', function(){
+        let _this = $(this);
+        createVariant();
+        })
+    }
+
+    function createVariant() {
+        let attributes = [];
+        let variants = [];
+        let attributeTitle  = [];
+
+        $('.variant-item').each(function(){
+            let _this = $(this);
+            let attr = [];
+            let attrVariant = [];
+            let attributeCatalougeId = _this.find('.choose-attribute option:selected').val();
+            let optionText = _this.find('.choose-attribute option:selected').text();
+            let attribute = $('.variant-'+attributeCatalougeId).select2('data');
+            for (let i= 0; i < attribute.length; i++ ) {
+                let item = {};
+                let itemVariant = {};
+                item[optionText] = attribute[i].text;
+                itemVariant[attributeCatalougeId] = attribute[i].id;
+                attr.push(item);
+                attrVariant.push(itemVariant)
+            }
+            attributeTitle.push(optionText);
+            attributes.push(attr)
+            variants.push(attrVariant)
+        })
+
+
+        attributes = attributes.reduce(
+            (a, b) => a.flatMap( d => b.map ( e => ( { ...d, ...e } ) ) )
+        )
+        variants = variants.reduce(
+            (a, b) => a.flatMap( d => b.map ( e => ( { ...d, ...e } ) ) )
+        )
+        
+        createTableHeader(attributeTitle)
+
+        let trClass= [];
+
+        attributes.forEach((item, index) =>  {
+            let $row = createVariantRow(item, variants[index]);
+            let classModified ='tr-variant-' + Object.values(variants[index]).join(', ').replace(/, /g, '-');
+            trClass.push(classModified);
+            if (!$('table.productVariant-table tbody tr').hasClass(classModified)) {
+                $('table.productVariant-table tbody').append($row);
+            }
+        })
+        
+        console.log(trClass);
+
+        $('table.productVariant-table tbody tr').each(function(){
+            const $row = $(this);
+            const rowClasses = $row.attr('class');
+            if(rowClasses) {
+                const rowClassesArray = rowClasses.split(' ')
+                let shouldRemove = false;
+                rowClassesArray.forEach(rowClass => {
+                    if (rowClass == 'variant-row') {
+                        return
+                    } else if (!trClass.includes(rowClass)){
+                        shouldRemove = true;
+                    }
+                })
+                if (shouldRemove) {
+                    $row.remove();
+                }
+            }
+        })
+        // let html = renderTableHtml(attributes, attributeTitle, variants);
+        // $('table.productVariant-table').html(html);
+    }
+
+    //Store variant product 
+    function createVariantRow(attributeItem, variantItem) {
+        let attributeString = Object.values(attributeItem).join(', ');
+        let attributeId = Object.values(variantItem).join(', ');
+        let classModified =  attributeId.replace(/, /g, '-');
+
+        let $row = $('<tr>').addClass('variant-row tr-variant-' + classModified);
+        let $td 
+        $td = $('<td>').append(
+            $('<span>').addClass('image img-cover').append(
+                $('<img>').addClass('imageSrc').attr('src',  '/backend/img/thumbnail-default.jpg'  )
+            )
+        )
+        $row.append($td);
+        Object.values(attributeItem).forEach(value => {
+            $td = $('<td>').text(value);
+            $row.append($td);
+        })   
+        $td =$('<td>').addClass('tw-hidden td-variant');
+        let inputHiddenFields = [
+            { name: 'variant[quantity][]', class: 'variant_quantity' },
+            { name: 'variant[sku][]', class: 'variant_sku' },
+            { name: 'variant[price][]', class: 'variant_price' },
+            { name: 'variant[barcode][]', class: 'variant_barcode' },
+            { name: 'variant[slug][]', class: 'variant_slug' },
+            { name: 'variant[album][]', class: 'variant_album' },
+            { name: 'attribute[name][]', value: attributeString },
+            { name: 'attribute[id][]', value: attributeId },
+        ]
+
+        $.each(inputHiddenFields, function(_, field) {
+            let $input = $('<input>').attr('type', 'text').attr('name', field.name).addClass(field.class);
+            if (field.value){
+                $input.val(field.value)
+            }
+            $td.append($input)
+        })
+
+        $row.append($('<td>').addClass('td-quantity').text('-'))
+            .append($('<td>').addClass('td-price').text('-'))
+            .append($('<td>').addClass('td-sku').text('-'))
+            .append($td)
+        return $row
+    }
+
+    // Handle thead after choose attribute, value
+    function createTableHeader(attributeTitle) {
+        let $thead = $('table.productVariant-table thead');
+        let $row = $('<tr>');
+        $row.append($('<td>').text('Photo'));
+        for ( let i = 0; i < attributeTitle.length; i++) {
+            $row.append($('<td>').text(attributeTitle[i]))
+        }
+        $row.append($('<td>').text('Quantity'));
+        $row.append($('<td>').text('Price'));
+        $row.append($('<td>').text('SKU'));
+            
+        $thead.html($row);
+        return $thead;
+    }
+
+    function renderTableHtml(attributes, attributeTitle, variants) {
+        let html = '';
+        html = html + '<thead>'
+                html = html + '<tr>'
+                    html = html + '<th scope="col">Photo</th>'
+                    for (let i = 0; i < attributeTitle.length; i++ ) {
+                        html = html + '<th scope="col">'+ attributeTitle[i] +'</th>'
+                    }
+                    html = html + '<th scope="col">Quantity</th>'
+                    html = html + '<th scope="col">Price</th>'
+                    html = html + '<th scope="col">SKU</th>'
+                html = html + '</tr>'
+                html = html + '</thead>'
+                html = html + '<tbody>'
+                    for (let j = 0; j < attributes.length; j++ ) {
+                        html = html + '<tr class="variant-row">'
+                            html = html + '<td>'
+                                html = html + '<div class="img img-cover"><img class="imageSrc" src="" alt=""></div>'
+                             html = html + '</td>'
+                        let attributeArray = [];
+                        let attributeIdArray = [];
+                        $.each(attributes[j], function(index, value ){
+                            html = html + '<td>'+ value +'</td>'
+                            attributeArray.push(value);
+                        }) 
+                        $.each(variants[j], function(index, value ){
+                            attributeIdArray.push(value);
+                        }) 
+                        
+                        let attributeString = attributeArray.join(', ');
+                        let attributeId = attributeIdArray.join(', ');
+                        html = html + '<td class="td-quantity">-</td>'
+                        html = html + '<td class="td-price">-</td>'
+                        html = html + '<td class="td-sku">-</td>'
+                        html = html + '<td class="tw-hidden td-variant">'
+                            html = html + '<input type="text" name="variant[quantity][]" class="variant_quantity">'
+                            html = html + '<input type="text" name="variant[sku][]" class="variant_sku">'
+                            html = html + '<input type="text" name="variant[price][]" class="variant_price">'
+                            html = html + '<input type="text" name="variant[barcode][]" class="variant_barcode">'
+                            html = html + '<input type="text" name="variant[slug][]" class="variant_slug">'
+                            html = html + '<input type="text" name="variant[album][]" class="variant_album">'
+                            html = html + '<input type="text" name="attribute[name][]" value="'+attributeString+'">'
+                            html = html + '<input type="text" name="attribute[id][]" value="'+attributeId+'">'
+                        html = html +'</td>'
+                        html = html + '</tr>'
+                    }
+                html = html + '</tbody>'
+        return html;
+    }
+    
+    function removeDuplicatedValue (){
+        $(document).on('select2:open', '.selectVariant', function (e) {
+            let selectVariant = $(this);
+            
+            let attributeId = selectVariant.data('catid');
+            
+            let values = selectedAttributeValues[attributeId];
+            
+            selectVariant.find('option').each(function() {
+                let optionValue = $(this).val();
+                if (!values.some(value => value.id == optionValue)) {
+                    $(this).remove();
+                }
+            });
+        });
+    }
+    function variantAlbum() {
+        $(document).on('click', '.click-to-upload-variant', function(e){
+            browseVariantServerAlbum();
+            e.preventDefault(); 
+        })
+    }
+
+    function browseVariantServerAlbum(){
+        var type = "Images";
+        var finder = new CKFinder();
+        finder.resourceType = type;
+        finder.selectActionFunction = function ( fileUrl, data, allFiles ) {
+            let html = '';
+            for (var i = 0; i < allFiles.length; i++ ){
+                var image = allFiles[i].url;
+                html += '<li class="ui-state-default">';
+                    html += '<div class="thumb-variant">';
+                        html += '<span class="span image img-scaledown">';
+                            html += '<img src="'+image+'" alt="'+ image +'">';
+                            html += '<input type="hidden" name="variantAlbum[]" value="'+image+'">';
+                        html += '</span>'; 
+                        html += '<button class="variant-delete-image"><i class="fa fa-trash"></i></button>';
+                    html += '</div>'; // Đóng thẻ div thumb-variant
+                html += '</li>';
+            }
+
+                $('.click-to-upload-variant').addClass('tw-hidden');
+                $('#sortable2').append(html);
+                $('.upload-variant-list').removeClass('tw-hidden');
+        }
+        finder.popup();
+    }
+
+    function deleteVariantAlbum() {
+        $(document).on('click', '.variant-delete-image', function(){
+            let _this = $(this);
+            _this.parents('.ui-state-default').remove();
+            if ($('.ui-state-default').length == 0) {
+                $('.click-to-upload-variant').removeClass('tw-hidden');
+                $('.upload-variant-list').addClass('tw-hidden');
+            }
+        })
+    }
+
+    //Pre-click table update variant
+    function updateVariant() {
+        $(document).on('click', '.variant-row', function(){
+            let _this = $(this);
+            let variantData = {};
+            _this.find(".td-variant input[type=text][class^='variant_']").each(function(){
+                let className = $(this).attr('class')
+                variantData[className] = $(this).val();
+            });
+            let updateVariantBox = updateVariantHtml(variantData);
+            if($('.updateVariantTr').length == 0 ){
+                _this.after(updateVariantBox);
+
+            }
+        })
+    }
+
+    // Get album list
+    function variantAlbumbList(album) {
+        let html = '';
+        if (album.length && album[0] !== '') {
+            for ( let i = 0; i < album.length; i++ ){
+                html =  html + '<li class="ui-state-default">'
+                    html =  html + '<div class="thumb-variant">'
+                        html =  html + '<span class="span image img-scaledown">'
+                            html =  html + '<img src="'+album[i]+'" alt="'+album[i]+'">'
+                            html =  html + '<input type="hidden" name="variantAlbum[]" value="'+album[i]+'">'
+                        html =  html + '</span>'
+                            html =  html + '<button class="variant-delete-image">'
+                                html =  html + '<i class="fa fa-trash"></i>'
+                            html =  html + '</button>'
+                    html =  html + '</div>'
+                html =  html + '</li>'
+            }
+        }
+        return html;
+    }
+
+    function updateVariantHtml(variantData) {
+        let variantAlbum = variantData.variant_album.split(',');
+        let variantAlbumItem = variantAlbumbList(variantAlbum);
+        let html = '';
+        html += '<tr class="updateVariantTr">'
+            html += '<td colspan="6">'
+                html += '<div class="updateVariant tw-p-4 tw-border">'
+                    html += '<div class="variant-item-heading tw-flex tw-justify-between tw-mb-6">'
+                        html += '<h5 class="tw-font-bold tw-text-lg">Update Variant</h5>'
+                        html += '<div class="button-group tw-flex tw-gap-4">'
+                            html += '<button type="button" class="cancleUpdate btn btn-danger">Cancle</button>'
+                            html += '<button type="button" class="saveUpdateVariant btn btn-success">Save</button>'
+                            html += '</div>'
+                    html += '</div>'
+                    html += '<div class="variant-item-content">'
+                        html += '<div class="click-to-upload-variant '+((variantAlbum.length > 0 && variantAlbum[0] !== '') ? 'tw-hidden' : '' ) +' tw-flex tw-flex-col tw-items-center tw-border tw-border-dashed tw-border-gray-400 tw-p-5">' 
+                            html += '<div class="icon">'
+                                html += '<a type="button" class="upload-variant-picture">'
+                                    html += '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="tư-w-20 tw-h-20">'
+                                        html += '<path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />'
+                                    html += '</svg>'   
+                                html += '</a>'                                   
+                            html += '</div>'
+                            html += '<div class="small-text tw-text-blue-400">Use "choose image" to add new image</div>'
+                        html += '</div>'
+                        html += '<ul id="sortable2" class="upload-variant-list tw-flex '+ ((variantAlbumItem.length) ? '' : 'tw-hidden' ) +' sortui ui-sortable">'+variantAlbumItem+'</ul>'
+                        html += '<div class="row tw-mt-6 tw-flex tw-justify-center">'
+                            html += '<div class="col-lg-3">'
+                                html += '<label for="" class="control-panel inputLabel">Quantity</label>'
+                                html += '<input type="number" class="form-control int" name="variant_quantity" id="variantQuantity"  value="'+variantData.variant_quantity+'">'
+                            html += '</div>'
+                            html += '<div class="col-lg-3">'
+                                html += '<label for="" class="control-panel inputLabel">SKU</label>'
+                                html += '<input type="text" class="form-control" name="variant_sku" id="variantSku" value="'+variantData.variant_sku+'">'
+                            html += '</div>'
+                            html += '<div class="col-lg-3">'
+                                html += '<label for="" class="control-panel inputLabel">Price</label>'
+                                html += '<input type="number" class="form-control" name="variant_price" id="variantPrice" value="'+ variantData.variant_price+'">'
+                            html += '</div>'
+                            html += '<div class="col-lg-3">'
+                                html += '<label for="" class="control-panel inputLabel">Barcode</label>'
+                                html += '<input type="text" class="form-control" name="variant_barcode" id="variantBarcode" value="'+variantData.variant_barcode+'">'
+                            html += '</div>'
+                        html += '</div>'  
+                        html += '<div class="row tw-mt-6 tw-flex tw-justify-center">'
+                            html += '<div class="col">'
+                                html += '<div>'
+                                    html += '<label for="" class="control-panel inputLabel">Slug</label>'
+                                    html += '<input type="text" class="form-control" name="variant_slug" id="variantSlug" value="'+variantData.variant_slug+'">'
+                                html += '</div>'
+                            html += '</div>'
+                        html += '</div>'
+                    html += '</div>'
+                html += '</div>'
+            html += '</td>'
+        html += '</tr>'
+        return html;
+    }
+    //Remove variant
+    function cancleVariantUpdate() {
+        $(document).on('click', '.cancleUpdate', function(){
+            $('.updateVariantTr').remove();
+        }) 
+    }
+
+    //Close table update variant
+    function closeUpdateVariantBox() {
+        $('.updateVariantTr').remove();
+    }
+    //Save variant after update
+    function saveVariantUpdate(){
+        $(document).on('click', '.saveUpdateVariant', function(){
+            let variant = {
+                'quantity' : $('input[name=variant_quantity]').val(),
+                'sku' : $('input[name=variant_sku]').val(),
+                'price' : $('input[name=variant_price]').val(),
+                'barcode' : $('input[name=variant_barcode]').val(),
+                'slug' : $('input[name=variant_slug]').val(),
+                'album' : $("input[name='variantAlbum[]']").map(function(){
+                    return $(this).val();
+                }).get(), 
+            }
+            $.each(variant, function(index, value){
+                $('.updateVariantTr').prev().find('.variant_'+index).val(value);
+            })
+            previewVariantTr(variant);
+            closeUpdateVariantBox();
+        })
+    }
+
+    function previewVariantTr(variant){
+        let option = {
+            'quantity': variant.quantity,
+            'price': variant.price,
+            'sku': variant.sku
+        }
+        $.each(variant, function(index, value){
+            $('.updateVariantTr').prev().find('.td-'+index).html(value);
+        })
+        $('.updateVariantTr').prev().find('.imageSrc').attr('src', variant.album[0]);
+    }
+
+    //Add comma for price
+    // function addCommas(nStr) {
+    //     nStr = parseInt(nStr).toString(); 
+    //     if (typeof nStr !== 'string') {
+    //         return '0'; 
+    //     }
+    //     nStr = nStr.replace(/\./g, ""); 
+
+    //     let str = '';
+    //     for (let i = nStr.length; i >= 0; i -= 3) {
+    //         let a = (i - 3 < 0) ? 0 : (i - 3);
+    //         str = nStr.slice(a, i) + '.' + str;
+    //     }
+    //     return str.slice(0, str.length - 1); 
+    // }
+
+</script>
 @endpush

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\ProductAttribute;
+use App\Models\ProductVariant;
 
 class Product extends Model
 {
@@ -43,6 +44,9 @@ class Product extends Model
     {
         return $this->belongsTo(Brand::class);
     }
-
-    
+    public function variants()
+    {
+        return $this->belongsToMany(ProductVariant::class, 'product_variant_attribute_value', 'product_id', 'product_variant_id');
+    }
+ 
 }

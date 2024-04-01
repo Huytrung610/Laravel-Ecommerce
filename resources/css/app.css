@@ -1,3 +1,44 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* product */
+.inputPrimary  {
+    border: 1px solid #9CA3AF;
+}
+.fieldInputContainer {
+    display: flex;
+    flex-direction: column;
+    width: 10%;
+}
+.inputLabel {
+    font-weight: 600;
+}
+.upload-variant-list {
+    list-style-type: none;
+}
+.thumb-variant {
+    width: fit-content;
+    position: relative;
+}
+.thumb-variant .variant-delete-image {
+    position: absolute;
+    color: red;
+    top: 0;
+    right: 5px;
+}
+.upload-variant-list .thumb-variant img {
+    width: 100px;
+    height: auto;
+}
+.productVariant-table .variant-row:hover {
+    cursor: pointer;
+}
+.variant-row .img-cover {
+    width: fit-content;
+}
+.variant-row .img-cover .imageSrc {
+    width: 50px;
+    height: auto;
+}

@@ -73,8 +73,19 @@ class AttributeController extends Controller
 
         return redirect()->route('attribute.edit', ['attribute' => $id]);
     }
+    public function getAttributes()
+    {
+        $attributes = Attribute::all();
+        return response()->json($attributes);
+    }
 
-   
+    public function getAttributeValues(Request $request)
+    {
+        $data = $request->all();
+        $attributeId = $request->get('attributeId');
+        $attributeValues = AttributeValue::where('attribute_id', $attributeId)->get();
+        return response()->json($attributeValues);
+    }
     
     public function destroy($id)
     { 

@@ -74,4 +74,16 @@ $(document).ready(function () {
                 e.preventDefault();
             }
         });
+
+        setupProductVariant();
 });
+function setupProductVariant() {
+    $('#variant-checkbox').change(function() {
+        if ($(this).is(':checked')) {
+            $('.variant-wrapper').removeClass('tw-hidden');
+        } else {
+            $('.variant-wrapper').addClass('tw-hidden');
+        }
+    });
+}
+
