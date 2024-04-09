@@ -42,8 +42,8 @@
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">{{__('Banner Options:')}}</h6>
-        <a class="collapse-item" href="#">{{__('Banners')}}</a>
-        <a class="collapse-item" href="#">{{__('Add Banners')}}</a>
+        <a class="collapse-item {{ request()->routeIs('banner.index', 'banner.edit') ? 'active' : '' }}" href="{{route('banner.index')}}">{{__('Banners')}}</a>
+        <a class="collapse-item {{ request()->routeIs('banner.create') ? 'active' : '' }}" href="{{route('banner.create')}}">{{__('Add Banners')}}</a>
       </div>
     </div>
   </li>

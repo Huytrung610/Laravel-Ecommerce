@@ -12,6 +12,5 @@ mix.js("resources/js/app.js", "public/js")
    .copy('node_modules/select2/dist/js/select2.min.js', 'public/js')
    .copy('node_modules/select2/dist/css/select2.min.css', 'public/css')
    .js('resources/js/backend/brand.js', 'public/js/backend')
-   .js('resources/js/backend/finder.js', 'public/js/backend');
-
-   
+   .js('resources/js/backend/banner.js', 'public/js/backend')
+   .js('resources/js/backend/finder.js', 'public/js/backend')
