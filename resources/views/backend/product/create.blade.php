@@ -31,6 +31,14 @@
                     @enderror
                 </div>
                 <div class="form-group">
+                    <label for="product_code" class="col-form-label">{{__('Product Code')}}</label>
+                    <input id="inputProductCode" type="text" name="product_code" placeholder="{{__('Enter Product Code')}}"
+                            value="" class="form-control">
+                    @error('product_code')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+                <div class="form-group">
                     <label for="summary" class="col-form-label">{{__('Short Description')}}<span
                             class="text-danger">*</span></label>
                     <textarea class="form-control" id="summary" name="summary"></textarea>
@@ -75,20 +83,23 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
+
+                <div class="form-group">
+                    <label for="price" class="col-form-label">{{__('Price')}}</label>
+                    <input id="inputPrice" type="text" name="price" placeholder="{{__('Enter Price')}}"
+                            value="" class="form-control">
+                    @error('price')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
                 
                 <div class="form-group">
                     <label for="inputPhoto" class="col-form-label">{{__('Photo')}}<span
                             class="text-danger">*</span></label>
                     <div class="input-group">
-                    <span class="input-group-btn">
-                        <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary text-white">
-                        <i class="fa fa-picture-o"></i>{{__('Choose')}}
-                        </a>
-                    </span>
-                        <input id="thumbnail" class="form-control" type="text" name="photo">
+                        <input id="thumbnail" class="form-control upload-image" type="text" name="photo"  autocomplete="off"
+                        data-type="Images" value="">
                     </div>
-                    <small id="warningInputImg" class="form-text " style="font-size: 14px;color:red;margin-bottom: 26px;"> *Image size must be: 550 x 550</small>
-                    <div id="holder" style="margin-top:15px;max-height:100px;"></div>
                     @error('photo')
                     <span class="text-danger">{{$message}}</span>
                     @enderror
@@ -113,12 +124,8 @@
 @push('after_scripts')
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     {{-- <script src="{{asset('backend/summernote/summernote.min.js')}}"></script> --}}
-    
-
-    <script>
-        $('#lfm').filemanager('image');
-    </script>
-
+    <script src="/backend/ckfinder_2/ckfinder.js"></script>
+    <script src="{{ mix('js/backend/finder.js') }}"></script>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.js"></script>
     {{-- <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script> --}}

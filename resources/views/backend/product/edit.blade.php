@@ -27,7 +27,7 @@
         <form method="post" action="{{route('product.update',$product->id)}}">
             @csrf
             @method('PATCH')
-            <input type="hidden" name="store_id" id="currentStoreView" value="0"/>
+            <input type="hidden" name="product_id" id="currentStoreView" value="{{$product->id}}"/>
             <div class="form-group">
                 <label for="status" class="col-form-label">{{__('Status')}}<span
                         class="text-danger">*</span></label>
@@ -42,20 +42,19 @@
                 @enderror
             </div>
             <div class="form-group">
+                <label for="code" class="col-form-label">{{__('Product Code')}}</label>
+                <input id="inputProductCode" type="text" name="product_code" placeholder="{{__('Enter Product Code')}}"
+                        value="{{$product->code}}" class="form-control">
+                @error('code')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+            <div class="form-group">
                 <label for="inputTitle" class="col-form-label">{{__('Title')}}<span
                         class="text-danger">*</span></label>
                 <input id="inputTitle" type="text" name="title" placeholder="{{__('Enter title')}}"
                         value="{{$product->title}}" class="form-control">
                 @error('title')
-                <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
-            <div class="form-group">
-                <input id="inputPhoto" type="text" name="Photo" placeholder="{{__('Enter Photo')}}"
-                        value="" class="upload-image form-control"
-                        autocomplete="off"
-                        data-type="Images">
-                @error('Photo')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
@@ -115,6 +114,14 @@
                 <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
+            <div class="form-group">
+                <label for="price" class="col-form-label">{{__('Price')}}</label>
+                <input id="inputPrice" type="text" name="price" placeholder="{{__('Enter Price')}}"
+                        value="{{$product->price}}" class="form-control">
+                @error('price')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
             <div class="form-group mb-3">
                 <button class="btn btn-success" type="submit">{{__('Update')}}</button>
             </div>
@@ -124,13 +131,17 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="variant-checkbox">
-                    <input type="checkbox" id="variant-checkbox">
-                    <label for="variant-checkbox" class="turnOnVariant">Product with variants?</label>
+                    <input type="checkbox" 
+                            name="has_variants" 
+                            id="variantCheckbox"
+                            value="1"
+                            {{ $product->has_variants == 1 ? 'checked' : '' }}>
+                    <label for="variantCheckbox" class="turnOnVariant">Product with variants?</label>
                 </div>
             </div>
         </div>
         
-        <div class="variant-wrapper tw-hidden">
+        <div class="variant-wrapper {{ $product->has_variants != 1 ? 'tw-hidden' : '' }} ">
             <div class="row variant-container">
                 <div class="col-lg-3">
                     <div class="attribute-title tw-text-blue-400">Attribute</div>
@@ -139,10 +150,48 @@
                     <div class="attribute-title tw-text-blue-400">Value Attribute</div>
                 </div>
             </div>
-            <div class="variant-body">     
+            <div class="variant-body"> 
+
+                {{-- @dd($selectedVariants); --}}
+                @if($selectedVariants)
+                    @foreach(json_decode($selectedVariants, true) as $attributeId => $selectedAttributes)
+                    @php
+                        $attributeList =  app(\App\Helpers\Backend\ProductHelper::class)->getValueByAttribute($attributeId);
+                    @endphp
+                        <div class="row variant-item tw-mb-4">
+                            <div class="col-lg-3">
+                                <div class="attribute-catalogue">
+                                    <select name="attributeCatalogue[]" class="choose-attribute nice-select">
+                                        <option value="">---Select Attribute---</option>
+                                        @foreach($attributes as $attribute)
+                                            <option {{$attributeId == $attribute->id ? 'selected' : '' }}  value="{{ $attribute->id }}">{{ $attribute->name }}</option> 
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <select class="selectVariant variant-{{ $attributeId }} form-control" name="attribute[{{ $attributeId }}][]" data-catid="{{ $attributeId }}" multiple="multiple">
+                                    @foreach($attributeList as $keyAttr => $valAttr)
+                                        <option value="{{ $valAttr->id }}" {{ (in_array($valAttr->id, $selectedAttributes)) ? 'selected' : '' }} >{{ $valAttr->value }}</option>
+                                    @endforeach
+                                </select>                                
+                            </div>
+
+                            <div class="col-lg-1">
+                                <button type="button" class="remove-attribute btn btn-danger">Delete</button>
+                            </div>
+                        </div>
+                        @endforeach
+                @endif
             </div>
-            <div class="variant-foot tw-mb-5">
+            <input type="text" hidden id="selectedAttributeId">
+            <div class="variant-foot tw-mb-5 tw-flex tw-justify-between">
                 <button type="button" class="add-variant tw-border-blue-400 tw-border tw-text-white tw-bg-blue-400 tw-p-2">Add new attribute</button>
+                @if($productVariantsCount)
+                    <div class="col-lg-1 tw-px-6">
+                        <button type="button" id="saveVariantsButton" class="save-variants tw-border-blue-400 tw-border tw-text-white tw-bg-blue-400 tw-p-2">Save</button>
+                    </div>
+                @endif
             </div>
         </div>
         
@@ -154,9 +203,11 @@
             <div class="variants-title">
                 <h2>Product Variants</h2>
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive {{ $product->has_variants != 1 ? 'tw-hidden' : '' }}">
                 <table class="table productVariant-table">
-                    <thead></thead>
+                    <thead>
+
+                    </thead>
                     <tbody></tbody>
                 </table>
             </div>
@@ -176,7 +227,9 @@
 @endpush
 @push('after_scripts')
     {{-- <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script> --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
     <script>
         // $('#lfm').filemanager('image');
         // $(document).ready(function(){
@@ -227,7 +280,6 @@
     <script src="{{ mix('js/backend/product.js') }}"></script>      
     <script src="/backend/ckfinder_2/ckfinder.js"></script>
     <script src="{{ mix('js/backend/finder.js') }}"></script>
-
 
     
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.css" rel="stylesheet">
@@ -315,6 +367,8 @@
     let maxVariantCount = 0; // Số lượng thuộc tính tối đa
     let attributeValues = {};
     let selectedAttributeValues = {};
+    let selectedAttributeId = [];
+    var existedProductVariants = @json($productVariants);
     
     $(document).ready(function() {
         var currentVariantCount = 0; // Số lượng thuộc tính hiện tại
@@ -337,14 +391,26 @@
                     disabledAttributeCatlogueChoose(); 
                 }
             });
+            
         });
-        
+        $('.selectVariant').select2({
+            width: '100%', 
+        });
+        $('.selectVariant').on('select2:opening', function(e) {
+            var $select = $(this);
+            var $dropdown = $select.data('select2').$dropdown;
+            var $results = $dropdown.find('.select2-results');
+
+            $results.scrollTop(0); 
+        }); 
+        productVariant()
+        removeDuplicatedValue();
         removeAttribute();
         disabledAttributeCatlogueChoose();
         chooseVariantGroup();
         createProductVariant();
-        removeDuplicatedValue ();
         variantAlbum();
+        chooseMoreImg()
         deleteVariantAlbum();
         updateVariant();
         cancleVariantUpdate();
@@ -356,7 +422,7 @@
         html += '<div class="row variant-item tw-mb-4">';
         html += '<div class="col-lg-3">';
         html += '<div class="attribute-catalogue">';
-        html += '<select name="" class="choose-attribute nice-select">';
+        html += '<select name="attributeCatalogue[]" class="choose-attribute nice-select">';
         html += '<option value="">---Select Attribute---</option>';
         
         $.each(attributes, function(index, attribute) {
@@ -383,27 +449,34 @@
             let selected = _this.find('option:selected').val();
             if ( selected != 0){
                 id.push(selected)
-            }
+            } 
         })
         $('.choose-attribute').find('option').removeAttr('disabled');
         for(let i = 0; i < id.length; i++ ) {
             $('.choose-attribute').find('option[value='+ id[i] + ']').prop('disabled', true);
         }
+        $('#selectedAttributeId').val(id);
+
     }
     function checkMaxAttribute(currentCount, maxCount) {
         if (currentCount >= maxCount) {
-            $('.add-variant').remove();    
+            $('.add-variant').remove();
+
+            $('.variant-foot').removeClass('tw-justify-between');
+            $('.variant-foot').addClass('tw-justify-end');
+            $('.variant-foot').html('<div class="col-lg-1 tw-px-6"><button type="button" id="saveVariantsButton" class="save-variants tw-border-blue-400 tw-border tw-text-white tw-bg-blue-400 tw-p-2">Save</button></div>')    
         } else {
-            $('.variant-foot').html('<button type="button" class="add-variant tw-border-blue-400 tw-border tw-text-white tw-bg-blue-400 tw-p-2">Add new attribute</button>');
+            $('.variant-foot').html('<button type="button" class="add-variant tw-border-blue-400 tw-border tw-text-white tw-bg-blue-400 tw-p-2">Add new attribute</button><div class="col-lg-1 tw-px-6"><button type="button" id="saveVariantsButton" class="save-variants tw-border-blue-400 tw-border tw-text-white tw-bg-blue-400 tw-p-2">Save</button></div>');
         }
     }
+
 
     //Remove attribute from variant product
     function removeAttribute () {
         $(document).on('click', '.remove-attribute', function(){
             let _this = $(this);
             _this.parents('.variant-item').remove();
-            createVariant();
+            refreshVariants();
             checkMaxAttribute();
         })
     }
@@ -420,7 +493,7 @@
                 getValueAttribute(attributeId);
             
             } else {
-                _this.parents('.col-lg-3').siblings('.col-lg-8').html('<input type="text" disabled class="fake-variant form-control tw-h-12">')
+                _this.parents('.col-lg-3').siblings('.col-lg-8').html('<input type="text" name="attribute['+attributeId+'][]" disabled class="fake-variant form-control tw-h-12">')
             }
             disabledAttributeCatlogueChoose();
         })
@@ -468,6 +541,10 @@
         })
     }
 
+    function refreshVariants() {
+    $('table.productVariant-table tbody').empty();
+    createVariant();
+}
     function createVariant() {
         let attributes = [];
         let variants = [];
@@ -492,7 +569,9 @@
             attributes.push(attr)
             variants.push(attrVariant)
         })
-
+        if (attributes.length === 0 || variants.length === 0) {
+            return;
+        }
 
         attributes = attributes.reduce(
             (a, b) => a.flatMap( d => b.map ( e => ( { ...d, ...e } ) ) )
@@ -508,13 +587,14 @@
         attributes.forEach((item, index) =>  {
             let $row = createVariantRow(item, variants[index]);
             let classModified ='tr-variant-' + Object.values(variants[index]).join(', ').replace(/, /g, '-');
+
             trClass.push(classModified);
             if (!$('table.productVariant-table tbody tr').hasClass(classModified)) {
                 $('table.productVariant-table tbody').append($row);
             }
         })
         
-        console.log(trClass);
+        // console.log(trClass);
 
         $('table.productVariant-table tbody tr').each(function(){
             const $row = $(this);
@@ -540,9 +620,13 @@
 
     //Store variant product 
     function createVariantRow(attributeItem, variantItem) {
+
+        // console.log(variantItem);
+
         let attributeString = Object.values(attributeItem).join(', ');
         let attributeId = Object.values(variantItem).join(', ');
         let classModified =  attributeId.replace(/, /g, '-');
+        let valueModified =  attributeString.replace(/, /g, '-');
 
         let $row = $('<tr>').addClass('variant-row tr-variant-' + classModified);
         let $td 
@@ -557,15 +641,18 @@
             $row.append($td);
         })   
         $td =$('<td>').addClass('tw-hidden td-variant');
+        let mainPrice = $('input[name="price"]').val();
+        let mainSku = $('input[name="product_code"]').val();
+        let mainProductCode = $('input[name="code"]').val();
         let inputHiddenFields = [
             { name: 'variant[quantity][]', class: 'variant_quantity' },
-            { name: 'variant[sku][]', class: 'variant_sku' },
-            { name: 'variant[price][]', class: 'variant_price' },
+            { name: 'variant[sku][]', class: 'variant_sku', value: mainSku + '-' + classModified },
+            { name: 'variant[price][]', class: 'variant_price', value: mainPrice },
             { name: 'variant[barcode][]', class: 'variant_barcode' },
-            { name: 'variant[slug][]', class: 'variant_slug' },
+            { name: 'variant[slug][]', class: 'variant_slug', value: (mainSku + '-' + valueModified).toLowerCase() },
             { name: 'variant[album][]', class: 'variant_album' },
-            { name: 'attribute[name][]', value: attributeString },
-            { name: 'attribute[id][]', value: attributeId },
+            { name: 'productVariant[name][]', value: attributeString },
+            { name: 'productVariant[id][]', value: attributeId },
         ]
 
         $.each(inputHiddenFields, function(_, field) {
@@ -577,8 +664,8 @@
         })
 
         $row.append($('<td>').addClass('td-quantity').text('-'))
-            .append($('<td>').addClass('td-price').text('-'))
-            .append($('<td>').addClass('td-sku').text('-'))
+            .append($('<td>').addClass('td-price').text(mainPrice))
+            .append($('<td>').addClass('td-sku').text(mainSku + '-' + classModified))
             .append($td)
         return $row
     }
@@ -626,7 +713,8 @@
                         }) 
                         $.each(variants[j], function(index, value ){
                             attributeIdArray.push(value);
-                        }) 
+                        })
+
                         
                         let attributeString = attributeArray.join(', ');
                         let attributeId = attributeIdArray.join(', ');
@@ -649,24 +737,32 @@
         return html;
     }
     
-    function removeDuplicatedValue (){
+    function removeDuplicatedValue(){
         $(document).on('select2:open', '.selectVariant', function (e) {
             let selectVariant = $(this);
             
             let attributeId = selectVariant.data('catid');
             
             let values = selectedAttributeValues[attributeId];
-            
-            selectVariant.find('option').each(function() {
-                let optionValue = $(this).val();
-                if (!values.some(value => value.id == optionValue)) {
-                    $(this).remove();
-                }
-            });
+            if(values){
+                    selectVariant.find('option').each(function() {
+                    let optionValue = $(this).val();
+                    if (!values.some(value => value.id == optionValue)) {
+                        $(this).remove();
+                    }
+                });
+            }
         });
     }
     function variantAlbum() {
         $(document).on('click', '.click-to-upload-variant', function(e){
+            browseVariantServerAlbum();
+            e.preventDefault(); 
+        })
+    }
+
+    function chooseMoreImg(){
+        $(document).on('click', '.choose-images', function(e){
             browseVariantServerAlbum();
             e.preventDefault(); 
         })
@@ -687,7 +783,7 @@
                             html += '<input type="hidden" name="variantAlbum[]" value="'+image+'">';
                         html += '</span>'; 
                         html += '<button class="variant-delete-image"><i class="fa fa-trash"></i></button>';
-                    html += '</div>'; // Đóng thẻ div thumb-variant
+                    html += '</div>'; 
                 html += '</li>';
             }
 
@@ -762,6 +858,7 @@
                             html += '</div>'
                     html += '</div>'
                     html += '<div class="variant-item-content">'
+                        html += '<div class="tw-text-right"><span class="hover:tw-cursor-pointer choose-images">Choose images</span></div>'
                         html += '<div class="click-to-upload-variant '+((variantAlbum.length > 0 && variantAlbum[0] !== '') ? 'tw-hidden' : '' ) +' tw-flex tw-flex-col tw-items-center tw-border tw-border-dashed tw-border-gray-400 tw-p-5">' 
                             html += '<div class="icon">'
                                 html += '<a type="button" class="upload-variant-picture">'
@@ -770,9 +867,9 @@
                                     html += '</svg>'   
                                 html += '</a>'                                   
                             html += '</div>'
-                            html += '<div class="small-text tw-text-blue-400">Use "choose image" to add new image</div>'
+                            html += '<div class="small-text tw-text-blue-400">Use "choose image" or click into this to add new image</div>'
                         html += '</div>'
-                        html += '<ul id="sortable2" class="upload-variant-list tw-flex '+ ((variantAlbumItem.length) ? '' : 'tw-hidden' ) +' sortui ui-sortable">'+variantAlbumItem+'</ul>'
+                        html += '<ul id="sortable2" class="upload-variant-list tw-flex tw-border tw-border-dashed tw-border-gray-400 tw-p-6 tw-gap-2.5'+ ((variantAlbumItem.length) ? '' : 'tw-hidden' ) +' sortui ui-sortable">'+variantAlbumItem+'</ul>'
                         html += '<div class="row tw-mt-6 tw-flex tw-justify-center">'
                             html += '<div class="col-lg-3">'
                                 html += '<label for="" class="control-panel inputLabel">Quantity</label>'
@@ -849,21 +946,33 @@
         $('.updateVariantTr').prev().find('.imageSrc').attr('src', variant.album[0]);
     }
 
-    //Add comma for price
-    // function addCommas(nStr) {
-    //     nStr = parseInt(nStr).toString(); 
-    //     if (typeof nStr !== 'string') {
-    //         return '0'; 
-    //     }
-    //     nStr = nStr.replace(/\./g, ""); 
 
-    //     let str = '';
-    //     for (let i = nStr.length; i >= 0; i -= 3) {
-    //         let a = (i - 3 < 0) ? 0 : (i - 3);
-    //         str = nStr.slice(a, i) + '.' + str;
-    //     }
-    //     return str.slice(0, str.length - 1); 
-    // }
+    function productVariant() {
+        createVariant()
+        reRenderEditProductVariant()
+    }
+
+    function reRenderEditProductVariant(){
+        // let firstImagePath = '/backend/img/thumbnail-default.jpg'; 
+        // console.log(existedProductVariants);
+        for(let i = 0; i < existedProductVariants.length; i++){
+            let code = existedProductVariants[i].code.split(',').map(val => val.trim()).join('-');
+            let trClass = 'tr-variant-' + code
+           
+            if (existedProductVariants[i].image) {
+                let imagePaths = existedProductVariants[i].image.split(',');
+                firstImagePath = imagePaths[0].trim();
+                $('.' + trClass).find('.imageSrc').attr('src', firstImagePath)
+                $('.' + trClass).find('.click-to-upload-variant').addClass('tw-hidden')
+            }
+            
+            $('.' + trClass).find('.td-quantity').html(existedProductVariants[i].quantity)
+            $('.' + trClass).find('.td-price').html(existedProductVariants[i].price)
+            $('.' + trClass).find('.variant_quantity').val(existedProductVariants[i].quantity)
+            $('.' + trClass).find('.variant_price').val(existedProductVariants[i].price)
+            $('.' + trClass).find('.variant_album').val(existedProductVariants[i].image)
+        }
+    }
 
 </script>
 @endpush

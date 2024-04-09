@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Route;
 // This route file is loaded automatically by Backpack\Base.
 // Routes you generate using Backpack\Generators will be placed here.
 
+
+
 Route::group([
     'prefix'     => config('backpack.base.route_prefix', 'admin'),
     'middleware' => array_merge(
@@ -17,6 +19,8 @@ Route::group([
     'namespace'  => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
     
+
+
     Route::get('/dashboard',[\App\Http\Controllers\AdminController::class, 'getRevenueByMonth'])->name('admin');
     Route::resource('users','\App\Http\Controllers\UsersController');
     // Route::get('/file-manager',function(){
@@ -25,13 +29,19 @@ Route::group([
 
     Route::get('/profile',[\App\Http\Controllers\AdminController::class, 'profile'])->name('admin-profile');
     Route::resource('/category','\App\Http\Controllers\CategoryController');
-    Route::resource('/product','\App\Http\Controllers\ProductController');
+    
     Route::resource('/attribute','\App\Http\Controllers\AttributeController');
     Route::get('attribute-edit/{id}',[\App\Http\Controllers\AttributeController::class,'edit']);
     Route::post('attribute/update/{id}', [\App\Http\Controllers\AttributeController::class, 'update']);
     Route::get('get-attributes',  [\App\Http\Controllers\AttributeController::class, 'getAttributes'])->name('admin.get-attributes');
     Route::get('get-attribute-values', [\App\Http\Controllers\AttributeController::class, 'getAttributeValues'])->name('admin.get-attribute-values');    
 
+
+    //Products
+    Route::resource('/product','\App\Http\Controllers\ProductController');
+
+    Route::get('/product/{id}/has-variants', [\App\Http\Controllers\ProductController::class, 'updateHasVariants'])->name('product.has_variants');
+    Route::get('/product/{id}/save-variants', [\App\Http\Controllers\ProductController::class, 'createVariant'])->name('product.save_variants');
 
     //Brand
     Route::resource('/brand', '\App\Http\Controllers\BrandController');

@@ -10,16 +10,26 @@ class ProductVariant extends Model
     use HasFactory;
     protected $fillable = [
         'product_id',
+        'code',
+        'slug',
         'sku',
         'name',
-        'image',
-        'price',
         'quantity',
+        'price',
+        'image',
+        'barcode',
+        'deleted_at',
     ];
     public function product()
     {
         return $this->belongsTo(Product::class);
     }
+
+
+    protected $casts = [
+        'image' => 'json'
+    ];
+    
     public function attributeValues()
     {
         return $this->belongsToMany(AttributeValue::class, 'product_variant_attribute_value', 'product_variant_id', 'attribute_value_id');
