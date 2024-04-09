@@ -27,12 +27,17 @@ class Product extends Model
         'slug',
         'summary',
         'description',
+        'price', 
+        'code',
         'category_id',
         'brand_id',
         'discount',
         'status',
         'photo',
-        'deleted_at'
+        'deleted_at',
+        'has_variants',
+        'attribute_catalogue',
+        'attribute'
     ];
  
     
@@ -44,9 +49,13 @@ class Product extends Model
     {
         return $this->belongsTo(Brand::class);
     }
-    public function variants()
-    {
-        return $this->belongsToMany(ProductVariant::class, 'product_variant_attribute_value', 'product_id', 'product_variant_id');
-    }
+    // public function variants()
+    // {
+    //     return $this->hasMany(ProductVariant::class, 'product_variant_attribute_value', 'product_id', 'product_variant_id');
+    // }
  
+
+    public function product_variants(){
+        return $this->hasMany(ProductVariant::class, 'product_id', 'id');
+    }
 }
