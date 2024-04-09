@@ -36,6 +36,8 @@ Route::group([
     Route::get('get-attributes',  [\App\Http\Controllers\AttributeController::class, 'getAttributes'])->name('admin.get-attributes');
     Route::get('get-attribute-values', [\App\Http\Controllers\AttributeController::class, 'getAttributeValues'])->name('admin.get-attribute-values');    
 
+    // Banner
+    Route::resource('banner','\App\Http\Controllers\BannerController');
 
     //Products
     Route::resource('/product','\App\Http\Controllers\ProductController');
