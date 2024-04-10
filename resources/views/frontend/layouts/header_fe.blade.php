@@ -7,7 +7,7 @@
     }
 
 @endphp
-<header id="header" class="site-header header-scrolled position-fixed text-black bg-light header">
+<header id="header" class="header-scrolled tw-sticky tw-top-0 tw-left-0 text-black bg-light header tw-z-10">
     {{-- @include('frontend.popup.search')  --}}
     <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
         <div class="container-fluid">
