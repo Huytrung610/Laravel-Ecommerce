@@ -80,22 +80,24 @@
 @endsection
 
 @push('styles')
-{{-- <link rel="stylesheet" href="{{asset('backend/summernote/summernote.min.css')}}"> --}}
+
 @endpush
 @push('after_scripts')
-{{-- <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script> --}}
-{{-- <script src="{{asset('backend/summernote/summernote.min.js')}}"></script> --}}
+
 <script src="/backend/ckfinder_2/ckfinder.js"></script>
 <script src="{{ mix('js/backend/banner.js') }}"></script>
+<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.js"></script>
 <script>
-    $('#lfm').filemanager('image');
 
     $(document).ready(function() {
-      // $('#description').summernote({
-      //   placeholder: "Write short description.....",
-      //     tabsize: 2,
-      //     height: 150
-      // });
+      $('#description').summernote({
+        height: 600,
+        placeholder: "Write short description.....",
+        tabsize: 2,
+        height: 150
+      });
     });
 </script>
 @endpush

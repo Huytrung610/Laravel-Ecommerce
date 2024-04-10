@@ -9,58 +9,7 @@
 
   @endphp
 
-<section id="billboard" class="position-relative overflow-hidden bg-light-blue" style="padding: 100px 0px 20px; ;">
-    <div class="swiper main-swiper">
-        <div class="swiper-wrapper" style="height: auto;">
-            <div class="swiper-slide">
-                <div class="container">
-                    <div class="row d-flex align-items-center">
-                        <div class="col-md-6">
-                            <div class="banner-content">
-                                <h1 class="display-2 text-uppercase text-dark pb-5">Iphone 14 Pro Max</h1>
-                                {{-- <a href="shop" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a> --}}
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="image-holder">
-                                <img src="{{ asset('frontend/images/banner-image-iphone.png') }}" alt="banner">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="container">
-                    <div class="row d-flex flex-wrap align-items-center">
-                        <div class="col-md-6">
-                            <div class="banner-content">
-                                <h1 class="display-2 text-uppercase text-dark pb-5">Apple Watch Series 8</h1>
-                                {{-- <a href="shop" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a> --}}
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="image-holder">
-                                <img src="{{ asset('frontend/images/banner-image-watch.png') }}" alt="banner">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="swiper-icon swiper-arrow swiper-arrow-prev">
-        <svg class="chevron-left" style="height:100px">
-      <use xlink:href="#chevron-left" />
-    </svg>
-    </div>
-    <div class="swiper-icon swiper-arrow swiper-arrow-next">
-        <svg class="chevron-right" style="height:100px">
-      <use xlink:href="#chevron-right" />
-    </svg>
-    </div>
-</section>
-
-
+@include('frontend.sections.banner')
 
 <section id="company-services" class="padding-large">
     <div class="container">
@@ -720,7 +669,6 @@ $fourthCategory = $parentCategories[3];
     }
 </script>
 
-{{-- thiếu dòng @endsection cho section maincontent sẽ bị mất head --}}
 @endsection 
 
 

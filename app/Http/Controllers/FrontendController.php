@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Banner;
 use Auth;
 use DB;
 use Hash;
@@ -25,9 +25,11 @@ class FrontendController extends Controller
     public function home()
     {
         $posts = Post::where('status', 'active')->orderBy('id', 'DESC')->get();
+        $banners = Banner::where('status', 'active')->orderBy('id', 'DESC')->get();
 
         return view('frontend.index')
-        ->with('posts', $posts);
+        ->with('posts', $posts)
+        ->with('banners', $banners);
           
     }
  
