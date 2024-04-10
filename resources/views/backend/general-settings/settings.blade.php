@@ -3,7 +3,7 @@
 @section('main-content')
 
 <div class="card">
-    <h5 class="card-header">Settingt</h5>
+    <h5 class="card-header">Setting</h5>
     <div class="card-body">
       <form method="post" action="{{route('settings.update')}}">
         {{csrf_field()}}
@@ -35,13 +35,21 @@
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
+        {{-- <div class="form-group">
+          <label for="inputTitle" class="col-form-label">Email</label>
+          <texterea id="inputTitle" type="text" name="email" placeholder="Enter Summary Enterprise Footer"  value="{{ $data->summary_enterprise }}" class="form-control">
+          @error('summary_enterprise')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div> --}}
         <div class="form-group">
-        <label for="inputTitle" class="col-form-label">Email</label>
-          <input id="inputTitle" type="email" name="email" placeholder="Enter Email"  value="{{ $data->email }}" class="form-control">
+          <label for="inputSummaryEnterprise" class="col-form-label">Email</label>
+          <input id="inputSummaryEnterprise" type="email" name="email" placeholder="Enter Email"  value="{{ $data->email }}" class="form-control">
           @error('email')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
+
 
         <div class="form-group">
           <label for="inputPhoto" class="col-form-label">Logo Image</label>

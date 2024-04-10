@@ -158,11 +158,11 @@
       {{__('General Settings')}}
   </div>
   <li class="nav-item">
-    <a class="nav-link collapsed wgt-collapse" data-target="#collapseSetting" aria-expanded="true" aria-controls="collapseSetting" ">
+    <a class="nav-link collapsed wgt-collapse" data-target="#collapseCustomer" aria-expanded="true" aria-controls="collapseCustomer">
       <i class="fas fa-users"></i>
         <span>{{__('All Customer')}}</span>
     </a>
-    <div id="collapseSetting" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+    <div id="collapseCustomer" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">{{__('Settings:')}}</h6>
           <a class="collapse-item" href="{{route('users.index')}}">{{__('Customers')}}</a>
