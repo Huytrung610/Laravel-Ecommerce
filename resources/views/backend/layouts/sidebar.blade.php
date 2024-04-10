@@ -147,8 +147,6 @@
       </div>
     </li>
 
-    
-
     <!-- Tags -->
 
   <!-- Divider -->
@@ -180,6 +178,7 @@
            <div class="bg-white py-2 collapse-inner rounded">
                <h6 class="collapse-header">{{__('Settings:')}}</h6>
                <a class="collapse-item" href="{{ route('settings') }}">{{__('General setting')}}</a>
+               <a class="collapse-item {{ request()->routeIs('page-setting') ? 'active' : '' }}"  href="{{ route('page-setting') }}">{{__('Page Settings')}}</a>
            </div>
        </div>
   </li>

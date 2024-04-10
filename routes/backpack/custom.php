@@ -76,5 +76,9 @@ Route::group([
     //General Settings
     Route::get('general-setting',[\App\Http\Controllers\GeneralSettingController::class,'index'])->name('settings');
     Route::post('setting/update',[\App\Http\Controllers\GeneralSettingController::class, 'update'])->name('settings.update');
+
+    //Page Settings
+    Route::get('page-setting',[\App\Http\Controllers\PageSettingController::class,'index'])->name('page-setting');
+    Route::post('page-setting/update',[\App\Http\Controllers\PageSettingController::class, 'update'])->name('page-setting.update');
    
 }); // this should be the absolute last line of this file
