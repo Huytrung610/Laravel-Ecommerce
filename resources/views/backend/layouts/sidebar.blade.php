@@ -131,6 +131,20 @@
       </div>
     </div>
   </li>
+  <!-- CMS Content -->
+  <li class="nav-item">
+    <a class="nav-link collapsed wgt-collapse" data-target="#cmsCollapse" aria-expanded="true" aria-controls="cmsCollapse">
+      <i class="fab fa-blogger"></i>
+      <span>{{__('CMS Content')}}</span>
+    </a>
+    <div id="cmsCollapse" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">CMS Options:</h6>
+        <a class="collapse-item" href="{{route('cms-content.index')}}">{{__('CMS Pages')}}</a>
+        <a class="collapse-item" href="{{route('cms-content.create')}}">{{__('Add CMS Page')}}</a>
+      </div>
+    </div>
+  </li>
 
    <!-- Category -->
    <li class="nav-item">
@@ -178,7 +192,6 @@
            <div class="bg-white py-2 collapse-inner rounded">
                <h6 class="collapse-header">{{__('Settings:')}}</h6>
                <a class="collapse-item" href="{{ route('settings') }}">{{__('General setting')}}</a>
-               <a class="collapse-item {{ request()->routeIs('page-setting') ? 'active' : '' }}"  href="{{ route('page-setting') }}">{{__('Page Settings')}}</a>
            </div>
        </div>
   </li>
