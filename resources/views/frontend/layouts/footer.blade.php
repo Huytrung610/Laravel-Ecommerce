@@ -61,16 +61,16 @@
                             <h5 class="widget-title pb-2 tw-font-bold">Policys</h5>
                             <ul class="menu-list list-unstyled text-uppercase tw-mt-2.5">
                                 <li class="menu-item pb-2">
-                                    <a href="#">Payment policy</a>
+                                    <a href="{{ route('payment-policy') }}">Payment policy</a>
                                 </li>
                                 <li class="menu-item pb-2">
-                                    <a href="#">Shipping policy</a>
+                                    <a href="{{ route('shipping-policy') }}">Shipping policy</a>
                                 </li>
                                 <li class="menu-item pb-2">
-                                    <a href="#">Privacy Policy</a>
+                                    <a href="{{ route('privacy-policy') }}">Privacy Policy</a>
                                 </li>
                                 <li class="menu-item pb-2">
-                                    <a href="#">Warranty Policy</a>
+                                    <a href="{{ route('warranty-policy') }}">Warranty Policy</a>
                                 </li>
                             </ul>
                         </div>
