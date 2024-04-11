@@ -66,7 +66,8 @@ class CmsContentController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $cmsPage = CmsContent::findOrFail($id);
+        return view('backend.cms-content.edit')->with('cmsPage',$cmsPage);
     }
 
     /**
@@ -74,7 +75,30 @@ class CmsContentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        {
+            $cmsPage = CmsContent::findOrFail($id);
+            $data = $request->all();
+            $this->validate($request,[
+                'title'=>'string|required|unique:cms_content,title',
+                'content'=>'string|required'
+            ]);
+            $slug = Str::slug($request->title);
+            $count = CmsContent::where('slug',$slug)->count();
+            if($count>0){
+                $slug=$slug.'-'.date('ymdis').'-'.rand(0,999);
+            }
+            $data['slug'] = $slug;
+
+           
+            $status = $cmsPage->fill($data)->save();
+            if($status){
+                request()->session()->flash('success','CMS Page Successfully updated');
+            }
+            else{
+                request()->session()->flash('error','Please try again!!');
+            }
+            return redirect()->route('cms-content.index');
+        }
     }
 
     /**
