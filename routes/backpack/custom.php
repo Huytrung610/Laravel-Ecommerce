@@ -72,6 +72,9 @@ Route::group([
 
     // Post
     Route::resource('/post','\App\Http\Controllers\PostController');
+
+    // CMS Content
+    Route::resource('/cms-content','\App\Http\Controllers\CmsContentController');
     
     //General Settings
     Route::get('general-setting',[\App\Http\Controllers\GeneralSettingController::class,'index'])->name('settings');
