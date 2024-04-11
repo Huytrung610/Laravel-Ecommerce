@@ -101,9 +101,11 @@ Route::get('/search-products','App\Http\Controllers\ProductController@searchProd
 //Subcriber 
 Route::post('/add-subcriber','App\Http\Controllers\NewsletterSubcriberController@addSubcriber')->name('add-subcriber');
 
-
-Route::get('/aboutus', function () {
-    return view('frontend.pages.aboutus');
-})->name('aboutus');
+//CMS Page
+Route::get('/warranty-policy', [\App\Http\Controllers\CmsContentController::class, 'show'])->name('warranty-policy');
+Route::get('/about-us', [\App\Http\Controllers\CmsContentController::class, 'show'])->name('about-us');
+Route::get('/shipping-policy', [\App\Http\Controllers\CmsContentController::class, 'show'])->name('shipping-policy');
+Route::get('/privacy-policy', [\App\Http\Controllers\CmsContentController::class, 'show'])->name('privacy-policy');
+Route::get('/payment-policy', [\App\Http\Controllers\CmsContentController::class, 'show'])->name('payment-policy');
 
 

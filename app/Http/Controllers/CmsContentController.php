@@ -56,9 +56,29 @@ class CmsContentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
-        //
+        $segment = $request->segment(1);
+        $cmsContent = $this->getCmsPageBySlug($segment);
+        if ($cmsContent) {
+            return view('frontend.pages.cms-page', ['cmsContent' => $cmsContent]);
+        }
+        return abort(404);
+    }
+
+    public function getCmsPageBySlug(string $slug)
+    {
+        $cmsModel = CmsContent::query()
+            ->where('slug', $slug)
+            ->first();
+
+        if (empty($cmsModel)) {
+            $cmsModel = CmsContent::query()
+                ->where('slug', $slug)
+                ->first();
+        }
+
+        return $cmsModel;
     }
 
     /**
@@ -78,18 +98,9 @@ class CmsContentController extends Controller
         {
             $cmsPage = CmsContent::findOrFail($id);
             $data = $request->all();
-            $this->validate($request,[
-                'title'=>'string|required|unique:cms_content,title',
-                'content'=>'string|required'
-            ]);
             $slug = Str::slug($request->title);
-            $count = CmsContent::where('slug',$slug)->count();
-            if($count>0){
-                $slug=$slug.'-'.date('ymdis').'-'.rand(0,999);
-            }
             $data['slug'] = $slug;
-
-           
+            
             $status = $cmsPage->fill($data)->save();
             if($status){
                 request()->session()->flash('success','CMS Page Successfully updated');
