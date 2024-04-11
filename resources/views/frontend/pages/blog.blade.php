@@ -91,7 +91,6 @@
     </div>
 </section>
 
-{{-- thiếu dòng @endsection cho section maincontent sẽ bị mất head --}}
 @endsection 
 
 
