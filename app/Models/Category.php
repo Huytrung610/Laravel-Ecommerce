@@ -54,4 +54,7 @@ class Category extends Model
     {
         return self::where('parent_id', Category::CATEGORY_PARENT_ID)->get();
     }
+    public static function getChildCatByParentCat($id){
+        return self::where('parent_id', $id)->get();
+    }
 }

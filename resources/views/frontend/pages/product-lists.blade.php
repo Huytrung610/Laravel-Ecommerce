@@ -17,9 +17,9 @@
                   <h1 class="display-2 text-uppercase text-dark">Shop</h1>
                   <div class="breadcrumbs">
                       <span class="item">
-            {{-- <a href="index.html">Home ></a> --}}
-            Home >
-          </span>
+                        {{-- <a href="index.html">Home ></a> --}}
+                        Home >
+                      </span>
                       <span class="item">Shop</span>
                   </div>
               </div>
@@ -50,21 +50,109 @@
                  </button>              
           </div>
         </div>
-
+    </div>
+    <div class="product-list-container">
+      <div class="product-list-wrapper tw-grid tw-grid-cols-4 tw-gap-3.5">
+        <div class="product-col">
+          <div class="item_product_main">
+              <div class="variants product-action tw-flex tw-flex-col tw-gap-2">
+                  <div class="product-thumbnail">
+                      <a class="image_thumb" href="/iphone-15-pro-max-vn-a" title="iPhone 15 Pro Max VN/A">
+                        <span class="imgWrap pt_100">
+                          <span class="imgWrap-item">
+                              <img class="lazyload loaded tw-rounded-2xl" src="//bizweb.dktcdn.net/thumb/large/100/116/615/products/1-db06fa69-0b7d-4b59-ba14-ad02019da9ca.jpg?v=1697972311463" data-src="//bizweb.dktcdn.net/thumb/large/100/116/615/products/1-db06fa69-0b7d-4b59-ba14-ad02019da9ca.jpg?v=1697972311463" alt="iPhone 15 Pro Max VN/A" data-was-processed="true">
+                          </span>
+                        </span>
+                      </a>
+                  </div>
+                  <div class="product-info tw-flex tw-flex-col tw-items-center tw-gap-1">
+                    <h3 class="product-name tw-font-bold tw-text-lg"><a href="/iphone-15-pro-max-vn-a" title="iPhone 15 Pro Max VN/A">iPhone 15 Pro Max VN/A</a></h3>
+                    <div class="price-box">
+                        <span class="price"> 	Giá từ: 26.590.000₫ </span>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="product-col">
+          <div class="item_product_main">
+              <div class="variants product-action tw-flex tw-flex-col tw-gap-2">
+                  <div class="product-thumbnail">
+                      <a class="image_thumb" href="/iphone-15-pro-max-vn-a" title="iPhone 15 Pro Max VN/A">
+                        <span class="imgWrap pt_100">
+                          <span class="imgWrap-item">
+                              <img class="lazyload loaded tw-rounded-2xl" src="//bizweb.dktcdn.net/thumb/large/100/116/615/products/1-db06fa69-0b7d-4b59-ba14-ad02019da9ca.jpg?v=1697972311463" data-src="//bizweb.dktcdn.net/thumb/large/100/116/615/products/1-db06fa69-0b7d-4b59-ba14-ad02019da9ca.jpg?v=1697972311463" alt="iPhone 15 Pro Max VN/A" data-was-processed="true">
+                          </span>
+                        </span>
+                      </a>
+                  </div>
+                  <div class="product-info tw-flex tw-flex-col tw-items-center tw-gap-1">
+                    <h3 class="product-name tw-font-bold tw-text-lg"><a href="/iphone-15-pro-max-vn-a" title="iPhone 15 Pro Max VN/A">iPhone 15 Pro Max VN/A</a></h3>
+                    <div class="price-box">
+                        <span class="price"> 	Giá từ: 26.590.000₫ </span>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="product-col">
+          <div class="item_product_main">
+              <div class="variants product-action tw-flex tw-flex-col tw-gap-2">
+                  <div class="product-thumbnail">
+                      <a class="image_thumb" href="/iphone-15-pro-max-vn-a" title="iPhone 15 Pro Max VN/A">
+                        <span class="imgWrap pt_100">
+                          <span class="imgWrap-item">
+                              <img class="lazyload loaded tw-rounded-2xl" src="//bizweb.dktcdn.net/thumb/large/100/116/615/products/1-db06fa69-0b7d-4b59-ba14-ad02019da9ca.jpg?v=1697972311463" data-src="//bizweb.dktcdn.net/thumb/large/100/116/615/products/1-db06fa69-0b7d-4b59-ba14-ad02019da9ca.jpg?v=1697972311463" alt="iPhone 15 Pro Max VN/A" data-was-processed="true">
+                          </span>
+                        </span>
+                      </a>
+                  </div>
+                  <div class="product-info tw-flex tw-flex-col tw-items-center tw-gap-1">
+                    <h3 class="product-name tw-font-bold tw-text-lg"><a href="/iphone-15-pro-max-vn-a" title="iPhone 15 Pro Max VN/A">iPhone 15 Pro Max VN/A</a></h3>
+                    <div class="price-box">
+                        <span class="price"> 	Giá từ: 26.590.000₫ </span>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="product-col">
+          <div class="item_product_main">
+              <div class="variants product-action tw-flex tw-flex-col tw-gap-2">
+                  <div class="product-thumbnail">
+                      <a class="image_thumb" href="/iphone-15-pro-max-vn-a" title="iPhone 15 Pro Max VN/A">
+                        <span class="imgWrap pt_100">
+                          <span class="imgWrap-item">
+                              <img class="lazyload loaded tw-rounded-2xl" src="//bizweb.dktcdn.net/thumb/large/100/116/615/products/1-db06fa69-0b7d-4b59-ba14-ad02019da9ca.jpg?v=1697972311463" data-src="//bizweb.dktcdn.net/thumb/large/100/116/615/products/1-db06fa69-0b7d-4b59-ba14-ad02019da9ca.jpg?v=1697972311463" alt="iPhone 15 Pro Max VN/A" data-was-processed="true">
+                          </span>
+                        </span>
+                      </a>
+                  </div>
+                  <div class="product-info tw-flex tw-flex-col tw-items-center tw-gap-1">
+                    <h3 class="product-name tw-font-bold tw-text-lg"><a href="/iphone-15-pro-max-vn-a" title="iPhone 15 Pro Max VN/A">iPhone 15 Pro Max VN/A</a></h3>
+                    <div class="price-box">
+                        <span class="price"> 	Giá từ: 26.590.000₫ </span>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
     <form action="{{route('shop.filter')}}" method="POST" class="h-auto">
-    @csrf
-    <div class="container">
-      <div class="row">
-          <main class="">
-              <div class="product-content product-store d-flex  flex-wrap">
-          </main>
-      </div>
-  </div>
-</form>
+      @csrf
+      <div class="container">
+        <div class="row">
+            <main class="">
+                <div class="product-content product-store d-flex  flex-wrap">
+            </main>
+        </div>
+    </div>
+  </form>
 </div>
+@include('frontend.sections.company-services')
 @push('after_scripts')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
