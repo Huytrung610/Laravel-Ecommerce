@@ -30,8 +30,8 @@
           @enderror
         </div>
         <div class="form-group mb-3">
-          <button type="reset" class="btn btn-warning">Reset</button>
-           <button class="btn btn-success" type="submit">Submit</button>
+          <button type="reset" class="btn btn-warning tw-bg-yellow-500">Reset</button>
+           <button class="btn btn-success tw-bg-green-600" type="submit">Submit</button>
         </div>
       </form>
     </div>

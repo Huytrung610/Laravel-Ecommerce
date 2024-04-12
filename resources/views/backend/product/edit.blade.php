@@ -61,14 +61,14 @@
             <div class="form-group">
                 <label for="summary" class="col-form-label">{{__('Short Description')}}<span
                         class="text-danger">*</span></label>
-                <textarea class="form-control" id="sumary-product" name="summary">{{$product->summary}}</textarea>
+                <textarea class="form-control" id="summary" name="summary">{{$product->summary}}</textarea>
                 @error('summary')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
             <div class="form-group">
                 <label for="description" class="col-form-label">{{__('Description')}}</label>
-                <textarea class="form-control" id=""
+                <textarea class="form-control" id="description"
                             name="description">{{$product->description}}</textarea>
                 @error('description')
                 <span class="text-danger">{{$message}}</span>
@@ -86,7 +86,7 @@
                 </select>
             </div>
             
-            <div class="form-group category-type">
+            <div class="form-group category-type">{{$product->photo}}
                 <label for="category_id" class="col-form-label">{{ __('Category Type') }}<span class="text-danger">*</span></label>
                 <select name="category_id" id="product-target" class="form-control categories-product" multiple>
                     @foreach($parentCategories as $parentCategory)
@@ -104,12 +104,21 @@
             </div>
 
             <div class="form-group">
-                <label for="inputPhoto" class="col-form-label">{{__('Photo Thumbnail')}}<span
-                        class="text-danger">*</span></label>
+                <label for="inputPhoto" class="col-form-label">Thumbnail</label>
                 <div class="input-group">
-                    <input id="thumbnail" class="form-control upload-image" type="text" name="photo"  autocomplete="off"
-                    data-type="Images" value="{{$product->photo}}">
+                    <div class="input-group-btn">
+                        <div class="thumb-preview-container">
+                            <div class="thumb-preview tw-relative">
+                                <span class="thumbnail-wrapper choose-thumb-btn hover:tw-cursor-pointer">
+                                    <img class="tw-w-[200px] tw-h-[200px] img-thumb_product" src="{{$product->photo}}" alt="{{$product->photo}}">
+                                </span>
+                                <button type="button" class="del-img_product tw-absolute tw-left-[5px] tw-top-[5px] tw-text-red-600 tw-hidden"><i class="fa fa-trash"></i></button>
+                                <input type="text" name="photo" hidden value="{{$product->photo}}" class="img_product-input"></input>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div id="preview-image_product" style="margin-top:15px;max-height:100px;"></div>
                 @error('photo')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
@@ -123,7 +132,7 @@
                 @enderror
             </div>
             <div class="form-group mb-3">
-                <button class="btn btn-success" type="submit">{{__('Update')}}</button>
+                <button class="btn btn-success tw-bg-green-600" type="submit">{{__('Update')}}</button>
             </div>
         </form>
     </div>
@@ -178,7 +187,7 @@
                             </div>
 
                             <div class="col-lg-1">
-                                <button type="button" class="remove-attribute btn btn-danger">Delete</button>
+                                <button type="button" class="remove-attribute btn btn-danger tw-bg-red-600">Delete</button>
                             </div>
                         </div>
                         @endforeach
@@ -226,62 +235,16 @@
 
 @endpush
 @push('after_scripts')
-    {{-- <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script> --}}
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script>
-        // $('#lfm').filemanager('image');
-        // $(document).ready(function(){
-      
-        //     // Define function to open filemanager window
-        //     var lfm = function(options, cb) {
-        //         var route_prefix = (options && options.prefix) ? options.prefix : '/laravel-filemanager';
-        //         window.open(route_prefix + '?type=' + options.type || 'file', 'FileManager', 'width=900,height=600');
-        //         window.SetUrl = cb;
-        //     };
-        
-        //     // Define LFM summernote button
-        //     var LFMButton = function(context) {
-        //         var ui = $.summernote.ui;
-        //         var button = ui.button({
-        //         contents: '<i class="note-icon-picture"></i> ',
-        //         tooltip: 'Insert image with filemanager',
-        //         click: function() {
-        
-        //             lfm({type: 'image', prefix: '/laravel-filemanager'}, function(lfmItems, path) {
-        //             lfmItems.forEach(function (lfmItem) {
-        //                 context.invoke('insertImage', lfmItem.url);
-        //             });
-        //             });
-        
-        //         }
-        //         });
-        //         return button.render();
-        //     };
-        
-        //     // Initialize summernote with LFM button in the popover button group
-        //     // Please note that you can add this button to any other button group you'd like
-        //     $(document).ready(function() {
-        //         $('#description').summernote({
-        //             placeholder: "Write detail description.....",
-        //             tabsize: 2,
-        //             height: 150
-        //         });
-        //     });
-        // });
-        // ClassicEditor
-        // .create( document.querySelector( '#sumary-product' ) )
-        // .catch( error => {
-        //     console.error( error );
-        // } );
-
     </script>
     <script src="{{ mix('js/backend/product.js') }}"></script>      
     <script src="/backend/ckfinder_2/ckfinder.js"></script>
     <script src="{{ mix('js/backend/finder.js') }}"></script>
 
-    
+    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.js"></script>
 
@@ -368,6 +331,7 @@
     let attributeValues = {};
     let selectedAttributeValues = {};
     let selectedAttributeId = [];
+    var defaultThumnail = "{{ asset('backend/img/default-product-image.png') }}";
     var existedProductVariants = @json($productVariants);
     
     $(document).ready(function() {
@@ -403,6 +367,17 @@
 
             $results.scrollTop(0); 
         }); 
+        $('#summary').summernote({
+            placeholder: "Write detail description.....",
+            tabsize: 2,
+            height: 150
+        });
+        $('#description').summernote({
+            placeholder: "Write detail description.....",
+            tabsize: 2,
+            height: 150
+        });
+
         productVariant()
         removeDuplicatedValue();
         removeAttribute();
@@ -436,7 +411,7 @@
         html += '<input type="text" disabled class="fake-variant form-control tw-h-12">';
         html += '</div>';
         html += '<div class="col-lg-1">';
-        html += '<button type="button" class="remove-attribute btn btn-danger">Delete</button>';
+        html += '<button type="button" class="remove-attribute btn btn-danger tw-bg-red-600">Delete</button>';
         html += '</div>';
         html += '</div>';
 
@@ -853,8 +828,8 @@
                     html += '<div class="variant-item-heading tw-flex tw-justify-between tw-mb-6">'
                         html += '<h5 class="tw-font-bold tw-text-lg">Update Variant</h5>'
                         html += '<div class="button-group tw-flex tw-gap-4">'
-                            html += '<button type="button" class="cancleUpdate btn btn-danger">Cancle</button>'
-                            html += '<button type="button" class="saveUpdateVariant btn btn-success">Save</button>'
+                            html += '<button type="button" class="cancleUpdate btn btn-danger tw-bg-red-600">Cancle</button>'
+                            html += '<button type="button" class="saveUpdateVariant btn btn-success tw-bg-green-600">Save</button>'
                             html += '</div>'
                     html += '</div>'
                     html += '<div class="variant-item-content">'

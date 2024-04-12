@@ -31,7 +31,7 @@
                     <input type="hidden" value="{{$orderReceipt}}" name="order_receipt">
                     @endif
                 </div>
-                <button type="submit" class="btn btn-primary">{{__('Update')}}</button>
+                <button type="submit" class="btn btn-primary tw-bg-blue-500 ">{{__('Update')}}</button>
             </form>
         </div>
     </div>

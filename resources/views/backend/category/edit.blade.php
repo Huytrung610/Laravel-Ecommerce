@@ -89,7 +89,7 @@
                     @enderror
                 </div>
                 <div class="form-group mb-3">
-                    <button class="btn btn-success" type="submit">{{__('Update')}}</button>
+                    <button class="btn btn-success tw-bg-green-600" type="submit">{{__('Update')}}</button>
                 </div>
             </form>
         </div>

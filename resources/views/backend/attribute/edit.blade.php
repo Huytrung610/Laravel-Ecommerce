@@ -22,17 +22,17 @@
                     <div id="attributeValuesContainer">
                         @if(isset($attribute) && $attribute->attributeValues)
                             @foreach($attribute->attributeValues as $value)
-                                <div class="attribute-value-container tw-flex tw-gap-5">
+                                <div class="attribute-value-container tw-flex tw-gap-5 mb-2">
                                     <input type="text" name="attribute_values[]" value="{{ $value->value }}" class="form-control mt-2">
-                                    <button type="button" class="btn btn-danger removeAttributeValue">Remove</button>
+                                    <button type="button" class="btn btn-danger removeAttributeValue tw-bg-red-600">Remove</button>
                                 </div>
                             @endforeach
                         @endif
                     </div>
-                    <button type="button" id="addAttributeValue" class="btn btn-primary tw-w-[12%]">Add more value</button>
+                    <button type="button" id="addAttributeValue" class="btn btn-primary tw-w-[12%] tw-bg-blue-600">Add more value</button>
                 </div>
                 <div class="form-group mb-3">
-                    <button class="btn btn-success" type="submit">{{__('Update')}}</button>
+                    <button class="btn btn-success tw-bg-green-600" type="submit">{{__('Update')}}</button>
 
                 </div>
             </form>
