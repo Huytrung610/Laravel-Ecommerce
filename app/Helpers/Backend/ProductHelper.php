@@ -112,7 +112,5 @@ class ProductHelper
     public function getVariantByProduct($productId){
         return ProductVariant::where('product_id', $productId)->get();
     }
-    
-
-    
+     
 }

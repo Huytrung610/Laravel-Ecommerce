@@ -46,7 +46,7 @@ class ProductController extends Controller
             }
             $data['slug'] = $slug;
             $data['code'] = $request->get('product_code');
-            $data['category_id'] = $request->get('category');
+            $data['category_id'] = $request->get('category_id');
             $data['brand_id'] = $request->get('brand_id');
             $data['photo'] = $request->get('photo') ;
             $data['discount'] = 20;
@@ -157,15 +157,12 @@ class ProductController extends Controller
 
     public function getAllProductByCategory(Request $request, $slug){
         $category = Category::where('slug', $slug)->firstOrFail();
-        $productList = [];
-        $childCategories = [];
-        foreach ($category->child_cat as $childCategory) {
-            $products = $childCategory->products;
-            $productList = array_merge($productList, $products->all());
-            $childCategories[] = $childCategory;
-        }
-
-        return view('frontend.pages.product-lists',compact('productList', 'childCategories') );
+        $categoryId = $category->id;
+        $productList = Product::where('category_id', $categoryId)->get();
+        
+        return view('frontend.pages.product-lists')
+        ->with('category', $category)
+        ->with('productList', $productList);
     }
 
     public function getProductList(Request $request)

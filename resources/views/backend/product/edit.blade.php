@@ -104,7 +104,7 @@
             </div>
 
             <div class="form-group">
-                <label for="inputPhoto" class="col-form-label">{{__('Photo')}}<span
+                <label for="inputPhoto" class="col-form-label">{{__('Photo Thumbnail')}}<span
                         class="text-danger">*</span></label>
                 <div class="input-group">
                     <input id="thumbnail" class="form-control upload-image" type="text" name="photo"  autocomplete="off"
