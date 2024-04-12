@@ -13,14 +13,10 @@
   <div class="hero-content">
       <div class="container">
           <div class="row">
-              <div class="text-center padding-large no-padding-bottom">
-                  <h1 class="display-2 text-uppercase text-dark">Shop</h1>
+              <div class="text-center no-padding-bottom tw-flex tw-flex-col tw-gap-4">
+                  <h1 class="tw-text-2xl tw-font-bold text-uppercase text-dark product-category__title">{{ $category->title }}</h1>
                   <div class="breadcrumbs">
-                      <span class="item">
-                        {{-- <a href="index.html">Home ></a> --}}
-                        Home >
-                      </span>
-                      <span class="item">Shop</span>
+                      <span class="product-category__summary">{!! htmlspecialchars_decode($category->summary) !!}</span>
                   </div>
               </div>
           </div>
@@ -30,15 +26,14 @@
 </section>
 <div class="shopify-grid padding-large">
   <div class="container" style="font-size: 16px;margin-bottom: 3%;"  >
-       
     <div class="d-flex mb-3">
-      @foreach ($childCategories as $childCategory)
+      {{-- @foreach ($childCategories as $childCategory)
         <div class="p-2" style="margin-left: 16px;">
           <div class="title">
               <a href="{{ route('product-list', ['slug' => $childCategory->slug]) }}" data-slug="{{ $childCategory->slug }}" data-id="{{ $childCategory->id }}" onclick="getProductListByCategory(event)" style="font-size:20px;font-weight:600px;text-transform:uppercase">{{ $childCategory->title }}</a>
           </div>
         </div>
-      @endforeach
+      @endforeach --}}
   
        <div class="ms-auto p-2">
           <div class="input-group">
@@ -51,92 +46,36 @@
           </div>
         </div>
     </div>
+
     <div class="product-list-container">
       <div class="product-list-wrapper tw-grid tw-grid-cols-4 tw-gap-3.5">
-        <div class="product-col">
-          <div class="item_product_main">
-              <div class="variants product-action tw-flex tw-flex-col tw-gap-2">
-                  <div class="product-thumbnail">
-                      <a class="image_thumb" href="/iphone-15-pro-max-vn-a" title="iPhone 15 Pro Max VN/A">
-                        <span class="imgWrap pt_100">
-                          <span class="imgWrap-item">
-                              <img class="lazyload loaded tw-rounded-2xl" src="//bizweb.dktcdn.net/thumb/large/100/116/615/products/1-db06fa69-0b7d-4b59-ba14-ad02019da9ca.jpg?v=1697972311463" data-src="//bizweb.dktcdn.net/thumb/large/100/116/615/products/1-db06fa69-0b7d-4b59-ba14-ad02019da9ca.jpg?v=1697972311463" alt="iPhone 15 Pro Max VN/A" data-was-processed="true">
+        @foreach($productList as $product)
+          <div class="product-col">
+            <div class="item_product_main">
+                <div class="variants product-action tw-flex tw-flex-col tw-gap-2">
+                    <div class="product-thumbnail">
+                        <a class="image_thumb" href="/iphone-15-pro-max-vn-a" title="iPhone 15 Pro Max VN/A">
+                          <span class="imgWrap pt_100">
+                            <div class="imgWrap-item tw-w-full tw-h-[320px]">
+                                <img class="lazyload loaded tw-rounded-2xl tw-h-full" src="{{ $product->photo }}" alt="iPhone 15 Pro Max VN/A" data-was-processed="true">
+                            </div>
                           </span>
-                        </span>
-                      </a>
-                  </div>
-                  <div class="product-info tw-flex tw-flex-col tw-items-center tw-gap-1">
-                    <h3 class="product-name tw-font-bold tw-text-lg"><a href="/iphone-15-pro-max-vn-a" title="iPhone 15 Pro Max VN/A">iPhone 15 Pro Max VN/A</a></h3>
-                    <div class="price-box">
-                        <span class="price"> 	Giá từ: 26.590.000₫ </span>
+                        </a>
                     </div>
-                  </div>
-              </div>
-          </div>
-        </div>
-        <div class="product-col">
-          <div class="item_product_main">
-              <div class="variants product-action tw-flex tw-flex-col tw-gap-2">
-                  <div class="product-thumbnail">
-                      <a class="image_thumb" href="/iphone-15-pro-max-vn-a" title="iPhone 15 Pro Max VN/A">
-                        <span class="imgWrap pt_100">
-                          <span class="imgWrap-item">
-                              <img class="lazyload loaded tw-rounded-2xl" src="//bizweb.dktcdn.net/thumb/large/100/116/615/products/1-db06fa69-0b7d-4b59-ba14-ad02019da9ca.jpg?v=1697972311463" data-src="//bizweb.dktcdn.net/thumb/large/100/116/615/products/1-db06fa69-0b7d-4b59-ba14-ad02019da9ca.jpg?v=1697972311463" alt="iPhone 15 Pro Max VN/A" data-was-processed="true">
-                          </span>
-                        </span>
-                      </a>
-                  </div>
-                  <div class="product-info tw-flex tw-flex-col tw-items-center tw-gap-1">
-                    <h3 class="product-name tw-font-bold tw-text-lg"><a href="/iphone-15-pro-max-vn-a" title="iPhone 15 Pro Max VN/A">iPhone 15 Pro Max VN/A</a></h3>
-                    <div class="price-box">
-                        <span class="price"> 	Giá từ: 26.590.000₫ </span>
+                    <div class="product-info tw-flex tw-flex-col tw-items-center tw-gap-1">
+                      <h3 class="product-name tw-font-bold tw-text-lg"><a href="/iphone-15-pro-max-vn-a" title="iPhone 15 Pro Max VN/A">{{ $product->title }}</a></h3>
+                      @php
+                        $minPrice = $product->product_variants()->min('price') ?? $product->price;
+                        $formatted_minPrice = number_format($minPrice, 0, ',', '.');
+                      @endphp
+                      <div class="price-box">
+                          <span class="price-title">Giá từ: <span class="min-price tw-font-bold"> {{ $formatted_minPrice }}đ</span></span>
+                      </div>
                     </div>
-                  </div>
-              </div>
+                </div>
+            </div>
           </div>
-        </div>
-        <div class="product-col">
-          <div class="item_product_main">
-              <div class="variants product-action tw-flex tw-flex-col tw-gap-2">
-                  <div class="product-thumbnail">
-                      <a class="image_thumb" href="/iphone-15-pro-max-vn-a" title="iPhone 15 Pro Max VN/A">
-                        <span class="imgWrap pt_100">
-                          <span class="imgWrap-item">
-                              <img class="lazyload loaded tw-rounded-2xl" src="//bizweb.dktcdn.net/thumb/large/100/116/615/products/1-db06fa69-0b7d-4b59-ba14-ad02019da9ca.jpg?v=1697972311463" data-src="//bizweb.dktcdn.net/thumb/large/100/116/615/products/1-db06fa69-0b7d-4b59-ba14-ad02019da9ca.jpg?v=1697972311463" alt="iPhone 15 Pro Max VN/A" data-was-processed="true">
-                          </span>
-                        </span>
-                      </a>
-                  </div>
-                  <div class="product-info tw-flex tw-flex-col tw-items-center tw-gap-1">
-                    <h3 class="product-name tw-font-bold tw-text-lg"><a href="/iphone-15-pro-max-vn-a" title="iPhone 15 Pro Max VN/A">iPhone 15 Pro Max VN/A</a></h3>
-                    <div class="price-box">
-                        <span class="price"> 	Giá từ: 26.590.000₫ </span>
-                    </div>
-                  </div>
-              </div>
-          </div>
-        </div>
-        <div class="product-col">
-          <div class="item_product_main">
-              <div class="variants product-action tw-flex tw-flex-col tw-gap-2">
-                  <div class="product-thumbnail">
-                      <a class="image_thumb" href="/iphone-15-pro-max-vn-a" title="iPhone 15 Pro Max VN/A">
-                        <span class="imgWrap pt_100">
-                          <span class="imgWrap-item">
-                              <img class="lazyload loaded tw-rounded-2xl" src="//bizweb.dktcdn.net/thumb/large/100/116/615/products/1-db06fa69-0b7d-4b59-ba14-ad02019da9ca.jpg?v=1697972311463" data-src="//bizweb.dktcdn.net/thumb/large/100/116/615/products/1-db06fa69-0b7d-4b59-ba14-ad02019da9ca.jpg?v=1697972311463" alt="iPhone 15 Pro Max VN/A" data-was-processed="true">
-                          </span>
-                        </span>
-                      </a>
-                  </div>
-                  <div class="product-info tw-flex tw-flex-col tw-items-center tw-gap-1">
-                    <h3 class="product-name tw-font-bold tw-text-lg"><a href="/iphone-15-pro-max-vn-a" title="iPhone 15 Pro Max VN/A">iPhone 15 Pro Max VN/A</a></h3>
-                    <div class="price-box">
-                        <span class="price"> 	Giá từ: 26.590.000₫ </span>
-                    </div>
-                  </div>
-              </div>
-          </div>
-        </div>
+          @endforeach
       </div>
     </div>
   </div>

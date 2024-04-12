@@ -98,43 +98,28 @@
 @endsection
 
 @push('styles')
-    <link rel="stylesheet" href="{{asset('backend/summernote/summernote.min.css')}}">
+    <link rel="stylesheet" href="{{asset('backend/summernote/summernote.min.css')}}"> 
 @endpush
 @push('after_scripts')
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
-    <script src="{{asset('backend/summernote/summernote.min.js')}}"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            $('#category-type').change(function () {
-                if ($(this).val() && $(this).val() === 'child') {
-                    $('.sub-category').show();
+<script>
+    $(document).ready(function () {
+        $('#category-type').change(function () {
+            if ($(this).val() && $(this).val() === 'child') {
+                $('.sub-category').show();
             } else {
-                    $('.sub-category').hide();
-        }
-      });
-        });
-        </script>
-
-    {{-- <script>
-        $('#lfm').filemanager('image');
-        $(document).ready(function () {
-            $('#summary').summernote({
-                placeholder: "Write short description.....",
-                tabsize: 2,
-                height: 150
-            });
-        });
-    </script>
-    <script>
-        $('#is_parent').change(function () {
-            var isChecked = $('#is_parent').prop('checked');
-            if (isChecked) {
-                $('#parent_cat_div').addClass('d-none');
-                $('#parent_cat_div').val('');
-            } else {
-                $('#parent_cat_div').removeClass('d-none');
+                $('.sub-category').hide();
             }
-        })
-    </script> --}}
+        });
+        $('#summary').summernote({
+            placeholder: "Write detail description.....",
+            tabsize: 2,
+            height: 150
+        });
+    });
+    
+</script>
 @endpush
