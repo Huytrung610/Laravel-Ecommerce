@@ -77,6 +77,9 @@ $(document).ready(function () {
         
         setupProductVariant();
         saveAllVariants()
+        checkExistedImage()
+        chooseImageThumnailProduct()
+        removeProductThumb()
         
 });
 
@@ -204,5 +207,45 @@ function collectVariantData() {
         }
     });
     return variantsData;
+}
+
+function chooseImageThumnailProduct() {
+    $(document).on('click', '.choose-thumb-btn', function(e){
+        browseThumbnailProduct();
+        e.preventDefault(); 
+    })
+}
+function checkExistedImage(){
+     let imagePath = $('.thumb-preview-container .thumb-preview img').attr('src');
+
+     if (imagePath === defaultThumnail) {
+         $('.del-img_product').addClass('tw-hidden');
+         $('.img_product-input').val(imagePath);
+     } else {
+        $('.del-img_product').removeClass('tw-hidden');
+     }
+}
+function browseThumbnailProduct(){
+    var type = "Images";
+    var finder = new CKFinder();
+    finder.resourceType = type;
+    finder.selectActionFunction = function (fileUrl, data) {
+        $('.img-thumb_product').attr("src", fileUrl);
+        $('.img_product-input').val(fileUrl);
+        $('.del-img_product').removeClass('tw-hidden');
+        $('.thumbnail-wrapper').removeClass('choose-thumb-btn hover:tw-cursor-pointer');
+    }
+    finder.popup();
+}
+
+function removeProductThumb() {
+    $(document).on('click', '.del-img_product', function(){
+        let _this = $(this);
+        $('.img-thumb_product').attr("src", defaultThumnail);
+        $('.img_product-input').val(defaultThumnail);
+        // _this.find('.img_product-input').val(defaultThumnail);
+        _this.addClass('tw-hidden');
+        $('.thumbnail-wrapper').addClass('choose-thumb-btn hover:tw-cursor-pointer');
+    })
 }
 

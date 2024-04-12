@@ -24,8 +24,8 @@
 
     
     <div class="form-group mb-3">
-        <button type="reset" class="btn btn-warning">{{ __('Reset') }}</button>
-        <button class="btn btn-success" type="submit">{{ __('Submit') }}</button>
+        <button type="reset" class="btn btn-warning tw-bg-yellow-500">{{ __('Reset') }}</button>
+        <button class="btn btn-success tw-bg-green-600" type="submit">{{ __('Submit') }}</button>
     </div>
     </form>
     </div>

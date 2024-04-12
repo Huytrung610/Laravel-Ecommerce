@@ -94,19 +94,28 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="inputPhoto" class="col-form-label">{{__('Photo Thumbnail')}}<span
-                            class="text-danger">*</span></label>
+                    <label for="inputPhoto" class="col-form-label">Thumbnail</label>
                     <div class="input-group">
-                        <input id="thumbnail" class="form-control upload-image" type="text" name="photo"  autocomplete="off"
-                        data-type="Images" value="">
+                        <div class="input-group-btn">
+                            <div class="thumb-preview-container">
+                                <div class="thumb-preview tw-relative">
+                                    <span class="thumbnail-wrapper choose-thumb-btn hover:tw-cursor-pointer">
+                                        <img class="tw-w-[200px] tw-h-[200px] img-thumb_product" src="{{asset('backend/img/default-product-image.png')}}" alt="{{asset('backend/img/thumbnail-default.jpg')}}">
+                                    </span>
+                                    <button type="button" class="del-img_product tw-absolute tw-left-[5px] tw-top-[5px] tw-text-red-600 tw-hidden"><i class="fa fa-trash"></i></button>
+                                    <input type="text" name="photo" hidden value="" class="img_product-input"></input>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <div id="preview-image_product" style="margin-top:15px;max-height:100px;"></div>
                     @error('photo')
                     <span class="text-danger">{{$message}}</span>
                     @enderror
                 </div>
                 <div class="form-group mb-3">
-                    <button type="reset" class="btn btn-warning">{{__('Reset')}}</button>
-                    <button class="btn btn-success" type="submit">{{__('Submit')}}</button>
+                    <button type="reset" class="btn btn-warning tw-bg-yellow-600">{{__('Reset')}}</button>
+                    <button class="btn btn-success tw-bg-green-600" type="submit">{{__('Submit')}}</button>
                 </div>
             </form>
         </div>
@@ -116,56 +125,35 @@
 
 
 @push('styles')
-    <link rel="stylesheet" href="{{asset('backend/summernote/summernote.min.css')}}"> 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css"/>
+
         
 @endpush
 @push('after_scripts')
-    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
-    {{-- <script src="{{asset('backend/summernote/summernote.min.js')}}"></script> --}}
     <script src="/backend/ckfinder_2/ckfinder.js"></script>
     <script src="{{ mix('js/backend/finder.js') }}"></script>
+    <script src="{{ mix('js/backend/product.js') }}"></script>
+ 
+    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+    
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.js"></script>
-    {{-- <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script> --}}
     <script>
+        var defaultThumnail = "{{ asset('backend/img/default-product-image.png') }}";
         $(document).ready(function(){
-      
-          // Define function to open filemanager window
-          var lfm = function(options, cb) {
-            var route_prefix = (options && options.prefix) ? options.prefix : '/laravel-filemanager';
-            window.open(route_prefix + '?type=' + options.type || 'file', 'FileManager', 'width=900,height=600');
-            window.SetUrl = cb;
-          };
-      
-          // Define LFM summernote button
-          var LFMButton = function(context) {
-            var ui = $.summernote.ui;
-            var button = ui.button({
-              contents: '<i class="note-icon-picture"></i> ',
-              tooltip: 'Insert image with filemanager',
-              click: function() {
-      
-                lfm({type: 'image', prefix: '/laravel-filemanager'}, function(lfmItems, path) {
-                  lfmItems.forEach(function (lfmItem) {
-                    context.invoke('insertImage', lfmItem.url);
-                  });
-                });
-      
-              }
+            $('#summary').summernote({
+                placeholder: "Write detail description.....",
+                tabsize: 2,
+                height: 150
             });
-            return button.render();
-          };
-      
-          // Initialize summernote with LFM button in the popover button group
-          // Please note that you can add this button to any other button group you'd like
-          $('#summary').summernote()
-          $('#description').summernote()
+            $('#description').summernote({
+                placeholder: "Write detail description.....",
+                tabsize: 2,
+                height: 150
+            });
         });
         
       </script>
-<script src="{{ mix('js/backend/product.js') }}"></script>
+
 @endpush
 
 
