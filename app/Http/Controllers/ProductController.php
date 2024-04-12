@@ -155,7 +155,7 @@ class ProductController extends Controller
         return redirect()->route('product.index');
     }
 
-    public function getAllProduct(Request $request, $slug){
+    public function getAllProductByCategory(Request $request, $slug){
         $category = Category::where('slug', $slug)->firstOrFail();
         $productList = [];
         $childCategories = [];

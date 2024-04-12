@@ -42,3 +42,17 @@
     width: 50px;
     height: auto;
 }
+
+
+/* Header */
+.item_small-header {
+    display: none;
+    position: absolute;
+}
+.nav-item-menu {
+    position: relative;
+}
+.nav-item-menu:hover .item_small-header {
+    display: block;
+
+}

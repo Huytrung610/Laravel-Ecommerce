@@ -36,13 +36,23 @@
                         @php
                             $parentCategories = \App\Models\Category::getParentCategories();
                         @endphp
-                        
                         @foreach ($parentCategories as $category)
-                            <li class="nav-item">
-                                <a class="nav-link me-4" href="{{ route('product-list', ['slug' => $category->slug]) }}"  >{{ $category->title }}</a>
+                            <li class="nav-item nav-item-menu">
+                                <a class="nav-link me-4" href="{{ route('product-list', ['slug' => $category->slug]) }}" >{{ $category->title }}
+                                    {{-- <i class="fa fa-caret-down dropdown-nav-icon"></i> --}}
+                                </a>
+                                <ul class="item_small-header tw-w-full tw-top-[30px] tw-left-[8px] tw-rounded tw-border tw-border-white tw-bg-white tw-p-2 tw-whitespace-nowrap">
+                                    @php
+                                        $childCategories = \App\Models\Category::getChildCatByParentCat( $category->id);
+                                    @endphp
+                                    @foreach ($childCategories as $childCategory)
+                                        <li class="tw-p-1 tw-pl-0.5 tw-pb-2.5 tw-border-b">
+                                            <a href="{{ route('product-list', ['slug' => $childCategory->slug]) }}" class="tw-text-sm tw-capitalize" title="{{$childCategory->title}}">{{$childCategory->title}}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
                             </li>
                         @endforeach
-
                         <li class="nav-item dropdown">
                             <a class="nav-link me-4 dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Pages</a>
                             <ul class="dropdown-menu">
