@@ -25,17 +25,20 @@
         </div>
  
         <div class="form-group">
-          <label for="inputPhoto" class="col-form-label">Photo</label>
+          <label for="inputPhoto" class="col-form-label">Thumbnail</label>
           <div class="input-group">
-              <span class="input-group-btn">
-                  <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-                  <i class="fa fa-picture-o"></i> Choose
-                  </a>
-              </span>
-          <input id="thumbnail" class="form-control" type="text" name="photo" value="{{$post->photo}}">
-        </div>
-        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
-
+              <div class="input-group-btn">
+                  <div class="thumb-preview-container">
+                      <div class="thumb-preview tw-relative">
+                          <span class="thumbnail-wrapper choose-thumb-btn hover:tw-cursor-pointer">
+                              <img class="tw-w-[200px] tw-h-[200px] img-thumbnail img-thumb_blog" src="{{$post->photo}}" alt="{{$post->photo}}">
+                          </span>
+                          <button type="button" class="del-img-thumb tw-absolute tw-left-[5px] tw-top-[5px] tw-text-red-600 tw-hidden"><i class="fa fa-trash"></i></button>
+                          <input type="text" name="photo" hidden value="{{$post->photo}}" class="img_thumbnail-input"></input>
+                      </div>
+                  </div>
+              </div>
+          </div>
           @error('photo')
           <span class="text-danger">{{$message}}</span>
           @enderror
@@ -52,7 +55,7 @@
           @enderror
         </div>
         <div class="form-group mb-3">
-           <button class="btn btn-success" type="submit">Update</button>
+           <button class="btn btn-success tw-bg-green-600" type="submit">Update</button>
         </div>
       </form>
     </div>
@@ -67,57 +70,21 @@
         
 @endpush
 @push('after_scripts')
+    <script src="/backend/ckfinder_2/ckfinder.js"></script>
+    <script src="{{ mix('js/backend/finder.js') }}"></script>
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
-    {{-- <script src="{{asset('backend/summernote/summernote.min.js')}}"></script> --}}
-
-    <script>
-        $('#lfm').filemanager('image');
-    </script>
 
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.js"></script>
-    {{-- <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script> --}}
-    <script>
-        $(document).ready(function(){
-      
-          // Define function to open filemanager window
-          var lfm = function(options, cb) {
-            var route_prefix = (options && options.prefix) ? options.prefix : '/laravel-filemanager';
-            window.open(route_prefix + '?type=' + options.type || 'file', 'FileManager', 'width=900,height=600');
-            window.SetUrl = cb;
-          };
-      
-          // Define LFM summernote button
-          var LFMButton = function(context) {
-            var ui = $.summernote.ui;
-            var button = ui.button({
-              contents: '<i class="note-icon-picture"></i> ',
-              tooltip: 'Insert image with filemanager',
-              click: function() {
-      
-                lfm({type: 'image', prefix: '/laravel-filemanager'}, function(lfmItems, path) {
-                  lfmItems.forEach(function (lfmItem) {
-                    context.invoke('insertImage', lfmItem.url);
-                  });
-                });
-      
-              }
-            });
-            return button.render();
-          };
-      
-          // Initialize summernote with LFM button in the popover button group
-          // Please note that you can add this button to any other button group you'd like
-          $(document).ready(function() {
-            $('#description').summernote({
-                placeholder: "Write detail description.....",
-                tabsize: 2,
-                height: 150
-            });
-            });
-        });
-       
-
-      </script>
+  <script>
+    var defaultThumnail = "{{ asset('backend/img/default-product-image.png') }}";
+    $(document).ready(function() {
+      $('#description').summernote({
+          placeholder: "Write detail description.....",
+          tabsize: 2,
+          height: 150
+      });
+    });
+    </script>
 @endpush
 

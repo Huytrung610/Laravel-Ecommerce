@@ -44,8 +44,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
-                    <button type="submit" class="btn btn-primary text-white">{{ __('Save changes') }}</button>
+                    <button type="button" class="btn btn-secondary tw-bg-gray-500" data-dismiss="modal">{{ __('Close') }}</button>
+                    <button type="submit" class="btn btn-primary text-white tw-bg-blue-500">{{ __('Save changes') }}</button>
                 </div>
             </form>
         </div>

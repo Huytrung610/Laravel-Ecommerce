@@ -49,20 +49,22 @@
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
-
-
         <div class="form-group">
           <label for="inputPhoto" class="col-form-label">Logo Image</label>
           <div class="input-group">
-              <span class="input-group-btn">
-                  <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-                  <i class="fa fa-picture-o"></i> Choose
-                  </a>
-              </span>
-          <input id="thumbnail" class="form-control" type="text" name="logo_path" value="{{ $data->logo_path }}">
-        </div>
-        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
-          @error('logo_path')
+              <div class="input-group-btn">
+                  <div class="thumb-preview-container">
+                      <div class="thumb-preview tw-relative">
+                          <span class="thumbnail-wrapper choose-thumb-btn hover:tw-cursor-pointer">
+                              <img class="tw-w-[200px] tw-h-[200px] img-thumbnail img-thumb_blog" src="{{$data->logo_path}}" alt="{{$data->logo_path}}">
+                          </span>
+                          <button type="button" class="del-img-thumb tw-absolute tw-left-[5px] tw-top-[5px] tw-text-red-600 tw-hidden"><i class="fa fa-trash"></i></button>
+                          <input type="text" name="logo_path" hidden value="{{$data->logo_path}}" class="img_thumbnail-input"></input>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          @error('photo')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
@@ -75,47 +77,19 @@
 </div>
 @endsection
 @push('after_scripts')
-    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
-    {{-- <script src="{{asset('backend/summernote/summernote.min.js')}}"></script> --}}
+  <script src="/backend/ckfinder_2/ckfinder.js"></script>
+  <script src="{{ mix('js/backend/finder.js') }}"></script>
+  <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.css" rel="stylesheet">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.js"></script>
+  <script>
+    var defaultThumnail = "{{ asset('backend/img/logo.png') }}";
+    $(document).ready(function(){
+  
+      
+    });
+      
 
-    <script>
-        $('#lfm').filemanager('image');
     </script>
-
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.css" rel="stylesheet">
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.js"></script>
-    {{-- <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script> --}}
-    <script>
-        $(document).ready(function(){
-      
-          // Define function to open filemanager window
-          var lfm = function(options, cb) {
-            var route_prefix = (options && options.prefix) ? options.prefix : '/laravel-filemanager';
-            window.open(route_prefix + '?type=' + options.type || 'file', 'FileManager', 'width=900,height=600');
-            window.SetUrl = cb;
-          };
-      
-          // Define LFM summernote button
-          var LFMButton = function(context) {
-            var ui = $.summernote.ui;
-            var button = ui.button({
-              contents: '<i class="note-icon-picture"></i> ',
-              tooltip: 'Insert image with filemanager',
-              click: function() {
-      
-                lfm({type: 'image', prefix: '/laravel-filemanager'}, function(lfmItems, path) {
-                  lfmItems.forEach(function (lfmItem) {
-                    context.invoke('insertImage', lfmItem.url);
-                  });
-                });
-      
-              }
-            });
-            return button.render();
-          };
-        });
-       
-
-      </script>
 @endpush
