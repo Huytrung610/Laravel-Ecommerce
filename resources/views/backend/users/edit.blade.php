@@ -106,7 +106,7 @@
         </div>
         @if($user->role == 'user')
             <div class="card-body" id="tab-address">
-                <button type="button" id="add_address" class="btn btn-primary mb-4" data-toggle="modal" data-target="#formAddress">
+                <button type="button" id="add_address" class="btn btn-primary mb-4 tw-bg-blue-500" data-toggle="modal" data-target="#formAddress">
                     {{ __('Add Address') }}
                 </button>
 

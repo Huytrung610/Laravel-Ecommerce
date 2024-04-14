@@ -110,10 +110,10 @@
                         <div class="thumb-preview-container">
                             <div class="thumb-preview tw-relative">
                                 <span class="thumbnail-wrapper choose-thumb-btn hover:tw-cursor-pointer">
-                                    <img class="tw-w-[200px] tw-h-[200px] img-thumb_product" src="{{$product->photo}}" alt="{{$product->photo}}">
+                                    <img class="tw-w-[200px] tw-h-[200px] img-thumbnail img-thumb_product" src="{{$product->photo}}" alt="{{$product->photo}}">
                                 </span>
-                                <button type="button" class="del-img_product tw-absolute tw-left-[5px] tw-top-[5px] tw-text-red-600 tw-hidden"><i class="fa fa-trash"></i></button>
-                                <input type="text" name="photo" hidden value="{{$product->photo}}" class="img_product-input"></input>
+                                <button type="button" class="del-img-thumb del-img_product tw-absolute tw-left-[5px] tw-top-[5px] tw-text-red-600 tw-hidden"><i class="fa fa-trash"></i></button>
+                                <input type="text" name="photo" hidden value="{{$product->photo}}" class="img_thumbnail-input img_product-input"></input>
                             </div>
                         </div>
                     </div>

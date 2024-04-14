@@ -55,9 +55,52 @@
         }
         finder.popup();
     }
+    
+    function chooseImageThumnail() {
+        $(document).on('click', '.choose-thumb-btn', function(e){
+            browseThumbnail();
+            e.preventDefault(); 
+        })
+    }
+    function checkExistedImage(){
+        let imagePath = $('.thumb-preview-container .thumb-preview img').attr('src');
+
+        if (imagePath === defaultThumnail) {
+            $('.del-img-thumb').addClass('tw-hidden');
+            $('.img_thumbnail-input').val(imagePath);
+        } else {
+            $('.del-img-thumb').removeClass('tw-hidden');
+        }
+    }
+    function browseThumbnail(){
+        var type = "Images";
+        var finder = new CKFinder();
+        finder.resourceType = type;
+        finder.selectActionFunction = function (fileUrl, data) {
+            $('.img-thumbnail').attr("src", fileUrl);
+            $('.img_thumbnail-input').val(fileUrl);
+            $('.del-img-thumb').removeClass('tw-hidden');
+            $('.thumbnail-wrapper').removeClass('choose-thumb-btn hover:tw-cursor-pointer');
+        }
+        finder.popup();
+    }
+
+    function removeThumb() {
+        $(document).on('click', '.del-img-thumb', function(){
+            let _this = $(this);
+            $('.img-thumbnail').attr("src", defaultThumnail);
+            $('.img_thumbnail-input').val(defaultThumnail);
+            // _this.find('.img_thumbnail-input').val(defaultThumnail);
+            _this.addClass('tw-hidden');
+            $('.thumbnail-wrapper').addClass('choose-thumb-btn hover:tw-cursor-pointer');
+        })
+    }
 
     $(document).ready(function(){
         HT.uploadImageToInput();
         HT.setupCkeditor();
+        checkExistedImage()
+        chooseImageThumnail()
+        removeThumb()
     });
 })(jQuery)
