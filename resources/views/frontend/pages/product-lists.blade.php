@@ -27,14 +27,6 @@
 <div class="shopify-grid padding-large">
   <div class="container" style="font-size: 16px;margin-bottom: 3%;"  >
     <div class="d-flex mb-3">
-      {{-- @foreach ($childCategories as $childCategory)
-        <div class="p-2" style="margin-left: 16px;">
-          <div class="title">
-              <a href="{{ route('product-list', ['slug' => $childCategory->slug]) }}" data-slug="{{ $childCategory->slug }}" data-id="{{ $childCategory->id }}" onclick="getProductListByCategory(event)" style="font-size:20px;font-weight:600px;text-transform:uppercase">{{ $childCategory->title }}</a>
-          </div>
-        </div>
-      @endforeach --}}
-  
        <div class="ms-auto p-2">
           <div class="input-group">
               <div class="form-outline">
@@ -54,7 +46,7 @@
             <div class="item_product_main">
                 <div class="variants product-action tw-flex tw-flex-col tw-gap-2">
                     <div class="product-thumbnail">
-                        <a class="image_thumb" href="/iphone-15-pro-max-vn-a" title="iPhone 15 Pro Max VN/A">
+                        <a class="image_thumb" href="{{ route('product-detail', ['slug' => $product->slug]) }}" title="iPhone 15 Pro Max VN/A">
                           <span class="imgWrap pt_100">
                             <div class="imgWrap-item tw-w-full tw-h-[320px]">
                                 <img class="lazyload loaded tw-rounded-2xl tw-h-full" src="{{ $product->photo }}" alt="iPhone 15 Pro Max VN/A" data-was-processed="true">
