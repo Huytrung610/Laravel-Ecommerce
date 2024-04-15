@@ -274,21 +274,21 @@ class ProductController extends Controller
 
     public function productDetail($slug)
     {    
-        $helper = new \App\Helpers\Backend\ProductHelper();
-        if(request()->ajax()) {
-            $color = request()->input('color');
-            $sku = request()->input('sku'); 
-            $attribute = Attribute::where('color', $color)->where('sku',$sku )
-            ->first();
+    //     $helper = new \App\Helpers\Backend\ProductHelper();
+    //     if(request()->ajax()) {
+    //         $color = request()->input('color');
+    //         $sku = request()->input('sku'); 
+    //         $attribute = Attribute::where('color', $color)->where('sku',$sku )
+    //         ->first();
        
        
-        return response()->json([
-            'price' => $helper->formatPrice($attribute->price),
-            'stock' => $attribute->stock,
-            'sku' => $attribute->sku,
-            'photo' =>$attribute->photo
-        ]);
-    }
+    //     return response()->json([
+    //         'price' => $helper->formatPrice($attribute->price),
+    //         'stock' => $attribute->stock,
+    //         'sku' => $attribute->sku,
+    //         'photo' =>$attribute->photo
+    //     ]);
+    // }
         $productRepository = new ProductRepository();
         $productDetail = $productRepository->getProductWithSlug($slug);
 
