@@ -7,7 +7,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="form_address" method="post" action="{{route('customer-address.store')}}" >
+            <form id="form_address" method="post" action="{{route('customer-address.store')}}">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
@@ -35,9 +35,9 @@
                         <input class="form-control" type="text" name="address_detail" required="required">
                     </div>
                    
-                    <div class="form-group is_default" style="display: flex; align-items: center;">
-                        <span>{{ __('Is Default : ') }}</span>
-                        <input class="form-control" type="checkbox" name="is_default" style="width: 60px">
+                    <div class="form-group is_default tw-flex tw-align-center tw-gap-3">
+                        <span class="tw-font-bold">{{ __('Is Default : ') }}</span>
+                        <input class="tw-w-6 tw-h-6" type="checkbox" name="is_default">
                     </div>
                     <div class="form-group">
                         <input class="form-control" type="hidden" name="user_id" value="{{ $user->id }}">

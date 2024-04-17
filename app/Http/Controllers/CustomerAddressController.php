@@ -90,6 +90,9 @@ class CustomerAddressController extends Controller
                 CustomerAddress::updateOtherDefault($id, $data['user_id'])->update([
                     'is_default' => CustomerAddress::NOT_DEFAULT,
                 ]);
+            } 
+            else{
+                CustomerAddress::where('user_id', $data['user_id'])->first()->update([ 'is_default' => CustomerAddress::DEFAULT ]);
             }
         } catch (\Exception $e) {
             $flash['status']  = 'error';
