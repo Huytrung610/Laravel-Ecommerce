@@ -118,7 +118,6 @@
                         </div>
                     </div>
                 </div>
-                <div id="preview-image_product" style="margin-top:15px;max-height:100px;"></div>
                 @error('photo')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
@@ -214,7 +213,7 @@
             </div>
             <div class="table-responsive {{ $product->has_variants != 1 ? 'tw-hidden' : '' }}">
                 <table class="table productVariant-table">
-                    <thead>
+                    <thead class="tw-text-white tw-bg-gray-500">
 
                     </thead>
                     <tbody></tbody>
@@ -452,6 +451,7 @@
             let _this = $(this);
             _this.parents('.variant-item').remove();
             refreshVariants();
+            disabledAttributeCatlogueChoose();
             checkMaxAttribute();
         })
     }
@@ -505,7 +505,6 @@
             
         });
 
-        // Khởi tạo lại plugin select2 cho selectVariant
         selectVariant.select2();
     }
 
@@ -648,7 +647,7 @@
     // Handle thead after choose attribute, value
     function createTableHeader(attributeTitle) {
         let $thead = $('table.productVariant-table thead');
-        let $row = $('<tr>');
+        let $row = $('<tr class="tw-font-bold">');
         $row.append($('<td>').text('Photo'));
         for ( let i = 0; i < attributeTitle.length; i++) {
             $row.append($('<td>').text(attributeTitle[i]))
@@ -833,8 +832,8 @@
                             html += '</div>'
                     html += '</div>'
                     html += '<div class="variant-item-content">'
-                        html += '<div class="tw-text-right"><span class="hover:tw-cursor-pointer choose-images">Choose images</span></div>'
-                        html += '<div class="click-to-upload-variant '+((variantAlbum.length > 0 && variantAlbum[0] !== '') ? 'tw-hidden' : '' ) +' tw-flex tw-flex-col tw-items-center tw-border tw-border-dashed tw-border-gray-400 tw-p-5">' 
+                        html += '<div class="tw-text-right"><span class="hover:tw-cursor-pointer choose-images tw-text-blue-400 hover:tw-text-blue-500">Choose images</span></div>'
+                        html += '<div class="click-to-upload-variant '+((variantAlbum.length > 0 && variantAlbum[0] !== '') ? 'tw-hidden' : '' ) +' tw-flex tw-flex-col tw-items-center tw-border tw-border-dashed tw-border-gray-400 tw-p-5 tw-gap-2">' 
                             html += '<div class="icon">'
                                 html += '<a type="button" class="upload-variant-picture">'
                                     html += '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="tư-w-20 tw-h-20">'

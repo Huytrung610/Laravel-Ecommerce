@@ -77,9 +77,6 @@ $(document).ready(function () {
         
         setupProductVariant();
         saveAllVariants()
-        checkExistedImage()
-        chooseImageThumnailProduct()
-        removeProductThumb()
         
 });
 
@@ -142,6 +139,7 @@ function saveAllVariants() {
                 let slug = $(this).find('.variant_slug').val();
                 let album = $(this).find('.variant_album').val();
                 let code = $(this).find('input[name="productVariant[id][]"]').val();
+                let name = $(this).find('input[name="productVariant[name][]"]').val();
 
                 let variantData = {
                     quantity: quantity,
@@ -150,7 +148,8 @@ function saveAllVariants() {
                     barcode: barcode,
                     slug: slug,
                     album: album,
-                    code:code
+                    code:code,
+                    name:name
                 };
 
                 variantsData.push(variantData);

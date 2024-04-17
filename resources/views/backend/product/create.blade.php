@@ -32,7 +32,7 @@
                 </div>
                 <div class="form-group">
                     <label for="product_code" class="col-form-label">{{__('Product Code')}}</label>
-                    <input id="inputProductCode" type="text" name="product_code" placeholder="{{__('Enter Product Code')}}"
+                    <input id="inputProductCode" required type="text" name="product_code" placeholder="{{__('Enter Product Code')}}"
                             value="" class="form-control">
                     @error('product_code')
                     <span class="text-danger">{{$message}}</span>
