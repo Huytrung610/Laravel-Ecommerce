@@ -177,7 +177,6 @@ class ProductController extends Controller
             $products = $category->products()->get();
             $productList = [];
             foreach ($products as $product) {
-                // Lấy giá nhỏ nhất và giá cao nhất của từng sản phẩm
                 $minPrice =$helper->formatPrice($product->attributes()->min('price'));
                 $maxPrice = $helper->formatPrice($product->attributes()->max('price'));
     
@@ -248,19 +247,22 @@ class ProductController extends Controller
             $productHelper = new ProductHelper();
             $data = $request->all();
             $variants = $productHelper->createVariantArray($data, $product->id);
+            
             $product->product_variants()->delete();
+            
             $variantsData = [];
             $codes = array_map(function($variant) {
                 return explode(', ', $variant['code']);
             }, $variants);
+            
             foreach ($variants as $variant) {
                 $newVariant = $product->product_variants()->create($variant);
-                $variantsData[] = $newVariant->toArray(); 
+                $variantsData[] = $newVariant->toArray();   
             }
             DB::commit();
             $productHelper->updateAttributeCatalogue($product->id, $data['attribute'], $data['attributeArray'] );
-            $variantsId = array_column($variantsData, 'id');
-            $productHelper->combineVariants($variants,$variantsId);
+            $attributeIds = array_map('intval', explode(',', $data['attribute']));
+            $productHelper->combineVariants($variantsData, $attributeIds);
     
             return response()->json(['message' => 'Variants updated successfully'], 200);
         } catch (\Exception $e) {
@@ -270,35 +272,32 @@ class ProductController extends Controller
         
     }
 
-    
-
     public function productDetail($slug)
     {    
-    //     $helper = new \App\Helpers\Backend\ProductHelper();
-    //     if(request()->ajax()) {
-    //         $color = request()->input('color');
-    //         $sku = request()->input('sku'); 
-    //         $attribute = Attribute::where('color', $color)->where('sku',$sku )
-    //         ->first();
-       
-       
-    //     return response()->json([
-    //         'price' => $helper->formatPrice($attribute->price),
-    //         'stock' => $attribute->stock,
-    //         'sku' => $attribute->sku,
-    //         'photo' =>$attribute->photo
-    //     ]);
-    // }
+        $helper = new \App\Helpers\Backend\ProductHelper();
+  
         $productRepository = new ProductRepository();
         $productDetail = $productRepository->getProductWithSlug($slug);
-
+        if($productDetail->has_variants){
+            $productDetail->attributes = $helper->getAttribute($productDetail);
+        }
         if (!empty($productDetail) && $productDetail->status != Product::IS_ACTIVE || empty($productDetail)) {
             abort(404);
         }
-
         return view('frontend.pages.product_detail')->with('productDetail', $productDetail);
     }
 
+
+    public function loadVariant(Request $request) {
+        $get = $request->input();
+        $attributeId = $request->input('attribute_id');
+        sort($attributeId, SORT_NUMERIC);
+        $attributeId = implode(',', $attributeId);
+        $variant = ProductVariant::findVariant($attributeId, $request->input('product_id') );
+        return response()->json([ 
+            'variant' => $variant
+        ]);
+    }
 
 }
 

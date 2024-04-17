@@ -10,7 +10,7 @@
     echo $svgContent;
 @endphp
 
-<section id="selling-product" class="single-product padding-xlarge">
+<section id="selling-product" class="single-product tw-py-20">
     <form class="container" action="{{route('single-add-to-cart')}}" method="POST">
         @csrf
         <div class="mt-5 tw-flex tw-gap-8">
@@ -39,64 +39,21 @@
                     </div>
                 </div>
             </div>
-            <div class="product-info-wrapper">
+            <div class="product-detail-info-wrapper">
                 <div class="product-info tw-flex tw-flex-col tw-gap-8">
                     <div class="element-header">
-                        <h3 itemprop="name" class="display-7 tw-font-bold tw-text-2xl">{{$productDetail->title}}</h3>
+                        <h2 itemprop="name" class="product-main-title display-7 tw-font-bold tw-text-2xl">{{$productDetail->title}}</h2>
+                        <input type="hidden" class="productName--hidden" value="{{$productDetail->title}}">
                     </div>
                     <div class="detail-product__summary">
                         {!! htmlspecialchars_decode($productDetail->summary) !!}
                     </div>
-                    <div class="swatch-option-container tw-flex tw-flex-col tw-gap-4 tw-border-b tw-pb-5 tw-border-gray-300">
-                        <div class="swatch-option-wrapper tw-flex tw-gap-5">
-                            <div class="swatch-title tw-flex tw-items-center">
-                                <span class="tw-font-bold tw-text-sm">Color:</span>
-                            </div>
-                            <div class="swatch-option tw-flex tw-gap-5">
-                                <div data-value="64GB" class="swatch-element tw-relative tw-px-1.5 tw-py-1 tw-border tw-border-black hover:cursor-pointer hover:tw-border-yellow-400">
-                                    <input class="tw-absolute tw-top-0 tw-left-0 tw-opacity-0" id="swatch-1-64gb" type="radio" name="option-1" value="64GB" checked="">
-                                    <label for="swatch-1-64gb">Red</label>
-                                 </div>
-                                <div data-value="64GB" class="swatch-element tw-relative tw-px-1.5 tw-py-1 tw-border tw-border-black hover:cursor-pointer hover:tw-border-yellow-400">
-                                    <input class="tw-absolute tw-top-0 tw-left-0 tw-opacity-0" id="swatch-1-64gb" type="radio" name="option-1" value="128GB">
-                                    <label for="swatch-1-64gb">Blue</label>
-                                 </div>
-                                <div data-value="64GB" class="swatch-element tw-relative tw-px-1.5 tw-py-1 tw-border tw-border-black hover:cursor-pointer hover:tw-border-yellow-400">
-                                    <input class="tw-absolute tw-top-0 tw-left-0 tw-opacity-0" id="swatch-1-64gb" type="radio" name="option-1" value="256GB">
-                                    <label for="swatch-1-64gb">Gold</label>
-                                 </div>
-                            </div>
-                        </div>
-                        <div class="swatch-option-wrapper tw-flex tw-gap-5">
-                            <div class="swatch-title tw-flex tw-items-center">
-                                <span class="tw-font-bold tw-text-sm">ROM:</span>
-                            </div>
-                            {{-- <div class="swatch-option tw-flex tw-gap-5">
-                                <div class="tw-p-1.5 tw-border tw-border-black hover:cursor-pointer hover:tw-border-yellow-400"><span class="tw-font-bold tw-text-xs">64GB</span></div>
-                                <div class="tw-p-1.5 tw-border tw-border-black hover:cursor-pointer hover:tw-border-yellow-400"><span class="tw-font-bold tw-text-xs">128GB</span></div>
-                                <div class="tw-p-1.5 tw-border tw-border-black hover:cursor-pointer hover:tw-border-yellow-400"><span class="tw-font-bold tw-text-xs">256GB</span></div>
-                            </div> --}}
-                            <div class="swatch-option tw-flex tw-gap-5">
-                                <div data-value="64GB" class="swatch-element tw-relative tw-px-1.5 tw-py-1 tw-border tw-border-black hover:cursor-pointer hover:tw-border-yellow-400">
-                                    <input class="tw-absolute tw-top-0 tw-left-0 tw-opacity-0" id="swatch-1-64gb" type="radio" name="option-1" value="64GB" checked="">
-                                    <label for="swatch-1-64gb">64GB</label>
-                                 </div>
-                                <div data-value="64GB" class="swatch-element tw-relative tw-px-1.5 tw-py-1 tw-border tw-border-black hover:cursor-pointer hover:tw-border-yellow-400">
-                                    <input class="tw-absolute tw-top-0 tw-left-0 tw-opacity-0" id="swatch-1-64gb" type="radio" name="option-1" value="128GB">
-                                    <label for="swatch-1-64gb">128GB</label>
-                                 </div>
-                                <div data-value="64GB" class="swatch-element tw-relative tw-px-1.5 tw-py-1 tw-border tw-border-black hover:cursor-pointer hover:tw-border-yellow-400">
-                                    <input class="tw-absolute tw-top-0 tw-left-0 tw-opacity-0" id="swatch-1-64gb" type="radio" name="option-1" value="256GB">
-                                    <label for="swatch-1-64gb">256GB</label>
-                                 </div>
-                            </div>
-                        </div>
-                    </div>
+                    @include('frontend.sections.attribute-product')
                     </div>
                     <div>
                         <div class="cart-wrap">
                             <div class="product-price pt-3 pb-3">
-                                <strong class="tw-text-sm tw-font-bold display-6 price-product">{{ number_format($productDetail->price, 0, ',', '.') }}đ</strong> 
+                                <strong class="main-price tw-text-sm tw-font-bold display-6 price-product">{{ number_format($productDetail->price, 0, ',', '.') }}đ</strong> 
                             </div>
                             <div class="product-quantity">
                                 {{-- <div class="stock-number text-dark stock-product"></div> --}}
@@ -171,72 +128,14 @@
         </div>
     </div>
 </section>
+<input type="hidden" class="attributeCatalogue" value={{ json_encode($productDetail->attributes) }}>
+<input type="hidden" class="productSlug--hidden" value="{{ url('product-detail/' . $productDetail->slug) }}">
 @push('after_scripts')
 <link href="{{ asset('css/product-detail.css') }}" rel="stylesheet">
 <script src="{{ mix('js/frontend/product-detail.js') }}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-
-
-    $(document).ready(function() {
-        $('#color-list').on('click', '.color-product', function(e) {
-            e.preventDefault();
-            var color = $(this).data('color');
-            var sku = $(this).data('val');
-            var url = window.location.href;
-
-            $.ajax({
-                url: url,
-                method: 'GET',
-                data: {
-                    color: color,
-                    sku: sku
-                },
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-                    history.replaceState(null, '', url);
-                    console.log(response);
-                    var price = response.price;
-                    var stock = response.stock;
-                    var sku = response.sku;
-                    var pic = response.photo;
-
-                    // Hiển thị giá trị mới
-                    $('.price-product').text(price + '  ₫');
-                    $('.stock-product').text(stock);
-                    $('.sku-product').val(sku);
-                    $('.photo-attr').attr('data-pic', pic);
-                    var imageUrl = $('.product-color span').attr("data-pic");
-                     $(".img-fluid").attr("src", imageUrl);
-                },
-                error: function(xhr, status, error) {
-                    console.error(error); 
-                }
-            });
-        });
-    });
-</script>
-<script>
-
-$(document).ready(function() {
-    var firstColorImageUrl = $(".product-color span:first-child").attr("data-pic");
-    $(".img-fluid").attr("src", firstColorImageUrl);
-
-    $(".product-color span").click(function() {
-        $(".product-color span").removeClass("active");
-        $(this).addClass("active");
-        var imageUrl = $(this).attr("data-pic");
-        $(".img-fluid").attr("src", imageUrl);
-    });
-});
-
-$(window).on("load", function() {
-    var firstColorImageUrl = $(".product-color span:first-child").attr("data-pic");
-        $(".img-fluid").attr("src", firstColorImageUrl);
-    });
 
 </script>
 

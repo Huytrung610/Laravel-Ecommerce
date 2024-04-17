@@ -61,14 +61,11 @@ class ProductHelper
         $attributes = Attribute::get ();
         return $attributes;
     }
-    public function combineVariants(array $variants, array $variantsId): void
+    public function combineVariants(array $variantsData, $attributeIds): void
     {
-        foreach ($variants as $key => $variant) {
-            $productVariant = ProductVariant::findOrFail($variantsId[$key]); 
-            $attributeIds = explode(', ', $variant['code']); 
-            foreach ($attributeIds as $attributeId) {
-                $productVariant->attributeValues()->attach($attributeId); 
-            }
+        foreach ($variantsData as $variant) {
+            $productVariantObject = ProductVariant::find($variant['id']);
+            $productVariantObject->attributes()->sync($attributeIds);
         }
     }
 
@@ -85,15 +82,25 @@ class ProductHelper
         $product->save();
     }
 
+
+    private function sortVariantId(string $productVariantId = '') {
+        $extract = explode(',', $productVariantId);
+        $extract = array_map('trim', $extract);
+        sort($extract, SORT_NUMERIC);
+        $newArray = implode(',', $extract);
+        return $newArray;
+    }
     public function createVariantArray(array $data = [], $product_id): array {
         $variants = [];
         foreach ($data['variants'] as $value) {
             if (isset($value['sku'])) {
+                $vId = $value['code'] ?? null;
+                $productVariantId = $this->sortVariantId($vId);
                 $variant = [
                     'product_id' => $product_id, 
-                    'code' => $value['code'] ?? null,
+                    'code' => $productVariantId ?? null,
                     'quantity' => $value['quantity'] ?? '0',
-                    'name' => 'default',
+                    'name' => str_replace(', ', ' ', $value['name']),
                     'sku' => $value['sku'],
                     'price' => $value['price'] ?? null,
                     'slug' => $value['slug'] ?? null,
@@ -105,6 +112,7 @@ class ProductHelper
         return $variants;
     }
 
+   
     public static function getValueByAttribute($attributeId) {
         return AttributeValue::where('attribute_id', $attributeId)->get();
     }
@@ -112,5 +120,48 @@ class ProductHelper
     public function getVariantByProduct($productId){
         return ProductVariant::where('product_id', $productId)->get();
     }
-     
+    public function getAttribute($productDetail)
+    {
+        $attributes = [];
+        $attributeData = '';
+        if ($productDetail && isset($productDetail->attribute)) {
+            $attributeData = json_decode($productDetail->attribute, true);
+        }
+        
+        $attributeIds = array_keys($attributeData) ?? '';
+        $attributeValueIds = collect($attributeData)->flatten()->unique()->values();
+
+        $attributesList = Attribute::whereIn('id', $attributeIds)->get()->toArray();
+
+        $attributeValuesList = AttributeValue::whereIn('id', $attributeValueIds)->get()->groupBy('attribute_id');
+
+        foreach ($attributeData as $attributeId => $attributeValueIds) {
+            $attributeName = '';
+            foreach ($attributesList as $attribute) {
+                if ($attribute['id'] == $attributeId) {
+                    $attributeName = $attribute['name'];
+                    break;
+                }
+            }
+
+            $attributeValues = [];
+            foreach ($attributeValueIds as $valueId) {
+                if (isset($attributeValuesList[$attributeId])) {
+                    foreach ($attributeValuesList[$attributeId] as $value) {
+                        if ($value['id'] == $valueId) {
+                            $attributeValues[] = $value;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            $attributes[] = [
+                'name' => $attributeName,
+                'values' => $attributeValues,
+            ];
+        }
+
+        return $attributes;
+    }
 }

@@ -30,9 +30,16 @@ class ProductVariant extends Model
         'image' => 'json'
     ];
     
-    public function attributeValues()
+    public function attributes()
     {
-        return $this->belongsToMany(AttributeValue::class, 'product_variant_attribute_value', 'product_variant_id', 'attribute_value_id');
+        return $this->belongsToMany(Attribute::class, 'product_variant_attribute', 'product_variant_id', 'attribute_id');
+    }
+
+    public static function findVariant($code, $productId){
+        return self::where([
+            'code' => $code,
+            'product_id' => $productId
+        ])->first();
     }
     
 }

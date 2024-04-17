@@ -39,7 +39,10 @@ class Product extends Model
         'attribute_catalogue',
         'attribute'
     ];
- 
+    
+    protected $cast = [
+        'attribute' => 'json'
+    ];
     
     public function category()
     {

@@ -91,6 +91,9 @@ Route::get('get-product-list', 'App\Http\Controllers\ProductController@getProduc
 
 Route::match(['get','post'],'/filter','App\Http\Controllers\FrontendController@productFilter')->name('shop.filter');
 
+//Load Variant
+Route::get('product/loadVariant', 'App\Http\Controllers\ProductController@loadVariant')->name('product.loadVariant');
+
 Route::get('/product', function () {
     return view('frontend.pages.product_detail');
 });

@@ -85,15 +85,12 @@
                                 <ul class="d-flex justify-content-end list-unstyled">
                                     <li class="pe-3 nav-item dropdown">
                                         <a  href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                          <svg class="user">
+                                          <svg class="user tw-w-6 tw-h-6">
                                             <use xlink:href="#user"></use>
                                           </svg>
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                                          
                                           <li><a class="dropdown-item" href="{{route('profile')}}"><span class="small-text" style="font-weight: 600">{{ $defaultAddress->name ?? $user->name}}</span></a></li>
-
                                           <li><a class="dropdown-item" href="{{route('user.logout')}}" id="log-out"><span class="small-text">Đăng xuất</span></a></li>
                                         </ul>
                                       </li>
@@ -101,7 +98,7 @@
 
                                     <li class="pe-3">
                                         <a href="{{route('checkout')}}">
-                                            <svg class="cart">
+                                            <svg class="cart tw-w-6 tw-h-6">
                                                  <use xlink:href="#cart"></use>
                                             </svg>
                                             <span class="total-count">{{Helper::cartCount()}}</span>
