@@ -19,12 +19,13 @@
                         <label>{{ __('Email') }}</label>
                         <input class="form-control" type="text" name="address_email" required="required">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group tw-flex tw-flex-col">
                         <label>{{ __('Gender') }}</label>
-                        <select class="form-control" type="text" name="gender" >
-                            <option id="male" selected value="{{ \App\Models\CustomerAddress::GENDER_MALE }}">{{ __('Male') }}</option>
+                        <select class="tw-h-10 tw-rounded-md tw-border-gray-400" type="text" name="gender">
+                            <option id="male" value="{{ \App\Models\CustomerAddress::GENDER_MALE }}" selected>{{ __('Male') }}</option>
                             <option id="female" value="{{ \App\Models\CustomerAddress::GENDER_FEMALE }}">{{ __('Female') }}</option>
                         </select>
+                        
                     </div>
                     <div class="form-group">
                         <label>{{ __('Phone') }}</label>
