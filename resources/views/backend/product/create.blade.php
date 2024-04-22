@@ -92,6 +92,14 @@
                     <span class="text-danger">{{$message}}</span>
                     @enderror
                 </div>
+                <div class="form-group">
+                    <label for="stock" class="col-form-label">{{__('Stock')}}</label>
+                    <input id="inputStock" type="number" name="stock" required placeholder="{{__('Enter Stock')}}"
+                            value="" class="form-control">
+                    @error('stock')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
                 
                 <div class="form-group">
                     <label for="inputPhoto" class="col-form-label">Thumbnail</label>

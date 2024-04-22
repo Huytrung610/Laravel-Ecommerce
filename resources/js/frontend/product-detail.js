@@ -70,6 +70,7 @@ function handleAttribute(){
             attribute_id.push(_this.attr('data-attributevalueid'))
         }
     })
+    $('.attribute_value_id--hidden').val(attribute_id)
     $('.attribute').each(function(){
         if($(this).find('.choose-attribute.active').length === 0 ){
             flag =  false;

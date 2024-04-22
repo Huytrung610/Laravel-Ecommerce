@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cart extends Model
 {
-    protected $fillable = ['user_id', 'product_id', 'order_id', 'quantity', 'amount', 'price', 'status'];
+    protected $fillable = ['user_id', 'product_id', 'code_variant', 'order_id', 'quantity', 'amount', 'price', 'status'];
 
-    public function product_attr(){
-        return $this->belongsTo(Attribute::class, 'product_id');
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 
     public function order()
@@ -21,4 +22,11 @@ class Cart extends Model
     public function getQtyByCart($productId, $order_id){
         return $this->where('product_id', $productId)->where('order_id', $order_id)->value('quantity');
     }
+
+    // Trong model Cart
+    public function productVariant()
+    {
+        return $this->belongsTo(ProductVariant::class, 'code_variant', 'code');
+    }
+
 }

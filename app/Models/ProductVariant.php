@@ -41,5 +41,11 @@ class ProductVariant extends Model
             'product_id' => $productId
         ])->first();
     }
+
+    public function getPrice()
+    {
+        $originalPrice = $this->price ?? 0;
+        return $originalPrice;
+    }
     
 }

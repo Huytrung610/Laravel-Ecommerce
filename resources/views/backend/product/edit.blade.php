@@ -86,7 +86,7 @@
                 </select>
             </div>
             
-            <div class="form-group category-type">{{$product->photo}}
+            <div class="form-group category-type">
                 <label for="category_id" class="col-form-label">{{ __('Category Type') }}<span class="text-danger">*</span></label>
                 <select name="category_id" id="product-target" class="form-control categories-product" multiple>
                     @foreach($parentCategories as $parentCategory)
@@ -102,7 +102,22 @@
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
-
+            <div class="form-group">
+                <label for="price" class="col-form-label">{{__('Price')}}</label>
+                <input id="inputPrice" type="text" name="price" placeholder="{{__('Enter Price')}}"
+                        value="{{$product->price}}" class="form-control">
+                @error('price')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="stock" class="col-form-label">{{__('Stock')}}</label>
+                <input id="inputStock" type="number" name="stock" required placeholder="{{__('Enter stock')}}"
+                        value="{{$product->stock}}" class="form-control">
+                @error('stock')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
             <div class="form-group">
                 <label for="inputPhoto" class="col-form-label">Thumbnail</label>
                 <div class="input-group">
@@ -119,14 +134,6 @@
                     </div>
                 </div>
                 @error('photo')
-                <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="price" class="col-form-label">{{__('Price')}}</label>
-                <input id="inputPrice" type="text" name="price" placeholder="{{__('Enter Price')}}"
-                        value="{{$product->price}}" class="form-control">
-                @error('price')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>

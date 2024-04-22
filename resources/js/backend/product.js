@@ -86,7 +86,6 @@ function setupProductVariant() {
         let code = $('input[name="code"]').val();
         let productId = $('input[name="product_id"]').val();
         let isChecked = $(this).is(':checked');
-        let _token = $('meta[name="csrf-token"]').attr('content');
 
         if (price == '' || code == '') {
             alert('Please fill in the price and product code before activating the variation.');

@@ -53,6 +53,10 @@ class ProductHelper
         return $title;
     }
 
+    public function combineNameProduct(){
+        
+    }
+
     public function formatPrice($productPrice){
        return number_format($productPrice, 0, ',', '.');
     }
