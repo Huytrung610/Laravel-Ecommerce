@@ -24,6 +24,7 @@ class Product extends Model
 
     protected $fillable = [
         'title',
+        'stock',
         'slug',
         'summary',
         'description',
@@ -52,13 +53,20 @@ class Product extends Model
     {
         return $this->belongsTo(Brand::class);
     }
-    // public function variants()
-    // {
-    //     return $this->hasMany(ProductVariant::class, 'product_variant_attribute_value', 'product_id', 'product_variant_id');
-    // }
- 
+  
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
 
     public function product_variants(){
         return $this->hasMany(ProductVariant::class, 'product_id', 'id');
+    }
+
+    
+    public function getPrice()
+    {
+        $originalPrice = $this->price ?? 0;
+        return $originalPrice;
     }
 }

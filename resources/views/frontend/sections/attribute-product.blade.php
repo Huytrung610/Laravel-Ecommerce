@@ -2,7 +2,7 @@
     $attributeQueryString = explode(',', request()->get('attribute_id'));
 @endphp
 <div class="swatch-option-container tw-flex tw-flex-col tw-gap-4 tw-border-b tw-pb-5 tw-border-gray-300">
-    @if(!is_null($productDetail->attributes))
+    @if($productDetail->has_variants != 0 && !is_null($productDetail->attributes))
         @foreach ($productDetail->attributes as $attribute)
             <div class="swatch-option-wrapper attribute tw-flex tw-gap-5">
                 <div class="swatch-title tw-flex tw-items-center">
@@ -30,3 +30,4 @@
     @endif  
 </div>
 <input type="hidden" name="product_id" value={{$productDetail->id}}>
+<input type="hidden" name="code_product_variant" class="attribute_value_id--hidden">

@@ -8,11 +8,16 @@ use App\Models\Order;
 class Helper{
 
     public static function getAllProductFromCart($user_id=''){
-        if(Auth::check()){
-            if($user_id=="") $user_id=auth()->user()->id;
-            return Cart::with('product_attr')->where('user_id',$user_id)->where('order_id',null)->get();
-        }
-        else{
+        if(Auth::check()) {
+            if($user_id == "") $user_id = auth()->user()->id;
+            return Cart::with('product')
+                ->where('user_id', $user_id)
+                ->where('order_id', null)
+                ->whereHas('product', function($query) {
+                    $query->where('status', 'active');
+                })
+                ->get();
+        } else {
             return 0;
         }
     }

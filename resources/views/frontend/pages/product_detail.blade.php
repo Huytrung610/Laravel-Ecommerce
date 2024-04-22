@@ -63,14 +63,14 @@
                                       <div class="col stock-number text-dark stock-product"></div>
                                     </div>
                                 </div>
-                                <div class="stock-button-wrap pt-3">
+                                <div class="stock-button-wrap pt-3 tw-flex tw-gap-4">
                                     <div class="input-group product-qty">
                                         <span class="input-group-btn">
                                             <button type="button" class="quantity-left-minus btn btn-number"  data-type="minus" data-field="quant[1]">
                                             -
                                             </button>
                                         </span>
-                                        <input type="text" id="quantity" name="quant[1]" class="form-control input-number" data-min="1"
+                                        <input type="text" id="quantity" name="quant[1]" class="form-control input-number tw-text-2xl tw-font-bold" data-min="1"
                                             data-max="1000" value="1">
                                         <span class="input-group-btn">
                                             <button type="button" class="quantity-right-plus btn btn-number" data-type="plus" data-field="quant[1]">
@@ -79,15 +79,15 @@
                                         </span>
                                     </div>
                                     @guest
-                                        <div class="qty-button d-flex flex-wrap pt-3 btn-add-to-cart">
+                                        <div class="qty-button d-flex flex-wrap btn-add-to-cart">
                                             <button type="button" name="add-to-cart" class="btn btn-black btn-medium text-uppercase mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                 Add to cart
                                               </button>
                                         </div>
                                         @include('frontend.popup.sign-up-popup')
                                     @else
-                                        <div class="qty-button d-flex flex-wrap pt-3">
-                                            <button type="submit" name="add-to-cart" value="1269" class="btn btn-black btn-medium text-uppercase mt-3">Add to cart</button>
+                                        <div class="qty-button d-flex flex-wrap">
+                                            <button type="submit" name="add-to-cart" value="1269" class="btn btn-black text-uppercase">Add to cart</button>
                                         </div>
                                     @endguest
                                 </div>
@@ -97,6 +97,8 @@
                 </div>
             </div>
         </div>
+        <input type="hidden" class="attributeCatalogue" name="attribute" value={{ json_encode($productDetail->attributes) }}>
+        <input type="hidden" class="productSlug--hidden" name="product_variant_slug"  value="{{ url('product-detail/' . $productDetail->slug) }}">
     </form>
 </section>
 <section class="product-info-tabs">
@@ -128,8 +130,7 @@
         </div>
     </div>
 </section>
-<input type="hidden" class="attributeCatalogue" value={{ json_encode($productDetail->attributes) }}>
-<input type="hidden" class="productSlug--hidden" value="{{ url('product-detail/' . $productDetail->slug) }}">
+
 @push('after_scripts')
 <link href="{{ asset('css/product-detail.css') }}" rel="stylesheet">
 <script src="{{ mix('js/frontend/product-detail.js') }}"></script>
