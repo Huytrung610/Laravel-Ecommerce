@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use App\Models\GeneralSetting;
 use Illuminate\Support\Facades\View;
+use Doctrine\DBAL\Types\Type;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,9 @@ class AppServiceProvider extends ServiceProvider
     {
         $settings = GeneralSetting::first();
         View::share( 'settings', $settings );
+        if (!Type::hasType('enum')) {
+            Type::addType('enum', 'Doctrine\DBAL\Types\StringType');
+        }
         Paginator::useBootstrap();
     }
 }

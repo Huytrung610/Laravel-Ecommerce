@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductVariant;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Order;
@@ -12,9 +14,21 @@ use \Illuminate\Support\Str;
 use \Carbon\Carbon;
 use \App\Helpers\Api\DeliveryHelper;
 use App\Helpers\Api\CartHelper;
+use App\Classes\Vnpay;
+use App\Classes\Momo;
+
 
 class OrderController extends Controller
 {
+    protected $vnpay;
+    protected $momo;
+    public function __construct(
+        Vnpay $vnpay,
+        Momo $momo,
+    ){
+        $this->vnpay = $vnpay;
+        $this->momo = $momo;
+    }
     
     public function index(Request $request)
     {
@@ -61,37 +75,67 @@ class OrderController extends Controller
             $order = new Order();
             $this->checkAvailableToContinueProcess($currentUserId);
             $orderData = $this->prepareDataForOrder($currentUserId, $addressId);
-            // $orderData['remark'] = $request->get('remark');
-            $order->fill($orderData);
+            $response = $this->paymentMethod($request->payment_method, $orderData);
+            $order->fill($response['orderData']);
             $order->save();
 
             session()->forget('cart');
             Cart::where('user_id', $currentUserId)->where('order_id', null)->update(['order_id' => $order->id]);
 
-            return redirect()->route('checkout.success');
+            if (is_array($response) && isset($response[0]['errorCode']) && $response[0]['errorCode'] == 0) {
+                return redirect()->away($response[0]['url']);
+            } else {
+                $cartHelper = new CartHelper();
+                $dataCart = $cartHelper->getAllCartByOrder($response['orderData']);
+            }
+            // return redirect()->route('checkout.success');
+            return view('frontend.pages.checkout-success')->with('dataCart',$dataCart);
         } catch (\Exception $exception) {
             request()->session()->flash('error', $exception->getMessage());
             return back();
         }
     }
 
+    public function paymentMethod($orderMethod, $orderData){
+        switch ($orderMethod) {
+            case 'vnpay':
+                $orderData['payment_method'] = 'vnpay';
+                $respone = array(
+                    $this->vnpay->payment($orderData),
+                    'orderData' => $orderData
+                );
+                break;
+            case 'momo':
+                $respone = $this->momo->payment($orderData);
+                break;
+            case 'cod':
+                $orderData['payment_method'] = 'cod'; // to do
+                $orderData['payment_status'] = 'Unpaid'; // to do
+                $respone = array(
+                    'errorCode' => '1',
+                    'orderData' => $orderData
+                );
+                break;
+        }
+        return $respone;
+    }
+
     public function checkAvailableToContinueProcess($currentUserId, $orderId = null) {
         $allCartItem = Cart::where('user_id', $currentUserId)->where('order_id', $orderId)->get();
-        $productHelper = new ProductHelper();
         if ($allCartItem->count() <= 0) {
             throw new \Exception(__('No cart item available'));
         }
         foreach ($allCartItem as $item) {
             $productId = $item->getAttribute('product_id');
-            $product = Attribute::where('id', $productId)->first();
+
+            $product = $item->code_variant ? ProductVariant::where('product_id', $productId)->where('code',$item->code_variant)->first() : Product::where('id', $productId)->first();
             if (empty($product)) {
                 throw new \Exception(__('Product not found'));
             }
-            $currentStock = $product->getAttribute('stock');
-            $currentCartQty = $item->getAttribute('quantity');
-            $productSlug = $product->sku ?? '';
-            $productName =  $productHelper->convertSlugToTitle($productSlug);
+            $currentStock = $item->code_variant ? $product->quantity : $product->stock;
+            $currentCartQty = $item->quantity;
             
+            $productName = $item->code_variant ? $item->product->title.' '. $item->productVariant->name : $item->product->title;
             if (empty($currentStock) || $currentStock - $currentCartQty < 0) {
                 throw new \Exception(__('The quantity with '. $productName . 'is not enough to continue process'));
             }
@@ -110,13 +154,8 @@ class OrderController extends Controller
         $orderData['sub_total'] = $this->getTotalCartPrice($userId);
         $orderData['quantity'] = $this->countQuantityInCart($userId);
         $orderData['total_amount'] = $this->getTotalCartPrice($userId);
-        // Set Status order with delivery time setting
         $status = $this->prepareStatusOrder();
-
         $orderData['status'] = $status; //to do
-        $orderData['payment_method'] = 'cod'; // to do
-        $orderData['payment_status'] = 'Unpaid'; // to do
-
         return $orderData;
     }
     

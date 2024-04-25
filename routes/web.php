@@ -26,12 +26,10 @@ Auth::routes();
 
 Route::get('/','App\Http\Controllers\FrontendController@home')->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
-// Route::group(['prefix' => 'laravel-filemanager',  'middleware' => [config('backpack.base.middleware_key', 'admin')]], function () {
-//     \UniSharp\LaravelFilemanager\Lfm::routes();
-// });
-// Route::group(['prefix' => 'filemanager', 'middleware' => [config('backpack.base.middleware_key', 'admin')]], function () {
-//     \UniSharp\LaravelFilemanager\Lfm::routes();
-// });
+
+// VNPAY
+Route::get('return/vnpay'.config('apps.general.suffix'),'App\Http\Controllers\VnpayController@vnpay_return')->name('vnpay.vnpay_return');
+
 
 Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
     Route::get('/','App\Http\Controllers\HomeController@index')->name('user');

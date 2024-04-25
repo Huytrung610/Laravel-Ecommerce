@@ -41,12 +41,11 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
           </div>
         </div>
 
-        <form action="{{route('cart.update')}}" method="POST">
+        <form action="{{route('cart.update')}}" id="cart-products" method="POST">
           @csrf
-            {{-- @dd(Helper::getAllProductFromCart()) --}}
             @foreach(Helper::getAllProductFromCart() as $key=>$cart)
               <div class="cart-item border-top border-bottom ">
-                <div class="row align-items-center">
+                <div class="row align-items-center tw-py-5">
                     <div class="col-lg-5 col-md-4">
                       <div class="cart-info d-flex align-items-center mb-4 tw-flex-nowrap">
                           <div>
@@ -91,10 +90,13 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
                       <div class="row d-flex">
                           <div class="col-md-6">
                             <div class="qty-field">
-                                <div class="qty-number d-flex">
-                                  <label class="screen-reader-text" for="quantity_pro"></label>
-                                  <input type="number" id="quantity_pro1" class="qty tw-h-8 tw-w-2/3 tw-border tw-border-black"  step="1" min="1" max="9999" name="quant[{{$key}}]" value="{{$cart->quantity}}" title="quantity" size="4" pattern="[0-9]*" inputmode="numeric">
-                                  <input type="hidden" name="qty_id[]" value="{{$cart->id}}">
+                                <div class="qty-number input-group d-flex">
+                                  <div class="product-cart--qty">
+                                    <span class="minus bg-dark">-</span>
+                                    <input type="number" id="quantity_pro1" class="count" name="quant[{{$key}}]" value="{{$cart->quantity}}">
+                                    <input type="hidden" name="qty_id[{{$key}}]" value="{{$cart->id}}">
+                                    <span class="plus bg-dark">+</span>
+                                  </div>
                                 </div>
                                 <div class="regular-price"></div>
                                 <div class="quantity-output text-center bg-primary"></div>
@@ -107,28 +109,27 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
                           </div>
                       </div>
                     </div>
-                    <div class="col-lg-1 col-md-1" style="padding-left: 55px;">
+                    <div class="col-lg-1 col-md-1">
                       <div class="cart-remove">
                           <a href="{{route('cart-delete',$cart->id)}}">
                             <svg class="close" width="28px">
                                 <use xlink:href="#close"></use>
                             </svg>
                           </a>
-                          
                       </div>
                     </div>
                 </div>
               </div>
             @endforeach
-        <div class="cart-totals bg-grey padding-medium">
-          <div class="button-wrap">
-            <button type="submit" class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none">Update Cart</button>
-            <a href="{{route('home')}}" class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none">Continue Shopping</a>
+          <div class="cart-totals bg-grey padding-medium">
+            <div class="button-wrap">
+              <button type="submit" class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none">Update Cart</button>
+              <a href="{{route('home')}}" class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none">Continue Shopping</a>
+            </div>
           </div>
-        </div>
-      </form> 
+        </form> 
       </div>
-      <div class="cart-checkout col-lg-4" style="padding-left: 20px;" >
+      <div class="cart-checkout col-lg-4">
         <div class="cart-totals bg-grey padding-medium" style="padding-top: 0em; padding-bottom:0em;">
           <h4 class="display-7 text-uppercase text-dark pb-4 tw-font-bold" >CHECK OUT YOUR ORDER</h4>
           <form class="form" method="POST" action="{{route('cart.order')}}">
@@ -138,13 +139,11 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
               <div class="total-price ">
                 <table cellspacing="0" class="table text-uppercase">
                   <tbody>
-                    
                     <tr class="order-total pt-2 pb-2 border-bottom">
                       <th>Total:</th>
                       <td data-title="Sub total">
                         <span class="price-amount amount text-primary ps-5">
-                          <bdi>
-                            <span class="price-currency-symbol" data-price="{{Helper::totalCartPrice()}}"></span>{{ number_format(Helper::totalCartPrice(), 0, ',', '.') }}đ</bdi>
+                            <span class="price-currency-symbol tw-font-bold" data-price="{{Helper::totalCartPrice()}}">{{ number_format(Helper::totalCartPrice(), 0, ',', '.') }}đ</span>
                         </span>
                       </td>
                     </tr>
@@ -152,73 +151,23 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
                 </table>
               </div>
             </div>
+            @include('frontend.pages.checkout.payment-method')
 
-            <div class="form-group" style="padding-bottom: 20px">
-              <label for="payment-method">Payment Method</label>
-              <select id="payment-method" name="payment-method" class="form-control" required>
-                <option value="">Select payment method</option>
-                <option value="credit-card">Cash on Delivery</option>
-                <option value="paypal">VN Pay</option>
-              </select>
+            @include('frontend.pages.checkout.contact-infor')
+            <div class="checkout-btn--container tw-flex tw-justify-end"> 
+              <button class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none tw-mt-5" type="submit">Confirm Order</button>
             </div>
-
-            <div class="form-group contact-info-card">
-              <div class="card">
-                <div class="card-header">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span class="tw-font-bold">Contact Info</span>
-                    <a href="{{route('profile')}}" class="change_addressdefault change-link tw-text-black tw-text-yellow-700">Change</a>
-                  </div>
-                </div>
-                <div class="tw-grid tw-grid-cols-2 tw-p-2.5">
-                  <div class="">
-                      <label class="tw-font-bold tw-text-md">{{__('Name')}}</label>
-                      <p class="value contact-name contact-name-info tw-text-black" name="name">{{ $addressDefault ? $addressDefault->getAttribute('name') : null }}</p>
-                  </div>
-                  <div class="">
-                      <label class="tw-font-bold tw-text-md">{{__('Phone number')}}</label>
-                      <p class="contact-phone contact-phone-info tw-text-black" name="phone_number"> {{ $addressDefault ? $addressDefault->phone_number : null }}</p>
-                  </div>
-                  <div class="">
-                      <label class="tw-font-bold tw-text-md">{{__('Email')}}</label>
-                      <p class="value contact-email-info tw-text-black" name="email">{{ $addressDefault->email  ?? $user->getAttribute('email') }}</p>
-                  </div>
-                  <div class="">
-                      <label class="tw-font-bold tw-text-md">{{__('Address')}}</label>
-                      <div class="contact-address-info" name="detail_address"><p class="tw-text-black"> {{ $addressDefault ? $addressDefault->detail_address  : null }}</p></div>
-                  </div>
-                  <div class="" style="display:none">
-                    <label>{{__('Gender')}}</label>
-                    <div class="contact-address-info tw-text-black" name="gender"><p> {{ $addressDefault ? $addressDefault->getAttribute('gender')  : App\Models\CustomerAddress::GENDER_MALE }}</p></div>
-                </div>
-                  <div class="row" style="display:none">
-                    <div class="col-lg-6 col-md-6 col-12">
-                        <div class="form-group">
-                            <label>{{__('Address ID')}}<span>*</span></label>
-                            <input type="text" name="address_id" placeholder=""
-                                    class="input-address-id"
-                                    value="{{ $addressDefault ? $addressDefault->id : null }}">
-                            @error('address_id')
-                            <span class='text-danger'>{{$message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-
-
-              </div>
-            </div>
-          
-            <button class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none" type="submit">Confirm Order</button>
-            
           </form>
         </div>
         </div>
       </div>
-
     </div>
   </div>
 </section> 
+@push('after_scripts')
+  <link href="{{ asset('css/checkout.css') }}" rel="stylesheet">
+  <script src="{{ mix('js/frontend/checkout.js') }}"></script>
+  
+@endpush
 
-    {{-- thiếu dòng @endsection cho section maincontent sẽ bị mất head --}}
 @endsection 
