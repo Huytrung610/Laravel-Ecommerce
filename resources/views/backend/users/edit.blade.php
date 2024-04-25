@@ -29,7 +29,7 @@
         <div class="card-header card-tabs d-flex">
             <div id="user" class="tab-header" style="border: 1px solid #ccc">{{ __('User Info') }}</div>
             @if(isset($user->role) && $user->role != \App\Models\User::ROLE_TYPE_ADMIN)
-                <div id="address" class="tab-header" style="border: 1px solid #ccc" >{{ __('Address Info') }}</div>
+                <div id="address" class="tab-header tw-border tw-border-[#ccc]">{{ __('Address Info') }}</div>
             @endif
         </div>
         <div class="card-body" id="tab-user">

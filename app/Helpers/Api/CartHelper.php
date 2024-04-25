@@ -54,5 +54,45 @@ class CartHelper
             }
         }
     }
+
+    function execPostRequest($url, $data)
+    {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($data))
+        );
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        //execute post
+        $result = curl_exec($ch);
+        //close connection
+        curl_close($ch);
+        return $result;
+    }
+
+    public function getAllCartByOrder($order){
+        $allInfoOrder = [];
+        $orderId = Order::where('order_number', $order['order_number'])->first();
+        $cartData = Cart::where('order_id', $orderId->id)->get();
+        $allInfoOrder['cart-shipping'] = $orderId;
+        $allInfoOrder['cart-products'] = $this->getAllProductFromCartOrder($cartData);
+        
+        return $allInfoOrder;
+    }
+
+    public function getAllProductFromCartOrder($cartOrderArray){
+        $cartOrderArr = [];
+        foreach($cartOrderArray as $cartOrd){
+            $dataCart = Cart::with('product')
+            ->where('id', $cartOrd->id)
+            ->first();
+            $cartOrderArr[] = $dataCart;
+        }
+        return $cartOrderArr;
+    }
 }
 

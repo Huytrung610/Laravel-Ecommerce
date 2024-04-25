@@ -128,7 +128,6 @@
                         <div class="tab-pane" id="address">
                             <h6>My Address</h6>
                             <hr>
-                            
                                 <div class="form-group">
                                     <button class="btn btn-info" type="button" onclick="showAddressCard()">Thêm địa chỉ nhận hàng</button>
                                 </div>
@@ -140,16 +139,16 @@
                                         <div class="card-body">
                                             <div class="form-group">
                                                 <label for="full-name">Họ và tên:</label>
-                                                <input type="text" class="form-control" name="address_name" id="full-name" placeholder="Nhập họ và tên">
+                                                <input type="text" class="form-control" name="name" id="full-name" placeholder="Nhập họ và tên">
                                                 <div class="invalid-feedback" id="full-name-error"></div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="phone">Số điện thoại nhận hàng:</label>
-                                                <input type="tel" class="form-control" id="phone" name="address_phone_number" placeholder="Nhập số điện thoại" title="Vui lòng nhập số điện thoại hợp lệ (từ 10 đến 12 chữ số)" required>
+                                                <input type="tel" class="form-control" id="phone" name="phone_number" placeholder="Nhập số điện thoại" title="Vui lòng nhập số điện thoại hợp lệ (từ 10 đến 12 chữ số)" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="email">Email</label>
-                                                <input type="email" class="form-control" id="address_email" name="address_email" placeholder="Nhập email" title="Vui lòng nhập email" required>
+                                                <input type="email" class="form-control" id="address_email" name="email" placeholder="Nhập email" title="Vui lòng nhập email" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="address-detail">Địa chỉ cụ thể:</label>
