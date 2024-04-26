@@ -79,12 +79,13 @@ class OrderController extends Controller
             $order->fill($response['orderData']);
             $order->save();
 
-            session()->forget('cart');
-            Cart::where('user_id', $currentUserId)->where('order_id', null)->update(['order_id' => $order->id]);
+            
 
             if (is_array($response) && isset($response[0]['errorCode']) && $response[0]['errorCode'] == 0) {
                 return redirect()->away($response[0]['url']);
             } else {
+                session()->forget('cart');
+                Cart::where('user_id', $currentUserId)->where('order_id', null)->update(['order_id' => $order->id]);
                 $cartHelper = new CartHelper();
                 $dataCart = $cartHelper->getAllCartByOrder($response['orderData']);
             }
@@ -100,6 +101,7 @@ class OrderController extends Controller
         switch ($orderMethod) {
             case 'vnpay':
                 $orderData['payment_method'] = 'vnpay';
+                $orderData['payment_status'] = 'unpaid';
                 $respone = array(
                     $this->vnpay->payment($orderData),
                     'orderData' => $orderData

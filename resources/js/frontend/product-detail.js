@@ -89,7 +89,7 @@ function handleAttribute(){
             dataType: 'json',
     
             success: function (response) {
-                let album = response.variant.image.split(',')
+                let album = response.variant.image.split(',') ?? response.variant.image
                 setupVariantPrice(response)
                 setupVariantUrl(response, attribute_id)
                 setupVariantGallery(album)

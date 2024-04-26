@@ -16,7 +16,7 @@ class Vnpay{
         $vnp_HashSecret = "ORLRANXPCRDEEDUVUDAHCBWSSPHTYMPD"; //Chuỗi bí mật
 
         $vnp_TxnRef = $orderData['order_number']; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
-        $vnp_OrderInfo =  'Thanh toán đơn hàng '.$vnp_TxnRef. ' qua MoMo';
+        $vnp_OrderInfo =  'Thanh toán đơn hàng '.$vnp_TxnRef. ' qua VNPAY';
         $vnp_OrderType = 'billpayment';
         $vnp_Amount = intval($orderData['total_amount']) * 100;
         $vnp_Locale = 'vn';

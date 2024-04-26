@@ -3,24 +3,39 @@
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Order;
+use App\Models\ProductVariant;
 
 // use Auth;
 class Helper{
 
-    public static function getAllProductFromCart($user_id=''){
+    public static function getAllProductFromCart($user_id='')
+    {
         if(Auth::check()) {
             if($user_id == "") $user_id = auth()->user()->id;
-            return Cart::with('product')
-                ->where('user_id', $user_id)
+            
+            $carts = Cart::where('user_id', $user_id)
                 ->where('order_id', null)
-                ->whereHas('product', function($query) {
-                    $query->where('status', 'active');
-                })
+                ->with('product')
                 ->get();
+
+            foreach ($carts as $cart) {
+                if ($cart->code_variant) {
+                    $productVariant = ProductVariant::where('code', $cart->code_variant)
+                        ->where('product_id', $cart->product_id)
+                        ->first();
+
+                    if ($productVariant) {
+                        $cart->product_variant = $productVariant;
+                    }
+                }
+            }
+
+            return $carts;
         } else {
             return 0;
         }
     }
+
 
     public static function totalCartPrice($user_id=''){
         if(Auth::check()){
