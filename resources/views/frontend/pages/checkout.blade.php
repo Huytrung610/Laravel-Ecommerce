@@ -40,7 +40,7 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
             <h3 class="cart-title col-lg-4 pb-3">Price</h3>
           </div>
         </div>
-
+        
         <form action="{{route('cart.update')}}" id="cart-products" method="POST">
           @csrf
             @foreach(Helper::getAllProductFromCart() as $key=>$cart)
@@ -48,42 +48,37 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
                 <div class="row align-items-center tw-py-5">
                     <div class="col-lg-5 col-md-4">
                       <div class="cart-info d-flex align-items-center mb-4 tw-flex-nowrap">
-                          <div>
-                            <div class="card-image">
-                              @php
-                                  $firstImagePath = asset('images/placeholder.png');
-                                  if($cart->code_variant && !empty($cart->productVariant->image)){
-                                      $imagePaths = explode(',', $cart->productVariant->image);
-                                      $firstImagePath = trim($imagePaths[0]);
-                                  } elseif(!empty($cart->product->photo)) {
-                                      $firstImagePath = $cart->product->photo;
-                                  }
-                              @endphp
-                          
-                                <img src="{{$firstImagePath}}" alt="$firstImagePath" class="img-fluid tw-w-[100px] tw-h-[120px]">
+                        <div class="card-image">
+                          @php
+                              $firstImagePath = asset('images/placeholder.png');
+                              if (!empty($cart->product_variant->image)) {
+                                  $imagePaths = explode(',', $cart->product_variant->image) ?? $cart->product_variant->image;
+                                  $firstImagePath = asset($imagePaths[0]);
+                              } elseif (!empty($cart->product->photo)) {
+                                  $imagePaths = explode(',', $cart->product->photo);
+                                  $firstImagePath = asset($imagePaths[0]);
+                              }
+                          @endphp
+                          <img src="{{$firstImagePath}}" alt="{{$firstImagePath}}" class="img-fluid tw-w-[100px] tw-h-[120px]">
+                      </div>
+                        <div class="card-detail ps-3">
+                            <h3 class="card-title">
+                                @php
+                                    $productHelper = new \App\Helpers\Backend\ProductHelper();
+                                    if($cart->code_variant){
+                                        $productName = $cart->product->title .' '. $cart->product_variant->name;
+                                        $productPrice =  $productHelper->formatPrice($cart->product_variant->price);
+                                    } else {
+                                        $productName = $cart->product->title;
+                                        $productPrice =  $productHelper->formatPrice($cart->product->price);
+                                    } 
+                                @endphp
+                                <a href="{{ route('product-detail', ['slug' => $cart->product->slug]) }}" class="tw-text-base">{{$productName}}</a>
+                            </h3>
+                            <div class="card-price">
+                                <span class="money text-primary">{{$productPrice}}đ</span>
                             </div>
-                          </div>
-                          <div>
-                            <div class="card-detail ps-3">
-                                <h3 class="card-title">
-                                  @php
-                                  $productHelper = new \App\Helpers\Backend\ProductHelper();
-                                  if($cart->code_variant){
-                                    $productName = $cart->product->title .' '. $cart->productVariant->name;
-                                    $productPrice =  $productHelper->formatPrice($cart->productVariant->price);
-                                  } else {
-                                    $productName = $cart->product->title;
-                                    $productPrice =  $productHelper->formatPrice($cart->product->price);
-                                  } 
-                                    
-                                  @endphp
-                                  <a href="{{ route('product-detail', ['slug' => $cart->product->slug]) }}" class="tw-text-base">{{$productName}}</a>
-                                </h3>
-                                <div class="card-price">
-                                  <span class="money text-primary">{{$productPrice}}đ</span>
-                                </div>
-                            </div>
-                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="col-lg-5 col-md-6">

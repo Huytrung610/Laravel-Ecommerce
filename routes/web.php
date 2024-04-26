@@ -29,6 +29,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 
 // VNPAY
 Route::get('return/vnpay'.config('apps.general.suffix'),'App\Http\Controllers\VnpayController@vnpay_return')->name('vnpay.vnpay_return');
+Route::get('return/vnpay_ipn'.config('apps.general.suffix'),'App\Http\Controllers\VnpayController@vnpay_ipn')->name('vnpay.vnpay_ipn');
 
 
 Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
@@ -57,8 +58,6 @@ Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
     Route::post('cart/order','App\Http\Controllers\OrderController@store')->name('cart.order');
     Route::get('/checkout-success', 'App\Http\Controllers\CartController@showSuccessCheckout')->name('checkout.success');
 
-    // Checkout section
-    Route::get('/checkout','App\Http\Controllers\CartController@checkout')->name('checkout');
 
     //  Order
     Route::get('/order',"HomeController@orderIndex")->name('user.order.index');
