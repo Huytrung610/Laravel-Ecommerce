@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Rules\MatchOldPassword;
 use Hash;
 use App\Models\Category;
+use Illuminate\Support\Facades\Validator;
+
 
 class HomeController extends Controller
 {
@@ -32,16 +34,30 @@ class HomeController extends Controller
 
     public function changePasswordStore(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'current_password' => ['required', new MatchOldPassword],
             'new_password' => ['required'],
             'new_confirm_password' => ['same:new_password'],
         ]);
 
-        User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
+        if ($request->current_password === $request->new_password) {
+            $validator->errors()->add('new_password', 'The new password must be different from the current password.');
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+    
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
-        return redirect()->back()->with('success','Password successfully changed');
+        try {
+            User::find(auth()->user()->id)->update(['password' => Hash::make($request->new_password)]);
+            
+            return redirect()->back()->with('success', 'Password successfully changed');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
+
     
 
     public function updateProfile(Request $request){

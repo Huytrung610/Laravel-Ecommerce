@@ -1,0 +1,12 @@
+.user-name {
+    .item-user {
+        &:hover {
+            cursor: pointer;
+            color: #3B82F6;
+        }
+       &.active {
+        border-left: 4px solid #3B82F6;
+        color: #3B82F6;
+       }
+    }
+}
