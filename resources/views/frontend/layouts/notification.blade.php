@@ -20,9 +20,12 @@
     </div>
 @endif
 
-@if(session('error'))
-    <div id="error-alert" class="alert alert-danger alert-dismissable fade show text-center">
-        {{-- <button class="close" data-dismiss="alert" aria-label="Close">×</button> --}}
-        {{session('error')}}
+@if ($errors->any())
+    <div class="alert alert-danger text-center">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
     </div>
 @endif

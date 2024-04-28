@@ -133,6 +133,6 @@ class FrontendController extends Controller
           $currentCustomer = auth()->user()->id;
           $orderList = $order->getOrderListByUser($currentCustomer);
   
-          return view('frontend.pages.profile', ['addressList' => $address, 'defaultAddress' => $defaultAddress,'user' =>$user, 'orderList' => $orderList]);
+          return view('frontend.pages.profile', ['addressList' => $address, 'defaultAddress' => $defaultAddress,'user' => $user, 'orderList' => $orderList]);
     }
 }

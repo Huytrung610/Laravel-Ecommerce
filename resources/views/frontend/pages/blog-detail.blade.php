@@ -36,36 +36,36 @@
                                             <li>
                                                 <a href="#">
                                                     <svg class="facebook">
-                            <use xlink:href="#facebook"></use>
-                          </svg>
+                                                        <use xlink:href="#facebook"></use>
+                                                    </svg>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#">
                                                     <svg class="instagram">
-                            <use xlink:href="#instagram"></use>
-                          </svg>
+                                                        <use xlink:href="#instagram"></use>
+                                                    </svg>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#">
                                                     <svg class="twitter">
-                            <use xlink:href="#twitter"></use>
-                          </svg>
+                                                        <use xlink:href="#twitter"></use>
+                                                    </svg>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#">
                                                     <svg class="linkedin">
-                            <use xlink:href="#linkedin"></use>
-                          </svg>
+                                                        <use xlink:href="#linkedin"></use>
+                                                    </svg>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#">
                                                     <svg class="youtube">
-                            <use xlink:href="#youtube"></use>
-                          </svg>
+                                                        <use xlink:href="#youtube"></use>
+                                                    </svg>
                                                 </a>
                                             </li>
                                         </ul>
@@ -97,9 +97,6 @@
     </div>
 </div>
 
-
-
-{{-- thiếu dòng @endsection cho section maincontent sẽ bị mất head --}}
 @endsection 
 
 
