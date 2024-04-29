@@ -12,12 +12,12 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label>{{ __('Name') }}</label>
-                        <input class="form-control" type="text" name="address_name" required="required">
+                        <input class="form-control" type="text" name="name" required="required">
                     </div>
                     
                     <div class="form-group">
                         <label>{{ __('Email') }}</label>
-                        <input class="form-control" type="text" name="address_email" required="required">
+                        <input class="form-control" type="text" name="email" required="required">
                     </div>
                     <div class="form-group tw-flex tw-flex-col">
                         <label>{{ __('Gender') }}</label>
@@ -29,11 +29,11 @@
                     </div>
                     <div class="form-group">
                         <label>{{ __('Phone') }}</label>
-                        <input class="form-control" required="required" type="text" name="address_phone_number">
+                        <input class="form-control" required="required" type="text" name="phone_number">
                     </div>
                     <div class="form-group">
                         <label>{{ __('Detail Address') }}</label>
-                        <input class="form-control" type="text" name="address_detail" required="required">
+                        <input class="form-control" type="text" name="detail_address" required="required">
                     </div>
                    
                     <div class="form-group is_default tw-flex tw-align-center tw-gap-3">
