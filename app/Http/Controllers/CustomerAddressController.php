@@ -127,15 +127,13 @@ class CustomerAddressController extends Controller
         return redirect()->back()->with($flash['status'], $flash['message']);
     }
 
-
-
     public function prepareAddressDataModel($addressModel, $data) {
         $addressModel->user_id        = $data['user_id'] ?? null ;
-        $addressModel->name           = $data['address_name'] ?? '';
+        $addressModel->name           = $data['name'] ?? '';
         $addressModel->gender         = $data['gender'] ?? 0;
-        $addressModel->phone_number   = $data['address_phone_number'] ?? null;
-        $addressModel->email          = $data['address_email'] ?? '';
-        $addressModel->detail_address = $data['address_detail'] ?? '';
+        $addressModel->phone_number   = $data['phone_number'] ?? null;
+        $addressModel->email          = $data['email'] ?? '';
+        $addressModel->detail_address = $data['detail_address'] ?? '';
         $addressModel->is_default     = $data['is_default'] ?? 0;
 
         $addressModel->save();
@@ -189,7 +187,7 @@ class CustomerAddressController extends Controller
     public function updateDefaultAddress(Request $request)
     {
 
-        $addressId = $request->input('address_id');
+        $addressId = $request->input('id');
         CustomerAddress::where('is_default', 1)->update(['is_default' => 0]);
         CustomerAddress::find($addressId)->update(['is_default' => 1]);
 

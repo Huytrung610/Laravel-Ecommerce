@@ -38,6 +38,7 @@ Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
     // Profile
     Route::get('/profile','App\Http\Controllers\FrontendController@Profile')->name('profile');
     Route::post('/update-profile','App\Http\Controllers\HomeController@updateProfile')->name('update.profile');
+    Route::post('customer-address/update/{id}', [App\Http\Controllers\CustomerAddressController::class, 'update'])->name('customer-address.update');
     Route::post('change-password', 'App\Http\Controllers\HomeController@changePasswordStore')->name('change.password');
 
     //Customer-address

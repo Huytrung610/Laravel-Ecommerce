@@ -152,7 +152,6 @@
     })
 
 
-
     $('.dltBtn').click(function(e){
         var form = $(this).closest('form');
 
@@ -185,10 +184,10 @@
                     contentType: false,
                     success: function(response){
                         console.log(response);
-                        $('form input[name=address_name]').val(response.addressInfo.name);
-                        $('form input[name=address_email]').val(response.addressInfo.email);
-                        $('form input[name=address_phone_number]').val(response.addressInfo.phone_number);
-                        $('form input[name=address_detail]').val(response.addressInfo.detail_address);
+                        $('form input[name=name]').val(response.addressInfo.name);
+                        $('form input[name=email]').val(response.addressInfo.email);
+                        $('form input[name=phone_number]').val(response.addressInfo.phone_number);
+                        $('form input[name=detail_address]').val(response.addressInfo.detail_address);
                         $('form input[name=gender]').val(response.addressInfo.gender);
                         $('form input[name=is_default]').val(response.addressInfo.is_default);
 
