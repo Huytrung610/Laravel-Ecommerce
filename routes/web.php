@@ -42,6 +42,7 @@ Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
     Route::post('change-password', 'App\Http\Controllers\HomeController@changePasswordStore')->name('change.password');
 
     //Customer-address
+    Route::delete('customer-address/destroy/{id}', [App\Http\Controllers\CustomerAddressController::class, 'destroy'])->name('customer-address.destroy');
     Route::post('address-create', 'App\Http\Controllers\CustomerAddressController@addNewAddress')->name('address.add');
     Route::post('update-default-address', 'App\Http\Controllers\CustomerAddressController@updateDefaultAddress')->name('update-default-address');
 

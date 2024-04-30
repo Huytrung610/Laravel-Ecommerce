@@ -3,7 +3,7 @@
         <button class="close" data-dismiss="alert" aria-label="Close">×</button>
         {{session('success')}}
     </div>
-@endif
+@endif  --}}
 
 
 @if(session('error'))
@@ -11,7 +11,7 @@
         <button class="close" data-dismiss="alert" aria-label="Close">×</button>
         {{session('error')}}
     </div>
-@endif --}}
+@endif 
 
 @if(session('success'))
     <div id="success-alert" class="alert alert-success alert-dismissable fade show text-center">
