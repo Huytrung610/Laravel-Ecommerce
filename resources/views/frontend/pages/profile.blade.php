@@ -20,7 +20,7 @@
                 <div class="greeting-user tw-flex tw-items-center tw-bg-blue-500 tw-gap-4 tw-p-2.5">
                     <img src="https://didongthongminh.vn/images/logo-user.svg" alt="avatar" class="img-responsive tw-w-11 tw-h-11">
                     <div class="name tw-text-lg tw-text-white">
-                        Hello, <span>{{$user->name ?? $defaultAddress->name}}</span>
+                        Hello, <span>{{ $user->name ?? $defaultAddress->name }}</span>
                     </div>
                 </div>
                 <ul class="nav flex-column nav-pills me-3" id="v-pills-member-tab" role="tablist" aria-orientation="vertical">
