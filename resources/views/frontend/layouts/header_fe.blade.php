@@ -83,25 +83,23 @@
                             @if(Auth::check())
                             <div class="user-items ">
                                 <ul class="d-flex justify-content-end list-unstyled">
-                                    <li class="pe-3 nav-item dropdown">
-                                        <a  href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                          <svg class="user tw-w-6 tw-h-6">
-                                            <use xlink:href="#user"></use>
-                                          </svg>
+                                    <li class="pe-3 nav-item dropdown tw-flex tw-items-center">
+                                        <a  href="{{route('profile')}}" >
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="tw-w-6 tw-h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                            </svg>
                                         </a>
-                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        {{-- <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                           <li><a class="dropdown-item" href="{{route('profile')}}"><span class="small-text tw-font-bold">{{ $user->name ?? $defaultAddress->name }}</span></a></li>
                                           <li><a class="dropdown-item" href="{{route('user.logout')}}" id="log-out"><span class="small-text">Đăng xuất</span></a></li>
-                                        </ul>
-                                      </li>
-                                      
-
-                                    <li class="pe-3">
-                                        <a href="{{route('checkout')}}">
-                                            <svg class="cart tw-w-6 tw-h-6">
-                                                 <use xlink:href="#cart"></use>
-                                            </svg>
-                                            <span class="total-count">{{Helper::cartCount()}}</span>
+                                        </ul> --}}
+                                    </li>
+                                    <li>
+                                        <a class="tw-flex tw-items-center" href="{{route('checkout')}}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="tw-w-6 tw-h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                              </svg>                                              
+                                            <span class="total-count tw-text-white tw-bg-black tw-rounded-full tw-px-[5px] tw-py-[2px] tw-text-[11px] tw-relative tw-top-[-8px] tw-right-[8px]">{{Helper::cartCount()}}</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -121,17 +119,6 @@
         li.pe-3 a {
             position: relative;
             display: inline-block;
-        }
-
-        li.pe-3 a .total-count {
-            position: absolute;
-            top: -13px;
-            right: -11px;
-            background-color: #FFFFFF;
-            color: black;
-            border-radius: 24px;
-            padding: 2px 5px;
-            font-size: 11px;
         }
     </style>
 </header>
