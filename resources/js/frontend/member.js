@@ -3,10 +3,13 @@ window.jQuery = $;
 window.$ = $;
 
 $(document).ready(function(){
+  
     HandleUpdateForm()
     HandleNewAddressForm()
     updateDefaultAddress()
     deleteAddress() 
+    showModalOrder()
+    hideModalOrder()
 })
 
 function HandleUpdateForm(){
@@ -68,7 +71,7 @@ function updateDefaultAddress() {
 }
 function deleteAddress() {
     $('.dlt-address--btn').click(function(e){
-        var form = $(this).closest('form');
+        let form = $(this).closest('form');
 
         e.preventDefault();
         swal({
@@ -85,6 +88,90 @@ function deleteAddress() {
             }
         });
     })
+}
+function showModalOrder(){
+    $('.order-detail-link').click(function(e) {
+        e.preventDefault();
+
+        let orderId = $(this).data('order-id');
+        let modalId = '#orderDetailModal-' + orderId;
+        loadOrderDetail(orderId);
+
+        $(modalId).modal('show'); 
+    });
+}
+function loadOrderDetail(orderId) {
+    $.ajax({
+        url: 'order-detail/' + orderId,
+        data : {
+            id: orderId,
+        },
+        type: 'GET',
+        success: function(response) {
+            let dataOrder = response.data
+            let dataProducts = response.cartProducts['cart-products'];
+            console.log(dataProducts);
+            $('#orderDetailModal-'+ orderId + ' .order_number').html(dataOrder.order_number) ?? '';
+            if(dataOrder.status == 'new'){
+                $('#orderDetailModal-'+ orderId +' .status').addClass('badge tw-capitalize tw-p-1 tw-bg-blue-500 tw-text-white')
+            }else if(dataOrder.status == 'process') {
+                $('#orderDetailModal-'+ orderId +' .status').addClass('badge tw-capitalize tw-p-1 tw-bg-yellow-400 tw-text-white')
+            }else if(dataOrder.status == 'delivered') {
+                $('#orderDetailModal-'+ orderId +' .status').addClass('badge tw-capitalize tw-p-1 tw-bg-green-400 tw-text-white')
+            } else {
+                $('#orderDetailModal-'+ orderId +' .status').addClass('badge tw-capitalize tw-p-1 tw-bg-red-500 tw-text-white')
+            }
+            $('#orderDetailModal-'+ orderId +' .status').html(dataOrder.status)?? '';
+            $('#orderDetailModal-'+ orderId +' .name').html(dataOrder.name) ?? '';
+            $('#orderDetailModal-'+ orderId +' .subTotalOrder').html(dataOrder.sub_total + ' vnd') ?? '';
+            $('#orderDetailModal-'+ orderId +' .delivery_date').html(dataOrder.delivery_date) ?? '';
+            $('#orderDetailModal-'+ orderId +' .payment_method').html(dataOrder.payment_method) ?? '';
+            $('#orderDetailModal-'+ orderId +' .phone').html(dataOrder.phone) ?? '';
+            $('#orderDetailModal-'+ orderId +' .email').html(dataOrder.email) ?? '';
+            $('#orderDetailModal-'+ orderId +' .detail_address').html(dataOrder.detail_address) ?? '';
+            appendProductOrder(dataProducts)
+        },
+        error: function(xhr, status, error) {
+            console.error('Error occurred while loading order detail:', error);
+        }
+    });
+}
+
+function appendProductOrder(dataProducts) {
+    let $orderItemProductsColumn = $('.order-item-products-column');
+    let $orderItemQuantiesColumn = $('.order-item-quanties-column');
+    let $orderItemPriceColumn = $('.order-item-prices-column');
+    let $orderItemTotalsColumn = $('.order-item-totals-column');
+    let domain = window.location.hostname;
+    let port = window.location.port;
+    if (port) {
+        domain += ":" + port;
+    }
+    $orderItemProductsColumn.empty();
+    $orderItemQuantiesColumn.empty();
+    $orderItemPriceColumn.empty();
+    $orderItemTotalsColumn.empty();
+
+    dataProducts.forEach(function(product) {
+        let productName = product.code_variant ?  product.product.title + ' ' + product.product_variant.name : product.product.title;
+        let quantity = product.quantity;
+        let priceProduct = product.code_variant ?  product.product_variant.price : product.product.price;
+        let totalProduct = product.amount;
+        let formattedPrice = parseFloat(priceProduct).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+        let formattedTotal = parseFloat(totalProduct).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+
+        $orderItemProductsColumn.append('<a href="http://' + domain + '/product-detail/' + product.product.slug + '"><span class="order-item">' + productName + '</span></a>');
+        $orderItemQuantiesColumn.append('<span class="order-item-quantity">' + quantity + '</span>');
+        $orderItemPriceColumn.append('<span class="order-item-price">' + formattedPrice + '</span>');
+        $orderItemTotalsColumn.append('<span class="order-item-total">' + formattedTotal + '</span>');
+    });
+}
+
+
+function hideModalOrder(){
+    $('.modal-footer button[data-dismiss="modal"]').click(function() {
+        $(this).closest('.modal').modal('hide'); 
+    });
 }
 
 

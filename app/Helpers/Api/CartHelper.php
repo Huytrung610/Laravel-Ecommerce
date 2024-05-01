@@ -15,6 +15,7 @@ use App\Models\Cart;
 use App\Models\CustomerAddress;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\ProductVariant;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\PersonalAccessToken;
@@ -90,6 +91,15 @@ class CartHelper
             $dataCart = Cart::with('product')
             ->where('id', $cartOrd->id)
             ->first();
+            if ($dataCart->code_variant) {
+                $productVariant = ProductVariant::where('code', $dataCart->code_variant)
+                    ->where('product_id', $dataCart->product_id)
+                    ->first();
+
+                if ($productVariant) {
+                    $dataCart->product_variant = $productVariant;
+                }
+            }
             $cartOrderArr[] = $dataCart;
         }
         return $cartOrderArr;

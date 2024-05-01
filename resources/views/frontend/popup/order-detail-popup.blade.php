@@ -5,96 +5,85 @@ $listAddress = $user->getAddress();
 $defaultAddress =$user->getAddressDefault() ?? $listAddress->first();
 
 @endphp
-  <div class="modal fade bd-example-modal-xl" id="orderDetailModal " tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-      <div class="modal-content">
-        <div class="modal-header" style="padding:1px;">
-          <h3 class="modal-title" id="exampleModalCenterTitle">Order Information</h3>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-  
-        <div class="modal-body">
-              <div class="container">
-                <div class="row">
-                  <div class="col">
-                    <p class="title"><strong>Order ID:</strong> 
-                        <span class="order_number"></span>
-                    </p>
-                    <p class="title"><strong>Delivery date:</strong> 
-                        <span class="delivery_date"></span>
-                    </p>
-                    <p class="title"><strong>Status:</strong> 
-                        <span class="status"></span>
-                    </p>
-                    <hr>
-                    <p class="title"><strong>Contact Info</strong> </p>
-                    <p class="subtitle"><strong>Name:</strong> 
-                        <span class="name">{{$order->name}}</span>
-                    </p>
-                    <p class="subtitle"><strong>Email:</strong>
-                         <span class="email"></span>
-                        </p>
-                    <p class="subtitle"><strong>Phone:</strong> 
-                        <span class="phone"></span>
-                    </p>
+<div class="modal modalOrder fade bs-example-modal-lg" id="orderDetailModal-{{ $order->id }}" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header" >
+        <h1 class="tw-text-2xl tw-font-bold">ORDER INFORMATION</h1>
+      </div>
+
+      <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-4 tw-flex tw-flex-col tw-gap-3">
+                <div class="order-detail--infor">
+                  <div class="tw-text-black"><strong>Order ID:</strong> 
+                    <span class="order_number tw-text-black tw-font-bold"></span>
                   </div>
-
-                  <div class="col">
-                    {{-- <p class="title"><strong>Order Item:</strong> </p>
-                    <div id="order_product">
-                          <p class="order-item">
-                            <span>iphone 14 pro</span>
-                        </p>
-                    </div> --}}
-                    <div class="row">
-                      <div class="col-8">
-                        <p class="title"><strong>Order Item:</strong> </p>
-                         <div id="order_product">
-                          <p class="order-item">
-                            <span>iphone 14 pro</span>
-                        </p>
-                        </div>
-                      </div>
-
-                      <div class="col-4">
-                        <p class="title"><strong>Quantity:</strong></p>
-                          <div id="order_product_quantity">
-                           <p class="order-item-quantity">
-                             <span>100 </span>
-                           </p>
-                         </div>
-                      </div>
-                    </div>
+                  <div class="tw-text-black"><strong>Delivery date:</strong> 
+                      <span class="delivery_date"></span>
                   </div>
-
-
+                  <div class="tw-text-black"><strong>Status:</strong> 
+                      <span class="status tw-text-black"></span>
+                  </div>
                 </div>
-      
-
-                <hr>
-      
-                <div class="row">
-                  <div class="col">
-                    <p class="title"><strong>Payment Method:</strong> 
-                        <span class="payment_method">{{$order->payment_method}}</span>
-                    </p>
+                <div class="order-detail-contact">
+                  <span class="title tw-text-black tw-text-lg"><strong>Contact Info</strong> </span>
+                  <div class="subtitle tw-text-black"><strong>Name:</strong> 
+                      <span class="name tw-text-black"></span>
                   </div>
-                  <div class="col">
-                    <p class="title"><strong>Shipping Address:</strong>
-                        <span class="detail_address">{{$order->detail_address}}</span>
-                    </p>
-                    
+                  <div class="subtitle tw-text-black"><strong>Email:</strong>
+                        <span class="email tw-text-black"></span>
+                      </div>
+                  <div class="subtitle tw-text-black"><strong>Phone:</strong> 
+                      <span class="phone tw-text-black"></span>
+                  </div>
+                  <div class="tw-text-black"><strong>Payment Method:</strong> 
+                    <span class="payment_method tw-capitalize"></span>
+                  </div>
+                  <div class="tw-text-black"><strong>Shipping Address:</strong>
+                    <span class="detail_address"></span>
                   </div>
                 </div>
               </div>
-        </div>
-  
-        <div class="modal-footer" style="border:0px;">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
+
+              <div class="col tw-flex tw-flex-col tw-gap-6">
+                <div class="row">
+                  <div class="col-6">
+                    <span class="tw-text-black"><strong>Order Item:</strong></span>
+                      <div class="order-item-products-column tw-text-black tw-flex tw-flex-col">
+                      </div>
+                  </div>
+                  <div class="col">
+                    <span class="tw-text-black"><strong>Quantity:</strong></span>
+                      <div class="order-item-quanties-column tw-text-black tw-flex tw-flex-col">
+                      </div>
+                  </div>
+                  <div class="col">
+                    <span class="tw-text-black"><strong>Price:</strong></span>
+                      <div class="order-item-prices-column tw-text-black tw-flex tw-flex-col">
+                      </div>
+                  </div>
+                  <div class="col">
+                    <span class="tw-text-black"><strong>Total:</strong></span>
+                      <div class="order-item-totals-column tw-text-black tw-flex tw-flex-col">
+                      </div>
+                  </div>
+                </div>
+                <div class="row tw-flex tw-justify-end tw-text-xl ">
+                  <div class="subTotalOrder-wrapper tw-bg-gray-300 tw-w-fit">
+                    <span class="tw-w-fit tw-text-black">Total amount :</span>
+                    <span class="subTotalOrder tw-w-fit tw-text-black tw-text-red-400"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> 
+      </div>
+      <div class="modal-footer" style="border:0px;">
+        <button type="button" class="btn tw-bg-gray-400 tw-text-white hover:tw-bg-gray-300" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
+</div>
   

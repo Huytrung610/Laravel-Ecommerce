@@ -267,33 +267,12 @@ class OrderController extends Controller
 
     public function showOrderDetail($id)
     {
-        $productHelper = new ProductHelper();
+        $cartHelper = new CartHelper();
         $order = Order::find($id);
-        $orderItems = $order->cart_info ?? [];
-        $listProductId = [];
-        foreach ($orderItems as $item){
-            $listProductId[] = $item['product_id'];
-        }
-        $listProductAttr = [];
-        $attributeModel = new Attribute();
-        $cartModel = new Cart();
-        foreach($listProductId as $productId){
-            $listProductAttr[] = $attributeModel->getSku($productId);
-        }
-        $listQtyCart = [];
-        foreach($listProductId as $productId){
-            $listQtyCart[] = $cartModel->getQtyByCart($productId,$id);
-        }
-        $listProductName = [];
-        foreach($listProductAttr as $productAttr){
-            $listProductName[] = $productHelper->convertSlugToTitle($productAttr);
-        }
-    
-        if (!$order) {
-            return response()->json(['error' => 'Order not found'], 404);
-        } 
+        $cartProducts = $cartHelper->getAllCartByOrder($order);
 
-        return response()->json(['data' => $order, 'listProductName' => $listProductName, 'listQtyCart'=> $listQtyCart]);
+       
+        return response()->json(['data' => $order, 'cartProducts' => $cartProducts]);
     }
 
     public function getOrderReceipt(Request $request)
