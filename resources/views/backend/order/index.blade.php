@@ -74,8 +74,8 @@
                                 <td>{{$order->quantity}}</td>
                                 <td>{{date_format($order->created_at, "Y/m/d")}}</td>
                                 <td>{{ $order->delivery_date ? \Illuminate\Support\Carbon::parse($order->delivery_date)->format("Y/m/d") : '' }}</td>
-                                <td>{{number_format($order->total_amount,2)}} vnd</td>
-                                <td>{{$order->payment_method}}</td>
+                                <td>{{number_format($order->total_amount,0)}}đ</td>
+                                <td class="tw-capitalize">{{$order->payment_method}}</td>
                                 <td>
                                     @if($order->status=='new')
                                         <span class="badge badge-primary">{{$order->status}}</span>
@@ -90,8 +90,8 @@
                                 <td>
                                     @if(empty($orderReceipt))
                                         <a href="{{route('order.show',$order->id)}}"
-                                           class="btn btn-warning btn-sm float-left mr-1"
-                                           style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
+                                           class="btn btn-warning btn-sm float-left mr-1 tw-h-[30px] tw-w-[30px] tw-rounded-full"
+                                            data-toggle="tooltip"
                                            title="view" data-placement="bottom"><i class="fas fa-eye wgt-order-show"></i></a>
                                     @else
                                         <a href="{{route('order.receipt.show',$order->id)}}"

@@ -123,7 +123,7 @@ function loadOrderDetail(orderId) {
             }
             $('#orderDetailModal-'+ orderId +' .status').html(dataOrder.status)?? '';
             $('#orderDetailModal-'+ orderId +' .name').html(dataOrder.name) ?? '';
-            $('#orderDetailModal-'+ orderId +' .subTotalOrder').html(dataOrder.sub_total + ' vnd') ?? '';
+            $('#orderDetailModal-'+ orderId +' .subTotalOrder').html(parseFloat(dataOrder.sub_total).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })) ?? '';
             $('#orderDetailModal-'+ orderId +' .delivery_date').html(dataOrder.delivery_date) ?? '';
             $('#orderDetailModal-'+ orderId +' .payment_method').html(dataOrder.payment_method) ?? '';
             $('#orderDetailModal-'+ orderId +' .phone').html(dataOrder.phone) ?? '';
