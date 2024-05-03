@@ -41,21 +41,57 @@ class CartHelper
             throw new \Exception(__('No cart item available'));
         }
         foreach ($allCartItem as $item) {
-            $productId = $item->getAttribute('product_id');
-            $product = Attribute::where('id', $productId)->first();
-            if (empty($product)) {
-                throw new \Exception(__('Product not found'));
-            }
-            $currentStock = $product->getAttribute('stock');
-            $currentCartQty = $item->getAttribute('quantity');
-            $productSku = $product->sku ?? '';
-            $productName = $productHelper->convertSlugToTitle($productSku);
-            if (empty($currentStock) || $currentStock - $currentCartQty < 0) {
-                throw new \Exception(__('The quantity with '. $productName . ' is not enough to continue process'));
+            $productId = $item->product_id;
+            $codeVariant = $item->code_variant;
+            
+            try {
+                $productInfo = $this->getProductInfo($productId, $codeVariant);
+                $productName = $productInfo['productName'];
+                $currentStock = $productInfo['currentStock'];
+    
+                $currentCartQty = $item->quantity;
+    
+                if ($currentStock - $currentCartQty < 0) {
+                    throw new \Exception(__('The quantity of ' . $productName . ' is not enough to continue processing'));
+                }
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
             }
         }
     }
 
+    public function getProductInfo($productId, $codeVariant = null)
+    {
+        if (!empty($codeVariant)) {
+            $product = ProductVariant::where('product_id', $productId)
+                                            ->where('code', $codeVariant)
+                                            ->with('product')
+                                            ->first();
+
+            $productName = $product->product->title . ' ' . $product->name;
+            $currentStock = $product->quantity;
+            if (!$product) {
+                throw new \Exception($productName . 'not found');
+            }
+
+            
+        } else {
+            $product = Product::find($productId);
+            $productName = $product->title;
+            $currentStock = $product->stock;
+            if (!$product) {
+                throw new \Exception($productName . 'not found');
+            }
+
+           
+        }
+
+        return [
+            'product' => $product,
+            'productName' => $productName,
+            'currentStock' => $currentStock
+        ];
+    }
     function execPostRequest($url, $data)
     {
         $ch = curl_init($url);

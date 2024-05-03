@@ -58,7 +58,7 @@
                                             {{$product->category->title ?? ''}}
                                         </sub>
                                     </td>
-                                <td>{{$product->price}}</td>
+                                <td>{{number_format($product->price,0)}}đ</td>
                         
                                 <td>
                                     @if($product->photo)

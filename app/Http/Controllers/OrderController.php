@@ -157,7 +157,7 @@ class OrderController extends Controller
         $orderData['quantity'] = $this->countQuantityInCart($userId);
         $orderData['total_amount'] = $this->getTotalCartPrice($userId);
         $status = $this->prepareStatusOrder();
-        $orderData['status'] = $status; //to do
+        $orderData['status'] = $status; 
         return $orderData;
     }
     
@@ -180,14 +180,15 @@ class OrderController extends Controller
 
         return $status;
 
-
     }
 
     public function show($id)
     {
         $order = Order::find($id);
         if ($order) {
-            return view('backend.order.show')->with('order', $order);
+            $cartHelper = new CartHelper();
+            $cartProducts = $cartHelper->getAllCartByOrder($order);
+            return view('backend.order.show')->with('order', $order)->with('cartProducts', $cartProducts);
         }
         request()->session()->flash('error', 'Order does not exist');
         return redirect()->back();
@@ -210,7 +211,9 @@ class OrderController extends Controller
         $order = Order::find($id);
 
         if ($order) {
-            return view('backend.order.show')->with('order', $order)->with('orderReceipt', Order::ORDER_RECEIPT);
+            $cartHelper = new CartHelper();
+            $cartProducts = $cartHelper->getAllCartByOrder($order);
+            return view('backend.order.show')->with('order', $order)->with('orderReceipt', Order::ORDER_RECEIPT)->with('cartProducts', $cartProducts);
         }
 
         request()->session()->flash('error', 'Order does not exist');
@@ -244,9 +247,14 @@ class OrderController extends Controller
 
             if ($request->get('status') == 'delivered') {
                 foreach ($order->cart as $cart) {
-                    $product = $cart->product_attr;
-                    $product->stock -= $cart->quantity;
-                    $product->save();
+                    $product = $helper->getProductInfo($cart->product_id, $cart->code_variant);
+                    if($cart->code_variant) {
+                        $product['product']->quantity = $product['currentStock'] - $cart->quantity;
+                    } else {
+                        $product['product']->stock = $product['currentStock'] - $cart->quantity;
+                    }
+
+                    $product['product']->save();
                 }
             }
             $data['delivery_date'] = $request->get('delivery_date');
@@ -298,6 +306,4 @@ class OrderController extends Controller
             ->with('orderReceipt', Order::ORDER_RECEIPT)
             ->with('totalAmount', $totalAmount);
     }
-
-
 }
