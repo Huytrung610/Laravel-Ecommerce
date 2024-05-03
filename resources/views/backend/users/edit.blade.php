@@ -124,6 +124,7 @@
 
 @push('after_scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script src="{{ mix('js/backend/user.js') }}"></script> 
     <script>
         $(document).ready(function () {
         $.ajaxSetup({
@@ -174,7 +175,7 @@
     $(document).on('click', '.edit_address', function(e){
                 e.preventDefault();
                 var id = $(this).attr('data-id');
-                $('.form-address-title').text('Edit Attribute');
+                $('.form-address-title').text('Edit Address Customer');
                 $('#form_address').attr('action', location.origin + '/admin/customer-address/update/' + id);
                 $.ajax({
                     type: 'GET',
