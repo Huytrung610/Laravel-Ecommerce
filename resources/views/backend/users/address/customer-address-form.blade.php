@@ -30,6 +30,7 @@
                     <div class="form-group">
                         <label>{{ __('Phone') }}</label>
                         <input class="form-control" required="required" type="text" name="phone_number">
+                        <span class="phone_error tw-hidden tw-text-red-400">Please enter a valid phone number</span>
                     </div>
                     <div class="form-group">
                         <label>{{ __('Detail Address') }}</label>
