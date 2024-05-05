@@ -56,3 +56,12 @@
     display: block;
 
 }
+
+
+.dataTables_length  > label {
+    display: flex;
+    flex-direction: column;
+}
+div.dataTables_wrapper div.dataTables_length  > label > select {
+    width: 10%;
+}

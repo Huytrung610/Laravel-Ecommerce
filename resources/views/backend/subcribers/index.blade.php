@@ -88,6 +88,7 @@
 @endpush
 
 @push('after_scripts')
+  <link href="{{ asset('backend/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
   <!-- Page level plugins -->
   <script src="{{asset('backend/vendor/datatables/jquery.dataTables.min.js')}}"></script>
@@ -98,11 +99,11 @@
   <script src="{{asset('backend/js/demo/datatables-demo.js')}}"></script>
   <script>
 
-      $('#post-dataTable').DataTable({
+      $('#subcriber-dataTable').DataTable({
           "columnDefs": [
               {
                   "orderable": false,
-                  "targets": [4, 5]
+                  "targets": [2, 3]
               }
           ]
       });

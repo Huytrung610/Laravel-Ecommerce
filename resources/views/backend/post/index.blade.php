@@ -92,6 +92,7 @@
 @endpush
 
 @push('after_scripts')
+  <link href="{{ asset('backend/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
   <!-- Page level plugins -->
   <script src="{{asset('backend/vendor/datatables/jquery.dataTables.min.js')}}"></script>
@@ -104,9 +105,10 @@
 
       $('#post-dataTable').DataTable({
           "columnDefs": [
-              {
+              {   
+                  "ordering":true,
                   "orderable": false,
-                  "targets": [4, 5]
+                  "targets": [2, 3]
               }
           ]
       });

@@ -85,7 +85,7 @@
 @endsection
 
 @push('styles')
-  <link href="{{asset('backend/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+  <link rel="stylesheet" href="{{asset('backend/vendor/datatables/dataTables.bootstrap4.min.css')}}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
   <style>
       .zoom {
@@ -99,6 +99,7 @@
 @endpush
 
 @push('after_scripts')
+  <link href="{{ asset('backend/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
   <!-- Page level plugins -->
   <script src="{{asset('backend/vendor/datatables/jquery.dataTables.min.js')}}"></script>
@@ -112,7 +113,8 @@
       $('#banner-dataTable').DataTable( {
             "columnDefs":[
                 {
-                    "orderable":false,
+                    "orderable":true,
+                    "ordering":true,
                     "targets":[2,4]
                 }
             ]
