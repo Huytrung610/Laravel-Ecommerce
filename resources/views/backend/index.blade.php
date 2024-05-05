@@ -56,15 +56,15 @@
             
                         <tbody>
                           @foreach($products as $product)
-                          @php
-                            $attribute = new \App\Models\Attribute;
-                            $productHelper = new \App\Helpers\Backend\ProductHelper();
-                            $attrSku = $attribute->getSku($product['product_id']);
-                            $productName =  $productHelper->convertSlugToTitle($attrSku);
-                             @endphp 
+                            @php
+                                $attribute = new \App\Models\Attribute;
+                                $productHelper = new \App\Helpers\Backend\ProductHelper();
+                                // $attrSku = $attribute->getSku($product['product_id']);
+                                // $productName =  $productHelper->convertSlugToTitle($attrSku);
+                            @endphp 
                             <tr>
                                 <th scope="row">
-                                    <a href="#">{{$productName}}</a>
+                                    <a href="#">Product A</a>
                                 </th>
                                 <td>{{$product['total_quantity']}}</td>
                                 <td>{{$product['total_amount']}} VNĐ</td>  
