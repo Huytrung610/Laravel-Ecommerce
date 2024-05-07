@@ -78,4 +78,7 @@ class User extends Authenticatable
         return $defaultAddress;
     }
 
+    public static function totalCustomers(){
+        return self::where('role', 'user')->count();
+    }
 }

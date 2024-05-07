@@ -1,13 +1,4 @@
 <?php
-/**
- *
- * Copyright © 2022 Wgentech. All rights reserved.
- * See COPYING.txt for license details.
- *
- * @author    Wgentech Dev Team
- * @author    binhnt@mail.wgentech.com
- *
- */
 
 namespace App\Helpers\Backend;
 
