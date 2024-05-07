@@ -32,28 +32,11 @@ class OrderController extends Controller
     
     public function index(Request $request)
     {
-        $start_date = $request->get('start_date');
-        $end_date = $request->get('end_date');
+        $orders = Order::orderBy('id', 'DESC')->get();
+        $totalAmount = $orders->where('payment_status', '!=', 'payment_failed')->sum('total_amount');
 
-        $query = Order::orderBy('id', 'DESC')->where('status', '<>', 'delivered');
-
-        if ($start_date && $end_date) {
-            $query->whereBetween('created_at', [$start_date, $end_date]);
-        }
-
-        $orders = $query->get();
-        $totalAmount = $orders->sum('total_amount');
-
-        if (!$start_date && !$end_date) {
-            $totalAmount = Order::where('status', '<>', 'delivered')->sum('total_amount');
-        }
-
-        return view('backend.order.index')
-            ->with('orders', $orders)
-            ->with('totalAmount', $totalAmount);
+        return view('backend.order.index')->with('orders', $orders)->with('totalAmount', $totalAmount);
     }
-
-    
 
     public function store(Request $request)
     {
@@ -79,7 +62,6 @@ class OrderController extends Controller
             $order->fill($response['orderData']);
             $order->save();
 
-            
 
             if (is_array($response) && isset($response[0]['errorCode']) && $response[0]['errorCode'] == 0) {
                 return redirect()->away($response[0]['url']);
@@ -256,6 +238,9 @@ class OrderController extends Controller
 
                     $product['product']->save();
                 }
+                if (!empty($request->delivery_date)) {
+                    $order->payment_status = 'paid';
+                }
             }
             $data['delivery_date'] = $request->get('delivery_date');
             $order->fill($data)->save();
@@ -285,21 +270,11 @@ class OrderController extends Controller
 
     public function getOrderReceipt(Request $request)
     {
-        $start_date = $request->get('start_date');
-        $end_date = $request->get('end_date');
-    
-        $query = Order::orderBy('id', 'DESC')->where('status', Order::STATUS_DELIVERY);
-    
-        if ($start_date && $end_date) {
-            $query->whereBetween('delivery_date', [$start_date, $end_date]);
-        }
-        if (!$start_date && !$end_date) {
-            $totalAmount = Order::where('status', Order::STATUS_DELIVERY)->sum('total_amount');
-        }
-    
-        $orders = $query->get();
+        $orders = Order::orderBy('id', 'DESC')
+                ->where('status', Order::STATUS_DELIVERY)
+                ->where('payment_status', 'paid')->get();
         $totalAmount = $orders->sum('total_amount');
-    
+
         return view('backend.order.index')
             ->with('orders', $orders)
             ->with('status', Order::STATUS_DELIVERY)

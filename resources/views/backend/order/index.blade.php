@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
+            <div class="table-responsive tw-gap-4">
                 @if(count($orders)>0)
                     <table class="table table-bordered" id="order-dataTable" width="100%" cellspacing="0">
                         <thead>
@@ -40,6 +40,7 @@
                             <th>{{__('Delivery date')}}</th>
                             <th>{{__('Total Amount')}} </th>
                             <th>{{__('Payment Method')}} </th>
+                            <th>{{__('Payment Status')}} </th>
                             <th>{{__('Status')}}</th>
                             <th>{{__('Action')}}</th>
                         </tr>
@@ -56,6 +57,7 @@
                             <th>{{__('Delivery date')}}</th>
                             <th>{{__('Total Amount')}}</th>
                             <th>{{__('Payment Method')}} </th>
+                            <th>{{__('Payment Status')}} </th>
                             <th>{{__('Status')}}</th>
                             <th>{{__('Action')}}</th>
                         </tr>
@@ -76,6 +78,15 @@
                                 <td>{{ $order->delivery_date ? \Illuminate\Support\Carbon::parse($order->delivery_date)->format("Y/m/d") : '' }}</td>
                                 <td>{{number_format($order->total_amount,0)}}đ</td>
                                 <td class="tw-capitalize">{{$order->payment_method}}</td>
+                                <td class="tw-capitalize">
+                                    @if( $order->payment_status == 'paid' )
+                                        <span class="tw-bg-green-100 tw-text-green-800 tw-text-sm tw-me-2 tw-px-2.5 tw-py-0.5 tw-rounded">{{$order->payment_status}}</span>
+                                    @elseif ($order->payment_status == 'unpaid')
+                                        <span class="tw-bg-yellow-100 tw-text-yellow-800 tw-text-sm tw-me-2 tw-px-2.5 tw-py-0.5 tw-rounded">{{$order->payment_status}}</span>
+                                    @else 
+                                        <span class="tw-bg-red-100 tw-text-red-800 tw-text-sm tw-font-medium tw-me-2 tw-px-2.5 tw-py-0.5 tw-rounded">Payment Failed</span>
+                                    @endif
+                                </td>
                                 <td>
                                     @if($order->status=='new')
                                         <span class="badge badge-primary">{{$order->status}}</span>
@@ -111,11 +122,9 @@
                         </tbody>
                     </table>
                     {{-- <div class="total-amount float-right">Total Amount: {{ number_format($totalAmount, 2) }} vnd</div> --}}
-                    <div class="total-amount float-right" style="border: 2px solid ; padding: 10px; background-color: #e3e6f0; font-weight: bold;text-transform:uppercase;">
-                        Total Amount: {{ number_format($totalAmount, 2) }} vnđ
+                    <div class="total-amount float-right tw-border-2 tw-border-black tw-p-2.5 tw-bg-[#e3e6f0] tw-font-bold tw-uppercase tw-mt-4">
+                        Total Amount: {{ number_format($totalAmount, 0) }} vnđ
                     </div>
-
-
 {{--                    <span style="float:right">{{$orders->links()}}</span>--}}
                 @else
                     <h6 class="text-center">{{__('No orders found!!! Please order some products')}}</h6>

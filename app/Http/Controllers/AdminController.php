@@ -7,6 +7,10 @@ use Hash;
 use App\Models\Order;
 use App\Models\Attribute;
 use App\Models\Cart;
+use App\Models\User;
+use App\Models\NewsletterSubcriber;
+use App\Helpers\Backend\OrderHelper;
+
 
 use DB;
 
@@ -18,47 +22,61 @@ class AdminController extends Controller
     }
     
     public function getRevenueByMonth()
-{
-    $revenueByMonth = Order::where('status', 'delivered')
-        ->select(DB::raw('DATE_FORMAT(delivery_date, "%Y-%m") AS month'), DB::raw('SUM(total_amount) AS total_revenue'), DB::raw('SUM(quantity) AS total_quantity'))
-        ->groupBy('month')
-        ->get();
+    {
+        $order = new Order();
 
-    $labels = [];
-    $revenues = [];
-    $quantities = [];
+        $orderHelper = new OrderHelper();
 
-   
-    $orderIds = Order::where('status', 'delivered')->pluck('id')->toArray();
+        $orderStatistic = $orderHelper->orderStatistic();
+        $revenueByMonth = Order::where('status', 'delivered')
+            ->select(DB::raw('DATE_FORMAT(delivery_date, "%Y-%m") AS month'), DB::raw('SUM(total_amount) AS total_revenue'), DB::raw('SUM(quantity) AS total_quantity'))
+            ->groupBy('month')
+            ->get();
 
-    $topProducts = Cart::whereIn('order_id', $orderIds)
-        ->select('product_id', DB::raw('SUM(quantity) as total_quantity'))
-        ->groupBy('product_id')
-        ->orderByDesc('total_quantity')
-        ->limit(3)
-        ->pluck('product_id')
-        ->toArray();
-    
-    $products = Cart::whereIn('order_id', $orderIds)
-        ->whereIn('product_id', $topProducts)
-        ->select('product_id', DB::raw('SUM(quantity) as total_quantity'), DB::raw('SUM(amount) as total_amount'))
-        ->groupBy('product_id')
-        ->orderByDesc('total_quantity')
-        ->get()
-        ->toArray();
+        $labels = [];
+        $revenues = [];
+        $quantities = [];
 
-    foreach ($revenueByMonth as $revenue) {
-        $labels[] = $revenue['month'];
-        $revenues[] = $revenue['total_revenue'];
-        $quantities[] = $revenue['total_quantity'];
+        
+        $orderIds = Order::where('status', 'delivered')->pluck('id')->toArray();
+        $totalRevenue = Order::getTotalRevenue();
+        $totalOrder = Order::getTotalOrders();
+        $cancelOrder = Order::getCancelOrders();
+        $totalCustomer = User::totalCustomers();
+        $totalSubcribers = NewsletterSubcriber::getAllSubcriber()->count();
+        
+        $topProducts = Cart::whereIn('order_id', $orderIds)
+            ->select('product_id', DB::raw('SUM(quantity) as total_quantity'))
+            ->groupBy('product_id')
+            ->orderByDesc('total_quantity')
+            ->limit(3)
+            ->pluck('product_id')
+            ->toArray();
+       
+        $products = Cart::whereIn('order_id', $orderIds)
+            ->whereIn('product_id', $topProducts)
+            ->select('product_id', DB::raw('SUM(quantity) as total_quantity'), DB::raw('SUM(amount) as total_amount'))
+            ->groupBy('product_id')
+            ->orderByDesc('total_quantity')
+            ->get()
+            ->toArray();
+
+        foreach ($revenueByMonth as $revenue) {
+
+            $labels[] = $revenue['month'];
+            $revenues[] = $revenue['total_revenue'];
+            $quantities[] = $revenue['total_quantity'];
+        }
+
+        return view('backend.index', compact('labels', 'revenues', 'quantities', 'products'))
+                                ->with('totalRevenue', $totalRevenue)
+                                ->with('orderStatistic', $orderStatistic)
+                                ->with('cancelOrder', $cancelOrder)
+                                ->with('totalCustomer', $totalCustomer)
+                                ->with('totalSubcribers', $totalSubcribers)
+                                ->with('totalOrder', $totalOrder);
     }
 
-    return view('backend.index', compact('labels', 'revenues', 'quantities', 'products'));
-}
-
-
-
-    
 
 
     public function profile()

@@ -69,9 +69,9 @@ class VnpayController extends Controller
             } 
             else {
                 $orderCode['order_number'] = $request->input('vnp_TxnRef');
-                Order::where('order_number',$orderCode['order_number'])->update(['payment_status' => 'payment_failed']);
+                Order::where('order_number',$orderCode['order_number'])->update(['payment_status' => 'payment_failed','status' => 'cancel']);
                 return redirect()->route('checkout');
-                }
+            }
         } else {
             echo "Chu ky khong hop le";
         }
