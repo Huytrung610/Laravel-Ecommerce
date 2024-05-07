@@ -9,7 +9,7 @@
 @endphp
 <header id="header" class="header-scrolled tw-sticky tw-top-0 tw-left-0 text-black bg-light header tw-z-10">
     {{-- @include('frontend.popup.search')  --}}
-    <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
+    <nav id="header-nav" class="navbar navbar-expand-lg px-3">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('home') }}">
                 @if(isset($settings['logo_path']) && $settings['logo_path'])
