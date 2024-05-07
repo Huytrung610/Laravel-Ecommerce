@@ -65,3 +65,15 @@
 div.dataTables_wrapper div.dataTables_length  > label > select {
     width: 10%;
 }
+
+
+/* Company Service */
+#company-services .company-service--item:hover .comapny-service--des,
+#company-services .company-service--item:hover .company-service--icon {
+    color: #F59E0B;
+}
+#company-services .company-service--item:hover .company-service--icon_wrapper {
+    transition: all 0.3s;
+    transform: translate(0, -5px);
+    -webkit-transform: translate(0, -5px);
+}
