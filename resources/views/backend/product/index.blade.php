@@ -158,7 +158,7 @@
                 }
             });
             $('.dltBtn').click(function (e) {
-                var form = $(this).closest('form');
+                let form = $(this).closest('form');
                 e.preventDefault();
                 swal({
                     title: "{{__('Are you sure?')}}",

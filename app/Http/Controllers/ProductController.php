@@ -48,7 +48,9 @@ class ProductController extends Controller
             $data['code'] = $request->get('product_code');
             $data['category_id'] = $request->get('category_id');
             $data['brand_id'] = $request->get('brand_id');
-            $data['photo'] = $request->get('photo') ;
+            $data['photo'] = $request->get('photo');
+           
+            $data['album'] = $request->get('album') ?? '';
             $data['discount'] = 20;
             $productSave = Product::create($data);
             request()->session()->flash('success', __('Product Successfully added'));
@@ -134,6 +136,10 @@ class ProductController extends Controller
             // $this->validateDataRequest($this, $request);
             $data = $request->all();
             $product['code'] = $data['product_code'];
+            if (isset($data['album'])) {
+                $albumString = implode(',', $data['album']);
+                $data['album'] = $albumString;
+            }
             $product->update($data);
             request()->session()->flash('success', __('Product Successfully updated'));
         } catch (\Exception $exception) {

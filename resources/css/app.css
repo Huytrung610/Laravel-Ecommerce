@@ -43,7 +43,16 @@
     height: auto;
 }
 
-
+.album-item-wrapper {
+    width: 120px;
+    position: relative;
+}
+.album-item-wrapper .variant-delete-image {
+    position: absolute;
+    top: 2px;
+    right: 10px;
+    color: red;
+}
 /* Header */
 .item_small-header {
     display: none;

@@ -137,7 +137,39 @@
                 <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
-            <div class="form-group mb-3">
+            <div class="album-general-product">
+                <label for="inputAlbum" class="col-form-label">Album</label>
+                <div class="tw-text-right"><span class="hover:tw-cursor-pointer choose-general-images tw-text-blue-400 hover:tw-text-blue-500">Choose images</span></div>
+                <div class="click-to-upload-album {{ $product->album ? 'tw-hidden' : ''  }} tw-flex tw-flex-col tw-items-center tw-border tw-border-dashed tw-border-gray-400 tw-p-5 tw-gap-2">
+                    <div class="icon"><a type="button" class="upload-variant-picture">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="tư-w-20 tw-h-20">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="small-text tw-text-blue-400">Use "choose image" or click into this to add new image</div>
+                </div>
+                <ul id="album-general" class="upload-general-album {{ $product->album ? '' : 'tw-hidden' }} tw-flex tw-border tw-border-dashed tw-border-gray-400 tw-p-6 tw-gap-2.5 sortui ui-sortable">
+                    @if($product->album)
+                        @foreach(explode(',', $product->album) as $image)
+                            <li class="ui-state-default">
+                                <div class="album-item-wrapper tw-w-28">
+                                    <span class="span image img-scaledown">
+                                        <img src="{{$image}}" alt="{{$image}}">
+                                        <input type="hidden" name="album-item" value="{{$image}}">
+                                    </span>
+                                    <button class="variant-delete-image">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                            </li>
+                        @endforeach
+                    @endif
+                </ul>
+                <input type="hidden" name="album[]" value="{{$product->album}}" class="general_album">
+            </div>
+            <div class="form-group mb-3 tw-mt-5">
                 <button class="btn btn-success tw-bg-green-600" type="submit">{{__('Update')}}</button>
             </div>
         </form>

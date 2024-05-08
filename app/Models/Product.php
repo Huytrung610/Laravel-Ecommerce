@@ -38,7 +38,8 @@ class Product extends Model
         'deleted_at',
         'has_variants',
         'attribute_catalogue',
-        'attribute'
+        'attribute',
+        'album'
     ];
     
     protected $cast = [
