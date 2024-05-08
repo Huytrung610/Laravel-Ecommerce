@@ -14,31 +14,7 @@
     <form class="container" action="{{route('single-add-to-cart')}}" method="POST">
         @csrf
         <div class="mt-5 tw-flex tw-gap-8">
-            <div class="product_detail--gallery">                
-                <div class="swiper-container product_detail--gallery-slider">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide"><img src="//into-the-program.com/demo/images/sample010.jpg" alt=""></div>
-                        <div class="swiper-slide"><img src="//into-the-program.com/demo/images/sample005.jpg" alt=""></div>
-                        <div class="swiper-slide"><img src="//into-the-program.com/demo/images/sample012.jpg" alt=""></div>
-                        <div class="swiper-slide"><img src="//into-the-program.com/demo/images/sample007.jpg" alt=""></div>
-                        <div class="swiper-slide"><img src="//into-the-program.com/demo/images/sample008.jpg" alt=""></div>
-                        <div class="swiper-slide"><img src="//into-the-program.com/demo/images/sample009.jpg" alt=""></div>
-                    </div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
-                </div>
-            
-                <div class="swiper-container product_detail--gallery-thumbs">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide"><img src="//into-the-program.com/demo/images/sample010.jpg" alt=""></div>
-                        <div class="swiper-slide"><img src="//into-the-program.com/demo/images/sample005.jpg" alt=""></div>
-                        <div class="swiper-slide"><img src="//into-the-program.com/demo/images/sample012.jpg" alt=""></div>
-                        <div class="swiper-slide"><img src="//into-the-program.com/demo/images/sample007.jpg" alt=""></div>
-                        <div class="swiper-slide"><img src="//into-the-program.com/demo/images/sample008.jpg" alt=""></div>
-                        <div class="swiper-slide"><img src="//into-the-program.com/demo/images/sample009.jpg" alt=""></div>
-                    </div>
-                </div>
-            </div>
+            @include('frontend.pages.product-detail.album-product')
             <div class="product-detail-info-wrapper">
                 <div class="product-info tw-flex tw-flex-col tw-gap-8">
                     <div class="element-header">
@@ -48,6 +24,12 @@
                     <div class="detail-product__summary">
                         {!! htmlspecialchars_decode($productDetail->summary) !!}
                     </div>
+                    @if($productDetail->brand)
+                        <div class="detail-product__brand tw-flex tw-items-center tw-gap-3">
+                            <h3 class="tw-font-bold">Brand:</h3>
+                            <span>{{$productDetail->brand->name}}</span>
+                        </div>
+                    @endif
                     @include('frontend.sections.attribute-product')
                     </div>
                     <div>

@@ -96,11 +96,74 @@
         })
     }
 
+// Album Browser
+function uploadAlbum() {
+    $(document).on('click', '.click-to-upload-album', function(e){
+        browseGeneralAlbum();
+        e.preventDefault(); 
+    })
+}
+
+function chooseMoreGeneralImg(){
+    $(document).on('click', '.choose-general-images', function(e){
+        browseGeneralAlbum();
+        e.preventDefault(); 
+    })
+}
+
+function browseGeneralAlbum(){
+    var type = "Images";
+    var finder = new CKFinder();
+    finder.resourceType = type;
+    finder.selectActionFunction = function ( fileUrl, data, allFiles ) {
+        let html = '';
+        for (var i = 0; i < allFiles.length; i++ ){
+            var image = allFiles[i].url;
+            html += '<li class="ui-state-default">';
+                html += '<div class="album-item-wrapper tw-w-28">';
+                    html += '<span class="span image img-scaledown">';
+                        html += '<img src="'+image+'" alt="'+ image +'">';
+                        html += '<input type="hidden" name="album-item" value="'+image+'">';
+                    html += '</span>'; 
+                    html += '<button class="variant-delete-image"><i class="fa fa-trash"></i></button>';
+                html += '</div>'; 
+            html += '</li>';
+        }
+
+            $('.click-to-upload-album').addClass('tw-hidden');
+            $('#album-general').append(html);
+            $('.upload-general-album').removeClass('tw-hidden');
+            updateAlbumInput();
+    }
+    finder.popup();
+}
+function updateAlbumInput() {
+    let albumValues = [];
+    $('.album-item-wrapper input[name="album-item"]').each(function() {
+        albumValues.push($(this).val());
+    });
+    $('.general_album').val(albumValues.join(','));
+}
+function deleteItemAlbum() {
+    $(document).on('click', '.variant-delete-image', function(){
+        let _this = $(this);
+        _this.parents('.ui-state-default').remove();
+        if ($('.ui-state-default').length == 0) {
+            $('.click-to-upload-album').removeClass('tw-hidden');
+            $('.upload-general-album').addClass('tw-hidden');
+        }
+        updateAlbumInput();
+    })
+}
+
     $(document).ready(function(){
         HT.uploadImageToInput();
         HT.setupCkeditor();
         checkExistedImage()
         chooseImageThumnail()
         removeThumb()
+        uploadAlbum()
+        chooseMoreGeneralImg()
+        deleteItemAlbum()
     });
 })(jQuery)

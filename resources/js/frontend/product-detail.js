@@ -11,8 +11,8 @@ import 'swiper/css/bundle';
 
 $(document).ready(function () {
     selectVariantProduct();
-    loadProductVariant()
-
+    loadProductVariant();
+    initSwiper()
 });
 
 //Swiper Gallery
@@ -89,7 +89,12 @@ function handleAttribute(){
             dataType: 'json',
     
             success: function (response) {
-                let album = response.variant.image.split(',') ?? response.variant.image
+                let album;
+                if (response.variant && response.variant.image) {
+                    album = response.variant.image.split(',');
+                } else {
+                    album = defaultImg
+                }
                 setupVariantPrice(response)
                 setupVariantUrl(response, attribute_id)
                 setupVariantGallery(album)
@@ -103,10 +108,14 @@ function handleAttribute(){
     } 
 }
 function loadProductVariant() {
-    let attributeCatalougue = JSON.parse($('.attributeCatalogue').val());
-    if(typeof attributeCatalougue != 'undefined' && attributeCatalougue.length){
-        handleAttribute()
-    }
+    
+        let attributeCatalougue = JSON.parse($('.attributeCatalogue').val());
+        if(attributeCatalougue != null){
+            if(typeof attributeCatalougue != 'undefined' && attributeCatalougue.length){
+                handleAttribute()
+            }
+        }
+        
 }
 function setupVariantPrice(res){
     var price = parseFloat(res.variant.price);
@@ -124,22 +133,34 @@ function setupVariantName(res){
 function setupVariantGallery(gallery) {
     let html = `<div class="swiper-container product_detail--gallery-slider">
                     <div class="swiper-wrapper">`
-                    gallery.forEach((val) => {
+                    if(gallery != defaultImg ){
+                        gallery.forEach((val) => {
+                            html += `<div class="swiper-slide">
+                                <img src="${val}" alt="${val}">
+                            </div>`
+                        })   
+                    } else {
                         html += `<div class="swiper-slide">
-                            <img src="${val}" alt="${val}">
-                        </div>`
-                    })   
+                            <img src="${gallery}" alt="${gallery}">
+                        </div> `
+                    }
                     html += `</div>
                     <div class="swiper-button-prev"></div>
                     <div class="swiper-button-next"></div>
                 </div>
                 <div class="swiper-container product_detail--gallery-thumbs">
                 <div class="swiper-wrapper">`
-                    gallery.forEach((val) => {
+                    if(gallery != defaultImg ){
+                        gallery.forEach((val) => {
+                            html += `<div class="swiper-slide">
+                                <img src="${val}" alt="${val}">
+                            </div>`
+                        })   
+                    } else {
                         html += `<div class="swiper-slide">
-                            <img src="${val}" alt="${val}">
-                        </div>`
-                    })   
+                            <img src="${gallery}" alt="${gallery}">
+                        </div> `
+                    }
                 html += `</div>
             </div>`
     if(gallery.length){

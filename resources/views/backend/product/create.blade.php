@@ -102,16 +102,16 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="inputPhoto" class="col-form-label">Thumbnail</label>
+                    <label for="inputPhoto" class="col-form-label">Thumbnail<span class="text-danger">*</span></label>
                     <div class="input-group">
                         <div class="input-group-btn">
                             <div class="thumb-preview-container">
                                 <div class="thumb-preview tw-relative">
                                     <span class="thumbnail-wrapper choose-thumb-btn hover:tw-cursor-pointer">
-                                        <img class="tw-w-[200px] tw-h-[200px] img-thumb_product" src="{{asset('backend/img/default-product-image.png')}}" alt="{{asset('backend/img/thumbnail-default.jpg')}}">
+                                        <img class="tw-w-[200px] tw-h-[200px] img-thumbnail img-thumb_product" src="{{asset('backend/img/default-product-image.png')}}" alt="{{asset('backend/img/thumbnail-default.jpg')}}">
                                     </span>
                                     <button type="button" class="del-img_product tw-absolute tw-left-[5px] tw-top-[5px] tw-text-red-600 tw-hidden"><i class="fa fa-trash"></i></button>
-                                    <input type="text" name="photo" hidden value="" class="img_product-input"></input>
+                                    <input type="text" name="photo" hidden value="" class="img_product-input img_thumbnail-input"></input>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +120,25 @@
                     <span class="text-danger">{{$message}}</span>
                     @enderror
                 </div>
-                <div class="form-group mb-3">
+                <div class="album-general-product">
+                    <label for="inputAlbum" class="col-form-label">Album</label>
+                    <div class="tw-text-right"><span class="hover:tw-cursor-pointer choose-general-images tw-text-blue-400 hover:tw-text-blue-500">Choose images</span></div>
+                    <div class="click-to-upload-album tw-flex tw-flex-col tw-items-center tw-border tw-border-dashed tw-border-gray-400 tw-p-5 tw-gap-2">
+                        <div class="icon"><a type="button" class="upload-variant-picture">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="tư-w-20 tw-h-20">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z">
+                                    </path>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="small-text tw-text-blue-400">Use "choose image" or click into this to add new image</div>
+                    </div>
+                    <ul id="album-general" class="upload-general-album tw-hidden tw-flex tw-border tw-border-dashed tw-border-gray-400 tw-p-6 tw-gap-2.5 sortui ui-sortable">
+                        
+                    </ul>
+                    <input type="text" name="album" value="" class="general_album">
+                </div>
+                <div class="form-group mb-3 tw-mt-5">
                     <button type="reset" class="btn btn-warning tw-bg-yellow-600">{{__('Reset')}}</button>
                     <button class="btn btn-success tw-bg-green-600" type="submit">{{__('Submit')}}</button>
                 </div>

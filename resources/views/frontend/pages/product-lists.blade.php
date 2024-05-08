@@ -46,16 +46,16 @@
             <div class="item_product_main">
                 <div class="variants product-action tw-flex tw-flex-col tw-gap-2">
                     <div class="product-thumbnail">
-                        <a class="image_thumb" href="{{ route('product-detail', ['slug' => $product->slug]) }}" title="iPhone 15 Pro Max VN/A">
+                        <a class="image_thumb" href="{{ route('product-detail', ['slug' => $product->slug]) }}" title="">
                           <span class="imgWrap pt_100">
                             <div class="imgWrap-item tw-w-full tw-h-[320px]">
-                                <img class="lazyload loaded tw-rounded-2xl tw-h-full" src="{{ $product->photo }}" alt="iPhone 15 Pro Max VN/A" data-was-processed="true">
+                                <img class="lazyload loaded tw-rounded-2xl tw-h-full" src="{{ $product->photo }}" alt="" data-was-processed="true">
                             </div>
                           </span>
                         </a>
                     </div>
                     <div class="product-info tw-flex tw-flex-col tw-items-center tw-gap-1">
-                      <h3 class="product-name tw-font-bold tw-text-lg"><a href="/iphone-15-pro-max-vn-a" title="iPhone 15 Pro Max VN/A">{{ $product->title }}</a></h3>
+                      <h3 class="product-name tw-font-bold tw-text-lg"><a href="{{ route('product-detail', ['slug' => $product->slug]) }}" title="">{{ $product->title }}</a></h3>
                       @php
                         $minPrice = $product->product_variants()->min('price') ?? $product->price;
                         $formatted_minPrice = number_format($minPrice, 0, ',', '.');
