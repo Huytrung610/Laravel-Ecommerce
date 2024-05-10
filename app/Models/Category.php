@@ -24,6 +24,7 @@ class Category extends Model
     
     protected $fillable = [
         'title',
+        'photo',
         'slug',
         'summary',
         'status',
@@ -55,6 +56,9 @@ class Category extends Model
         return self::where('parent_id', Category::CATEGORY_PARENT_ID)->get();
     }
     public static function getChildCatByParentCat($id){
-        return self::where('parent_id', $id)->get();
+        return self::where('parent_id', $id)->where('status', self::STATUS_INACTIVE)->get();
+    }
+    public static function getAllChildCat(){
+        return self::where('parent_id', '!=', self::CATEGORY_PARENT_ID)->where('status', self::STATUS_ACTIVE)->get();
     }
 }

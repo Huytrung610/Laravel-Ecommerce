@@ -4,7 +4,7 @@
    @include('frontend.layouts.head')
 </head>
 
-<body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
+<body data-bs-spy="scroll" data-bs-target="#navbar" class="tw-bg-gray-50" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
     
     {{-- <!-- Header -->
 	@include('frontend.layouts.header')

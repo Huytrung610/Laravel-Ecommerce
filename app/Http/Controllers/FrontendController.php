@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banner;
+use App\Models\Category;
 use Auth;
 use DB;
 use Hash;
@@ -26,16 +27,18 @@ class FrontendController extends Controller
     {
         $posts = Post::where('status', 'active')->orderBy('id', 'DESC')->get();
         $banners = Banner::where('status', 'active')->orderBy('id', 'DESC')->get();
-
+        $categoryGrid = Category::getAllChildCat();
+        
         return view('frontend.index')
         ->with('posts', $posts)
-        ->with('banners', $banners);
+        ->with('banners', $banners)
+        ->with('categoryGrid', $categoryGrid);
           
     }
  
 
     // Login
-    public function login(){
+     public function login(){
         // $cmsContentPage = CmsContent::where('status', \App\Models\CmsContent::STATUS_ENABLE)
             // ->where(function ($query) {
             //     $query->where('slug', \App\Models\CmsContent::TERMS_SLUG)
