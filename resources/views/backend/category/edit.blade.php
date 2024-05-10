@@ -65,18 +65,35 @@
                     @endforeach
                 </select>
             </div>
-
-    
             <div class="form-group sub-category" style={{ $subCategoryStyle }}>
                 <label for="summary" class="col-form-label">{{ __('Category Parent') }}</label>
                 <select name="parent_id" id="sub-category-selection" class="form-control">
-                <option value="0">---Main Category---</option>
-                @foreach($categories as $key => $value)
-                    @if($value->parent_id == 0)
-                        <option value="{{$value->id}}" {{(($category->parent_id == $value->id) ? 'selected' : '')}}>{{$value->title}}</option>
-                    @endif
-                @endforeach
-            </select>
+                    <option value="0">---Main Category---</option>
+                    @foreach($categories as $key => $value)
+                        @if($value->parent_id == 0)
+                            <option value="{{$value->id}}" {{(($category->parent_id == $value->id) ? 'selected' : '')}}>{{$value->title}}</option>
+                        @endif
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="inputPhoto" class="col-form-label">Thumbnail</label>
+                <div class="input-group">
+                    <div class="input-group-btn">
+                        <div class="thumb-preview-container">
+                            <div class="thumb-preview tw-relative">
+                                <span class="thumbnail-wrapper choose-thumb-btn hover:tw-cursor-pointer">
+                                    <img class="tw-w-[200px] tw-h-[200px] img-thumbnail img-thumb_category" src="{{$category->photo}}" alt="{{$category->photo}}">
+                                </span>
+                                <button type="button" class="del-img-thumb del-img_category tw-absolute tw-left-[5px] tw-top-[5px] tw-text-red-600 tw-hidden"><i class="fa fa-trash"></i></button>
+                                <input type="text" name="photo" hidden value="{{$category->photo}}" class="img_thumbnail-input img_category-input"></input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @error('photo')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
             </div>
                 <div class="form-group">
                     <label for="status" class="col-form-label">{{__('Status')}}<span class="text-danger">*</span></label>
@@ -101,11 +118,16 @@
     <link rel="stylesheet" href="{{asset('backend/summernote/summernote.min.css')}}"> 
 @endpush
 @push('after_scripts')
+    <script src="/backend/ckfinder_2/ckfinder.js"></script>
+    <script src="{{ mix('js/backend/finder.js') }}"></script>
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.js"></script>
+    
 
 <script>
+
+    var defaultThumnail = "{{ asset('backend/img/default-product-image.png') }}";
     $(document).ready(function () {
         $('#category-type').change(function () {
             if ($(this).val() && $(this).val() === 'child') {

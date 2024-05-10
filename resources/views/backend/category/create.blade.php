@@ -51,15 +51,34 @@
                     </select>
                 </div>
                 <div class="form-group sub-category" style="display:none">
-                    <label for="summary" class="col-form-label">{{ __('Category Parent') }}</label>
+                    <label for="" class="col-form-label">{{ __('Category Parent') }}</label>
                     <select name="parent_id" class="form-control">
-                    <option value="0">---Main Category---</option>
-                    @foreach($categories as $key => $value)
-                        @if($value->parent_id == 0)
-                            <option value="{{$value->id}}">{{$value->title}}</option>
-                            @endif
-                    @endforeach
-                </select>
+                        <option value="0">---Main Category---</option>
+                        @foreach($categories as $key => $value)
+                            @if($value->parent_id == 0)
+                                <option value="{{$value->id}}">{{$value->title}}</option>
+                                @endif
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="inputPhoto" class="col-form-label">Thumbnail<span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <div class="thumb-preview-container">
+                                <div class="thumb-preview tw-relative">
+                                    <span class="thumbnail-wrapper choose-thumb-btn hover:tw-cursor-pointer">
+                                        <img class="tw-w-[200px] tw-h-[200px] img-thumbnail img-thumb_category" src="{{asset('backend/img/default-product-image.png')}}" alt="{{asset('backend/img/thumbnail-default.jpg')}}">
+                                    </span>
+                                    <button type="button" class="del-img_category tw-absolute tw-left-[5px] tw-top-[5px] tw-text-red-600 tw-hidden"><i class="fa fa-trash"></i></button>
+                                    <input type="text" name="photo" hidden value="" class="img_category-input img_thumbnail-input"></input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @error('photo')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -87,30 +106,30 @@
 @endsection
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('backend/summernote/summernote.min.css') }}">
 @endpush
 @push('after_scripts')
+    <script src="/backend/ckfinder_2/ckfinder.js"></script>
+    <script src="{{ mix('js/backend/finder.js') }}"></script>
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+    <link rel="stylesheet" href="{{ asset('backend/summernote/summernote.min.css') }}">
     <script src="{{ asset('backend/summernote/summernote.min.js') }}"></script>
-    {{-- <script>
-        $('#lfm').filemanager('image');
-        $(document).ready(function() {
-            $('#summary').summernote({
-                placeholder: "{{ __('Write short description.....') }}",
-                tabsize: 2,
-                height: 120
-            });
-        });
-    </script> --}}
+
     <script>
+    var defaultThumnail = "{{ asset('backend/img/default-product-image.png') }}";
+
     $(document).ready(function () {
         $('#category-type').change(function () {
             if ($(this).val() && $(this).val() === 'child') {
                 $('.sub-category').show();
-        } else {
-                $('.sub-category').hide();
-    }
-  });
+            } else {
+                    $('.sub-category').hide();
+            }
+        });
+        $('#summary').summernote({
+            placeholder: "Write detail description.....",
+            tabsize: 2,
+            height: 150
+        });
     });
     </script>
     

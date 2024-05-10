@@ -86,3 +86,14 @@ div.dataTables_wrapper div.dataTables_length  > label > select {
     transform: translate(0, -5px);
     -webkit-transform: translate(0, -5px);
 }
+
+
+/* Category list grid */
+#child-category--list .child-category--item_grid:hover .card-category--title {
+    color: #F59E0B;
+}
+
+#child-category--list .card-category--img:hover > img {
+    transform: scale(1.1);
+    transition: 0.4s;
+}

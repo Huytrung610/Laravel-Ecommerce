@@ -1,7 +1,7 @@
 <section id="company-services" class="padding-large">
     <div class="container">
         <div class="row tw-grid tw-grid-cols-3 tw-gap-4">
-            <div class="company-service--item tw-shadow-md tw-rounded-lg tw-py-5">
+            <div class="company-service--item tw-shadow-md tw-rounded-lg tw-py-5 tw-bg-white">
                 <div class="icon-box d-flex tw-flex-col tw-items-center tw-gap-4">
                     <div class="company-service--icon_wrapper">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="company-service--icon tw-w-11 tw-h-11">
@@ -14,7 +14,7 @@
                     </div>
                 </div>
             </div>
-            <div class="company-service--item tw-shadow-md tw-rounded-lg tw-py-5">
+            <div class="company-service--item tw-shadow-md tw-rounded-lg tw-py-5 tw-bg-white">
                 <div class="icon-box d-flex tw-flex-col tw-items-center tw-gap-4">
                     <div class="company-service--icon_wrapper">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="company-service--icon tw-w-11 tw-h-11">
@@ -27,7 +27,7 @@
                     </div>
                 </div>
             </div>
-            <div class="company-service--item tw-shadow-md tw-rounded-lg tw-py-5">
+            <div class="company-service--item tw-shadow-md tw-rounded-lg tw-py-5 tw-bg-white">
                 <div class="icon-box d-flex tw-flex-col tw-items-center tw-gap-4">
                     <div class="company-service--icon_wrapper">
                         <svg viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="company-service--icon tw-w-11 tw-h-11">  

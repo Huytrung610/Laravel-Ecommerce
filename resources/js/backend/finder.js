@@ -65,8 +65,9 @@
     function checkExistedImage(){
         let imagePath = $('.thumb-preview-container .thumb-preview img').attr('src');
 
-        if (imagePath === defaultThumnail) {
+        if (imagePath === defaultThumnail || imagePath == '' ) {
             $('.del-img-thumb').addClass('tw-hidden');
+            $('.img-thumbnail').attr("src", defaultThumnail);
             $('.img_thumbnail-input').val(imagePath);
         } else {
             $('.del-img-thumb').removeClass('tw-hidden');
