@@ -12,7 +12,7 @@
     echo $svgContent;
   @endphp
 
-<div class="post-wrap padding-large overflow-hidden">
+<div class="post-wrap overflow-hidden">
     <div class="container">
         <div class="row">
             <main class="post-grid">
@@ -96,6 +96,7 @@
         </div>
     </div>
 </div>
+@include('frontend.sections.company-services')
 
 @endsection 
 
