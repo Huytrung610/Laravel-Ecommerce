@@ -32,7 +32,7 @@
                               <img class="tw-w-[200px] tw-h-[200px] img-thumbnail img-thumb_blog" src="{{asset('backend/img/default-product-image.png')}}" alt="{{asset('backend/img/thumbnail-default.jpg')}}">
                           </span>
                           <button type="button" class="del-img-thumb tw-absolute tw-left-[5px] tw-top-[5px] tw-text-red-600 tw-hidden"><i class="fa fa-trash"></i></button>
-                          <input type="text" name="photo" value="" class="img_thumbnail-input"></input>
+                          <input type="hidden" name="photo" value="" class="img_thumbnail-input"></input>
                       </div>
                   </div>
               </div>

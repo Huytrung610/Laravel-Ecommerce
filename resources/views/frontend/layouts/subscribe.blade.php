@@ -15,7 +15,7 @@
     @endphp
 @endif
 
-<section id="subscribe" class="container-grid padding-large position-relative overflow-hidden">
+<section id="subscribe" class="container-grid position-relative overflow-hidden">
     <div class="container">
         <div class="row">
             <div class="subscribe-content bg-dark d-flex flex-wrap justify-content-center align-items-center padding-medium">

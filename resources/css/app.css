@@ -97,3 +97,23 @@ div.dataTables_wrapper div.dataTables_length  > label > select {
     transform: scale(1.1);
     transition: 0.4s;
 }
+
+/* Blog */
+#latest-blog .card-blog-title--wrapper {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#latest-blog .card-blog-body:hover .card-blog-title {
+    color: #F59E0B;
+}
+#latest-blog .blog-item {
+    overflow: hidden;
+}
+#latest-blog .blog-item:hover {
+    scale: 1.05;
+    transition: scale .5s ease;
+}

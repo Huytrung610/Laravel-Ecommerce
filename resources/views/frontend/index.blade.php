@@ -27,38 +27,8 @@
         </div>
     </div>
 </section>
-<section id="latest-blog" class="padding-large">
-    <div class="container">
-        <div class="row">
-            <div class="display-header d-flex justify-content-between pb-3">
-                <h2 class="display-7 text-dark text-uppercase">Tin tức công nghệ</h2>
-                <div class="btn-right">
-                    <a href="{{route('blog')}}" class="btn btn-medium btn-normal text-uppercase">Read Blog</a>
-                </div>
-            </div>
-            {{-- <div class="post-grid d-flex flex-wrap justify-content-between">
-                @foreach ($posts as $post)
-                    <div class="col-lg-4 col-sm-12">
-                        <div class="card border-none me-3">
-                            <div class="card-image">
-                                <img src="{{$post->photo }}" alt="" class="img-fluid">
-                            </div>
-                        </div>
-                        <div class="card-body text-uppercase">
-                            <div class="card-meta text-muted">
-                                <span class="meta-date">{{$post->created_at->format('d/m/YY') }}</span>
-                            </div>
-                            <h3 class="card-title">
-                                <a href="{{route('blog.detail',$post->slug)}}">{{$post->title }}</a>
-                            </h3>
-                        </div>
-                    </div>
-               @endforeach
-                
-            </div> --}}
-        </div>
-    </div>
-</section>
+
+@include('frontend.sections.blog-list')
 @include('frontend.layouts.subscribe')
 @include('frontend.sections.testimonial')
 <script>

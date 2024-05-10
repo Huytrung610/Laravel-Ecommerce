@@ -25,7 +25,7 @@ class FrontendController extends Controller
 
     public function home()
     {
-        $posts = Post::where('status', 'active')->orderBy('id', 'DESC')->get();
+        $posts = Post::where('status', 'active')->orderBy('id', 'DESC')->paginate(4);
         $banners = Banner::where('status', 'active')->orderBy('id', 'DESC')->get();
         $categoryGrid = Category::getAllChildCat();
         
