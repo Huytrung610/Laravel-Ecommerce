@@ -110,12 +110,12 @@ function loadOrderDetail(orderId) {
         success: function(response) {
             let dataOrder = response.data
             let dataProducts = response.cartProducts['cart-products'];
-            console.log(dataProducts);
+            console.log(response);
             $('#orderDetailModal-'+ orderId + ' .order_number').html(dataOrder.order_number) ?? '';
             if(dataOrder.status == 'new'){
                 $('#orderDetailModal-'+ orderId +' .status').addClass('badge tw-capitalize tw-p-1 tw-bg-blue-500 tw-text-white')
             }else if(dataOrder.status == 'process') {
-                $('#orderDetailModal-'+ orderId +' .status').addClass('badge tw-capitalize tw-p-1 tw-bg-yellow-400 tw-text-white')
+                $('#orderDetailModal-'+ orderId +' .status').addClass('badge tw-capitalize tw-p-1 tw-bg-yellow-400 tw-text-black')
             }else if(dataOrder.status == 'delivered') {
                 $('#orderDetailModal-'+ orderId +' .status').addClass('badge tw-capitalize tw-p-1 tw-bg-green-400 tw-text-white')
             } else {
@@ -123,7 +123,9 @@ function loadOrderDetail(orderId) {
             }
             $('#orderDetailModal-'+ orderId +' .status').html(dataOrder.status)?? '';
             $('#orderDetailModal-'+ orderId +' .name').html(dataOrder.name) ?? '';
-            $('#orderDetailModal-'+ orderId +' .subTotalOrder').html(parseFloat(dataOrder.sub_total).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })) ?? '';
+            if(dataProducts.length != 0){
+                $('#orderDetailModal-'+ orderId +' .subTotalOrder').html(parseFloat(dataOrder.sub_total).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })) ?? '';
+            }
             $('#orderDetailModal-'+ orderId +' .delivery_date').html(dataOrder.delivery_date) ?? '';
             $('#orderDetailModal-'+ orderId +' .payment_method').html(dataOrder.payment_method) ?? '';
             $('#orderDetailModal-'+ orderId +' .phone').html(dataOrder.phone) ?? '';

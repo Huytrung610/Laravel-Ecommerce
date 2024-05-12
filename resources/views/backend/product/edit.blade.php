@@ -248,7 +248,7 @@
         </div>
         <div class="product-variant">
             <div class="variants-title">
-                <h2>Product Variants</h2>
+                <h2 class="tw-font-bold">Product Variants</h2>
             </div>
             <div class="table-responsive {{ $product->has_variants != 1 ? 'tw-hidden' : '' }}">
                 <table class="table productVariant-table">

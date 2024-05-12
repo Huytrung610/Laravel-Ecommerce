@@ -33,14 +33,13 @@
 @endsection
 
 @push('styles')
-    <link rel="stylesheet" href="{{asset('backend/summernote/summernote.min.css')}}"> 
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css"/>
         
 @endpush
 @push('after_scripts')
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('backend/summernote/summernote.min.css')}}"> 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.js"></script>
     {{-- <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script> --}}
   <script>
@@ -49,7 +48,16 @@
       $('#content-cms').summernote({
           placeholder: "Write detail description.....",
           tabsize: 2,
-          height: 150
+          height: 250,
+          toolbar: [
+    
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']]
+          ]
       });
     });
 

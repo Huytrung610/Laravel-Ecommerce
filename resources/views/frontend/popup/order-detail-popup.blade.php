@@ -72,7 +72,7 @@ $defaultAddress =$user->getAddressDefault() ?? $listAddress->first();
                 </div>
                 <div class="row tw-flex tw-justify-end tw-text-xl ">
                   <div class="subTotalOrder-wrapper tw-bg-gray-300 tw-w-fit">
-                    <span class="tw-w-fit tw-text-black">Total amount :</span>
+                    <span class="subTotalOrder--title tw-w-fit tw-text-black">Total amount :</span>
                     <span class="subTotalOrder tw-w-fit tw-text-black tw-text-red-400"></span>
                   </div>
                 </div>

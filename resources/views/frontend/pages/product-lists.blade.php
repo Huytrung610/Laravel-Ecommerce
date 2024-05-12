@@ -24,7 +24,7 @@
   </div>
   
 </section>
-<div class="shopify-grid padding-large">
+<div class="shopify-grid padding-large tw-bg-gray-100">
   <div class="container" style="font-size: 16px;margin-bottom: 3%;"  >
     <div class="d-flex mb-3">
        <div class="ms-auto p-2">

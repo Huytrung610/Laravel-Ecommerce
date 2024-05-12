@@ -27,17 +27,13 @@
     </div>
 </section>
 
-@include('frontend.sections.company-services')
-
-<section id="cms-content" class="padding-large no-padding-top">
+<section id="cms-content" class="tw-mt-11">
     <div class="container">
         {!! htmlspecialchars_decode($cmsContent->content) !!}
     </div>
 </section>
 
-
-
-<section id="our-store" class="padding-large no-padding-top">
+<section id="our-store" class="tw-mt-11">
     <div class="container">
         <div class="row d-flex flex-wrap align-items-center">
             <div class="col-lg-6">
@@ -100,6 +96,7 @@
         </div>
     </div>
 </section>
+@include('frontend.sections.company-services')
 
 @endsection 
 

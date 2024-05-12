@@ -41,23 +41,7 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-                
-                <div class="form-group">
-                    <label for="inputLogo" class="col-form-label">Logo</label>
-                    <div class="input-group">
-                        <span class="input-group-btn">
-                            <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-                            <i class="fa fa-picture-o"></i> Choose
-                            </a>
-                        </span>
-                        <input id="thumbnail" class="form-control" type="text" name="logo_brand" value="{{old('logo_brand')}}">
-                    </div>
-                    <div id="holder" style="margin-top:15px;max-height:100px;"></div>
-                    @error('photo')
-                    <span class="text-danger">{{$message}}</span>
-                    @enderror
-                </div>
-                  @php
+                @php
                     $statusBrandActive = \App\Models\Brand::STATUS_ACTIVE;
                     $statusBrandInactive = \App\Models\Brand::STATUS_INACTIVE;
                  @endphp

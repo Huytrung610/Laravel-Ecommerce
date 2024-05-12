@@ -61,16 +61,16 @@
                             <h5 class="widget-title pb-2 tw-font-bold">Policys</h5>
                             <ul class="menu-list list-unstyled text-uppercase tw-mt-2.5">
                                 <li class="menu-item pb-2">
-                                    <a href="{{ route('payment-policy') }}">Payment policy</a>
+                                    <a href="{{ route('payment-policy') }}" class="hover:tw-text-yellow-500">Payment policy</a>
                                 </li>
                                 <li class="menu-item pb-2">
-                                    <a href="{{ route('shipping-policy') }}">Shipping policy</a>
+                                    <a href="{{ route('shipping-policy') }}" class="hover:tw-text-yellow-500">Shipping policy</a>
                                 </li>
                                 <li class="menu-item pb-2">
-                                    <a href="{{ route('privacy-policy') }}">Privacy Policy</a>
+                                    <a href="{{ route('privacy-policy') }}" class="hover:tw-text-yellow-500">Privacy Policy</a>
                                 </li>
                                 <li class="menu-item pb-2">
-                                    <a href="{{ route('warranty-policy') }}">Warranty Policy</a>
+                                    <a href="{{ route('warranty-policy') }}" class="hover:tw-text-yellow-500">Warranty Policy</a>
                                 </li>
                             </ul>
                         </div>
@@ -79,35 +79,43 @@
                         <div class="footer-menu text-uppercase">
                             <h5 class="widget-title pb-2 tw-font-bold">Help & Info Help</h5>
                             <ul class="menu-list list-unstyled tw-mt-2.5">
-                                <li class="menu-item pb-2">
-                                    <a href="#">Track Your Order</a>
+                                <li class="menu-item pb-2" >
+                                    <a href="#" class="hover:tw-text-yellow-500">Track Your Order</a>
                                 </li>
-                                <li class="menu-item pb-2">
-                                    <a href="#">Returns Policies</a>
+                                <li class="menu-item pb-2" >
+                                    <a href="#" class="hover:tw-text-yellow-500">Returns Policies</a>
                                 </li>
-                                <li class="menu-item pb-2">
-                                    <a href="#">Shipping + Delivery</a>
+                                <li class="menu-item pb-2" >
+                                    <a href="#" class="hover:tw-text-yellow-500">Shipping + Delivery</a>
                                 </li>
-                                <li class="menu-item pb-2">
-                                    <a href="#">Contact Us</a>
+                                <li class="menu-item pb-2" >
+                                    <a href="#" class="hover:tw-text-yellow-500">Contact Us</a>
                                 </li>
-                                <li class="menu-item pb-2">
-                                    <a href="#">Faqs</a>
+                                <li class="menu-item pb-2" >
+                                    <a href="#" class="hover:tw-text-yellow-500">Faqs</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 pb-3 tw-pt-2.5">
-                        <div class="footer-menu contact-item tw-flex tw-flex-col tw-gap-4">
+                        <div class="footer-menu contact-item tw-flex tw-flex-col tw-gap-3">
                             <h5 class="widget-title text-uppercase pb-2 tw-font-bold">Contact Us</h5>
                             @if(isset($settings['email']) && $settings['email'])
-                                <a class="tw-text-primary" href="mailto:{{ $settings['email'] }}">Bạn có những câu hỏi thắc mắc, đừng ngần ngại gửi email cho chúng tôi tại địa chị gmail:
-                                     <strong href="mailto:{{ $settings['email'] }}">{{ $settings['email'] }}</strong>
-                                </a>
+                                <span class="tw-text-primary" >If you have any questions, don't hesitate to email us at gmail:
+                                    <a href="mailto:{{ $settings['email'] }}" class="hover:tw-text-yellow-500"><strong href="mailto:{{ $settings['email'] }}">{{ $settings['email'] }}</strong></a>
+                                </span>
                             @endif
                             @if(isset($settings['contact_phone']) && $settings['contact_phone'])
-                                <a class="tw-text-primary" href="tel:{{ $settings['contact_phone'] }}">Số điện thoại tổng đài 24/7 hãy liên hệ <strong  href="tel:{{ $settings['contact_phone'] }}">{{ $settings['contact_phone'] }}</strong>
-                                </a>
+                                <span class="tw-text-primary">Please contact 24/7 hotline number: 
+                                    <a href="tel:{{ $settings['contact_phone'] }}" class="hover:tw-text-yellow-500">
+                                        <strong>{{ $settings['contact_phone'] }}</strong>
+                                    </a>
+                                </span>
+                            @endif
+                            @if(isset($settings['contact_address']) && $settings['contact_address'])
+                                <span class="tw-text-primary">Address: 
+                                   <strong>{{ $settings['contact_address'] }}</strong>
+                                </span>
                             @endif
                         </div>
                     </div>
