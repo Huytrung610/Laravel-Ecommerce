@@ -136,7 +136,7 @@
                     <ul id="album-general" class="upload-general-album tw-hidden tw-flex tw-border tw-border-dashed tw-border-gray-400 tw-p-6 tw-gap-2.5 sortui ui-sortable">
                         
                     </ul>
-                    <input type="text" name="album" value="" class="general_album">
+                    <input type="hidden" name="album" value="" class="general_album">
                 </div>
                 <div class="form-group mb-3 tw-mt-5">
                     <button type="reset" class="btn btn-warning tw-bg-yellow-600">{{__('Reset')}}</button>

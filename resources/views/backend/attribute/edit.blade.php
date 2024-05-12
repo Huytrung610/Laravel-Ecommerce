@@ -84,7 +84,7 @@
                 let removeButton = $('<button>')
                     .attr({
                         type: 'button',
-                        class: 'btn btn-danger removeAttributeValue'
+                        class: 'btn btn-danger removeAttributeValue tw-bg-red-600'
                     })
                     .text('Remove');
 

@@ -77,7 +77,6 @@
                                     </li> 
                                 </ul>
                             </div>
-                
                         </li> --}}
                         <li class="nav-item">
                             @if(Auth::check())

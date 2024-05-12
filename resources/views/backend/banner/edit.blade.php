@@ -96,7 +96,16 @@
         height: 600,
         placeholder: "Write short description.....",
         tabsize: 2,
-        height: 150
+        height: 150,
+        toolbar: [
+    
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']]
+          ]
       });
     });
 </script>
