@@ -70,7 +70,7 @@
                 <select name="parent_id" id="sub-category-selection" class="form-control">
                     <option value="0">---Main Category---</option>
                     @foreach($categories as $key => $value)
-                        @if($value->parent_id == 0)
+                        @if($value->parent_id == 0 && $value->id != $category->id)
                             <option value="{{$value->id}}" {{(($category->parent_id == $value->id) ? 'selected' : '')}}>{{$value->title}}</option>
                         @endif
                     @endforeach
