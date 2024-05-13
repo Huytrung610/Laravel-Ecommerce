@@ -62,7 +62,7 @@ class CategoryController extends Controller
             $data['slug'] = $slug;
             $data['summary'] = $request->get('summary');
             $data['status'] = $request->get('status');
-            if ($request->get('parent_id') == Category::CATEGORY_PARENT) {
+            if ($request->get('category_type') == Category::CATEGORY_PARENT) {
                 $data['parent_id'] = self::IS_PARENT_CATEGORY;
                 $data['category_type'] = $request->get('category_type');
             } 
@@ -93,6 +93,9 @@ class CategoryController extends Controller
             $category = Category::findOrFail($id);
             $this->validateDataCategoryFormEdit($request, $category);
             $data = $request->all();
+            if($data['category_type'] == Category::CATEGORY_PARENT){
+                $data['parent_id'] = Category::CATEGORY_PARENT_ID;
+            }
             $category->update($data);
 
             request()->session()->flash('success', __('Category successfully updated'));
