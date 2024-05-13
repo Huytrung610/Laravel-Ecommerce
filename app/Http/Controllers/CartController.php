@@ -20,7 +20,7 @@ class CartController extends Controller
         $product = Product::find($data['product_id']);
 
         
-        if ($product->has_variants) {
+        if ($product->has_variants && $product->product_variants()->count() > 0) {
             $productVariant = ProductVariant::findVariant($data['code_product_variant'], $product->id);
 
             if ($productVariant->quantity < $request->quant[1]) {
@@ -42,7 +42,7 @@ class CartController extends Controller
         $price = $productVariant->price ?? $product->price;
         $amount = $price * $new_quantity;
 
-        if ($product->has_variants && $productVariant->quantity < $new_quantity) {
+        if ($product->has_variants && $product->product_variants()->count() > 0 && $productVariant->quantity < $new_quantity) {
             return back()->with('error', 'Stock not sufficient!.');
         } elseif (!$product->has_variants && $product->stock < $new_quantity) {
             return back()->with('error', 'Stock not sufficient!.');

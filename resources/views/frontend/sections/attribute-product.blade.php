@@ -14,7 +14,7 @@
                             <a 
                                 class="choose-attribute tw-px-1.5 tw-py-1 tw-border tw-border-black 
                                 @php
-                                    $isActive =(is_array($attributeQueryString) && in_array($value->id, $attributeQueryString)) || ($keyAttr == 0 && empty($attributeQueryString[0]))
+                                    $isActive =(is_array($attributeQueryString) && in_array($value->id, $attributeQueryString)) && $productDetail->has_variants != 0 || ($keyAttr == 0 && empty($attributeQueryString[0])) && $productDetail->has_variants != 0 
                                 @endphp
                                 {{ $isActive ? 'active' : '' }}"
                                 data-attributevalueid="{{ $value->id }}" 

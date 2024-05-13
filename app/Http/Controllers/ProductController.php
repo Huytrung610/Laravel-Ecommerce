@@ -284,7 +284,7 @@ class ProductController extends Controller
   
         $productRepository = new ProductRepository();
         $productDetail = $productRepository->getProductWithSlug($slug);
-        if($productDetail->has_variants){
+        if($productDetail->has_variants && $productDetail->product_variants()->count() > 0 ){
             $productDetail->attributes = $helper->getAttribute($productDetail);
         }
         if (!empty($productDetail) && $productDetail->status != Product::IS_ACTIVE || empty($productDetail)) {
