@@ -117,3 +117,38 @@ div.dataTables_wrapper div.dataTables_length  > label > select {
     scale: 1.05;
     transition: scale .5s ease;
 }
+
+
+
+/* Product category page */
+.product-thumbnail .image_thumb {
+    transition: all ease 0.3s;
+    position: relative;
+}
+.product-thumbnail .image_thumb::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: #f19620;
+    opacity: 0;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    border-radius: 12px;
+}
+.product-thumbnail:hover .image_thumb::before {
+    opacity: 0.6;
+}
+.product-list-container nav {
+    display: flex;
+    justify-content: center;
+}
+.product-list-container a.page-link {
+    color: #000;
+}
+.product-list-container .page-item.active .page-link {
+    background-color: #F59E0B;
+    color: #000;
+    border-color: #F59E0B;
+}

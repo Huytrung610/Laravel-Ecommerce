@@ -164,7 +164,7 @@ class ProductController extends Controller
     public function getAllProductByCategory(Request $request, $slug){
         $category = Category::where('slug', $slug)->firstOrFail();
         $categoryId = $category->id;
-        $productList = Product::where('category_id', $categoryId)->get();
+        $productList = Product::where('category_id', $categoryId)->where('status',Product::IS_ACTIVE )->paginate(8);
         
         return view('frontend.pages.product-lists')
         ->with('category', $category)
