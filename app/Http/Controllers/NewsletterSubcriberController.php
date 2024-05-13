@@ -35,7 +35,7 @@ class NewsletterSubcriberController extends Controller
                 $subscriber->email_subcriber = $data['email_subscriber'];
                 $subscriber->status = self::STATUS_ACTIVE;
                 $subscriber->save();
-                return response()->json('success');
+                return response()->json(['status' => 'success']);
             }
         }
     }
