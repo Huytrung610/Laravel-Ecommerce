@@ -42,14 +42,6 @@
                 @enderror
             </div>
             <div class="form-group">
-                <label for="code" class="col-form-label">{{__('Product Code')}}</label>
-                <input id="inputProductCode" type="text" name="product_code" placeholder="{{__('Enter Product Code')}}"
-                        value="{{$product->code}}" class="form-control">
-                @error('code')
-                <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
-            <div class="form-group">
                 <label for="inputTitle" class="col-form-label">{{__('Title')}}<span
                         class="text-danger">*</span></label>
                 <input id="inputTitle" type="text" name="title" placeholder="{{__('Enter title')}}"
@@ -58,6 +50,15 @@
                 <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
+            <div class="form-group">
+                <label for="code" class="col-form-label">{{__('Product Code')}}</label>
+                <input id="inputProductCode" type="text" name="product_code" placeholder="{{__('Enter Product Code')}}"
+                        value="{{$product->code}}" class="form-control">
+                @error('code')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+           
             <div class="form-group">
                 <label for="summary" class="col-form-label">{{__('Short Description')}}<span
                         class="text-danger">*</span></label>
