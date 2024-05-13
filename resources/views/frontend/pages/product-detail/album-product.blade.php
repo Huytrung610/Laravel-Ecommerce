@@ -1,3 +1,6 @@
+@php
+    $productImages = isset($productDetail->album) && $productDetail->album !== '' ? $productDetail->album : $productDetail->photo;
+@endphp
 
 @if($productDetail->has_variants == 1 && $productDetail->product_variants()->count() > 0)
     <div class="product_detail--gallery">                
@@ -14,7 +17,7 @@
             </div>
         </div>
     </div>
-@else 
+@else
     <div class="product_detail--gallery">                
         <div class="swiper-container product_detail--gallery-slider">
             <div class="swiper-wrapper">
@@ -44,5 +47,6 @@
     </div>
 @endif
 <script>
+    var productImages = "{{ $productImages }}";
     var defaultImg = "{{ asset('images/placeholder.png') }}";
 </script>
