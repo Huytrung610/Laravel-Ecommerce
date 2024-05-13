@@ -59,7 +59,7 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
                                   $firstImagePath = asset($imagePaths[0]);
                               }
                           @endphp
-                          <img src="{{$firstImagePath}}" alt="{{$firstImagePath}}" class="img-fluid tw-w-[100px] tw-h-[120px]">
+                          <img src="{{$firstImagePath}}" alt="{{$firstImagePath}}" class="img-fluid tw-w-[100px] tw-h-auto">
                       </div>
                         <div class="card-detail ps-3">
                             <h3 class="card-title">
@@ -73,7 +73,7 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
                                         $productPrice =  $productHelper->formatPrice($cart->product->price);
                                     } 
                                 @endphp
-                                <a href="{{ route('product-detail', ['slug' => $cart->product->slug]) }}" class="tw-text-base">{{$productName}}</a>
+                                <a href="{{ route('product-detail', ['slug' => $cart->product->slug]) }}" class="tw-text-base hover:tw-text-yellow-500">{{$productName}}</a>
                             </h3>
                             <div class="card-price">
                                 <span class="money text-primary">{{$productPrice}}đ</span>

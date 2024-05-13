@@ -828,6 +828,7 @@
                 let className = $(this).attr('class')
                 variantData[className] = $(this).val();
             });
+            console.log(variantData);
             let updateVariantBox = updateVariantHtml(variantData);
             if($('.updateVariantTr').length == 0 ){
                 _this.after(updateVariantBox);
