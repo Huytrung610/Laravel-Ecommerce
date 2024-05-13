@@ -124,13 +124,13 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
-        // $childCatId = Category::where(self::ATTRIBUTE_IS_PARENT, $id)->pluck('id');
+        $childCatId = Category::where(self::ATTRIBUTE_IS_PARENT, $id)->pluck('id');
         $status = $category->delete();
 
         if ($status) {
-            // if (count($childCatId) > 0) {
-            //     Category::shiftChild($childCatId);
-            // }
+            if (count($childCatId) > 0) {
+                Category::shiftChild($childCatId);
+            }
             request()->session()->flash('success', __('Category successfully deleted'));
         } else {
             request()->session()->flash('error', __('Error while deleting category'));
@@ -138,10 +138,6 @@ class CategoryController extends Controller
         return redirect()->route('category.index');
     }
 
-    public static function shiftChild($catId)
-    {
-        return Category::whereIn('id', $catId)->update(['parent_id' => 0]);
-    }
 
     public function productCat(Request $request)
     {
@@ -153,6 +149,4 @@ class CategoryController extends Controller
                 'products' => $products,
             ]);
     }
-
-
 }

@@ -41,7 +41,7 @@
                                 <a class="nav-link me-4" href="{{ route('product-list', ['slug' => $category->slug]) }}" >{{ $category->title }}
                                     {{-- <i class="fa fa-caret-down dropdown-nav-icon"></i> --}}
                                 </a>
-                                <ul class="item_small-header tw-w-full tw-top-[30px] tw-left-[8px] tw-rounded tw-border tw-border-white tw-bg-white tw-p-2 tw-whitespace-nowrap">
+                                <ul class="item_small-header tw-w-fit tw-top-[30px] tw-left-[8px] tw-rounded tw-border tw-border-white tw-bg-white tw-p-2 tw-whitespace-nowrap">
                                     @php
                                         $childCategories = \App\Models\Category::getChildCatByParentCat( $category->id);
                                     @endphp
