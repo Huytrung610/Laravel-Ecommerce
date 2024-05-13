@@ -1,5 +1,5 @@
 
-@if($productDetail->has_variants == 1)
+@if($productDetail->has_variants == 1 && $productDetail->product_variants()->count() > 0)
     <div class="product_detail--gallery">                
         <div class="swiper-container product_detail--gallery-slider">
             <div class="swiper-wrapper">
