@@ -89,10 +89,14 @@ function handleAttribute(){
             dataType: 'json',
     
             success: function (response) {
+                console.log(response);
                 let album;
                 if (response.variant && response.variant.image) {
                     album = response.variant.image.split(',');
-                } else {
+                } else if(response.variant && response.variant.image == null && productImages){
+                    album = productImages.split(',');
+                }
+                else {
                     album = defaultImg
                 }
                 setupVariantPrice(response)
