@@ -44,8 +44,3 @@
 @push('after_scripts')
     <script src="{{ mix('js/frontend/newsletter.js') }}"></script>
 @endpush
-
-<script>
-    
-
-</script>
