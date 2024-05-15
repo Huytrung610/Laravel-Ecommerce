@@ -79,7 +79,8 @@
                 </div>
             </div>
         </div>
-        <input type="hidden" class="attributeCatalogue" name="attribute" value={{ json_encode($productDetail->attributes) }}>
+        {{-- @dd($productDetail->attributes) --}}
+        <input type="text" class="attributeCatalogue" name="attribute" value={{ base64_encode(json_encode($productDetail->attributes)) }}>
         <input type="hidden" class="productSlug--hidden" name="product_variant_slug"  value="{{ url('product-detail/' . $productDetail->slug) }}">
     </form>
 </section>

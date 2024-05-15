@@ -11,6 +11,7 @@ use App\Models\AttributeValue;
 use App\Models\ProductVariant;
 use App\Http\Controllers\CategoryController;
 use App\Helpers\Backend\ProductHelper;
+use App\Helpers\Api\CartHelper;
 use Illuminate\Support\Str;
 use App\Repositories\ProductRepository;
 use DB;
@@ -130,8 +131,8 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         try {
-
             $productHelper = new ProductHelper();
+            $cartHelper = new CartHelper();
             $product = Product::findOrFail($id);
             // $this->validateDataRequest($this, $request);
             $data = $request->all();
@@ -140,7 +141,22 @@ class ProductController extends Controller
                 $albumString = implode(',', $data['album']);
                 $data['album'] = $albumString;
             }
-            $product->update($data);
+
+            $originalStatus = $product->status;
+            $status = $product->update($data);
+            if ($status) {
+                if ($product->wasChanged('price')) {
+                    $newPrice = $product->price;
+                    $cartHelper->updatePriceAfterUpdateProduct($product, $newPrice);
+                }
+
+                if ($originalStatus != Product::IS_ACTIVE && $product->status == Product::IS_ACTIVE) {
+                    $cartHelper->restoreInactiveProductCart($product);
+                } elseif ($originalStatus == Product::IS_ACTIVE && $product->status != Product::IS_ACTIVE) {
+                    $cartHelper->deleteInactiveProductCart($product);
+                }
+            }
+            
             request()->session()->flash('success', __('Product Successfully updated'));
         } catch (\Exception $exception) {
             request()->session()->flash('error', $exception->getMessage());
@@ -232,11 +248,19 @@ class ProductController extends Controller
     {
         try {
             $product = Product::findOrFail($id);
-
+            $cartHelper = new CartHelper();
             if ($request->has('has_variants')) {
                 $product->has_variants = $request->input('has_variants');
-                $product->save();
-
+                $status = $product->save();
+                
+                if ($status) {
+    
+                    if ($product->has_variants == true) {
+                        $cartHelper->restoreInactiveProductCart($product);
+                    }else {
+                        $cartHelper->deleteInactiveProductCart($product);
+                    }
+                }
                 return response()->json(['message' => 'Product variants updated successfully']);
             }
             return response()->json(['error' => 'Missing has_variants parameter'], 400);
@@ -250,6 +274,8 @@ class ProductController extends Controller
             DB::beginTransaction();
         
             $product = Product::findOrFail($id);
+            $cartHelper = new CartHelper();
+
             $productHelper = new ProductHelper();
             $data = $request->all();
             $variants = $productHelper->createVariantArray($data, $product->id);
@@ -266,6 +292,10 @@ class ProductController extends Controller
                 $variantsData[] = $newVariant->toArray();   
             }
             DB::commit();
+            if($variantsData) {
+                $cartHelper->handleAfterUpdateVariantToCart($variantsData, $product);
+            }
+            $cartHelper->updatePriceAfterUpdateProduct($product);
             $productHelper->updateAttributeCatalogue($product->id, $data['attribute'], $data['attributeArray'] );
             $attributeIds = array_map('intval', explode(',', $data['attribute']));
             $productHelper->combineVariants($variantsData, $attributeIds);

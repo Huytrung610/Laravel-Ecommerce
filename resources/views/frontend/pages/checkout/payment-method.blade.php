@@ -21,7 +21,7 @@
     <div class="payment_method--wrapper">
         <label for="momo" class="tw-flex tw-gap-3 tw-items-center tw-border tw-border-gray-400 tw-px-4 tw-py-2 tw-rounded-3xl">
             <input type="radio" name="payment_method" value="momo" id="momo">
-            <span><img class="tw-w-10 tw-h-10 tw-object-contain" src="{{asset('frontend/img/vnpay-logo.png')}}" alt=""></span>
+            <span><img class="tw-w-10 tw-h-10 tw-object-contain" src="{{asset('frontend/img/momo_icon.svg')}}" alt=""></span>
             <span class="payment_method--title tw-font-bold">Payment Via Momo Wallet</span>
         </label>
     </div>
