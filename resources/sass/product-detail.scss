@@ -70,24 +70,15 @@
         }
     }
 }
-// .single-product {
-//    background-color: #F3F4F6;
-// }
-// .product-info-tabs {
-//    background-color: #F3F4F6;
-    
-//     .tabs-listing  {
-//         background-color: #ffffff;
-//     }
-// }
 
-    .attribute-value {
-        .choose-attribute{
-            &.active {
-                border-color: #D97706;
-                background-color: #F3F4F6;
-                color: #D97706;
-            }
+
+.attribute-value {
+    .choose-attribute{
+        &.active {
+            border-color: #D97706;
+            background-color: #F3F4F6;
+            color: #D97706;
         }
-       
     }
+    
+}

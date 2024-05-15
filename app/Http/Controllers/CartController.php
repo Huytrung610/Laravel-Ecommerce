@@ -18,17 +18,19 @@ class CartController extends Controller
 
         $data = $request->all();
         $product = Product::find($data['product_id']);
-
+        $productQty = $product->stock;
+        $productName = $product->title;
         
         if ($product->has_variants && $product->product_variants()->count() > 0) {
             $productVariant = ProductVariant::findVariant($data['code_product_variant'], $product->id);
-
+            $productName = $product->title .' '. $productVariant->name;
+            $productQty = $productVariant->quantity;
             if ($productVariant->quantity < $request->quant[1]) {
-                return back()->with('error', 'Out of stock, You can choose other products.');
+                return back()->with('error', $productName .' only has ' .$productQty . ' left');
             }
         } else {
             if ($product->stock < $request->quant[1]) {
-                return back()->with('error', 'Out of stock, You can choose other products.');
+                return back()->with('error', $productName .' only has ' .$productQty . ' left');
             }
         }
 
@@ -43,9 +45,11 @@ class CartController extends Controller
         $amount = $price * $new_quantity;
 
         if ($product->has_variants && $product->product_variants()->count() > 0 && $productVariant->quantity < $new_quantity) {
-            return back()->with('error', 'Stock not sufficient!.');
+            $capableQty = $productVariant->quantity - $already_cart->quantity;
+            return back()->with('error', 'You can only add '.$capableQty .' left products');
         } elseif (!$product->has_variants && $product->stock < $new_quantity) {
-            return back()->with('error', 'Stock not sufficient!.');
+            $capableQty = $product->stock - $already_cart->quantity;
+            return back()->with('error', 'You can only add '.$capableQty .' left products');
         }
 
         if ($already_cart) {
@@ -95,7 +99,14 @@ class CartController extends Controller
                 $id = $request->qty_id[$k];
                 $cart = Cart::find($id);
                 if($quant > 0 && $cart) {
-                    $qtyProduct = $cart->code_variant ? $cart->productVariant->quantity : $cart->product->stock;
+                    if ($cart->code_variant) {
+                        $productVariant = $cart->product->product_variants()->where('code', $cart->code_variant)->first();
+                        if ($productVariant) {
+                            $qtyProduct = $productVariant->quantity;
+                        }
+                    } else {
+                        $qtyProduct = $cart->product->stock;
+                    }
                     $productName = $cart->code_variant ? $cart->product->title.' '. $cart->productVariant->name : $cart->product->title;
             
                     if( $qtyProduct < $quant){
@@ -108,7 +119,7 @@ class CartController extends Controller
                     
                     /** @var ProductVariant $productVariant */
                     /** @var Product $product */
-                    $cart->amount = $cart->code_variant ? $cart->productVariant->getPrice() * $quant : $cart->product->getPrice() * $quant;
+                    $cart->amount = $cart->code_variant ? $productVariant->price * $quant : $cart->product->getPrice() * $quant;
                     $cart->save();
                     $success = 'Cart successfully updated!';
                     
@@ -130,11 +141,11 @@ class CartController extends Controller
     public function cartDelete(Request $request){
         $cart = Cart::find($request->id);
         if ($cart) {
-            $cart->delete();
-            request()->session()->flash('success','Cart successfully removed');
+            $cart->forceDelete();
+            request()->session()->flash('success', 'Cart successfully removed');
             return back();
         }
-        request()->session()->flash('error','Error please try again');
+        request()->session()->flash('error', 'Error please try again');
         return back();
     }
 

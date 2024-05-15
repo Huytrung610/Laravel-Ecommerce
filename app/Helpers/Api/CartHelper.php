@@ -21,6 +21,7 @@ use Illuminate\Support\Str;
 use Laravel\Sanctum\PersonalAccessToken;
 use App\Helpers\Backend\ProductHelper;
 use App\Models\Attribute;
+use DB;
 
 class CartHelper
 {
@@ -126,6 +127,7 @@ class CartHelper
         foreach($cartOrderArray as $cartOrd){
             $dataCart = Cart::with('product')
             ->where('id', $cartOrd->id)
+            ->where('status', 'active')
             ->first();
             if ($dataCart->code_variant) {
                 $productVariant = ProductVariant::where('code', $dataCart->code_variant)
@@ -139,6 +141,92 @@ class CartHelper
             $cartOrderArr[] = $dataCart;
         }
         return $cartOrderArr;
+    }
+
+    public function updatePriceAfterUpdateProduct($product, $newPrice = '', $variantCode = ''){
+        $existedCarts = Cart::where('order_id', null)
+        ->where('product_id', $product->id)
+        ->get();
+        foreach($existedCarts as $existedCart){
+            if($existedCart->code_variant){
+                $codeVariants = explode(',', $existedCart->code_variant);
+                $codeVariants = array_map('intval', $codeVariants);
+                sort($codeVariants);
+                $sortedCodeVariant = implode(',', $codeVariants);
+            
+                $productVariant = Product::findOrFail($product->id)->product_variants()->where('code',$existedCart->code_variant)->first();
+                if ($productVariant) {
+                    $codes = explode(',', $productVariant->code);
+                    $codes = array_map('intval', $codes);
+                    sort($codes);
+                    $sortedCode = implode(',', $codes);
+            
+                    if ($sortedCode == $sortedCodeVariant) {
+                        $existedCart->update([
+                            'price' => $productVariant->price,
+                            'amount' => $existedCart->quantity * $productVariant->price
+                        ]);
+                    }
+                }
+            }else{
+                
+                if ($product) {
+                    $existedCart->update([
+                        'price' => $product->price,
+                        'amount' => $existedCart->quantity * $product->price
+                    ]);
+                }
+            }
+        }
+    }
+    public function deleteInactiveProductCart($product){
+        Cart::where('product_id', $product->id)->where('order_id', null)->delete();
+    }
+    public function restoreInactiveProductCart($product)
+    {
+        Cart::onlyTrashed()
+            ->where('product_id', $product->id)
+            ->where('order_id', null)
+            ->restore();
+    }
+
+    public function handleAfterUpdateVariantToCart($variantsData, $product)
+    {
+        $existedCarts = Cart::where('product_id', $product->id)
+                            ->where('order_id', null)
+                            ->get();
+
+        foreach ($existedCarts as $cart) {
+            $codeVariants = explode(',', $cart->code_variant);
+            $codeVariants = array_map('intval', $codeVariants);
+            
+            sort($codeVariants);
+            
+            $sortedCodeVariant = implode(',', $codeVariants);
+
+            if (!$product->product_variants->contains('code', $sortedCodeVariant)) {
+                $cart->forceDelete();
+            } else {
+                $isVariantEqual = false;
+
+                $productVariant = $product->product_variants->where('code', $sortedCodeVariant)->first();
+                
+                $codes = explode(',', $productVariant->code);
+                $codes = array_map('intval', $codes);
+                
+                sort($codes);
+                
+                $sortedCode = implode(',', $codes);
+                
+                if ($sortedCode == $sortedCodeVariant) {
+                    $isVariantEqual = true;
+                }
+
+                if (!$isVariantEqual) {
+                    $cart->delete();
+                }
+            }
+        }
     }
 }
 
