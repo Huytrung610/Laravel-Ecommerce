@@ -167,7 +167,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
-        $status = $product->delete();
+        $status = $product->forceDelete();
 
         if ($status) {
             request()->session()->flash('success', __('Product successfully deleted'));

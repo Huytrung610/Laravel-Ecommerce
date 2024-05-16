@@ -25,6 +25,8 @@
                     @foreach(explode(',', $productDetail->album) as $image)
                         <div class="swiper-slide"><img src="{{$image}}" alt="{{$image}}"></div>
                     @endforeach
+                @elseif($productDetail->photo)
+                    <div class="swiper-slide"><img src="{{$productDetail->photo}}" alt="{{$productDetail->photo}}"></div>
                 @else
                 <div class="swiper-slide"><img src="{{asset('images/placeholder.png')}}" alt="{{asset('images/placeholder.png')}}"></div>
                 @endif
@@ -36,9 +38,11 @@
         <div class="swiper-container product_detail--gallery-thumbs">
             <div class="swiper-wrapper">
                 @if($productDetail->album)
-                @foreach(explode(',', $productDetail->album) as $image)
-                    <div class="swiper-slide"><img src="{{$image}}" alt="{{$image}}"></div>
-                @endforeach
+                    @foreach(explode(',', $productDetail->album) as $image)
+                        <div class="swiper-slide"><img src="{{$image}}" alt="{{$image}}"></div>
+                    @endforeach
+                @elseif($productDetail->photo)
+                    <div class="swiper-slide"><img src="{{$productDetail->photo}}" alt="{{$productDetail->photo}}"></div>
                 @else
                 <div class="swiper-slide"><img src="{{asset('images/placeholder.png')}}" alt="{{asset('images/placeholder.png')}}"></div>
                 @endif

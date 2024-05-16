@@ -113,6 +113,7 @@
         </div>
     </div>
 </section>
+@include('frontend.sections.company-services')
 
 @push('after_scripts')
 <link href="{{ asset('css/product-detail.css') }}" rel="stylesheet">
