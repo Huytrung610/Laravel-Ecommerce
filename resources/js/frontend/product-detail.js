@@ -13,30 +13,9 @@ $(document).ready(function () {
     selectVariantProduct();
     loadProductVariant();
     initSwiper()
-    checkQuantity(); // Initial check
-    $('.quantity-left-minus').click(function(e) {
-        e.preventDefault();
-        let quantityInput = $('#quantity');
-        let currentVal = parseInt(quantityInput.val());
-        if (currentVal > 1) {
-            quantityInput.val(currentVal - 1);
-            checkQuantity();
-        }
-    });
-
-    $('.quantity-right-plus').click(function(e) {
-        e.preventDefault();
-        let quantityInput = $('#quantity');
-        let currentVal = parseInt(quantityInput.val());
-        quantityInput.val(currentVal + 1);
-        checkQuantity();
-    });
-
-    $('#quantity').change(function() {
-        checkQuantity();
-    });
-   
-   
+    checkQuantityButtons()
+    increaseQty()
+    decreaseQty();
 });
 
 //Swiper Gallery
@@ -196,15 +175,28 @@ function setupVariantGallery(gallery) {
         initSwiper();
     }
 }
-function checkQuantity() {
+
+
+function checkQuantityButtons() {
     let quantityInput = $('#quantity');
     let currentVal = parseInt(quantityInput.val());
-    let min = parseInt(quantityInput.data('min')) || 1; // Default to 1 if not set
 
-    if (currentVal <= min) {
+    if (currentVal === 1) {
         $('.quantity-left-minus').prop('disabled', true);
     } else {
         $('.quantity-left-minus').prop('disabled', false);
     }
+}
+function increaseQty(){
+    $('.quantity-right-plus').on('click', function(e) {
+        e.preventDefault();
+        checkQuantityButtons();
+    });
+}
+function decreaseQty(){
+    $('.quantity-left-minus').on('click', function(e) {
+        e.preventDefault();
+        checkQuantityButtons();
+    });
 }
 
