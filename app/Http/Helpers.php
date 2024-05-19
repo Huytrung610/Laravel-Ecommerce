@@ -4,12 +4,14 @@ use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\ProductVariant;
+use App\Helpers\Backend\ProductHelper;
 
 // use Auth;
 class Helper{
 
     public static function getAllProductFromCart($user_id = '')
 {
+    $productHelper = new ProductHelper();
     if (Auth::check()) {
         if ($user_id == "") {
             $user_id = auth()->user()->id;
@@ -23,9 +25,11 @@ class Helper{
             ->get();
 
         foreach ($carts as $cart) {
+            
             if ($cart->product && $cart->product->status === 'active') {
                 if ($cart->code_variant) {
-                    $productVariant = ProductVariant::where('code', $cart->code_variant)
+                    $sortVariantId = $productHelper->sortVariantId($cart->code_variant);
+                    $productVariant = ProductVariant::where('code', $sortVariantId)
                         ->where('product_id', $cart->product_id)
                         ->first();
 

@@ -7,6 +7,7 @@ use App\Models\Attribute;
 use App\Models\ProductVariant;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Helpers\Backend\ProductHelper;
 
 class CartController extends Controller
 {
@@ -15,14 +16,15 @@ class CartController extends Controller
         $request->validate([
             'quant' => 'required',
         ]);
-
+        $productHelper = new ProductHelper();
         $data = $request->all();
         $product = Product::find($data['product_id']);
         $productQty = $product->stock;
         $productName = $product->title;
         
         if ($product->has_variants && $product->product_variants()->count() > 0) {
-            $productVariant = ProductVariant::findVariant($data['code_product_variant'], $product->id);
+            $sortVariantId = $productHelper->sortVariantId($data['code_product_variant']);
+            $productVariant = ProductVariant::findVariant($sortVariantId, $product->id);
             $productName = $product->title .' '. $productVariant->name;
             $productQty = $productVariant->quantity;
             if ($productVariant->quantity < $request->quant[1]) {
@@ -91,6 +93,7 @@ class CartController extends Controller
 
 
     public function cartUpdate(Request $request){
+        $productHelper = new ProductHelper();
         if($request->quant){
             $error = array();
             $success = '';
@@ -100,14 +103,17 @@ class CartController extends Controller
                 $cart = Cart::find($id);
                 if($quant > 0 && $cart) {
                     if ($cart->code_variant) {
-                        $productVariant = $cart->product->product_variants()->where('code', $cart->code_variant)->first();
+                        $sortVariantId = $productHelper->sortVariantId($cart->code_variant);
+                        $productVariant = ProductVariant::where('product_id', $cart->product_id)
+                                                        ->where('code', $sortVariantId)
+                                                        ->first();
                         if ($productVariant) {
                             $qtyProduct = $productVariant->quantity;
                         }
                     } else {
                         $qtyProduct = $cart->product->stock;
                     }
-                    $productName = $cart->code_variant ? $cart->product->title.' '. $cart->productVariant->name : $cart->product->title;
+                    $productName = $cart->code_variant ? $cart->product->title.' '. $productVariant->name : $cart->product->title;
             
                     if( $qtyProduct < $quant){
                         request()->session()->flash('error',$productName .' only has ' .$qtyProduct . ' left');

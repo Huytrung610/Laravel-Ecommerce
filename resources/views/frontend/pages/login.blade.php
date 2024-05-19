@@ -65,5 +65,5 @@
     </section>
 @endsection
 @push('after_scripts')
-    <script src="{{asset('frontend/js/jquery.min.js')}}"></script>
+    <script src="{{asset('frontend/js/jquery-1.11.0.min.js')}}"></script>
 @endpush
