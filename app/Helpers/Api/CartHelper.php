@@ -123,14 +123,15 @@ class CartHelper
     }
 
     public function getAllProductFromCartOrder($cartOrderArray){
+        $productHelper = new ProductHelper();
         $cartOrderArr = [];
         foreach($cartOrderArray as $cartOrd){
             $dataCart = Cart::with('product')
             ->where('id', $cartOrd->id)
-            ->where('status', 'active')
             ->first();
             if ($dataCart->code_variant) {
-                $productVariant = ProductVariant::where('code', $dataCart->code_variant)
+                $sortVariantId = $productHelper->sortVariantId($dataCart->code_variant);
+                $productVariant = ProductVariant::where('code', $sortVariantId)
                     ->where('product_id', $dataCart->product_id)
                     ->first();
 

@@ -105,21 +105,24 @@ class OrderController extends Controller
     }
 
     public function checkAvailableToContinueProcess($currentUserId, $orderId = null) {
+        $productHelper = new ProductHelper();
+
         $allCartItem = Cart::where('user_id', $currentUserId)->where('order_id', $orderId)->get();
         if ($allCartItem->count() <= 0) {
             throw new \Exception(__('No cart item available'));
         }
         foreach ($allCartItem as $item) {
             $productId = $item->getAttribute('product_id');
-
-            $product = $item->code_variant ? ProductVariant::where('product_id', $productId)->where('code',$item->code_variant)->first() : Product::where('id', $productId)->first();
+            $product = $item->code_variant ? ProductVariant::where('product_id', $productId)
+                                            ->where('code',$productHelper->sortVariantId($item->code_variant))
+                                            ->first() : Product::where('id', $productId)->first();
             if (empty($product)) {
                 throw new \Exception(__('Product not found'));
             }
             $currentStock = $item->code_variant ? $product->quantity : $product->stock;
             $currentCartQty = $item->quantity;
             
-            $productName = $item->code_variant ? $item->product->title.' '. $item->productVariant->name : $item->product->title;
+            $productName = $item->code_variant ? $item->product->title.' '. $product->name : $item->product->title;
             if (empty($currentStock) || $currentStock - $currentCartQty < 0) {
                 throw new \Exception(__('The quantity with '. $productName . 'is not enough to continue process'));
             }
