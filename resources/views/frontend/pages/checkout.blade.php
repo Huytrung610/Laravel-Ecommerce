@@ -122,7 +122,7 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
                 @if(!Helper::getAllProductFromCart()->count()) disabled @endif>
                 Update Cart
               </button>
-              <a href="{{route('home')}}" class="tw-py-1.5 tw-px-3 tw-bg-[#3D3D3D] tw-rounded-md tw-mt-5 tw-text-[#FECF56] hover:tw-text-primary hover:tw-opacity-90">Continue Shopping</a>
+              <a href="{{route('home')}}" class="tw-py-1.5 tw-px-3 tw-bg-[#3D3D3D] tw-rounded-md tw-mt-5 tw-text-[#FECF56] hover:tw-text-third hover:tw-opacity-90">Continue Shopping</a>
             </div>
           </div>
         </form> 

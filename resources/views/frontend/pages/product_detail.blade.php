@@ -35,7 +35,7 @@
                     <div>
                         <div class="cart-wrap">
                             <div class="product-price pt-3 pb-3">
-                                <strong class="main-price tw-text-sm tw-font-bold display-6 price-product">{{ number_format($productDetail->price, 0, ',', '.') }}đ</strong> 
+                                <strong class="main-price tw-text-lg tw-font-bold display-6 price-product">{{ number_format($productDetail->price, 0, ',', '.') }}đ</strong> 
                             </div>
                             <div class="product-quantity">
                                 {{-- <div class="stock-number text-dark stock-product"></div> --}}
@@ -46,16 +46,16 @@
                                     </div>
                                 </div>
                                 <div class="stock-button-wrap pt-3 tw-flex tw-gap-4">
-                                    <div class="input-group product-qty">
-                                        <span class="input-group-btn">
-                                            <button type="button" class="quantity-left-minus btn btn-number"  data-type="minus" data-field="quant[1]">
+                                    <div class="input-group product-qty !tw-gap-0 ">
+                                        <span class="input-group-btn ">
+                                            <button type="button" class="quantity-left-minus btn-number !tw-rounded-none !tw-border !tw-border-r-0 !tw-rounded-l-md"  data-type="minus" data-field="quant[1]">
                                             -
                                             </button>
                                         </span>
                                         <input type="text" id="quantity" name="quant[1]" class="form-control input-number tw-text-2xl tw-font-bold" data-min="1"
                                             data-max="1000" value="1">
                                         <span class="input-group-btn">
-                                            <button type="button" class="quantity-right-plus btn btn-number" data-type="plus" data-field="quant[1]">
+                                            <button type="button" class="quantity-right-plus btn-number !tw-rounded-none !tw-border !tw-border-l-0 !tw-rounded-r-md" data-type="plus" data-field="quant[1]">
                                                 +
                                             </button>
                                         </span>
@@ -69,7 +69,10 @@
                                         @include('frontend.popup.sign-up-popup')
                                     @else
                                         <div class="qty-button d-flex flex-wrap">
-                                            <button type="submit" name="add-to-cart" value="1269" class="btn btn-black text-uppercase">Add to cart</button>
+                                            <button type="submit" name="add-to-cart" 
+                                                class="tw-py-1.5 tw-px-3 tw-bg-[#3D3D3D] tw-rounded-md tw-text-[#FECF56] hover:tw-opacity-90">
+                                                Add to cart
+                                            </button>
                                         </div>
                                     @endguest
                                 </div>
