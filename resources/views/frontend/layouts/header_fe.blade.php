@@ -31,7 +31,9 @@
                 <div class="offcanvas-body">
                     <ul id="navbar" class="navbar-nav text-uppercase justify-content-end align-items-center flex-grow-1 pe-3" style="margin-right: 40px;">
                         <li class="nav-item">
-                            <a class="nav-link me-4 @if(request()->routeIs('home')) active @endif" href="{{ route('home') }}">Home</a>
+
+                            <a class="nav-link me-4  tw-text-third @if(request()->routeIs('home')) active @endif" href="{{ route('home') }}">Home</a>
+
                         </li>
                         @php
                             $parentCategories = \App\Models\Category::getParentCategories();

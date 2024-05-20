@@ -118,6 +118,21 @@ div.dataTables_wrapper div.dataTables_length  > label > select {
     transition: scale .5s ease;
 }
 
+.post-wrap .post-content {
+    background-color: #FFFF;
+    margin-top: -70px;
+    border: 1px solid #F9FAFB;
+    border-radius: 16px;
+    padding: 16px;
+}
+.post-grid .page-item.active span.page-link {
+    background-color: #3D3D3D;
+    color: #FECF56;
+    border: #3D3D3D;
+}
+.post-grid .page-item a.page-link {
+    color: #FECF56;
+    border: #3D3D3D;
 
 
 /* Product category page */
