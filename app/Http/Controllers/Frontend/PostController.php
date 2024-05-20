@@ -20,7 +20,7 @@ class PostController extends Controller
      */
     public function listing()
     {
-        $posts = Post::where('status','active')->paginate(3);
+        $posts = Post::where('status','active')->paginate(4);
         return view('frontend.pages.blog')->with('posts' , $posts);
     }
 
