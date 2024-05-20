@@ -44,9 +44,6 @@ class ProductHelper
         return $title;
     }
 
-    public function combineNameProduct(){
-        
-    }
 
     public function formatPrice($productPrice){
        return number_format($productPrice, 0, ',', '.');
@@ -78,7 +75,7 @@ class ProductHelper
     }
 
 
-    private function sortVariantId(string $productVariantId = '') {
+    public function sortVariantId(string $productVariantId = '') {
         $extract = explode(',', $productVariantId);
         $extract = array_map('trim', $extract);
         sort($extract, SORT_NUMERIC);

@@ -58,3 +58,8 @@
 	-webkit-appearance: none;
 	margin: 0;
 }
+.checkout-btn--container {
+	& button:disabled {
+		opacity: 0.1;
+	}
+}

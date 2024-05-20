@@ -53,12 +53,17 @@ class Category extends Model
 
     public static function getParentCategories()
     {
-        return self::where('parent_id', Category::CATEGORY_PARENT_ID)->get();
+        return self::where('parent_id', Category::CATEGORY_PARENT_ID)->where('status',self::STATUS_ACTIVE )->get();
     }
     public static function getChildCatByParentCat($id){
         return self::where('parent_id', $id)->where('status', self::STATUS_ACTIVE)->get();
     }
     public static function getAllChildCat(){
         return self::where('parent_id', '!=', self::CATEGORY_PARENT_ID)->where('status', self::STATUS_ACTIVE)->get();
+    }
+
+    public static function shiftChild($catId)
+    {
+        return Category::whereIn('id', $catId)->update(['is_parent' =>self::CATEGORY_PARENT_ID]);
     }
 }

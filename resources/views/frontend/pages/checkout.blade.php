@@ -59,7 +59,7 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
                                   $firstImagePath = asset($imagePaths[0]);
                               }
                           @endphp
-                          <img src="{{$firstImagePath}}" alt="{{$firstImagePath}}" class="img-fluid tw-w-[100px] tw-h-[120px]">
+                          <img src="{{$firstImagePath}}" alt="{{$firstImagePath}}" class="img-fluid tw-w-[100px] tw-h-auto">
                       </div>
                         <div class="card-detail ps-3">
                             <h3 class="card-title">
@@ -73,7 +73,7 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
                                         $productPrice =  $productHelper->formatPrice($cart->product->price);
                                     } 
                                 @endphp
-                                <a href="{{ route('product-detail', ['slug' => $cart->product->slug]) }}" class="tw-text-base">{{$productName}}</a>
+                                <a href="{{ route('product-detail', ['slug' => $cart->product->slug]) }}" class="tw-text-base hover:tw-text-yellow-500">{{$productName}}</a>
                             </h3>
                             <div class="card-price">
                                 <span class="money text-primary">{{$productPrice}}đ</span>
@@ -118,8 +118,11 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
             @endforeach
           <div class="cart-totals bg-grey padding-medium">
             <div class="button-wrap">
-              <button type="submit" class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none">Update Cart</button>
-              <a href="{{route('home')}}" class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none">Continue Shopping</a>
+              <button type="submit" class="tw-py-1.5 tw-px-3 tw-bg-[#3D3D3D] tw-rounded-md tw-mt-5 tw-text-[#FECF56] hover:tw-opacity-90"
+                @if(!Helper::getAllProductFromCart()->count()) disabled @endif>
+                Update Cart
+              </button>
+              <a href="{{route('home')}}" class="tw-py-1.5 tw-px-3 tw-bg-[#3D3D3D] tw-rounded-md tw-mt-5 tw-text-[#FECF56] hover:tw-text-third hover:tw-opacity-90">Continue Shopping</a>
             </div>
           </div>
         </form> 
@@ -149,8 +152,9 @@ $addressDefault = $user->getAddressDefault() ?? $listAddress->first();
             @include('frontend.pages.checkout.payment-method')
 
             @include('frontend.pages.checkout.contact-infor')
-            <div class="checkout-btn--container tw-flex tw-justify-end"> 
-              <button class="btn btn-black btn-medium text-uppercase me-2 mb-3 btn-rounded-none tw-mt-5" type="submit">Confirm Order</button>
+            <div class="checkout-btn--container tw-flex tw-w-full"> 
+              <button class="tw-py-1.5 tw-px-3 tw-bg-[#3D3D3D] tw-text-lg tw-rounded-md tw-w-full tw-mt-5 tw-text-[#FECF56] hover:tw-opacity-90" 
+                      type="submit" @if(!Helper::getAllProductFromCart()->count()) disabled @endif>Confirm Order</button>
             </div>
           </form>
         </div>

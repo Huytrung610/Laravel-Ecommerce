@@ -24,7 +24,7 @@
   </div>
   
 </section>
-<div class="shopify-grid padding-large tw-bg-gray-100">
+<div class="shopify-grid tw-bg-gray-100">
   <div class="container" style="font-size: 16px;margin-bottom: 3%;"  >
     <div class="d-flex mb-3">
        <div class="ms-auto p-2">
@@ -39,8 +39,8 @@
         </div>
     </div>
 
-    <div class="product-list-container">
-      <div class="product-list-wrapper tw-grid tw-grid-cols-4 tw-gap-3.5">
+    <div class="product-list-container tw-flex tw-flex-col tw-gap-y-11">
+      <div class="product-list-wrapper tw-grid tw-grid-cols-4 tw-gap-x-3.5 tw-gap-y-9">
         @foreach($productList as $product)
           <div class="product-col">
             <div class="item_product_main">
@@ -55,7 +55,7 @@
                         </a>
                     </div>
                     <div class="product-info tw-flex tw-flex-col tw-items-center tw-gap-1">
-                      <h3 class="product-name tw-font-bold tw-text-lg"><a href="{{ route('product-detail', ['slug' => $product->slug]) }}" title="">{{ $product->title }}</a></h3>
+                      <h3 class="product-name tw-font-bold tw-text-lg"><a href="{{ route('product-detail', ['slug' => $product->slug]) }}" class="hover:tw-text-yellow-500" title="">{{ $product->title }}</a></h3>
                       @php
                         $minPrice = $product->product_variants()->min('price') ?? $product->price;
                         $formatted_minPrice = number_format($minPrice, 0, ',', '.');
@@ -69,6 +69,7 @@
           </div>
           @endforeach
       </div>
+      {!! $productList->links() !!}
     </div>
   </div>
 

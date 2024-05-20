@@ -43,10 +43,10 @@
                                 <tbody class="tw-bg-gray-200">
                                     @foreach($dataCart['cart-products'] as $cartProduct)
                                     @php
-                                         $productHelper = new \App\Helpers\Backend\ProductHelper();
+                                        $productHelper = new \App\Helpers\Backend\ProductHelper();
                                         if($cartProduct->code_variant){
-                                            $productName = $cartProduct->product->title .' '. $cartProduct->productVariant->name;
-                                            $productPrice =  $productHelper->formatPrice($cartProduct->productVariant->price);
+                                            $productName = $cartProduct->product->title .' '. $cartProduct->product_variant->name;
+                                            $productPrice =  $productHelper->formatPrice($cartProduct->price);
                                         } else {
                                             $productName = $cartProduct->product->title;
                                             $productPrice =  $productHelper->formatPrice($cartProduct->product->price);

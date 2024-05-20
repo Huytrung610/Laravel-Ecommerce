@@ -4,7 +4,6 @@ $(document).ready(function () {
     $('.subscription-form').submit(function (e) {
         e.preventDefault();
         let email_subscriber = $('#email_subcriber').val();
-        // alert(email_subscriber);
         let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         let url = '/add-subcriber';
         let _token = $('meta[name="csrf-token"]').attr('content');
@@ -19,7 +18,7 @@ $(document).ready(function () {
                 data: {
                     _token:_token,
                     email_subscriber: email_subscriber},
-                dataType: 'json',
+                    dataType: 'json',
                 success: function(response) {
                     if (response.status === 'success') {
                         swal('Success', 'Thanks for subscribing!', 'success');

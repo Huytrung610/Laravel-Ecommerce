@@ -62,7 +62,7 @@ class CategoryController extends Controller
             $data['slug'] = $slug;
             $data['summary'] = $request->get('summary');
             $data['status'] = $request->get('status');
-            if ($request->get('parent_id') == Category::CATEGORY_PARENT) {
+            if ($request->get('category_type') == Category::CATEGORY_PARENT) {
                 $data['parent_id'] = self::IS_PARENT_CATEGORY;
                 $data['category_type'] = $request->get('category_type');
             } 
@@ -93,6 +93,9 @@ class CategoryController extends Controller
             $category = Category::findOrFail($id);
             $this->validateDataCategoryFormEdit($request, $category);
             $data = $request->all();
+            if($data['category_type'] == Category::CATEGORY_PARENT){
+                $data['parent_id'] = Category::CATEGORY_PARENT_ID;
+            }
             $category->update($data);
 
             request()->session()->flash('success', __('Category successfully updated'));
@@ -124,13 +127,13 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
-        // $childCatId = Category::where(self::ATTRIBUTE_IS_PARENT, $id)->pluck('id');
+        $childCatId = Category::where(self::ATTRIBUTE_IS_PARENT, $id)->pluck('id');
         $status = $category->delete();
 
         if ($status) {
-            // if (count($childCatId) > 0) {
-            //     Category::shiftChild($childCatId);
-            // }
+            if (count($childCatId) > 0) {
+                Category::shiftChild($childCatId);
+            }
             request()->session()->flash('success', __('Category successfully deleted'));
         } else {
             request()->session()->flash('error', __('Error while deleting category'));
@@ -138,10 +141,6 @@ class CategoryController extends Controller
         return redirect()->route('category.index');
     }
 
-    public static function shiftChild($catId)
-    {
-        return Category::whereIn('id', $catId)->update(['parent_id' => 0]);
-    }
 
     public function productCat(Request $request)
     {
@@ -153,6 +152,4 @@ class CategoryController extends Controller
                 'products' => $products,
             ]);
     }
-
-
 }

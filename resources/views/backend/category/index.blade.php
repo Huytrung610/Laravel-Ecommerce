@@ -79,8 +79,8 @@
     </div>
 @endsection
 @push('styles')
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/>
+
 @endpush
 @push('after_scripts')
     <link href="{{ asset('backend/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">   
@@ -103,8 +103,6 @@
 
         function deleteData(id) {
         }
-    </script>
-    <script>
         $(document).ready(function () {
             $.ajaxSetup({
                 headers: {

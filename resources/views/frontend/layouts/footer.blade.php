@@ -101,7 +101,7 @@
                         <div class="footer-menu contact-item tw-flex tw-flex-col tw-gap-3">
                             <h5 class="widget-title text-uppercase pb-2 tw-font-bold">Contact Us</h5>
                             @if(isset($settings['email']) && $settings['email'])
-                                <span class="tw-text-primary" >If you have any questions, don't hesitate to email us at gmail:
+                                <span class="tw-ttaext-primary" >If you have any questions, don't hesitate to email us at gmail:
                                     <a href="mailto:{{ $settings['email'] }}" class="hover:tw-text-yellow-500"><strong href="mailto:{{ $settings['email'] }}">{{ $settings['email'] }}</strong></a>
                                 </span>
                             @endif

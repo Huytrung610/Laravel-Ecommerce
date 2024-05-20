@@ -108,11 +108,6 @@
           ]
       });
 
-        // Sweet alert
-
-        function deleteData(id){
-
-        }
   </script>
   <script src="{{ mix('js/backend/newsletter.js') }}"></script>
 @endpush

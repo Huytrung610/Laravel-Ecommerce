@@ -13,6 +13,9 @@ $(document).ready(function () {
     selectVariantProduct();
     loadProductVariant();
     initSwiper()
+    checkQuantityButtons()
+    increaseQty()
+    decreaseQty();
 });
 
 //Swiper Gallery
@@ -89,10 +92,14 @@ function handleAttribute(){
             dataType: 'json',
     
             success: function (response) {
+                console.log(response);
                 let album;
                 if (response.variant && response.variant.image) {
                     album = response.variant.image.split(',');
-                } else {
+                } else if(response.variant && response.variant.image == null && productImages){
+                    album = productImages.split(',');
+                }
+                else {
                     album = defaultImg
                 }
                 setupVariantPrice(response)
@@ -108,18 +115,18 @@ function handleAttribute(){
     } 
 }
 function loadProductVariant() {
+
+    let attributeCatalougue = JSON.parse(atob($('.attributeCatalogue').val()));
     
-        let attributeCatalougue = JSON.parse($('.attributeCatalogue').val());
-        if(attributeCatalougue != null){
-            if(typeof attributeCatalougue != 'undefined' && attributeCatalougue.length){
-                handleAttribute()
-            }
+    if(attributeCatalougue != null){
+        if(typeof attributeCatalougue != 'undefined' && attributeCatalougue.length){
+            handleAttribute()
         }
-        
+    }     
 }
 function setupVariantPrice(res){
-    var price = parseFloat(res.variant.price);
-    var formattedPrice = price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+    let price = parseFloat(res.variant.price);
+    let formattedPrice = price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
     $('.main-price').text(formattedPrice);
     
 }
@@ -168,3 +175,28 @@ function setupVariantGallery(gallery) {
         initSwiper();
     }
 }
+
+
+function checkQuantityButtons() {
+    let quantityInput = $('#quantity');
+    let currentVal = parseInt(quantityInput.val());
+
+    if (currentVal === 1) {
+        $('.quantity-left-minus').prop('disabled', true);
+    } else {
+        $('.quantity-left-minus').prop('disabled', false);
+    }
+}
+function increaseQty(){
+    $('.quantity-right-plus').on('click', function(e) {
+        e.preventDefault();
+        checkQuantityButtons();
+    });
+}
+function decreaseQty(){
+    $('.quantity-left-minus').on('click', function(e) {
+        e.preventDefault();
+        checkQuantityButtons();
+    });
+}
+
