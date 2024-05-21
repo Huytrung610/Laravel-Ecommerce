@@ -216,33 +216,31 @@ class ProductController extends Controller
         }
     }
 
-    public function searchProducts(Request $request)
-    {
-        $searchValue = $request->input('search');
-        $helper = new \App\Helpers\Backend\ProductHelper();
-        
-        if ($searchValue) {
-            $products = Product::where('title', 'like', '%' . $searchValue . '%')->get();
+    public function searchProducts(Request $request) {
+        $query = $request->input('query');
+        $slug = $request->input('category_slug');
+
+        if ($query) {
+            $products = Product::where('title', 'LIKE', "%{$query}%")
+                ->where('status', Product::IS_ACTIVE)
+                ->get();
         } else {
-            $products = Product::all();
-        }
-        
-        $productList = [];
-        
-        foreach ($products as $product) {
-            $minPrice = $helper->formatPrice($product->attributes()->min('price'));
-            $maxPrice = $helper->formatPrice($product->attributes()->max('price'));
-
-            $productList[] = [
-                'url' => route('product-detail', $product->slug),
-                'photo' => $product->photo,
-                'title' => $product->title,
-                'price' =>  $minPrice . ' - ' . $maxPrice
-            ];
+            if ($slug) {
+                $category = Category::where('slug', $slug)->first();
+                if ($category) {
+                    $products = $category->products()->where('status', Product::IS_ACTIVE)->get();
+                } else {
+                    $products = [];
+                }
+            } else {
+                $products = [];
+            }
         }
 
-        return response()->json($productList);
+        return response()->json($products);
     }
+
+
 
     public function updateHasVariants(Request $request, $id)
     {
