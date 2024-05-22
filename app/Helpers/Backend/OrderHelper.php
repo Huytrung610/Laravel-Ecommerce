@@ -15,6 +15,7 @@ class OrderHelper
         $daysInMonth = Carbon::createFromDate($year, $month, 1)->daysInMonth;
         $allDays = range(1, $daysInMonth);
         $temp = Order::revenueCurrentMonth($month, $year);
+        $topProductsWithVariants = Order::getTopSellingProductsWithVariants();
 
         $label = [];
         $data = [];
@@ -40,14 +41,15 @@ class OrderHelper
         
         $orderCurrentMonth = $order->getOrderByTime($month, $year);
         $orderPreviousMonth = $order->getOrderByTime($previousMonth, $previousYear);
-        
         return [
             'orderCurrentMonth' => $orderCurrentMonth,
             'orderPreviousMonth' => $orderPreviousMonth,
             'grow' => $this->growth($orderCurrentMonth, $orderPreviousMonth),
             'revenueChart' => $this->convertRevenueChartData(Order::revenueByYear($year)),
             'revenueWeek' => $this->convertRevenueChartData(Order::revenue7Day(), 'daily_revenue', 'date', ''),
-            'revenueMonth' => $revenueMonth
+            'revenueMonth' => $revenueMonth,
+            'topProductsWithVariants' => $topProductsWithVariants 
+
         ];
     }
     

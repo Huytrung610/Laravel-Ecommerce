@@ -167,4 +167,48 @@ class Order extends Model
         ->orderBy('day')
         ->get();
     }
+
+
+    public static function getTopSellingProductsWithVariants() {
+        $orderIds = Order::where('status', 'delivered')->pluck('id')->toArray();
+    
+        $topProducts = Cart::whereIn('order_id', $orderIds)
+            ->select('product_id', DB::raw('SUM(quantity) as total_quantity'), 'code_variant')
+            ->groupBy('product_id', 'code_variant')
+            ->orderByDesc('total_quantity')
+            ->limit(5)
+            ->get();
+    
+        $topSellingProducts = [];
+    
+        foreach ($topProducts as $product) {
+            $productName = '';
+            $productModel = Product::find($product->product_id);
+    
+            if ($product->code_variant) {
+                $variant = ProductVariant::where('product_id', $product->product_id)
+                                         ->where('code', $product->code_variant)
+                                         ->first();
+                if ($variant) {
+                    $productName = $productModel->title . ' ' . $variant->name;
+                }
+            } else {
+                $productName = $productModel->title;
+            }
+    
+            $topSellingProducts[] = [
+                'product_id' => $product->product_id,
+                'product_name' => $productName,
+                'total_quantity' => $product->total_quantity,
+            ];
+        }
+    
+        usort($topSellingProducts, function($a, $b) {
+            return $b['total_quantity'] <=> $a['total_quantity'];
+        });
+    
+        return array_slice($topSellingProducts, 0, 5);
+    }
+    
+    
 }
