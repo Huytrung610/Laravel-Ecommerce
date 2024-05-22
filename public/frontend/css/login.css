@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900'); 
 body {
     font-family: 'Poppins', sans-serif;
     font-weight: 300;
@@ -111,7 +111,6 @@ h6 span {
     width: 100%;
     height: 100%;
     background-color: #2b2e38;
-    background-image: url('/img/pattern_japanese-pattern-2_1_2_0-0_0_1__ffffff00_000000.png');
     position: absolute;
     border-radius: 6px;
     -webkit-transform-style: preserve-3d;
@@ -203,4 +202,19 @@ h6 span {
     background-color: #000000;
     color: #ffeba7;
     box-shadow: 0 8px 24px 0 rgba(16, 39, 112, .2);
+}
+.section-foreget-password .input-email-recover {
+    border: 1px solid #FECF56;
+}
+.section-foreget-password .heading-forget{
+    margin-bottom: 20px;
+}
+.section-foreget-password .form-forget-pw{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.section-foreget-password .input-forget-pw{
+    width: 50%;
 }
