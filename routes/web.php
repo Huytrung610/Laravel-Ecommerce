@@ -110,4 +110,8 @@ Route::get('/shipping-policy', [\App\Http\Controllers\CmsContentController::clas
 Route::get('/privacy-policy', [\App\Http\Controllers\CmsContentController::class, 'show'])->name('privacy-policy');
 Route::get('/payment-policy', [\App\Http\Controllers\CmsContentController::class, 'show'])->name('payment-policy');
 
+Route::get('/forget-password',[\App\Http\Controllers\ForgetPasswordManager::class, 'forgetPassword'])->name('forget.password');
+Route::post('/forget-password',[\App\Http\Controllers\ForgetPasswordManager::class, 'forgetPasswordPost'])->name('forget.password.post');
+Route::get('/reset-password/{token}',[\App\Http\Controllers\ForgetPasswordManager::class, 'resetPassword'])->name('reset.password');
+Route::post('/reset-password',[\App\Http\Controllers\ForgetPasswordManager::class, 'resetPasswordPost'])->name('reset.password.post');
 
