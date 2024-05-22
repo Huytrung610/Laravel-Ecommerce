@@ -33,33 +33,33 @@ class AdminController extends Controller
             ->groupBy('month')
             ->get();
 
-        $labels = [];
-        $revenues = [];
-        $quantities = [];
+        // $labels = [];
+        // $revenues = [];
+        // $quantities = [];
 
         
-        $orderIds = Order::where('status', 'delivered')->pluck('id')->toArray();
+        // $orderIds = Order::where('status', 'delivered')->pluck('id')->toArray();
         $totalRevenue = Order::getTotalRevenue();
         $totalOrder = Order::getTotalOrders();
         $cancelOrder = Order::getCancelOrders();
         $totalCustomer = User::totalCustomers();
         $totalSubcribers = NewsletterSubcriber::getAllSubcriber()->count();
         
-        $topProducts = Cart::whereIn('order_id', $orderIds)
-            ->select('product_id', DB::raw('SUM(quantity) as total_quantity'))
-            ->groupBy('product_id')
-            ->orderByDesc('total_quantity')
-            ->limit(3)
-            ->pluck('product_id')
-            ->toArray();
+        // $topProducts = Cart::whereIn('order_id', $orderIds)
+        //     ->select('product_id', DB::raw('SUM(quantity) as total_quantity'))
+        //     ->groupBy('product_id')
+        //     ->orderByDesc('total_quantity')
+        //     ->limit(3)
+        //     ->pluck('product_id')
+        //     ->toArray();
        
-        $products = Cart::whereIn('order_id', $orderIds)
-            ->whereIn('product_id', $topProducts)
-            ->select('product_id', DB::raw('SUM(quantity) as total_quantity'), DB::raw('SUM(amount) as total_amount'))
-            ->groupBy('product_id')
-            ->orderByDesc('total_quantity')
-            ->get()
-            ->toArray();
+        // $products = Cart::whereIn('order_id', $orderIds)
+        //     ->whereIn('product_id', $topProducts)
+        //     ->select('product_id', DB::raw('SUM(quantity) as total_quantity'), DB::raw('SUM(amount) as total_amount'))
+        //     ->groupBy('product_id')
+        //     ->orderByDesc('total_quantity')
+        //     ->get()
+        //     ->toArray();
 
         foreach ($revenueByMonth as $revenue) {
 
@@ -67,8 +67,7 @@ class AdminController extends Controller
             $revenues[] = $revenue['total_revenue'];
             $quantities[] = $revenue['total_quantity'];
         }
-
-        return view('backend.index', compact('labels', 'revenues', 'quantities', 'products'))
+        return view('backend.index', compact('quantities'))
                                 ->with('totalRevenue', $totalRevenue)
                                 ->with('orderStatistic', $orderStatistic)
                                 ->with('cancelOrder', $cancelOrder)

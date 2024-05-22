@@ -17,9 +17,12 @@ $(document).ready(function () {
             case 'month':
                 createBarChart(idChart, labelMonth, dataMonth);
                 break;
-           
+            case 'best-products':
+                createPieChart('best-sell-products', productLabels, productQuantities)
+                break;
         }
     });
+  
 });
 
 function createBarChart(idChart, label, data) {
@@ -78,4 +81,53 @@ function createBarChart(idChart, label, data) {
 
     window.myBarChart = new Chart(ctx, {type: 'bar', data: chartData, options: chartOption});
 
+}
+
+function createPieChart(idChart, labels, data) {
+    let canvas = document.getElementById(idChart);
+    let ctx = canvas.getContext('2d');
+    let myPieChart;
+
+    // Kiểm tra và hủy biểu đồ hiện tại nếu tồn tại
+    if (window.myPieChart) {
+        window.myPieChart.destroy();
+    }
+
+    let chartData = {
+        labels: labels,
+        datasets: [{
+            data: data,
+            backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(153, 102, 255)'
+            ],
+            hoverOffset: 4
+        }]
+    };
+
+    let chartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        let value = tooltipItem.raw;
+                        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    }
+                }
+            }
+        }
+    };
+
+    window.myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: chartData,
+        options: chartOptions
+    });
 }

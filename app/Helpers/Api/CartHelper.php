@@ -221,6 +221,7 @@ class CartHelper
                 
                 if ($sortedCode == $sortedCodeVariant) {
                     $isVariantEqual = true;
+                    // $cart->update(['code_variant' => $codes]);
                 }
 
                 if (!$isVariantEqual) {

@@ -10,10 +10,10 @@
             <a class="nav-link tab-chart" data-toggle="tab" href="#tabs-bar-chart-week" data-chart-type="week" role="tab">Last 7 days</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link tab-chart" data-toggle="tab" href="#tabs-bar-chart-month" data-chart-type="month" role="tab">Third Panel</a>
+            <a class="nav-link tab-chart" data-toggle="tab" href="#tabs-bar-chart-month" data-chart-type="month" role="tab">Daily in Month</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link tab-chart" data-toggle="tab" href="#tabs-best-sell-products" data-chart-type="month" role="tab">Best-selling Products</a>
+            <a class="nav-link tab-chart" data-toggle="tab" href="#tabs-best-sell-products" data-chart-type="best-products" role="tab">Best-selling Products</a>
         </li>
     </ul>
     <div class="tab-content">
@@ -28,6 +28,11 @@
                 <canvas id="bar-chart-week"></canvas>
             </div>
         </div>
+        <div class="tab-pane" id="tabs-bar-chart-month" role="tabpanel">
+             <div class="card-body" >
+                <canvas id="bar-chart-month"></canvas>
+            </div>
+        </div>
         <div class="tab-pane" id="tabs-best-sell-products" role="tabpanel">
              <div class="card-body" >
                 <canvas id="best-sell-products"></canvas>
@@ -38,6 +43,8 @@
 </div>
 
 @php
+    $productLabels = json_encode(array_column($orderStatistic['topProductsWithVariants'], 'product_name'));
+    $productQuantities = json_encode(array_column($orderStatistic ['topProductsWithVariants'], 'total_quantity'));
     $dataYear = json_encode($orderStatistic['revenueChart']['data']);
     $labelYear = json_encode($orderStatistic['revenueChart']['label']);
     $dataWeek = json_encode($orderStatistic['revenueWeek']['data']);
@@ -46,6 +53,9 @@
     $labelMonth = json_encode($orderStatistic['revenueMonth']['label']);
 @endphp
 <script>
+    var productLabels = {!! $productLabels !!};
+    var productQuantities = {!! $productQuantities !!};
+
     var rawDataYear = {!! $dataYear !!};
     var rawDataWeek = {!! $dataWeek !!};
     var rawDataMonth = {!! $dataMonth !!};
