@@ -16,7 +16,7 @@
         <div class="mt-5 tw-flex tw-gap-8">
             @include('frontend.pages.product-detail.album-product')
             <div class="product-detail-info-wrapper">
-                <div class="product-info tw-flex tw-flex-col tw-gap-8">
+                <div class="product-info tw-flex tw-flex-col tw-gap-2">
                     <div class="element-header">
                         <h2 itemprop="name" class="product-main-title display-7 tw-font-bold tw-text-2xl">{{$productDetail->title}}</h2>
                         <input type="hidden" class="productName--hidden" value="{{$productDetail->title}}">
@@ -25,7 +25,7 @@
                         {!! htmlspecialchars_decode($productDetail->summary) !!}
                     </div>
                     @if($productDetail->brand)
-                        <div class="detail-product__brand tw-flex tw-items-center tw-gap-3">
+                        <div class="detail-product__brand tw-flex tw-items-center tw-gap-3 tw-mb-4">
                             <h3 class="tw-font-bold">Brand:</h3>
                             <span>{{$productDetail->brand->name}}</span>
                         </div>
@@ -62,7 +62,7 @@
                                     </div>
                                     @guest
                                         <div class="qty-button d-flex flex-wrap btn-add-to-cart">
-                                            <button type="button" name="add-to-cart" class="btn btn-black btn-medium text-uppercase mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <button type="button" name="add-to-cart" class="tw-p-2.5 tw-border tw-rounded tw-bg-secondary tw-opacity-90 tw-text-third tw-border-black text-uppercase" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                 Add to cart
                                               </button>
                                         </div>
