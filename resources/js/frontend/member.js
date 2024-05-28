@@ -3,7 +3,7 @@ window.jQuery = $;
 window.$ = $;
 
 $(document).ready(function(){
-  
+    attachPhoneNumberValidation();
     HandleUpdateForm()
     HandleNewAddressForm()
     updateDefaultAddress()
@@ -26,6 +26,7 @@ function HandleUpdateForm(){
         } else {
             addressForm.addClass('tw-hidden');
         }
+        attachPhoneNumberValidation();
     });
 }
 
@@ -42,6 +43,7 @@ function HandleNewAddressForm(){
         } else {
             addressForm.addClass('tw-hidden');
         }
+        attachPhoneNumberValidation();
     });
 }
 function updateDefaultAddress() {
@@ -173,6 +175,47 @@ function appendProductOrder(dataProducts) {
 function hideModalOrder(){
     $('.modal-footer button[data-dismiss="modal"]').click(function() {
         $(this).closest('.modal').modal('hide'); 
+    });
+}
+
+function validatePhoneNumber(phoneNumber) {
+    const phoneRegex = /^[0-9]{10}$/;
+    return phoneRegex.test(phoneNumber);
+}
+function validatePhoneNumberInput($phoneNumberInput, $phoneError, $submitButton) {
+    const phoneNumber = $phoneNumberInput.val();
+    const isEmpty = phoneNumber.trim() === ''; 
+
+    if (isEmpty) {
+        $phoneError.addClass('tw-hidden'); 
+        $submitButton.attr('disabled', 'disabled'); 
+    } else {
+        const isValid = validatePhoneNumber(phoneNumber); 
+
+        if (isValid) {
+            $phoneError.addClass('tw-hidden'); 
+            $submitButton.removeAttr('disabled');
+        } else {
+            $phoneError.removeClass('tw-hidden'); 
+            $submitButton.attr('disabled', 'disabled'); 
+        }
+    }
+}
+
+function attachPhoneNumberValidation() {
+    let $forms = $('.new-address-member--form, .existed-address-member--form').not('.tw-hidden');
+
+    $forms.each(function () {
+        let $form = $(this);
+        let $phoneNumberInput = $form.find('.phone_number_input');
+        let $phoneError = $form.find('.phone_error');
+        let $submitButton = $form.find('.submit-address-btn');
+
+        $phoneNumberInput.on('keyup', function () {
+            validatePhoneNumberInput($phoneNumberInput, $phoneError, $submitButton);
+        });
+
+        validatePhoneNumberInput($phoneNumberInput, $phoneError, $submitButton);
     });
 }
 
