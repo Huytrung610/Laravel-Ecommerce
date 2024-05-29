@@ -33,7 +33,7 @@ Route::get('return/vnpay_ipn'.config('apps.general.suffix'),'App\Http\Controller
 
 
 Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
-    Route::get('/','App\Http\Controllers\HomeController@index')->name('user');
+    Route::get('/','App\Http\Controllers\HomeController@index')->name('user.home');
     
     // Profile
     Route::get('/profile','App\Http\Controllers\FrontendController@Profile')->name('profile');
@@ -46,7 +46,6 @@ Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
     Route::post('address-create', 'App\Http\Controllers\CustomerAddressController@addNewAddress')->name('address.add');
     Route::post('update-default-address', 'App\Http\Controllers\CustomerAddressController@updateDefaultAddress')->name('update-default-address');
 
-    
     // Cart section
     Route::get('/add-to-cart/{slug}','CartController@addToCart')->name('add-to-cart');
     Route::post('/add-to-cart','App\Http\Controllers\CartController@singleAddToCart')->name('single-add-to-cart');
@@ -60,14 +59,13 @@ Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
     Route::post('cart/order','App\Http\Controllers\OrderController@store')->name('cart.order');
     Route::get('/checkout-success', 'App\Http\Controllers\CartController@showSuccessCheckout')->name('checkout.success');
 
-
-    //  Order
+    // Order
     Route::get('/order',"HomeController@orderIndex")->name('user.order.index');
     Route::get('/order/show/{id}',"HomeController@orderShow")->name('user.order.show');
     Route::delete('/order/delete/{id}','HomeController@userOrderDelete')->name('user.order.delete');
     Route::get('/order-detail/{id}','\App\Http\Controllers\OrderController@showOrderDetail')->name('order-detail');
-
 });
+
 
 //Login/Register/Logout
 Route::get('user/login','App\Http\Controllers\FrontendController@login')->name('login.form');

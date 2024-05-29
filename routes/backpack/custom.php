@@ -53,9 +53,10 @@ Route::group([
     Route::post('change-password', [\App\Http\Controllers\AdminController::class,'changPasswordStore'])->name('admin.change.password');
 
     //Customer address
-    Route::resource('customer-address', '\App\Http\Controllers\CustomerAddressController');
+    Route::post('customer-address/store', [\App\Http\Controllers\CustomerAddressController::class, 'store'])->name('admin.customer-address.store');
+    Route::delete('customer-address/destroy/{id}', [\App\Http\Controllers\CustomerAddressController::class, 'destroy'])->name('admin.customer-address.destroy');
     Route::get('customer-address/show/{id}', [\App\Http\Controllers\CustomerAddressController::class, 'showFormEditProfile']);
-    Route::post('customer-address/update/{id}', [\App\Http\Controllers\CustomerAddressController::class, 'update']);
+    Route::post('customer-address/update/{id}', [\App\Http\Controllers\CustomerAddressController::class, 'update'])->name('admin.customer-address.update');
     
     // Newsletter Subcriber
     Route::get('subcribers',  [\App\Http\Controllers\NewsletterSubcriberController::class, 'index'])->name('subcriber');
@@ -81,7 +82,7 @@ Route::group([
     Route::post('setting/update',[\App\Http\Controllers\GeneralSettingController::class, 'update'])->name('settings.update');
 
     //Page Settings
-    Route::get('page-setting',[\App\Http\Controllers\PageSettingController::class,'index'])->name('page-setting');
-    Route::post('page-setting/update',[\App\Http\Controllers\PageSettingController::class, 'update'])->name('page-setting.update');
+    // Route::get('page-setting',[\App\Http\Controllers\PageSettingController::class,'index'])->name('page-setting');
+    // Route::post('page-setting/update',[\App\Http\Controllers\PageSettingController::class, 'update'])->name('page-setting.update');
    
 }); // this should be the absolute last line of this file

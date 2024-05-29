@@ -46,7 +46,7 @@
                        data-placement="bottom">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <form method="POST" action="{{route('customer-address.destroy',[$addr->id])}}">
+                    <form method="POST" action="{{route('admin.customer-address.destroy',[$addr->id])}}">
                         @csrf
                         @method('delete')
                         <input type="hidden" name="user" value="{{$user->id}}">
