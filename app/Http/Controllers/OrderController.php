@@ -32,12 +32,22 @@ class OrderController extends Controller
     
     public function index(Request $request)
     {
-        $orders = Order::orderBy('id', 'DESC')->get();
+        $orders = Order::orderBy('id', 'DESC');
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+        if ($request->has('start_date') && !empty($start_date) && $request->has('end_date') && !empty($end_date)) {
+            $start_date = Carbon::parse($request->start_date)->startOfDay();
+            $end_date = Carbon::parse($request->end_date)->endOfDay();
+    
+            $orders = $orders->whereBetween('created_at', [$start_date, $end_date]);
+        }
+    
+        $orders = $orders->get();
         $totalAmount = $orders->where('payment_status', '!=', 'payment_failed')->sum('total_amount');
-
-        return view('backend.order.index')->with('orders', $orders)->with('totalAmount', $totalAmount);
+    
+        return view('backend.order.index')->with('orders', $orders)
+                    ->with('totalAmount', $totalAmount);
     }
-
     public function store(Request $request)
     {
         try {
@@ -271,17 +281,31 @@ class OrderController extends Controller
         return response()->json(['data' => $order, 'cartProducts' => $cartProducts]);
     }
 
-    public function getOrderReceipt(Request $request)
-    {
+    public function getOrderReceipt(Request $request){
+    
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+
         $orders = Order::orderBy('id', 'DESC')
-                ->where('status', Order::STATUS_DELIVERY)
-                ->where('payment_status', 'paid')->get();
+                    ->where('status', Order::STATUS_DELIVERY)
+                    ->where('payment_status', 'paid');
+
+        if ($request->has('start_date') && !empty($start_date) && $request->has('end_date') && !empty($end_date)) {
+            $start_date = Carbon::parse($request->start_date)->startOfDay();
+            $end_date = Carbon::parse($request->end_date)->endOfDay();
+    
+            $orders = $orders->whereBetween('created_at', [$start_date, $end_date]);
+        }
+
+        $orders = $orders->get();
         $totalAmount = $orders->sum('total_amount');
 
         return view('backend.order.index')
-            ->with('orders', $orders)
-            ->with('status', Order::STATUS_DELIVERY)
-            ->with('orderReceipt', Order::ORDER_RECEIPT)
-            ->with('totalAmount', $totalAmount);
+                ->with('orders', $orders)
+                ->with('status', Order::STATUS_DELIVERY)
+                ->with('orderReceipt', Order::ORDER_RECEIPT)
+                ->with('totalAmount', $totalAmount)
+                ->with('start_date', $start_date)
+                ->with('end_date', $end_date);
     }
 }
