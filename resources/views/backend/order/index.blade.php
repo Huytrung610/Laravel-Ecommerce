@@ -14,13 +14,14 @@
                 <form action="{{ Request::is('admin/order') ? route('order.index') : route('order.receipt.index') }}" method="GET" class="form-inline">
                     <div class="form-group">
                         <label for="start_date">{{__('Start Date')}}:</label>
-                        <input type="date" class="form-control mx-sm-2" id="start_date" name="start_date">
+                        <input type="date" class="form-control mx-sm-2" id="start_date" name="start_date" value="{{ request('start_date') }}">
                     </div>
                     <div class="form-group">
                         <label for="end_date">{{__('End Date')}}:</label>
-                        <input type="date" class="form-control mx-sm-2" id="end_date" name="end_date">
+                        <input type="date" class="form-control mx-sm-2" id="end_date" name="end_date" value="{{ request('end_date') }}">
                     </div>
-                    <button type="submit" class="btn btn-primary">{{__('Filter')}}</button>
+                    <button type="submit" class="btn tw-text-white tw-bg-blue-400 tw-mr-2 hover:tw-bg-blue-300">{{__('Filter')}}</button>
+                    <button type="submit" id="clearFilter" class="btn tw-text-white tw-bg-red-400  hover:tw-bg-red-300">{{ __('Clear Filter') }}</button>
                 </form>
             </div>
         </div>
@@ -193,6 +194,12 @@
                     }
                 });
             })
+            $('#clearFilter').on('click', function() {
+                $('#start_date').val('');
+                $('#end_date').val('');
+                
+                $('#filterForm').submit();
+            });
         })
     </script>
 @endpush
