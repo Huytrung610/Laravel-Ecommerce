@@ -7,7 +7,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="form_address" method="post" action="{{route('customer-address.store')}}">
+            <form id="form_address" method="post" action="{{route('admin.customer-address.store')}}">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">

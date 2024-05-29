@@ -12,7 +12,6 @@ $(document).ready(function() {
             let query = $('#product-search').val().trim(); 
             let slug = $('#category-slug').val();
             
-            
             $.ajax({
                 url: "/search-products", 
                 type: "GET",
@@ -65,5 +64,6 @@ $(document).ready(function() {
         }, 300);
     });
 });
+
 
     
