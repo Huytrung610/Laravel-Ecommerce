@@ -147,7 +147,7 @@
 
     $('#add_address').on('click', function() {
         $("form :input:not([type=hidden])").val('');
-        $('#form_address').attr('action', location.origin + '/admin/customer-address');
+        $('#form_address').attr('action', location.origin + '/admin/customer-address/store');
         $('.form-address-title').text('Add a new address');
         $('#is_default').val(0);
     })
