@@ -22,6 +22,8 @@ use Laravel\Sanctum\PersonalAccessToken;
 use App\Helpers\Backend\ProductHelper;
 use App\Models\Attribute;
 use DB;
+use App\Models\GeneralSetting;
+use App\Mail\OrderMail;
 
 class CartHelper
 {
@@ -230,5 +232,14 @@ class CartHelper
             }
         }
     }
+
+    public function mail($order, $template = null, $vnp_SecureHash = '', $secureHash = ''){
+        $generalMail = GeneralSetting::first();
+        $to = $order['cart-shipping']->email ?? '';
+        $cc = $generalMail->email;
+
+        \Mail::to($to)->cc($cc)->send(new OrderMail($order, $template, $vnp_SecureHash, $secureHash));
+    }
+
 }
 

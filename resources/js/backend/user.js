@@ -4,30 +4,52 @@ window.$ = $;
 
 
 $(document).ready(function () {
-    validateForm();
+    attachPhoneNumberValidation();
+    attachFormSubmitValidation();
 });
 
-function handleSubmitForm(event) {
-    event.preventDefault();
 
-    let phone = $('form#form_address').find('input[name="phone_number"]').val();
-    console.log(validatePhoneNumber(phone))
-    if (!validatePhoneNumber(phone)) {
-        $('form#form_address').find('.phone_error').removeClass('tw-hidden'); 
+function validatePhoneNumber(phoneNumber) {
+    const phoneRegex = /^[0-9]{10}$/;
+    return phoneRegex.test(phoneNumber);
+}
+
+
+function displayPhoneNumberError($phoneNumberInput, $phoneError) {
+    const phoneNumber = $phoneNumberInput.val();
+    let isValid = validatePhoneNumber(phoneNumber);
+
+    if (phoneNumber === '') {
+        $phoneError.addClass('tw-hidden');
     } else {
-        $('form#form_address').off('submit').submit();
+        if (isValid) {
+            $phoneError.addClass('tw-hidden');
+            $('#submit_addr_button').prop('disabled', false);
+        } else {
+            $phoneError.removeClass('tw-hidden');
+            $('#submit_addr_button').prop('disabled', true);
+        }
     }
 }
 
-
-function validatePhoneNumber(input_str) {
-    let re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
-    return re.test(input_str);
+function attachPhoneNumberValidation() {
+    $(document).on('keyup blur', 'input[name="phone_number"]', function() {
+        let $phoneNumberInput = $(this);
+        let $phoneError = $phoneNumberInput.closest('.form-group').find('.phone_error');
+        displayPhoneNumberError($phoneNumberInput, $phoneError);
+    });
 }
 
-// Hàm validate form
-function validateForm() {
-    $('form#form_address').submit(handleSubmitForm); 
+function attachFormSubmitValidation() {
+    $(document).on('submit', '#form_address', function(event) {
+        let $phoneNumberInput = $('input[name="phone_number"]');
+        let $phoneError = $phoneNumberInput.closest('.form-group').find('.phone_error');
+        displayPhoneNumberError($phoneNumberInput, $phoneError);
+
+        if (!$phoneError.hasClass('tw-hidden')) {
+            event.preventDefault();
+        }
+    });
 }
 
 
