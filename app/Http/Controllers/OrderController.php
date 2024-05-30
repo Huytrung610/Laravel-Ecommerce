@@ -70,8 +70,7 @@ class OrderController extends Controller
             $orderData = $this->prepareDataForOrder($currentUserId, $addressId);
             $response = $this->paymentMethod($request->payment_method, $orderData);
             $order->fill($response['orderData']);
-            $order->save();
-
+            $status = $order->save();
 
             if (is_array($response) && isset($response[0]['errorCode']) && $response[0]['errorCode'] == 0) {
                 return redirect()->away($response[0]['url']);
@@ -80,6 +79,9 @@ class OrderController extends Controller
                 Cart::where('user_id', $currentUserId)->where('order_id', null)->update(['order_id' => $order->id]);
                 $cartHelper = new CartHelper();
                 $dataCart = $cartHelper->getAllCartByOrder($response['orderData']);
+                if($status){
+                   $cartHelper->mail($dataCart);
+                }
             }
             // return redirect()->route('checkout.success');
             return view('frontend.pages.checkout-success')->with('dataCart',$dataCart);

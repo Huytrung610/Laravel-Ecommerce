@@ -61,7 +61,7 @@ class VnpayController extends Controller
                 Cart::where('user_id', $currentUserId)->where('order_id', null)->update(['order_id' => $order->id]);
 
                 $dataCart = $cartHelper->getAllCartByOrder($orderCode);
-                
+                $cartHelper->mail($dataCart, $template, $_GET['vnp_SecureHash'], $secureHash);
                 return view('frontend.pages.checkout-success')->with('dataCart', $dataCart)
                 ->with('template', $template)
                 ->with('vnp_SecureHash', $vnp_SecureHash)
