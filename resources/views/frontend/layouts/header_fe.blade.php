@@ -86,6 +86,9 @@
                                             <span class="total-count tw-text-third tw-bg-black tw-rounded-full tw-px-[5px] tw-py-[2px] tw-text-[11px] tw-relative tw-top-[-8px] tw-right-[8px]">{{Helper::cartCount()}}</span>
                                         </a>
                                     </li>
+                                    <li class="nav-item dropdown no-arrow mx-1">
+                                        @include('frontend.pages.user.notification.show-notification')
+                                    </li>
                                 </ul>
                             </div>
                     

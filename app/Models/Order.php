@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\StatusNotification;
+use Notification;
+
 
 class Order extends Model
 {
@@ -13,6 +16,7 @@ class Order extends Model
     const STATUS_DELIVERY = 'delivered';
     const STATUS_CANCEL = 'cancel';
     const ORDER_RECEIPT = 1;
+    const TYPE = 'order';
 
     const LIST_ORDER_STATUS = [
         self::STATUS_NEW,
@@ -210,5 +214,50 @@ class Order extends Model
         return array_slice($topSellingProducts, 0, 5);
     }
     
+    protected static function boot()
+    {
+        parent::boot();
+        // send notification to admin when a new order is created
+        static::created(function ($order) {
+            $users = User::where('role', 'admin')->first();
+            $details = [
+                'title' => __('New order created'),
+                'actionURL' => route('order.show', $order->id),
+                'order_id' => $order->id,
+                'type' => self::TYPE,
+                'fas' => 'fa-file-alt'
+            ];
+            Notification::send($users, new StatusNotification($details));
+        });
+        // send notification to customer when admin update status order
+        static::updated(function ($order) {
+            $customer = User::where('id', $order->user_id)->first();
+            $statusAttributeIsChanged = !$order->originalIsEquivalent('status');
+
+            if ($statusAttributeIsChanged && !empty($customer)) {
+                $detailNotification = [
+                    'title' => '',
+                    'actionURL' => route('order-detail', $order->id),
+                    'order_id' => $order->id,
+                    'type' => self::TYPE,
+                    'fas' => 'fa-file-alt'
+                ];
+                $order = self::find($order->id);
+                if ($order->getAttribute('status') == self::STATUS_PROCESS) {
+                    $detailNotification['title'] = __('Your Order '. $order->order_number .' is being shipped');
+                    Notification::send($customer, new StatusNotification($detailNotification));
+
+                } elseif ($order->getAttribute('status') == self::STATUS_DELIVERY) {
+                    $detailNotification['title'] = __('Your order '. $order->order_number .' has been shipped to you');
+                    Notification::send($customer, new StatusNotification($detailNotification));
+                } elseif ($order->getAttribute('status') == self::STATUS_CANCEL) {
+                    $detailNotification['title'] = __('Your order '. $order->order_number .' has been canceled');
+                    Notification::send($customer, new StatusNotification($detailNotification));
+                }
+
+            }
+        });
+    }
+
     
 }

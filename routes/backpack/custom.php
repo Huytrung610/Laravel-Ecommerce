@@ -81,6 +81,10 @@ Route::group([
     Route::get('general-setting',[\App\Http\Controllers\GeneralSettingController::class,'index'])->name('settings');
     Route::post('setting/update',[\App\Http\Controllers\GeneralSettingController::class, 'update'])->name('settings.update');
 
+    // Notification
+    Route::get('/notification/{id}','\App\Http\Controllers\NotificationController@show')->name('admin.notification');
+    Route::get('/notifications','\App\Http\Controllers\NotificationController@index')->name('all.notification');
+    Route::delete('/notification/{id}','\App\Http\Controllers\NotificationController@delete')->name('notification.delete');
     //Page Settings
     // Route::get('page-setting',[\App\Http\Controllers\PageSettingController::class,'index'])->name('page-setting');
     // Route::post('page-setting/update',[\App\Http\Controllers\PageSettingController::class, 'update'])->name('page-setting.update');
