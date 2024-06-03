@@ -8,15 +8,21 @@
             align-items: center;
             justify-content: space-around;
         }
+        .wgt-checkout-mail-section .infor-cart--order {
+            text-align: center;
+        }
+        .wgt-checkout-mail-section .checkout-success--right {
+            width: 700px;
+        }
         .wgt-checkout-mail-section .infor-cart--table {
-            display: flex;
-            flex-direction: column;
             border: 1px solid #000;
             padding: 16px;
             border-radius: 12px;
         }
         .wgt-checkout-mail-section .checkout-success--order_number {
-            display: flex;
+            margin-bottom: 20px;
+            float: right;
+            margin-right: 87px;
             align-items: center;
             gap: 6.25rem;
         }
@@ -27,11 +33,16 @@
             font-weight: 600;
         }
         .wgt-checkout-mail-section .table-mail--order  {
+            width:  650px;
+            margin: 0 auto;
             border: 1px solid #000;
         }
+        .wgt-checkout-mail-section .checkout-success_time {
+            padding-top: 10px;
+            margin-left: 10px;
+
+        }
         .wgt-checkout-mail-section .infor-user--order {
-            display: flex;
-            flex-direction: column;
             align-items: center;
             gap: 12px;
         }
@@ -44,7 +55,7 @@
             font-weight: 700;
         }
         .wgt-checkout-mail-section .cart__total-amount {
-            display: flex;
+            text-align: right;
             font-weight: 700;
             justify-content: space-between;
             justify-content: flex-end;
@@ -68,7 +79,7 @@
                 <div class="infor-cart--table">
                     <div class="checkout-success--order_number">
                         <span class="order_number--content">Order number: #<span>{{$order['cart-shipping']->order_number}}</span></span>
-                        <span>{{$order['cart-shipping']->created_at}}</span>
+                        <span class="checkout-success_time">{{$order['cart-shipping']->created_at}}</span>
                     </div>
                     <table class="table-mail--order tw-table-auto tw-border">
                         <thead class="tw-bg-blue-400">
@@ -100,7 +111,7 @@
                           @endforeach
                         </tbody>
                     </table>
-                    <div class="cart__total-amount"><h1>Total amount:</h1><h1>{{ number_format($order['cart-shipping']->total_amount, 0, ',', '.') }}đ</h1></div>
+                    <div class="cart__total-amount"><h1 class="cart__total-amount--title">Total amount:</h1><h1>{{ number_format($order['cart-shipping']->total_amount, 0, ',', '.') }}đ</h1></div>
                 </div>
             </div>
             <div class="infor-user--order" style="flex-direction: column">
