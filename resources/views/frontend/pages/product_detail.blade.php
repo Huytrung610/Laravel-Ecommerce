@@ -38,13 +38,6 @@
                                 <strong class="main-price tw-text-lg tw-font-bold display-6 price-product">{{ number_format($productDetail->price, 0, ',', '.') }}đ</strong> 
                             </div>
                             <div class="product-quantity">
-                                {{-- <div class="stock-number text-dark stock-product"></div> --}}
-                                <div class="container text-center" style="padding: 0px">
-                                    <div class="row row-cols-auto">
-                                      <div class="col"><h5>IN STOCK :</h5></div>
-                                      <div class="col stock-number text-dark stock-product"></div>
-                                    </div>
-                                </div>
                                 <div class="stock-button-wrap pt-3 tw-flex tw-gap-4">
                                     <div class="input-group product-qty !tw-gap-0 ">
                                         <span class="input-group-btn ">

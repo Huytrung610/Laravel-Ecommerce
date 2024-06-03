@@ -45,10 +45,10 @@
                                         $childCategories = \App\Models\Category::getChildCatByParentCat( $category->id);
                                 @endphp
                                 @if($childCategories->count() > 0)
-                                    <ul class="item_small-header tw-w-fit tw-min-w-36 tw-top-[30px] tw-left-[8px] tw-rounded tw-border tw-border-white tw-bg-white tw-p-2 tw-whitespace-nowrap">
+                                    <ul class="item_small-header tw-w-fit tw-min-w-36 tw-top-[30px] tw-left-[8px] tw-rounded tw-border tw-border-white tw-bg-white tw-py-2 tw-whitespace-nowrap">
                                         @foreach ($childCategories as $childCategory)
-                                            <li class="tw-p-1 tw-pl-0.5 tw-pb-2.5 tw-border-b">
-                                                <a href="{{ route('product-list', ['slug' => $childCategory->slug]) }}" class="tw-text-sm tw-capitalize hover:tw-text-third" title="{{$childCategory->title}}">{{$childCategory->title}}</a>
+                                            <li class="tw-p-1 tw-pl-0.5 tw-pb-2.5 tw-px-2 tw-border-b hover:tw-bg-third">
+                                                <a href="{{ route('product-list', ['slug' => $childCategory->slug]) }}" class="tw-text-sm tw-capitalize hover:tw-text-black" title="{{$childCategory->title}}">{{$childCategory->title}}</a>
                                             </li>
                                         @endforeach
                                     </ul>

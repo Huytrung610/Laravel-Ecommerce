@@ -122,10 +122,19 @@
                         @endforeach
                         </tbody>
                     </table>
-                    {{-- <div class="total-amount float-right">Total Amount: {{ number_format($totalAmount, 2) }} vnd</div> --}}
-                    <div class="total-amount float-right tw-border-2 tw-border-black tw-p-2.5 tw-bg-[#e3e6f0] tw-font-bold tw-uppercase tw-mt-4">
-                        Total Amount: {{ number_format($totalAmount, 0) }} vnđ
+                    <div class="footer-order-list tw-flex tw-justify-between">
+                        <a href="{{ Request::is('admin/order') ? route('orders.export', ['start_date' => Request::input('start_date'), 'end_date' => Request::input('end_date')]) : route('receipts.export', ['start_date' => Request::input('start_date'), 'end_date' => Request::input('end_date')]) }}" class="export-order-btn tw-text-blue-500">
+                            @if (Request::is('admin/order'))
+                                Export order list
+                            @else
+                                Export receipt list
+                            @endif
+                        </a>                        
+                        <div class="total-amount float-right tw-border-2 tw-border-black tw-p-2.5 tw-bg-[#e3e6f0] tw-font-bold tw-uppercase tw-mt-4">
+                            Total Amount: {{ number_format($totalAmount, 0) }} vnđ
+                        </div>
                     </div>
+                    
 {{--                    <span style="float:right">{{$orders->links()}}</span>--}}
                 @else
                     <h6 class="text-center">{{__('No orders found!!! Please order some products')}}</h6>
