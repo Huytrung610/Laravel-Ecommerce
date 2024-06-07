@@ -221,15 +221,17 @@ class Order extends Model
         static::created(function ($order) {
             $users = User::where('role', 'admin')->first();
             $details = [
-                'title' => __('New order created'),
+                'title' => __('New order #'.$order->order_number.' has created'),
                 'actionURL' => route('order.show', $order->id),
                 'order_id' => $order->id,
+                'order_number' => $order->order_number, 
                 'type' => self::TYPE,
                 'fas' => 'fa-file-alt'
             ];
             Notification::send($users, new StatusNotification($details));
         });
-        // send notification to customer when admin update status order
+
+        // send notification to customer when admin updates order status
         static::updated(function ($order) {
             $customer = User::where('id', $order->user_id)->first();
             $statusAttributeIsChanged = !$order->originalIsEquivalent('status');
@@ -239,6 +241,7 @@ class Order extends Model
                     'title' => '',
                     'actionURL' => route('order-detail', $order->id),
                     'order_id' => $order->id,
+                    'order_number' => $order->order_number, 
                     'type' => self::TYPE,
                     'fas' => 'fa-file-alt'
                 ];
@@ -246,7 +249,6 @@ class Order extends Model
                 if ($order->getAttribute('status') == self::STATUS_PROCESS) {
                     $detailNotification['title'] = __('Your Order '. $order->order_number .' is being shipped');
                     Notification::send($customer, new StatusNotification($detailNotification));
-
                 } elseif ($order->getAttribute('status') == self::STATUS_DELIVERY) {
                     $detailNotification['title'] = __('Your order '. $order->order_number .' has been shipped to you');
                     Notification::send($customer, new StatusNotification($detailNotification));
@@ -254,7 +256,6 @@ class Order extends Model
                     $detailNotification['title'] = __('Your order '. $order->order_number .' has been canceled');
                     Notification::send($customer, new StatusNotification($detailNotification));
                 }
-
             }
         });
     }

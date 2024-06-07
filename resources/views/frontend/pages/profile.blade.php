@@ -99,7 +99,6 @@
 @push('after_scripts')
     <script src="{{ mix('js/frontend/member.js') }}"></script>
     <link href="{{ asset('css/member-setting.css') }}" rel="stylesheet">
-  
 @endpush
    
 @endsection 

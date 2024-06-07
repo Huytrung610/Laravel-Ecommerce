@@ -19,7 +19,7 @@ use App\Classes\Momo;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\OrdersExport;
 use App\Exports\ReceiptsExport;
-
+use Auth;
 
 class OrderController extends Controller
 {
@@ -118,6 +118,32 @@ class OrderController extends Controller
         }
         return $respone;
     }
+
+//    public function fetchOrder(Request $request)
+//    {
+//        $orderNumber = $request->query('order_number');
+//        $userId = auth()->id();
+   
+//        if ($orderNumber) {
+//            $orders = Order::where('user_id', $userId)
+//                ->where('order_number', 'like', '%' . $orderNumber . '%')
+//                ->get();
+//        } else {
+//            $orders = Order::where('user_id', $userId)->get();
+//        }
+   
+//        if ($orders->isEmpty()) {
+//            return response()->json(['error' => 'Order not found'], 404);
+//        }
+   
+//        $popupHtml = '';
+//        foreach ($orders as $order) {
+//            $popupHtml .= view('frontend.popup.order-detail-popup', compact('order'))->render();
+//        }
+   
+//        return response()->json(['orders' => $orders, 'popupHtml' => $popupHtml]);
+//    }
+   
 
     public function checkAvailableToContinueProcess($currentUserId, $orderId = null) {
         $productHelper = new ProductHelper();

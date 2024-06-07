@@ -22,6 +22,32 @@
                                         <svg class="star star-fill">
                                             <use xlink:href="#star-fill"></use>
                                         </svg>
+                                        <svg class="star star-fill">
+                                            <use xlink:href="#star-fill"></use>
+                                        </svg>
+                                        <svg class="star star-fill">
+                                            <use xlink:href="#star-fill"></use>
+                                        </svg>
+                                        
+                                    </div>
+                                    <div class="author-detail">
+                                        <div class="name text-dark text-uppercase pt-2">Nguyễn Hằng</div>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide text-center d-flex justify-content-center">
+                            <div class="review-item col-md-10 tw-flex tw-flex-col tw-gap-2.5">
+                                <span class="tw-text-xl">“Nhân viên nhiệt tình, giỏi chuyên môn, cửa hàng đẹp, nhiều mẫu mã, sẽ quay lại ủng hộ shop!”</span>
+                                    <div class="rating tw-flex tw-justify-center">
+                                        <svg class="star star-fill">
+                                            <use xlink:href="#star-fill"></use>
+                                        </svg>
+                                        <svg class="star star-fill">
+                                            <use xlink:href="#star-fill"></use>
+                                        </svg>
+                                        <svg class="star star-fill">
+                                            <use xlink:href="#star-fill"></use>
+                                        </svg>
                                         <svg class="star star-half">
                                             <use xlink:href="#star-half"></use>
                                         </svg>
@@ -30,7 +56,32 @@
                                         </svg>
                                     </div>
                                     <div class="author-detail">
-                                        <div class="name text-dark text-uppercase pt-2">Nguyễn Hằng</div>
+                                        <div class="name text-dark text-uppercase pt-2">Thuỷ Tiên</div>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide text-center d-flex justify-content-center">
+                            <div class="review-item col-md-10 tw-flex tw-flex-col tw-gap-2.5">
+                                <span class="tw-text-xl">“Hàng chất giá tốt, khuyến mãi liên tục, rất tin tưởng khi chọn shop để mua thiết bị công nghệ!”</span>
+                                    <div class="rating tw-flex tw-justify-center">
+                                        <svg class="star star-fill">
+                                            <use xlink:href="#star-fill"></use>
+                                        </svg>
+                                        <svg class="star star-fill">
+                                            <use xlink:href="#star-fill"></use>
+                                        </svg>
+                                        <svg class="star star-fill">
+                                            <use xlink:href="#star-fill"></use>
+                                        </svg>
+                                        <svg class="star star-half">
+                                            <use xlink:href="#star-half"></use>
+                                        </svg>
+                                        <svg class="star star-empty">
+                                            <use xlink:href="#star-empty"></use>
+                                        </svg>
+                                    </div>
+                                    <div class="author-detail">
+                                        <div class="name text-dark text-uppercase pt-2">Tuấn Hưng</div>
                                     </div>
                             </div>
                         </div>
