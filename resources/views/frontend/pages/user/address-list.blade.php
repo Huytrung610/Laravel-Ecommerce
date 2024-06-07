@@ -1,6 +1,6 @@
 <div class="tab-pane tw-flex tw-flex-col tw-gap-3" id="address">
     <div class="tw-border-b tw-border-gray-200 tw-pb-2.5">
-        <h1 class="tw-text-2xl tw-font-bold">Change password</h1>
+        <h1 class="tw-text-2xl tw-font-bold">Customer Addresses</h1>
     </div>
     <div class="form-group tw-flex tw-flex-col tw-gap-4">
         @if(empty($defaultAddress) && empty($address))

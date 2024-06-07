@@ -62,7 +62,7 @@ Route::group([
     Route::get('subcribers',  [\App\Http\Controllers\NewsletterSubcriberController::class, 'index'])->name('subcriber');
     Route::get('update-subscriber-status',[\App\Http\Controllers\NewsletterSubcriberController::class,'updateSubscriberStatus'])->name('update-subscriber-status');
     Route::delete('subcribers/destroy/{id}', [\App\Http\Controllers\NewsletterSubcriberController::class, 'destroy'])->name('subscriber.destroy');
-    Route::get('orders/export/{start_date?}/{end_date?}', [\App\Http\Controllers\OrderController::class, 'export'])->name('orders.export');
+    Route::get('export-subscibers', [\App\Http\Controllers\NewsletterSubcriberController::class,'exportSubscribers'])->name('export-subscibers');
     
     //Order
     Route::resource('/order','\App\Http\Controllers\OrderController');
@@ -72,7 +72,7 @@ Route::group([
     Route::delete('order/receipt/destroy/{id}',[\App\Http\Controllers\OrderController::class,'destroyOrderReceipt'])->name('order.receipt.destroy');
     Route::get('orders/export', [\App\Http\Controllers\OrderController::class, 'export'])->name('orders.export');
     Route::get('receipt/export', [\App\Http\Controllers\OrderController::class, 'export'])->name('receipts.export');
-
+    Route::get('orders/export/{start_date?}/{end_date?}', [\App\Http\Controllers\OrderController::class, 'export'])->name('orders.export');
 
     // Post
     Route::resource('/post','\App\Http\Controllers\PostController');
