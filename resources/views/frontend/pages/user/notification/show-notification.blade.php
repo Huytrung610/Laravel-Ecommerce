@@ -16,10 +16,15 @@
     <h6 class="dropdown-header wgt-notification-center tw-text-black tw-text-xs tw-font-bold !tw-pt-0 tw-border-b">
         {{__('Notifications Center')}}
     </h6>
-    @if(auth()->user()->unreadNotifications->count())
-        @foreach(auth()->user()->unreadNotifications as $notification)
+    @php
+        $unreadNotifications = auth()->user()->unreadNotifications;
+        $readNotifications = auth()->user()->readNotifications;
+        $allNotifications = $unreadNotifications->merge($readNotifications);
+    @endphp
+    @if($allNotifications->count())
+        @foreach($allNotifications as $notification)
             <a class="dropdown-item d-flex align-items-center wgt-notification-center" target="_blank"
-            href="{{route('user.notification.show',$notification->id)}}">
+               href="{{route('user.notification.show', $notification->id)}}">
                 <div class="mr-3">
                     <div class="icon-circle bg-primary">
                         <i class="fas {{$notification->data['fas']}} text-white"></i>
@@ -27,17 +32,19 @@
                 </div>
                 <div>
                     <div class="tw-text-xs tw-capitalize">{{$notification->created_at->format('F d, Y h:i A')}}</div>
-                    <span
-                        class="tw-normal-case @if($notification->unread()) tw-font-bold  @else tw-text-xs @endif">{{$notification->data['title']}}</span>
+                    <span class="tw-normal-case @if($notification->unread()) tw-font-bold  @else tw-text-xs @endif">
+                        {{$notification->data['title']}}
+                    </span>
                 </div>
             </a>
         @endforeach
     @else
-    <div class="tw-text-center">
-        <span class="tw-text-red-300 tw-text-xs tw-capitalize">Don't have any notification</span>
-    </div>
+        <div class="tw-text-center">
+            <span class="tw-text-red-300 tw-text-xs tw-capitalize">Don't have any notification</span>
+        </div>
     @endif
 </div>
+
 <style>
     .dropdown-list.dropdown-menu{
         height: 194px;

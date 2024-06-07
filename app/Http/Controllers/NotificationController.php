@@ -16,6 +16,10 @@ class NotificationController extends Controller
         $helper = new \App\Helpers\Helper();
         $notificationUrl = $helper->checkSendNotification($request);
 
+        if (strpos($notificationUrl, route('profile')) !== false) {
+            return redirect($notificationUrl); // Redirect đến URL chứa order_number
+        }
+
         return redirect($notificationUrl);
     }
 

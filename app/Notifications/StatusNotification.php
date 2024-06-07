@@ -53,6 +53,7 @@ class StatusNotification extends Notification
             'title'=>$this->details['title'],
             'actionURL'=>$this->details['actionURL'],
             'order_id' =>$this->details['order_id'] ?? null,
+            'order_number'=> $this->details['order_number'] ?? null,
             'type' =>$this->details['type'] ?? null,
             'fas'=>$this->details['fas']
         ];

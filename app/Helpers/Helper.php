@@ -85,32 +85,64 @@ class Helper
      * @param $request
      * @return RedirectResponse|mixed|string
      */
+    // public function checkSendNotification($request) {
+    //     $loginUser = auth()->user() ?? backpack_user() ?? null;
+    //     $notification =$loginUser->notifications()->where('id', $request->id)->first();
+    //     $type = $notification->data['type'] ?? null;
+    //     $orderId = $notification->data['order_id'] ?? null;
+
+    //     if (empty($notification)) {
+    //         request()->session()->flash('error', __('Notification not exist'));
+
+    //         return back();
+    //     }
+
+    //     if($type == Order::TYPE) {
+    //         if ($loginUser->getAttribute('role') == User::ROLE_TYPE_ADMIN) {
+    //             $routeName = 'order.show';
+    //         } else {
+    //             $routeName = 'profile';
+    //         }
+
+    //         $notification->markAsRead();
+
+    //         return route($routeName, $orderId);
+    //     }
+
+    //     $notification->markAsRead();
+
+    //     return $notification->data['actionURL'];
+    // }
+
     public function checkSendNotification($request) {
         $loginUser = auth()->user() ?? backpack_user() ?? null;
-        $notification =$loginUser->notifications()->where('id', $request->id)->first();
+        $notification = $loginUser->notifications()->where('id', $request->id)->first();
         $type = $notification->data['type'] ?? null;
         $orderId = $notification->data['order_id'] ?? null;
-
+        $orderNumber = $notification->data['order_number'] ?? null;
+    
         if (empty($notification)) {
             request()->session()->flash('error', __('Notification not exist'));
-
             return back();
         }
-
-        if($type == Order::TYPE) {
+    
+        if ($type == Order::TYPE) {
             if ($loginUser->getAttribute('role') == User::ROLE_TYPE_ADMIN) {
                 $routeName = 'order.show';
             } else {
                 $routeName = 'profile';
             }
-
+    
             $notification->markAsRead();
-
-            return route($routeName, $orderId);
+    
+            if ($loginUser->getAttribute('role') == User::ROLE_TYPE_ADMIN) {
+                return route($routeName, $orderId);
+            }
+            return route($routeName, ['order_number' => $orderNumber, 'tab' => 'order-manage']);
         }
-
+    
         $notification->markAsRead();
-
+    
         return $notification->data['actionURL'];
     }
 

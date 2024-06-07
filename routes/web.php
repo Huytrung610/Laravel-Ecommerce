@@ -64,6 +64,7 @@ Route::group(['prefix'=>'/user','middleware'=>['user']],function(){
     Route::get('/order/show/{id}',"HomeController@orderShow")->name('user.order.show');
     Route::delete('/order/delete/{id}','HomeController@userOrderDelete')->name('user.order.delete');
     Route::get('/order-detail/{id}','\App\Http\Controllers\OrderController@showOrderDetail')->name('order-detail');
+    // Route::get('/order/fetch', [\App\Http\Controllers\OrderController::class, 'fetchOrder'])->name('order.fetch');
     
     // Notification User
     Route::get('notification/{id}','\App\Http\Controllers\NotificationController@show')->name('user.notification.show');
