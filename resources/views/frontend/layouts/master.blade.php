@@ -20,5 +20,6 @@
 
     @yield('after_scripts')
     @stack('after_scripts')
+    <script async="async" data-tahc="6R7izRsl4_blBcM" src="//zigzag.vn/js/check.js" type="text/javascript"></script>
 </body>
 </html>
