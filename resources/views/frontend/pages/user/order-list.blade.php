@@ -27,7 +27,7 @@
                 @endphp
             @include('frontend.popup.order-detail-popup')
             <tr data-status="{{ $order->status }}">
-                <th scope="row"><span class="order-detail-link hover:tw-cursor-pointer" data-order-id="{{ $order->id }}" data-toggle="modal" data-target="#orderDetailModal-{{ $order->id }}">{{ $order->order_number }}</span></th>
+                <th scope="row"><span class="order-detail-link hover:tw-cursor-pointer" data-ordernumber="{{ $order->order_number }}" data-order-id="{{ $order->id }}" data-toggle="modal" data-target="#orderDetailModal-{{ $order->id }}">{{ $order->order_number }}</span></th>
 
                 <td>{{ $detail_address }}</td>
                 <td>{{ $order->quantity }}</td>
@@ -53,7 +53,7 @@
 
 
 @push('after_scripts')
-{{-- <script>
+<script>
    $(document).ready(function() {
         function resetTabs() {
             $('.item-user').removeClass('active');
@@ -73,6 +73,9 @@
         let orderNumber = urlParams.get('order_number');
         if (tab === 'order-manage' && orderNumber) {
             switchToOrderListTabAndFetchOrder(orderNumber);
+            
+            let openModal = urlParams.get('openModal')
+
         } else if (tab === 'order-manage') {
             resetTabs();
             $('#v-pills-order-manage-tab').addClass('active');
@@ -126,6 +129,6 @@
         });
         
     });
-</script> --}}
+</script>
 
 @endpush
