@@ -92,7 +92,7 @@ function deleteAddress() {
     })
 }
 function showModalOrder(){
-    $('.order-detail-link').click(function(e) {
+    $(document).on('click', '.order-detail-link', function(e){
         e.preventDefault();
 
         let orderId = $(this).data('order-id');
@@ -100,7 +100,7 @@ function showModalOrder(){
         loadOrderDetail(orderId);
 
         $(modalId).modal('show'); 
-    });
+    })
 }
 function loadOrderDetail(orderId) {
     $.ajax({
