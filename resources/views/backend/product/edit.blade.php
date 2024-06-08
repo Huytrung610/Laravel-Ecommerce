@@ -372,6 +372,7 @@
     let selectedAttributeId = [];
     var defaultThumnail = "{{ asset('backend/img/default-product-image.png') }}";
     var existedProductVariants = @json($productVariants);
+    console.log(existedProductVariants);
     
     $(document).ready(function() {
         var currentVariantCount = 0; // Số lượng thuộc tính hiện tại
@@ -966,28 +967,57 @@
         createVariant()
         reRenderEditProductVariant()
     }
+    function reRenderEditProductVariant() {
+        for (let i = 0; i < existedProductVariants.length; i++) {
+            let codeArray = existedProductVariants[i].code.split(',').map(val => val.trim());
+            let codeSet = new Set(codeArray);
 
-    function reRenderEditProductVariant(){
-        // let firstImagePath = '/backend/img/thumbnail-default.jpg'; 
-        // console.log(existedProductVariants);
-        for(let i = 0; i < existedProductVariants.length; i++){
-            let code = existedProductVariants[i].code.split(',').map(val => val.trim()).join('-');
-            let trClass = 'tr-variant-' + code
-           
-            if (existedProductVariants[i].image) {
-                let imagePaths = existedProductVariants[i].image.split(',');
-                firstImagePath = imagePaths[0].trim();
-                $('.' + trClass).find('.imageSrc').attr('src', firstImagePath)
-                $('.' + trClass).find('.click-to-upload-variant').addClass('tw-hidden')
-            }
-            
-            $('.' + trClass).find('.td-quantity').html(existedProductVariants[i].quantity)
-            $('.' + trClass).find('.td-price').html(existedProductVariants[i].price)
-            $('.' + trClass).find('.variant_quantity').val(existedProductVariants[i].quantity)
-            $('.' + trClass).find('.variant_price').val(existedProductVariants[i].price)
-            $('.' + trClass).find('.variant_album').val(existedProductVariants[i].image)
+            $('table.productVariant-table tbody tr').each(function() {
+                const $row = $(this);
+                const rowClasses = $row.attr('class');
+                if (rowClasses) {
+                    const rowClassesArray = rowClasses.split(' ');
+
+                    rowClassesArray.forEach(rowClass => {
+                        if (rowClass.startsWith('tr-variant-')) {
+                            let rowClassSet = new Set(rowClass.replace('tr-variant-', '').split('-'));
+
+                           
+                            if (isEqualSet(codeSet, rowClassSet)) {
+                                if (existedProductVariants[i].image) {
+                                    let imagePaths = existedProductVariants[i].image.split(',');
+                                    let imgArr = variantAlbumbList(imagePaths);
+                                    $row.find('#sortable2').html(imgArr);
+                                    let firstImagePath = imagePaths[0].trim();
+                                    $row.find('.imageSrc').attr('src', firstImagePath);
+                                    $row.find('.click-to-upload-variant').addClass('tw-hidden');
+                                }
+
+                                $row.find('.td-quantity').html(existedProductVariants[i].quantity);
+                                $row.find('.td-price').html(existedProductVariants[i].price);
+                                $row.find('.variant_quantity').val(existedProductVariants[i].quantity);
+                                $row.find('.variant_price').val(existedProductVariants[i].price);
+                                $row.find('.variant_album').val(existedProductVariants[i].image);
+                            }
+                        }
+                    });
+                }
+            });
         }
     }
+
+    function isEqualSet(set1, set2) {
+        if (set1.size !== set2.size) {
+            return false;
+        }
+        for (let item of set1) {
+            if (!set2.has(item)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
 </script>
 @endpush
