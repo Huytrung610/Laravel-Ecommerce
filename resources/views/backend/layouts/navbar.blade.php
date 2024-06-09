@@ -117,3 +117,32 @@
  
 </nav>
 <!-- End of Topbar -->
+<script>
+  var pusher = new Pusher('b8091b28fe7d3863a679', {
+        cluster: 'ap1'
+    });
+
+    var channel = pusher.subscribe('notifications');
+    channel.bind('App\\Events\\OrderStatusEvent', function(data) {
+        var currentTime = new Date();
+        var notificationId = data.notificationId;
+        var notification = data.notification;
+        var notificationCount = notification.unread_count;
+        $('#notificationCount').text(notificationCount);
+        
+        var newNotification = `
+            <a class="dropdown-item d-flex align-items-center" target="_blank" href="/admin/notification/${notificationId}">
+                <div class="mr-3">
+                    <div class="icon-circle bg-primary">
+                        <i class="fas ${notification.fas} text-white"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="tw-text-xs tw-capitalize">${currentTime.toLocaleString()}</div>
+                    <span class="tw-normal-case tw-font-bold">${notification.title}</span>
+                </div>
+            </a>
+        `;
+        $('.dropdown-header').after(newNotification);
+    });
+</script>

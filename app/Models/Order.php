@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Notifications\StatusNotification;
 use Notification;
+use App\Events\OrderStatusEvent;
 
 
 class Order extends Model
@@ -229,6 +230,7 @@ class Order extends Model
                 'fas' => 'fa-file-alt'
             ];
             Notification::send($users, new StatusNotification($details));
+            event(new OrderStatusEvent($details));
         });
 
         // send notification to customer when admin updates order status
@@ -248,14 +250,15 @@ class Order extends Model
                 $order = self::find($order->id);
                 if ($order->getAttribute('status') == self::STATUS_PROCESS) {
                     $detailNotification['title'] = __('Your Order '. $order->order_number .' is being shipped');
-                    Notification::send($customer, new StatusNotification($detailNotification));
                 } elseif ($order->getAttribute('status') == self::STATUS_DELIVERY) {
                     $detailNotification['title'] = __('Your order '. $order->order_number .' has been shipped to you');
-                    Notification::send($customer, new StatusNotification($detailNotification));
                 } elseif ($order->getAttribute('status') == self::STATUS_CANCEL) {
-                    $detailNotification['title'] = __('Your order '. $order->order_number .' has been canceled');
-                    Notification::send($customer, new StatusNotification($detailNotification));
+                    $detailNotification['title'] =$detailNotification['title'] = __('Your order '. $order->order_number .' has been canceled');
+                    
                 }
+                Notification::send($customer, new StatusNotification($detailNotification));
+    
+                event(new OrderStatusEvent($detailNotification));
             }
         });
     }
