@@ -139,7 +139,6 @@ function fetchDailyRevenue(selectedDate) {
         success: function(response) {
             let groupDailySaleProducts = response.groupDailySaleProducts;
             let totalDailyRevenue = response.totalDailyRevenue;
-            console.log(groupDailySaleProducts, totalDailyRevenue);
 
             let tbody = '';
             $.each(groupDailySaleProducts, function(index, product) {

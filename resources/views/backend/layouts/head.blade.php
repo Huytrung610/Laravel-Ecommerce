@@ -20,4 +20,7 @@
 <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
 {{-- Tailwind --}}
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+{{-- Pusher --}}
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+
 </head>

@@ -57,8 +57,12 @@ class CartHelper
     public function getProductInfo($productId, $codeVariant = null)
     {
         if (!empty($codeVariant)) {
+            $codeArray = explode(",", $codeVariant);
+            $codeArray = array_map('intval', $codeArray); 
+            sort($codeArray); 
+            $sortedCodeVariant = implode(",", $codeArray);
             $product = ProductVariant::where('product_id', $productId)
-                                            ->where('code', $codeVariant)
+                                            ->where('code', $sortedCodeVariant)
                                             ->with('product')
                                             ->first();
 

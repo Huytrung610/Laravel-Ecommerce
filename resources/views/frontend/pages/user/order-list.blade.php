@@ -88,7 +88,6 @@
                 data: { order_number: orderNumber },
                 success: function(response) {
                     if (Array.isArray(response.orders)) {
-                        console.log("Response from server:", response.orders);
                         $('#orderTable tbody').empty();
                         response.orders.forEach(function(order) {
                             var html = '<tr>';
