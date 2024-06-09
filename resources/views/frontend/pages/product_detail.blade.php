@@ -34,8 +34,12 @@
                     </div>
                     <div>
                         <div class="cart-wrap">
-                            <div class="product-price pt-3 pb-3">
+                            <div class="product-price pt-3 pb-2">
                                 <strong class="main-price tw-text-lg tw-font-bold display-6 price-product">{{ number_format($productDetail->price, 0, ',', '.') }}đ</strong> 
+                            </div>
+                            <div class="product-stock">
+                                <span class="tw-font-bold">Stock:</span>
+                                <strong class="main-stock tw-text-lg tw-font-bold display-6 price-product">{{$productDetail->stock}}</strong> 
                             </div>
                             <div class="product-quantity">
                                 <div class="stock-button-wrap pt-3 tw-flex tw-gap-4">

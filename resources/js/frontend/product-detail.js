@@ -103,10 +103,11 @@ function handleAttribute(){
                     album = defaultImg
                 }
                 setupVariantPrice(response)
+                setupVariantQty(response)
                 setupVariantUrl(response, attribute_id)
                 setupVariantGallery(album)
                 setupVariantName(response)
-                // console.log(response);
+                console.log(response.variant.quantity);
             },
             error: function () {
                 console.error();
@@ -123,6 +124,12 @@ function loadProductVariant() {
             handleAttribute()
         }
     }     
+}
+function setupVariantQty(res){
+    if(res.variant.quantity < 3) {
+        $('.main-stock').addClass('tw-text-red-400')
+    }
+    $('.main-stock').text(res.variant.quantity);
 }
 function setupVariantPrice(res){
     let price = parseFloat(res.variant.price);

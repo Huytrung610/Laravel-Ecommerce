@@ -20,8 +20,8 @@ Route::group([
 ], function () { // custom admin routes
     
 
-
-    Route::get('/dashboard',[\App\Http\Controllers\AdminController::class, 'getRevenueByMonth'])->name('admin');
+    Route::get('/dashboard',[\App\Http\Controllers\AdminController::class, 'getRevenue'])->name('admin');
+    Route::get('/ajax-daily-revenue', [\App\Http\Controllers\AdminController::class, 'getDailyRevenue'])->name('ajax.daily-revenue');
     Route::resource('users','\App\Http\Controllers\UsersController');
     // Route::get('/file-manager',function(){
     //     return view('backend.layouts.file-manager');

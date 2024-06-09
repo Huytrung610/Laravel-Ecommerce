@@ -15,9 +15,12 @@
         <li class="nav-item">
             <a class="nav-link tab-chart" data-toggle="tab" href="#tabs-best-sell-products" data-chart-type="best-products" role="tab">Best-selling Products</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link tab-chart" data-toggle="tab" href="#tabs-bar-chart-daily" data-chart-type="daily" role="tab">Daily Revenue</a>
+        </li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane  active" id="tabs-bar-chart-year" role="tabpanel">
+        <div class="tab-pane active" id="tabs-bar-chart-year" role="tabpanel">
             <h5 class="tw-uppercase tw-text-green-400 tw-font-bold tw-px-4">{{date('Y')}} revenue chart</h5>
             <div class="card-body" >
                 <canvas id="bar-chart-year"></canvas>
@@ -38,8 +41,38 @@
                 <canvas id="best-sell-products"></canvas>
             </div>
         </div>
-    </div>
-    
+        <div class="tab-pane" id="tabs-bar-chart-daily" role="tabpanel">
+            <h5 class="tw-uppercase tw-text-green-400 tw-font-bold tw-px-4">Daily Revenue</h5>
+            <div class="card-body">
+                <div class="header-daily tw-flex tw-justify-between tw-pr-3">
+                    <form id="daily-revenue-form" method="GET" action="" class="">
+                        <div class="">
+                            <label for="selected_date" class="mr-2">Select Date:</label>
+                            <input type="date" id="selected_date" value="{{ now()->toDateString() }}" name="selected_date" class="tw-border tw-rounded-md tw-border-gray tw-p-1 tw-text-center tw-w-7/12">
+                        </div>                    
+                    </form> 
+                    <div class="total-daily">
+                        <span class="tw-font-bold">Total:</span>
+                        <span class="total-daily_amount tw-font-bold"> <span class="total-daily_amount"></span></span>
+                    </div>
+                </div>
+                               
+                <table class="table mt-4">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Total Revenue</th>
+                            <th>Total Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody id="product-table-body">
+                        
+                    </tbody>
+                          
+                </table>
+            </div>
+        </div> 
+    </div>  
 </div>
 
 @php
