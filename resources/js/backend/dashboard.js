@@ -146,7 +146,7 @@ function fetchDailyRevenue(selectedDate) {
                 let productName = product.code_variant ? product.product.title + ' ' + product.product_variant.name : product.product.title;
 
                 tbody += '<tr>';
-                tbody += '<td>' + productName + '</td>';
+                tbody += '<td class="tw-font-bold"><a href="/admin/product/' + product.product_id + '/edit">' + productName + '</a></td>';
                 tbody += '<td>' + product.quantity + '</td>';
                 tbody += '<td>' + new Intl.NumberFormat().format(product.amount) + 'đ</td>';
                 tbody += '</tr>';
