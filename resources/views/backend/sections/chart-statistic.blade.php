@@ -51,7 +51,7 @@
                             <input type="date" id="selected_date" value="{{ now()->toDateString() }}" name="selected_date" class="tw-border tw-rounded-md tw-border-gray tw-p-1 tw-text-center tw-w-7/12">
                         </div>                    
                     </form> 
-                    <div class="total-daily">
+                    <div class="total-daily tw-p-1 tw-border tw-border-black tw-rounded-sm">
                         <span class="tw-font-bold">Total:</span>
                         <span class="total-daily_amount tw-font-bold"> <span class="total-daily_amount"></span></span>
                     </div>
@@ -66,7 +66,7 @@
                         </tr>
                     </thead>
                     <tbody id="product-table-body">
-                        
+                        <a href=""></a>
                     </tbody>
                           
                 </table>
