@@ -10,6 +10,7 @@ use App\Models\Cart;
 use App\Models\User;
 use App\Models\NewsletterSubcriber;
 use App\Helpers\Backend\OrderHelper;
+use App\Helpers\Api\CartHelper;
 
 
 use DB;
@@ -21,11 +22,12 @@ class AdminController extends Controller
      return view('backend.index');
     }
     
-    public function getRevenueByMonth()
+    public function getRevenue(Request $request)
     {
         $order = new Order();
 
         $orderHelper = new OrderHelper();
+        $cartHelper = new CartHelper();
 
         $orderStatistic = $orderHelper->orderStatistic();
         $revenueByMonth = Order::where('status', 'delivered')
@@ -33,33 +35,11 @@ class AdminController extends Controller
             ->groupBy('month')
             ->get();
 
-        // $labels = [];
-        // $revenues = [];
-        // $quantities = [];
-
-        
-        // $orderIds = Order::where('status', 'delivered')->pluck('id')->toArray();
         $totalRevenue = Order::getTotalRevenue();
         $totalOrder = Order::getTotalOrders();
         $cancelOrder = Order::getCancelOrders();
         $totalCustomer = User::totalCustomers();
         $totalSubcribers = NewsletterSubcriber::getAllSubcriber()->count();
-        
-        // $topProducts = Cart::whereIn('order_id', $orderIds)
-        //     ->select('product_id', DB::raw('SUM(quantity) as total_quantity'))
-        //     ->groupBy('product_id')
-        //     ->orderByDesc('total_quantity')
-        //     ->limit(3)
-        //     ->pluck('product_id')
-        //     ->toArray();
-       
-        // $products = Cart::whereIn('order_id', $orderIds)
-        //     ->whereIn('product_id', $topProducts)
-        //     ->select('product_id', DB::raw('SUM(quantity) as total_quantity'), DB::raw('SUM(amount) as total_amount'))
-        //     ->groupBy('product_id')
-        //     ->orderByDesc('total_quantity')
-        //     ->get()
-        //     ->toArray();
 
         foreach ($revenueByMonth as $revenue) {
 
@@ -76,7 +56,28 @@ class AdminController extends Controller
                                 ->with('totalOrder', $totalOrder);
     }
 
+    public function getDailyRevenue(Request $request)
+    {
+        $selectedDate = $request->input('selected_date');
 
+        $carts = Cart::whereDate('created_at', $selectedDate)
+            ->whereHas('order', function ($query) {
+                $query->where('status', 'delivered')
+                    ->where('payment_status', 'paid');
+            })
+            ->get();
+
+        $cartHelper = new CartHelper();
+        $dailySaleProducts = $cartHelper->getAllProductFromCartOrder($carts) ?? [];
+        $groupDailySaleProducts = $cartHelper->getGroupByProductFromCart($dailySaleProducts);
+
+        $totalDailyRevenue = $carts->sum('amount');
+
+        return response()->json([
+            'groupDailySaleProducts' => $groupDailySaleProducts,
+            'totalDailyRevenue' => $totalDailyRevenue
+        ]);
+    }
 
     public function profile()
     {

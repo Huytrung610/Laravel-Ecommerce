@@ -88,7 +88,6 @@ function createPieChart(idChart, labels, data) {
     let ctx = canvas.getContext('2d');
     let myPieChart;
 
-    // Kiểm tra và hủy biểu đồ hiện tại nếu tồn tại
     if (window.myPieChart) {
         window.myPieChart.destroy();
     }
@@ -130,4 +129,44 @@ function createPieChart(idChart, labels, data) {
         data: chartData,
         options: chartOptions
     });
+}
+
+function fetchDailyRevenue(selectedDate) {
+    $.ajax({
+        url: 'ajax-daily-revenue',
+        method: 'GET',
+        data: { selected_date: selectedDate },
+        success: function(response) {
+            let groupDailySaleProducts = response.groupDailySaleProducts;
+            let totalDailyRevenue = response.totalDailyRevenue;
+            console.log(groupDailySaleProducts, totalDailyRevenue);
+
+            let tbody = '';
+            $.each(groupDailySaleProducts, function(index, product) {
+                let productName = product.code_variant ? product.product.title + ' ' + product.product_variant.name : product.product.title;
+
+                tbody += '<tr>';
+                tbody += '<td>' + productName + '</td>';
+                tbody += '<td>' + product.quantity + '</td>';
+                tbody += '<td>' + new Intl.NumberFormat().format(product.amount) + 'đ</td>';
+                tbody += '</tr>';
+            });
+
+            $('tbody#product-table-body').html(tbody); 
+            $('.total-daily_amount').text(new Intl.NumberFormat().format(totalDailyRevenue) + 'đ'); 
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
+
+$('#selected_date').on('change', function() {
+    let selectedDate = $(this).val();
+    fetchDailyRevenue(selectedDate);
+});
+
+let initialDate = $('#selected_date').val();
+if (initialDate) {
+    fetchDailyRevenue(initialDate);
 }

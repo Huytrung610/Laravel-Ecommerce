@@ -1,13 +1,4 @@
 <?php
-/**
- *
- * Copyright © 2022 Wgentech. All rights reserved.
- * See COPYING.txt for license details.
- *
- * @author    Wgentech Dev Team
- * @author    binhnt@mail.wgentech.com
- *
- */
 
 namespace App\Helpers\Api;
 
@@ -145,6 +136,34 @@ class CartHelper
         }
         return $cartOrderArr;
     }
+
+    public function getGroupByProductFromCart($dailySaleProducts){
+        $groupDailySaleProducts = [];
+    
+        foreach ($dailySaleProducts as $product) {
+            $key = $product->product_id . '_' . $product->code_variant;
+            
+            if (!array_key_exists($key, $groupDailySaleProducts)) {
+                $groupDailySaleProducts[$key] = new \stdClass();
+                $groupDailySaleProducts[$key]->product_id = $product->product_id;
+                $groupDailySaleProducts[$key]->code_variant = $product->code_variant;
+                $groupDailySaleProducts[$key]->quantity = $product->quantity;
+                $groupDailySaleProducts[$key]->amount = $product->amount;
+                $groupDailySaleProducts[$key]->product = $product->product;
+                if ($product->code_variant) {
+                    $groupDailySaleProducts[$key]->product_variant = $product->product_variant;
+                }
+            } else {
+                $groupDailySaleProducts[$key]->quantity += $product->quantity;
+                $groupDailySaleProducts[$key]->amount += $product->amount;
+            }
+        }
+    
+        $groupDailySaleProducts = array_values($groupDailySaleProducts);
+    
+        return $groupDailySaleProducts;
+    }
+    
 
     public function updatePriceAfterUpdateProduct($product, $newPrice = '', $variantCode = ''){
         $existedCarts = Cart::where('order_id', null)
