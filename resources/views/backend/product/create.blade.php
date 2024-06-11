@@ -110,7 +110,7 @@
                                     <span class="thumbnail-wrapper choose-thumb-btn hover:tw-cursor-pointer">
                                         <img class="tw-w-[200px] tw-h-[200px] img-thumbnail img-thumb_product" src="{{asset('backend/img/default-product-image.png')}}" alt="{{asset('backend/img/thumbnail-default.jpg')}}">
                                     </span>
-                                    <button type="button" class="del-img_product tw-absolute tw-left-[5px] tw-top-[5px] tw-text-red-600 tw-hidden"><i class="fa fa-trash"></i></button>
+                                    <button type="button" class="del-img-thumb del-img_product tw-absolute tw-left-[5px] tw-top-[5px] tw-text-red-600 tw-hidden"><i class="fa fa-trash"></i></button>
                                     <input type="text" name="photo" hidden value="" class="img_product-input img_thumbnail-input"></input>
                                 </div>
                             </div>
