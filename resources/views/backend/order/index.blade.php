@@ -22,7 +22,7 @@
                     </div>
                     <button type="submit" class="btn tw-text-white tw-bg-blue-400 tw-mr-2 hover:tw-bg-blue-300">{{__('Filter')}}</button>
                     <button type="submit" id="clearFilter" class="btn tw-text-white tw-bg-red-400  hover:tw-bg-red-300">{{ __('Clear Filter') }}</button>
-                </form>
+                </form>                
             </div>
         </div>
         <div class="card-body">
@@ -123,7 +123,7 @@
                         </tbody>
                     </table>
                     <div class="footer-order-list tw-flex tw-justify-between">
-                        <a href="{{ Request::is('admin/order') ? route('orders.export', ['start_date' => Request::input('start_date'), 'end_date' => Request::input('end_date')]) : route('receipts.export', ['start_date' => Request::input('start_date'), 'end_date' => Request::input('end_date')]) }}" class="export-order-btn tw-text-blue-500">
+                        <a href="{{ Request::is('admin/order') ? route('orders.export', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) : route('receipts.export', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}" class="export-order-btn tw-text-blue-500">
                             @if (Request::is('admin/order'))
                                 Export order list
                             @else
@@ -133,7 +133,7 @@
                         <div class="total-amount float-right tw-border-2 tw-border-black tw-p-2.5 tw-bg-[#e3e6f0] tw-font-bold tw-uppercase tw-mt-4">
                             Total Amount: {{ number_format($totalAmount, 0) }} vnđ
                         </div>
-                    </div>
+                    </div>                    
                     
 {{--                    <span style="float:right">{{$orders->links()}}</span>--}}
                 @else
