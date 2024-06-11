@@ -5,7 +5,6 @@
     <div class="sidebar-brand-icon">
       <img style="width:125px;" src="{{ asset('frontend/images/main-logo.png') }}" class="logo">
     </div>
-    <div style="font-size:13px" class="sidebar-brand-text mx-3">{{__('DT Group')}}</div>
   </a>
 
   <!-- Divider -->
