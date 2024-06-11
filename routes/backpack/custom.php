@@ -70,9 +70,10 @@ Route::group([
     Route::get('order/receipt/show/{id}','\App\Http\Controllers\OrderController@showOrderReceipt')->name('order.receipt.show');
     Route::get('order/receipt/edit/{id}','\App\Http\Controllers\OrderController@editOrderReceipt')->name('order.receipt.edit');
     Route::delete('order/receipt/destroy/{id}',[\App\Http\Controllers\OrderController::class,'destroyOrderReceipt'])->name('order.receipt.destroy');
-    Route::get('orders/export', [\App\Http\Controllers\OrderController::class, 'export'])->name('orders.export');
-    Route::get('receipt/export', [\App\Http\Controllers\OrderController::class, 'export'])->name('receipts.export');
     Route::get('orders/export/{start_date?}/{end_date?}', [\App\Http\Controllers\OrderController::class, 'export'])->name('orders.export');
+    Route::get('receipts/export/{start_date?}/{end_date?}', [\App\Http\Controllers\OrderController::class, 'export'])->name('receipts.export');
+    
+    // Route::get('orders/export/{start_date?}/{end_date?}', [\App\Http\Controllers\OrderController::class, 'export'])->name('orders.export');
 
     // Post
     Route::resource('/post','\App\Http\Controllers\PostController');

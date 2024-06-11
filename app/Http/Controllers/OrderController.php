@@ -339,17 +339,15 @@ class OrderController extends Controller
                 ->with('start_date', $start_date)
                 ->with('end_date', $end_date);
     }
-    public function export(Request $request)
+    public function export($start_date = null, $end_date = null)
     {
         $formattedDate = Carbon::now()->format('d-m-y');
-
-        $start_date = $request->input('start_date');
-        $end_date = $request->input('end_date');
-
-        if ($request->is('admin/order')) {
+    
+        if (str_contains(url()->current(), 'admin/order')) {
             return Excel::download(new OrdersExport($start_date, $end_date), 'orders-' . $formattedDate . '.xlsx');
         } else {
             return Excel::download(new ReceiptsExport($start_date, $end_date), 'receipts-' . $formattedDate . '.xlsx');
         }
     }
+
 }
