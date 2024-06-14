@@ -168,3 +168,7 @@ div.dataTables_wrapper div.dataTables_length  > label > select {
     color: #FECF56;
     border: #3D3D3D;
 }
+
+.side-bar-dashboard {
+    background:#242745; 
+}

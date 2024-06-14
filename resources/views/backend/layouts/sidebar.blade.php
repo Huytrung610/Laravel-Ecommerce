@@ -1,9 +1,9 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion side-bar-dashboard" id="accordionSidebar">
 
   <!-- Sidebar - Brand -->
   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin')}}">
     <div class="sidebar-brand-icon">
-      <img style="width:125px;" src="{{ asset('frontend/images/main-logo.png') }}" class="logo">
+      <img style="width:125px;" src="{{ $settings['logo_path'] }}" class="logo">
     </div>
   </a>
 
